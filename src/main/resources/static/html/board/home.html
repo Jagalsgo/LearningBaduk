@@ -6,15 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/home.css">
     <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
     <title>Learning Baduk</title>
 </head>
 <body>
 	<!-- header  -->	
-	<div class="my-3">
+	<div class="my-4">
 		<div class="container-xl">
-			<img alt="baduk" src="/img/baduk.png" width="40" height="40">
-			<span class="h4 fw-bold mx-2"><a href="">Learning Baduk</a></span>
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					<img alt="baduk" src="/img/baduk.png" width="40" height="40">
+					<span class="h4 fw-bold mx-2"><a href="">Learning Baduk</a></span>
+				</div>
+				<div class="col-sm-5 col-xs-6">
+					<form class="search-form" action="jsp" method="get" id="searchForm">
+						<fieldset>
+							<input type="image" src="/img/search.png" alt="검색" id="searchSubmit">
+							<input type="text" name="query" value="" style="width: 150px;"/>
+			            </fieldset>
+		            </form>
+	            </div>
+	            <div class="col-sm-1 col-xs-6">
+	            	<img alt="login" src="/img/login.jpg" width="30" height="30" id="loginBtn">
+	            </div>
+            </div>
+            <div class="row">
+            	<div class="col">자유게시판</div>
+            	<div class="col">룰</div>
+            	<div class="col">정석</div>
+            	<div class="col">포석</div>
+            	<div class="col">끝내기</div>
+            	<div class="col">바둑Q&A</div>
+            	<div class="col">프로바둑일정</div>
+            	<div class="col">공지</div>
+            </div>
 		</div>
 	</div>
 

@@ -1,0 +1,23 @@
+#headerBorder{
+	margin-bottom: 10px;
+	border-bottom: solid 1px;
+	padding-bottom: 15px;
+}
+#searchSubmit{
+	width: 30px;
+	height: 30px;
+	margin-left: 10px;
+}
+#loginBtn{
+	float:right;
+}
+#searchForm *{
+	vertical-align: middle;
+	float:right;
+}
+
+/* @media screen and (max-width:1000px) {
+	body{
+		background: red;
+	}
+} */
