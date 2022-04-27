@@ -1,23 +1,15 @@
-#headerBorder{
-	margin-bottom: 10px;
-	border-bottom: solid 1px;
-	padding-bottom: 15px;
+.tableBox{
+	width: 50%;
 }
-#searchSubmit{
-	width: 30px;
-	height: 30px;
-	margin-left: 10px;
+.moreBoard{
+	text-align: right;
 }
-#loginBtn{
-	float:right;
-}
-#searchForm *{
-	vertical-align: middle;
-	float:right;
+.boardWriter{
+	text-align: right;	
 }
 
-/* @media screen and (max-width:1000px) {
-	body{
-		background: red;
+@media screen and (max-width:992px) {
+	.tableBox{
+		width: 100%;	
 	}
-} */
+}
