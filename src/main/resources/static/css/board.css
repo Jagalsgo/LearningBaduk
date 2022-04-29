@@ -1,0 +1,15 @@
+#searchFormBox{
+	padding-left: 30px;
+}
+
+/* media query */
+@media screen and (min-width:992px) {
+	#goToList{
+		text-align: center;
+	}
+}
+@media screen and (max-width:992px){
+	#goToWriteBtn{
+		float: right;
+	}
+}

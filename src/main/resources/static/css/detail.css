@@ -1,0 +1,12 @@
+#detailTitle, #postCommentText, #commentList{
+	font-size: 1.1rem;
+}
+#likeIconBox{
+	padding-right: 40px;
+}
+#dislikeIconBox{
+	padding-left: 40px;
+}
+#deleteComment{
+	padding-right: 40px;
+}
