@@ -1,0 +1,26 @@
+#signUpForm{
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 50px;
+}
+.form-group{
+    margin: 10px 0 10px 0;
+}
+.form-control{
+    margin: 5px 0 5px 0;
+}
+.signUpFormLabel{
+	font-weight: bold;
+}
+
+/* media query */
+@media screen and (min-width:992px) {
+	#signUpForm{
+		width: 75%;
+	}
+} 
+@media screen and (min-width:1200px) {
+	#signUpForm{
+		width: 60%;
+	}
+} 
