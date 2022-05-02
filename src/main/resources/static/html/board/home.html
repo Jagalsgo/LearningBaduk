@@ -5,23 +5,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/font-awesome.css">  
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/home.css">
     <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/9e1a390ee4.js" crossorigin="anonymous"></script>
     <title>Learning Baduk</title>
 </head>
 <body>
 	<!-- header  -->
 	<div class="headerItem" id="headerForm">	
 		<div class="container-md my-3">
-			<div class="row">
+			<div class="row vertical-align">
 				<div class="col-sm-11 col-xs-11">
 					<img alt="baduk" src="/img/baduk.png" width="40" height="40">
 					<span class="h4 fw-bold mx-2"><a href="">Learning Baduk</a></span>
 				</div>
-			    <div class="col-sm-1 col-xs-1">
+		    	<!-- 로그인 폼 -->
+			    <div class="col-sm-1 col-xs-1 text-right" id="loginFormBox">
 			    	<img alt="login" src="/img/login.jpg" width="30" height="30" id="loginBtn">
+			    	<div class="container openBox" id="openLoginBox">
+			    		<div class="row mt-3 mb-2">
+			    			<div class="col text-center fw-bold h5">로그인</div>
+			    			<div class="col"><input type="checkbox"> 자동 로그인</div>
+			    		</div>
+			    		<form class="row" action="dsf">
+			    			<div class="col form-group">
+			    				<input class="form-control" type="text" placeholder="아이디">
+			    				<input class="form-control" type="password" placeholder="비밀번호">
+			    			</div>
+			    			<div class="col-4 form-group">
+			    				<input class="form-control btn btn-secondary btn-sm mt-3" type="submit" value="로그인">
+			    			</div>
+			    		</form>
+			    		<div class="row my-3">
+			    			<a href="dlk" class="col text-center text-primary smText">아이디, 비밀번호가 기억 안납니까?</a>
+			    		</div>
+			    		<div class="row my-2">
+			    			<a href="lsdnv" class="col text-center smText">회원가입</a>
+			    		</div>
+			    	</div>
+		    	</div>
+			    <!-- 회원 정보 폼 -->
+			    <div class="col-sm-1 col-xs-1 text-right" id="userInfoFormBox">
+			    	<i class="fa fa-solid fa-user fa-2x vertical-align" id="userInfoBtn"></i>
+			    	<div class="openBox text-center" id="openUserInfoBox">
+			    		<img class="mb-3 mt-4" alt="baduk" src="/img/baduk.png" width="100" height="100">
+			    		<div class="my-3" id="userInfoBorderBox">
+			    			<div class="innerBorderBox"><a href="s"><i class="fa fa-solid fa-envelope"></i> 쪽지함</a></div>
+			    			<div class="innerBorderBox"><a href="s"><i class="fa fa-solid fa-folder-open"></i> 내가 쓴 글</a></div>
+			    			<div class="innerBorderBox"><a href="s"><i class="fa fa-solid fa-book"></i> 나만의 게시판</a></div>
+			    			<div class="innerBorderBox2"><a href="s"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></div>
+			    		</div>
+			    		<div class="my-4">
+			    			<a href="aa"><button class="btn btn-secondary">로그아웃</button></a>
+			    		</div>
+			    	</div>
 			    </div>
 		   </div>
 		</div>

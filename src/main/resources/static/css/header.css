@@ -1,7 +1,46 @@
 /* header */
-#loginBtn{
-	float:right;
+#loginFormBox{
+	_display: none;
 }
+#userInfoFormBox{
+	display: none;
+}
+#openLoginBox{
+	display: none;
+}
+#openUserInfoBox{
+	display: none;
+}
+
 #headerList{
 	background-color: #ccd0cc;
+}
+#loginBtn, #userInfoBtn{
+	cursor: pointer;
+}
+#loginBtnBox{
+	position: relative;
+}
+.openBox{
+	position: absolute;
+	right: 0;
+	background: #dae8d3;
+	width: 300px;
+}
+.form-group{
+    margin: 10px 0 10px 0;
+}
+.smText{
+	font-size: small;
+}
+#userInfoBorderBox{
+	border: 2px solid #8e8994;
+	width: 200px; margin: auto;
+}
+.innerBorderBox{
+	border-bottom: 2px solid #8e8994;
+}
+.innerBorderBox, .innerBorderBox2{
+	font-size: 1.2rem;
+	padding: 5px;
 }
