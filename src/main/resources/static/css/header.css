@@ -1,9 +1,9 @@
 /* header */
 #loginFormBox{
-	_display: none;
+	display: none;
 }
 #userInfoFormBox{
-	display: none;
+	_display: none;
 }
 #openLoginBox{
 	display: none;
