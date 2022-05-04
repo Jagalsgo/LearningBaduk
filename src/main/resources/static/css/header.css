@@ -18,9 +18,6 @@
 #loginBtn, #userInfoBtn{
 	cursor: pointer;
 }
-#loginBtnBox{
-	position: relative;
-}
 .openBox{
 	position: absolute;
 	right: 0;

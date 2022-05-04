@@ -9,3 +9,21 @@ a{
 .vertical-align{
 	vertical-align:middle;
 }
+
+/* userMenu */
+.userMenuBox{
+	position: absolute;
+	right: -30px;
+	background: #dae8d3;
+	padding: 10px;
+}
+.userMenuBoxDetail{
+	position: absolute;
+	left: 30px;
+	background: #dae8d3;
+	padding: 10px;
+}
+.userMenuBox li{
+	list-style: none;
+	margin: 3px 0 3px 0;
+}
