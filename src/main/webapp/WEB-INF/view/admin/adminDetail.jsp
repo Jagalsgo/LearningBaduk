@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,12 +53,13 @@
 	<div class="container-md border p-3">
 		<div class="row">
 			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">detailTitle Man</div>
-			<div class="col-7 p-3 border-bottom userMenu">
-				<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> writerMan</span>
+			<div class="col-7 p-3 border-bottom">
+			<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> writerMan</span>
 				<div class="position-relative">
 					<ul class="userMenuBoxDetail">
 	               		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
-	               		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
+	               		<li><a href="s"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></li>
+	               		<li><a href="sdfds"><i class="fa fa-solid fa-ban"> 회원 제거</i></a></li>
 	               	</ul>
 				</div>
 			</div>
@@ -95,14 +98,15 @@
 	
 	<!-- comment list -->
 	<div class="container-md border p-3 my-5">
-		<div class="mt-2 mb-4 fw-bold" id="commentList">댓글 목록</div>
+		<div class="mt-2 mb-4 fw-bold" id="commentList"><input type="checkbox" value="deleteAllComment"> 댓글 목록</div>
 		<div class="row">
-			<div class="col-6 p-3 border-bottom border-top">
-			<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> writerMan</span>
+			<div class="col-6 p-3 border-bottom border-top"><input type="checkbox" value="deleteAllComment">
+			<span class=" userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> writerMan</span>
 			<div class="position-relative">
 				<ul class="userMenuBoxDetail">
                		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
-               		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
+               		<li><a href="s"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></li>
+               		<li><a href="sdfds"><i class="fa fa-solid fa-ban"> 회원 제거</i></a></li>
                	</ul>
 			</div>
 			</div>
@@ -115,24 +119,28 @@
 			</div>
 			<div class="text-right col-12 fw-bold text-muted" id="deleteComment">삭제</div>
 		</div>
+		<!-- delete comment Button  -->
+		<div class="mt-5 mb-3"" id="deleteCommentBtn">
+			<a href="write.jsp" ><button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="button">삭제</button></a>
+		</div>
 		<!-- comment pagination -->
-			<div aria-label="Page navigation example" class="mt-5 mb-3" id="pagination">
-		        <ul class="pagination pagination-sm justify-content-center">
-		            <li class="page-item">
-		                <a class="page-link" href="#" aria-label="Previous">
-		                <span aria-hidden="true">&laquo;</span>
-		                </a>
-		            </li>
-		            <li class="page-item"><a class="page-link" href="#">1</a></li>
-		            <li class="page-item"><a class="page-link" href="#">2</a></li>
-		            <li class="page-item"><a class="page-link" href="#">3</a></li>
-		            <li class="page-item">
-		                <a class="page-link" href="#" aria-label="Next">
-		                <span aria-hidden="true">&raquo;</span>
-		                </a>
-		            </li>
-		        </ul>
-		    </div>
+		<div aria-label="Page navigation example" class="mt-5 mb-3" id="pagination">
+	        <ul class="pagination pagination-sm justify-content-center">
+	            <li class="page-item">
+	                <a class="page-link" href="#" aria-label="Previous">
+	                <span aria-hidden="true">&laquo;</span>
+	                </a>
+	            </li>
+	            <li class="page-item"><a class="page-link" href="#">1</a></li>
+	            <li class="page-item"><a class="page-link" href="#">2</a></li>
+	            <li class="page-item"><a class="page-link" href="#">3</a></li>
+	            <li class="page-item">
+	                <a class="page-link" href="#" aria-label="Next">
+	                <span aria-hidden="true">&raquo;</span>
+	                </a>
+	            </li>
+	        </ul>
+	    </div>
 	</div>
 	
 	<!-- list under detail view -->
@@ -158,7 +166,8 @@
 		                    	<div class="position-relative userMenuPointer">writer
 		                    	<ul class="userMenuBox">
 		                    		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
-		                    		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
+		                    		<li><a href="s"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></li>
+		                    		<li><a href="sdfds"><i class="fa fa-solid fa-ban"> 회원 제거</i></a></li>
 		                    	</ul>
 		                    	</div>
 		                    </td>

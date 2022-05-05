@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,22 +50,19 @@
 	<!-- main  -->
 	<div class="container-md py-5">
 		<div class="row">
-			<div class="fw-bold h4 mb-4 col-12">자유게시판</div>
+			<div class="fw-bold h4 mb-4 col-12">나만의 게시판</div>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">
 		                <tr class="vertical-align">
 		                    <th style="width:10%" class="text-center listDate"><i class="fa fa-solid fa-clock fa-lg vertical-align"></i></th>
-		                    <th style="width:5%"><i class="fa fa-solid fa-thumbs-up fa-lg vertical-align"></i></th>
 		                    <th></th>
-		                    <th style="width:15%" class="text-center"><i class="fa fa-solid fa-user fa-lg text-center vertical-align"></i></th>
-		                    <th style="width:5%" class="text-center"><i class="fa fa-solid fa-eye fa-lg vertical-align"></i></th>
+		                    <th style="width:20%" class="text-center"><i class="fa fa-solid fa-user fa-lg text-center vertical-align"></i></th>
 		                </tr>
 		            </thead>
 		            <tbody>
 		                <tr>
 		                    <td class="boardDate text-muted text-center">17-08-14</td>
-		                    <td class="boardLike fw-bold">12</td>
 		                    <td class="boardTitle">this is title is title man</td>
 		                    <td class="boardWriter fw-bold text-center">
 		                    	<div class="position-relative userMenuPointer">writer
@@ -73,7 +72,6 @@
 		                    	</ul>
 		                    	</div>
 		                    </td>
-		                    <td class="boardHit text-muted text-center">12</td>
 		                </tr>
 		            </tbody>
 		        </table>

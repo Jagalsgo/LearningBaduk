@@ -12,6 +12,13 @@ a{
 
 /* userMenu */
 .userMenuBox{
+	display: none;
+}
+.userMenuBoxDetail{
+	display: none;
+}
+
+.userMenuBox{
 	position: absolute;
 	right: -30px;
 	background: #dae8d3;
@@ -23,7 +30,10 @@ a{
 	background: #dae8d3;
 	padding: 10px;
 }
-.userMenuBox li{
+.userMenuBox li, .userMenuBoxDetail li{
 	list-style: none;
 	margin: 3px 0 3px 0;
+}
+.userMenuPointer, .userMenuPointerDetail{
+	cursor: pointer;
 }

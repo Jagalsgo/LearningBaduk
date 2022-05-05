@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +50,7 @@
 	<!-- main  -->
 	<div class="container-md py-5">
 		<div class="row">
-			<div class="fw-bold h4 mb-4 col-12">자유게시판</div>
+			<div class="fw-bold h4 mb-4 col-12">내가 쓴 글</div>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">
@@ -87,7 +89,7 @@
 			<!-- go to list  -->
 			<div class="col-sm-1 col-md-1" id="goToList"><i class="fa fa-solid fa-list fa-2x"></i></div>
 			<!-- pagination -->
-			<div aria-label="Page navigation example" class="col-sm-8 col-md-9" id="pagination">
+			<div aria-label="Page navigation example" class="col-sm-11 col-md-11" id="pagination">
 		        <ul class="pagination pagination-sm justify-content-center">
 		            <li class="page-item">
 		                <a class="page-link" href="#" aria-label="Previous">
@@ -104,10 +106,6 @@
 		            </li>
 		        </ul>
 		    </div>
-		    <!-- 글 작성 버튼 -->
-            <div class="col-sm-3 col-md-2" id="goToWrite">
-                <a href="write.jsp" ><button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="button"><i class="fa fa-solid fa-pen"></i> 글작성</button></a>
-            </div>
 	    </div>
     </div>
     
@@ -117,7 +115,7 @@
     		<fieldset>
         		<select class="form-select-sm" name="field" style="width:80px;">
 	           		<option value="boardTitle">제목</option>
-	           		<option value="userId">작성자</option>
+	           		<option value="boardContent">내용</option>
        			</select> 		
        			<input type="text" name="query" value="" style="width: 150px;"/>
 				<input class="btn btn-sm btn-secondary" type="submit" value="검색" />

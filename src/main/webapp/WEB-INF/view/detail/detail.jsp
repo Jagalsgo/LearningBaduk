@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +10,7 @@
 	<link rel="stylesheet" href="/css/font-awesome.css">    
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/detail.css">
     <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
     <script src="https://kit.fontawesome.com/9e1a390ee4.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/js/header.js"></script>
@@ -46,9 +48,98 @@
 	</div>
 	
 	<!-- main  -->
+	<!-- detail content  -->
+	<div class="fw-bold h4 mb-4 col-12 container-md pt-5">자유게시판</div>
+	<div class="container-md border p-3">
+		<div class="row">
+			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">detailTitle Man</div>
+			<div class="col-7 p-3 border-bottom userMenu">
+				<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> writerMan</span>
+				<div class="position-relative">
+					<ul class="userMenuBoxDetail">
+	               		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
+	               		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
+	               	</ul>
+				</div>
+			</div>
+			<div class="col-3 p-3  border-bottom text-muted text-right">22-11-11</div>
+			<div class="col-2 p-3  text-center border-bottom text-muted"><i class="fa fa-solid fa-eye fa-lg vertical-align"></i> 12</div>
+			<div class="col-12 px-3 py-5">
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+				Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+				when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+				It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+				It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+				and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+			</div>
+			<div class="col-6 text-right my-4" id="likeIconBox"><i class="fa fa-solid fa-thumbs-up fa-2x"></i>  41</div>
+			<div class="col-6 my-4" id="dislikeIconBox"><i class="fa fa-solid fa-thumbs-down fa-2x"></i>  12</div>
+			<div class="col-12 my-4 text-right px-5">
+				<a href="/list.jsp"><button class="btn btn-secondary lUDBtn mx-2">수정</button></a>
+            	<a href="/update.jsp"><button class="btn btn-secondary lUDBtn">삭제</button></a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- post comment -->
+	<div class="container-md border p-3 my-5">
+		<div class="mt-2 mb-4 fw-bold" id="postCommentText">댓글 작성하기</div>
+		<form action="postComment.jsp" id="commentForm">
+	        <div class="form-floating form-group">
+	            <input type="textarea" class="form-control" id="commentContent">
+	            <label for="commentContent">Comments</label>
+	        </div>
+	        <div class="form-group text-right my-1">
+	            <input type="submit" class="btn btn-secondary mt-2" value="작성" id="commentSubmitBtn">
+	        </div>
+	    </form>
+	</div>
+	
+	<!-- comment list -->
+	<div class="container-md border p-3 my-5">
+		<div class="mt-2 mb-4 fw-bold" id="commentList">댓글 목록</div>
+		<div class="row">
+			<div class="col-6 p-3 border-bottom border-top">
+			<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> writerMan</span>
+			<div class="position-relative">
+				<ul class="userMenuBoxDetail">
+               		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
+               		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
+               	</ul>
+			</div>
+			</div>
+			<div class="col-6 p-3  border-bottom text-muted text-right">22-11-11</div>
+			<div class="col-12 p-3">
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+				Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+				when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+				It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+			</div>
+			<div class="text-right col-12 fw-bold text-muted" id="deleteComment">삭제</div>
+		</div>
+		<!-- comment pagination -->
+			<div aria-label="Page navigation example" class="mt-5 mb-3" id="pagination">
+		        <ul class="pagination pagination-sm justify-content-center">
+		            <li class="page-item">
+		                <a class="page-link" href="#" aria-label="Previous">
+		                <span aria-hidden="true">&laquo;</span>
+		                </a>
+		            </li>
+		            <li class="page-item"><a class="page-link" href="#">1</a></li>
+		            <li class="page-item"><a class="page-link" href="#">2</a></li>
+		            <li class="page-item"><a class="page-link" href="#">3</a></li>
+		            <li class="page-item">
+		                <a class="page-link" href="#" aria-label="Next">
+		                <span aria-hidden="true">&raquo;</span>
+		                </a>
+		            </li>
+		        </ul>
+		    </div>
+	</div>
+	
+	<!-- list under detail view -->
 	<div class="container-md py-5">
 		<div class="row">
-			<div class="fw-bold h4 mb-4 col-12">자유게시판</div>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">
@@ -112,11 +203,11 @@
     </div>
     
     <!-- 검색 폼 -->
-    <div class="container-md" id="searchFormBox">
+    <div class="container-md mb-5" id="searchFormBox">
 		<form class="search-form">
     		<fieldset>
         		<select class="form-select-sm" name="field" style="width:80px;">
-	           		<option value="boardTitle">제목</option>
+	           		<option value="listTitle">제목</option>
 	           		<option value="userId">작성자</option>
        			</select> 		
        			<input type="text" name="query" value="" style="width: 150px;"/>
@@ -124,9 +215,6 @@
            </fieldset>
        </form>
    </div>
-
-	<!-- js setting -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+	
 </body>
 </html>

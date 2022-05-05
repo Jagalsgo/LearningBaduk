@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="/css/detail.css">
     <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
     <script src="https://kit.fontawesome.com/9e1a390ee4.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/header.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
     <title>Learning Baduk</title>
 </head>
 <body>
@@ -50,14 +52,14 @@
 		<div class="row">
 			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">detailTitle Man</div>
 			<div class="col-7 p-3 border-bottom">
-			<img alt="baduk" src="/img/baduk.png" width="25" height="25"> writerMan
-			<div class="position-relative">
-				<ul class="userMenuBoxDetail">
-               		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
-               		<li><a href="s"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></li>
-               		<li><a href="sdfds"><i class="fa fa-solid fa-ban"> 회원 제거</i></a></li>
-               	</ul>
-			</div>
+			<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> writerMan</span>
+				<div class="position-relative">
+					<ul class="userMenuBoxDetail">
+	               		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
+	               		<li><a href="s"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></li>
+	               		<li><a href="sdfds"><i class="fa fa-solid fa-ban"> 회원 제거</i></a></li>
+	               	</ul>
+				</div>
 			</div>
 			<div class="col-3 p-3  border-bottom text-muted text-right">22-11-11</div>
 			<div class="col-2 p-3  text-center border-bottom text-muted"><i class="fa fa-solid fa-eye fa-lg vertical-align"></i> 12</div>
@@ -97,7 +99,7 @@
 		<div class="mt-2 mb-4 fw-bold" id="commentList"><input type="checkbox" value="deleteAllComment"> 댓글 목록</div>
 		<div class="row">
 			<div class="col-6 p-3 border-bottom border-top"><input type="checkbox" value="deleteAllComment">
-			<img alt="baduk" src="/img/baduk.png" width="25" height="25"> writerMan
+			<span class=" userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> writerMan</span>
 			<div class="position-relative">
 				<ul class="userMenuBoxDetail">
                		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
@@ -159,7 +161,7 @@
 		                    <td class="boardLike fw-bold">12</td>
 		                    <td class="boardTitle">this is title is title man</td>
 		                    <td class="boardWriter fw-bold text-center">
-		                    	<div class="position-relative">writer
+		                    	<div class="position-relative userMenuPointer">writer
 		                    	<ul class="userMenuBox">
 		                    		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
 		                    		<li><a href="s"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></li>

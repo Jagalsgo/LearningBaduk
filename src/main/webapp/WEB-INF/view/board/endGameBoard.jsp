@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +50,7 @@
 	<!-- main  -->
 	<div class="container-md py-5">
 		<div class="row">
-			<div class="fw-bold h4 mb-4 col-12">자유게시판</div>
+			<div class="fw-bold h4 mb-4 col-12">바둑 끝내기</div>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">
@@ -64,7 +66,7 @@
 		                <tr>
 		                    <td class="boardDate text-muted text-center">17-08-14</td>
 		                    <td class="boardLike fw-bold">12</td>
-		                    <td class="boardTitle">this is title is title man</td>
+		                    <td class="boardTitle ">this is title is title man</td>
 		                    <td class="boardWriter fw-bold text-center">
 		                    	<div class="position-relative userMenuPointer">writer
 		                    	<ul class="userMenuBox">

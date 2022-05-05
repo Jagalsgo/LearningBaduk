@@ -8,9 +8,11 @@ $(document).ready(function(){
 		if(loginBoxOpend == 0){			
 			$('#openLoginBox').show();
 			loginBoxOpend = 1;
+			return false;
 		}else{
 			$('#openLoginBox').hide();
 			loginBoxOpend = 0;
+			return false;
 		}
 	})
 	
@@ -19,16 +21,26 @@ $(document).ready(function(){
 		if(userInfoOpend == 0){
 			$('#openUserInfoBox').show();
 			userInfoOpend = 1;
+			return false;
 		}else{
 			$('#openUserInfoBox').hide();
 			userInfoOpend = 0;
+			return false;
 		}
 	})
 	
 	$('html').click(function(e) { 
+		if(!$('#loginFormBox').has(e.target).length) {
+			$('#openLoginBox').hide();	
+			loginBoxOpend = 0;
+			return false;
+		}
+	});
+	$('html').click(function(e) { 
 		if(!$('#userInfoFormBox').has(e.target).length) {
 			$('#openUserInfoBox').hide();	
 			userInfoOpend = 0;
+			return false;
 		}
 	});
 

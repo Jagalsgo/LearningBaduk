@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +10,7 @@
 	<link rel="stylesheet" href="/css/font-awesome.css">    
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/updateDetail.css">
+    <link rel="stylesheet" href="/css/writeDetail.css">
     <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
     <script src="https://kit.fontawesome.com/9e1a390ee4.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/js/header.js"></script>
@@ -46,21 +48,21 @@
 	</div>
 	
 	<!-- main -->
-	<div class="fw-bold h4 mb-4 col-12 container-md pt-5">자유게시판 - 글 수정</div>
-	<div class="container-md border px-5 pt-4" id=updateFormBox>
-		<form action="update.jsp" method="post" id="updateForm">
+	<div class="fw-bold h4 mb-4 col-12 container-md pt-5">자유게시판 - 글 작성</div>
+	<div class="container-md border px-5 pt-4" id=writeFormBox>
+		<form action="write.jsp" method="post" id="writeForm">
 	        <div class="form-group mb-5">
-				<label for="updateTitle" class="my-3 fw-bold" id="updateTitleLabel">제목</label>
-	            <input type="text" class="form-control" placeholder="제목" name="updateTitle" maxlength="50" id="updateTitle">
+				<label for="writeTitle" class="my-3 fw-bold" id="wirteTitleLabel">제목</label>
+	            <input type="text" class="form-control" placeholder="제목" name="writeTitle" maxlength="50" id="writeTitle">
 	        </div>
 	        <div class="form-group">
-	        	<label for="updateContent" class="my-2 fw-bold" id="updateContentLabel">내용</label>
-	            <textarea type="text" class="form-control my-3" placeholder="내용" name="updateContent" maxlength="2048" style="height:350px" id="updateContent"></textarea>
+	        	<label for="writeContent" class="my-2 fw-bold" id="writeContentLabel">내용</label>
+	            <textarea type="text" class="form-control my-3" placeholder="내용" name="writeContent" maxlength="2048" style="height:350px" id="writeContent"></textarea>
 			</div>
 			<div class="row my-5">
 				<div class="col-6" id="goToList"><i class="fa fa-solid fa-list fa-2x"></i></div>
 				<div class="form-group col-6 text-right">
-		    		<input type="submit" class="btn btn-secondary" value="글 수정">
+		    		<input type="submit" class="btn btn-secondary" value="글 작성">
 				</div>
 			</div>
       	</form>

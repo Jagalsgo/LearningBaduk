@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,11 +50,12 @@
 	<!-- main  -->
 	<div class="container-md py-5">
 		<div class="row">
-			<div class="fw-bold h4 mb-4 col-12">자유게시판</div>
+			<div class="fw-bold h4 mb-4 col-12">신고당한 글 내역</div>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">
 		                <tr class="vertical-align">
+		                	<th style="width: 1%"><input type="checkbox" name="deleteAllBox" value="deleteAllBox"></th>
 		                    <th style="width:10%" class="text-center listDate"><i class="fa fa-solid fa-clock fa-lg vertical-align"></i></th>
 		                    <th style="width:5%"><i class="fa fa-solid fa-thumbs-up fa-lg vertical-align"></i></th>
 		                    <th></th>
@@ -62,6 +65,7 @@
 		            </thead>
 		            <tbody>
 		                <tr>
+		                	<td><input type="checkbox" name="deleteBox" value="deleteBox"></td>
 		                    <td class="boardDate text-muted text-center">17-08-14</td>
 		                    <td class="boardLike fw-bold">12</td>
 		                    <td class="boardTitle">this is title is title man</td>
@@ -69,7 +73,8 @@
 		                    	<div class="position-relative userMenuPointer">writer
 		                    	<ul class="userMenuBox">
 		                    		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
-		                    		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
+		                    		<li><a href="s"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></li>
+		                    		<li><a href="sdfds"><i class="fa fa-solid fa-ban"> 회원 제거</i></a></li>
 		                    	</ul>
 		                    	</div>
 		                    </td>
@@ -77,7 +82,43 @@
 		                </tr>
 		            </tbody>
 		        </table>
-	        </div>	
+	        </div>
+	        <span><a href="write.jsp" ><button class="btn btn-sm btn-secondary" id="deleteBtn" type="button">삭제</button></a></span>
+		</div>
+	</div>
+	
+	<div class="container-md py-5">
+		<div class="row">
+			<div class="fw-bold h4 mb-4 col-12">신고당한 유저 내역</div>
+			<div class="tableBox">
+				<table class="table">
+		            <thead class="table-secondary">
+		                <tr class="vertical-align">
+		                	<th style="width: 1%"><input type="checkbox" name="deleteAllBox" value="deleteAllBox"></th>
+		                    <th style="width:10%" class="text-center listDate"><i class="fa fa-solid fa-clock fa-lg vertical-align"></i></th>
+		                    <th></th>
+		                    <th style="width:15%" class="text-center"><i class="fa fa-solid fa-user fa-lg text-center vertical-align"></i></th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <tr>
+		                	<td><input type="checkbox" name="deleteBox" value="deleteBox"></td>
+		                    <td class="boardDate text-muted text-center">17-08-14</td>
+		                    <td class="boardTitle">this is title is title man</td>
+		                    <td class="boardWriter fw-bold text-center">
+		                    	<div class="position-relative userMenuPointer">writer
+		                    	<ul class="userMenuBox">
+		                    		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
+		                    		<li><a href="s"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></li>
+		                    		<li><a href="sdfds"><i class="fa fa-solid fa-ban"> 회원 제거</i></a></li>
+		                    	</ul>
+		                    	</div>
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+	        </div>
+	        <span><a href="write.jsp" ><button class="btn btn-sm btn-secondary" id="deleteBtn" type="button">삭제</button></a></span>
 		</div>
 	</div>
 	
@@ -104,9 +145,13 @@
 		            </li>
 		        </ul>
 		    </div>
-		    <!-- 글 작성 버튼 -->
-            <div class="col-sm-3 col-md-2" id="goToWrite">
-                <a href="write.jsp" ><button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="button"><i class="fa fa-solid fa-pen"></i> 글작성</button></a>
+		    <!-- 게시판 or 회원 선택 -->
+            <div class="col-sm-3 col-md-2">
+            	<select class="form-select" aria-label="Default select example">
+					<option selected>종류</option>
+					<option value="board">게시판</option>
+					<option value="user">회원</option>
+				</select>
             </div>
 	    </div>
     </div>

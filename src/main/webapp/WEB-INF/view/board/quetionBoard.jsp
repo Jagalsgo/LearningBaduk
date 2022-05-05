@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +50,7 @@
 	<!-- main  -->
 	<div class="container-md py-5">
 		<div class="row">
-			<div class="fw-bold h4 mb-4 col-12">자유게시판</div>
+			<div class="fw-bold h4 mb-4 col-12">바둑 Q&A</div>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">
