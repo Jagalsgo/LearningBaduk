@@ -9,4 +9,31 @@
 	    <put-attribute name="main" value="/WEB-INF/view/board/home.jsp" />
   </definition>
   
+  <definition name="board.*" template="/WEB-INF/view/inc/boardLayout.jsp">
+	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+	    <put-attribute name="main" value="/WEB-INF/view/board/{1}.jsp" />
+  </definition>
+  
+  <definition name="detail.*" template="/WEB-INF/view/inc/detailLayout.jsp">
+	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+	    <put-attribute name="main" value="/WEB-INF/view/detail/{1}.jsp" />
+	    <put-attribute name="css" value="/css/{1}.css" />
+  </definition>
+  
+  <definition name="user.*" template="/WEB-INF/view/inc/userLayout.jsp">
+	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+	    <put-attribute name="main" value="/WEB-INF/view/user/{1}.jsp" />
+	    <put-attribute name="css" value="/css/{1}.css" />
+  </definition>
+  
+  <definition name="admin.adminDetail" template="/WEB-INF/view/inc/adminDetailLayout.jsp">
+	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+	    <put-attribute name="main" value="/WEB-INF/view/admin/adminDetail.jsp" />
+  </definition>
+  
+  <definition name="admin.*" template="/WEB-INF/view/inc/boardLayout.jsp">
+	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+	    <put-attribute name="main" value="/WEB-INF/view/admin/{1}.jsp" />
+  </definition>
+  
 </tiles-definitions>

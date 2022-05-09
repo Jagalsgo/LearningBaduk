@@ -10,17 +10,17 @@ public class DetailController {
 	
 	@GetMapping("detail")
 	public String detail() {
-		return "detail/detail";
+		return "detail.detail";
 	}
 	
 	@GetMapping("updateDetail")
 	public String updateDetail() {
-		return "detail/updateDetail";
+		return "detail.updateDetail";
 	}
 	
 	@GetMapping("writeDetail")
 	public String writeDetail() {
-		return "detail/writeDetail";
+		return "detail.writeDetail";
 	}
 
 }

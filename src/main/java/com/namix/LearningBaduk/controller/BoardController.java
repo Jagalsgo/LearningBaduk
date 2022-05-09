@@ -14,43 +14,43 @@ public class BoardController {
 	}
 	@GetMapping("endGameBoard")
 	public String endGameBoard() {
-		return "board/endGameBoard";
+		return "board.endGameBoard";
 	}
 	@GetMapping("freeBoard")
 	public String freeBoard() {
-		return "board/freeBoard";
+		return "board.freeBoard";
 	}
 	@GetMapping("myOwnBoard")
 	public String myOwnBoard() {
-		return "board/myOwnBoard";
+		return "board.myOwnBoard";
 	}
 	@GetMapping("myWritingBoard")
 	public String myWritingBoard() {
-		return "board/myWritingBoard";
+		return "board.myWritingBoard";
 	}
 	@GetMapping("noticeBoard")
 	public String noticeBoard() {
-		return "board/noticeBoard";
+		return "board.noticeBoard";
 	}
 	@GetMapping("openingBoard")
 	public String openingBoard() {
-		return "board/openingBoard";
+		return "board.openingBoard";
 	}
 	@GetMapping("patternBoard")
 	public String patternBoard() {
-		return "board/patternBoard";
+		return "board.patternBoard";
 	}
 	@GetMapping("quetionBoard")
 	public String quetionBoard() {
-		return "board/quetionBoard";
+		return "board.quetionBoard";
 	}
 	@GetMapping("ruleBoard")
 	public String ruleBoard() {
-		return "board/ruleBoard";
+		return "board.ruleBoard";
 	}
 	@GetMapping("scheduleBoard")
 	public String scheduleBoard() {
-		return "board/scheduleBoard";
+		return "board.scheduleBoard";
 	}
 
 }
