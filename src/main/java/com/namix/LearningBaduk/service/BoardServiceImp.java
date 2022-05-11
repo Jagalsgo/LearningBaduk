@@ -15,17 +15,17 @@ public class BoardServiceImp implements BoardService {
 	private BoardDao boardDao;
 	
 	@Override
-	public List<BoardView> getBoards(int page, String field, String query) {
+	public List<BoardView> getBoards(String category, int page, String field, String query) {
 		
 		int size = 10;
 		int offset = 0+(page-1)*size;
 		
-		return boardDao.getBoards(offset, size, field, query);
+		return boardDao.getBoards(category, offset, size, field, query);
 	}
 
 	@Override
-	public int getPageCount(String field, String query) {
-		return boardDao.getPageCount(field, query);
+	public int getPageCount(String category, String field, String query) {
+		return boardDao.getPageCount(category, field, query);
 	}
 
 }

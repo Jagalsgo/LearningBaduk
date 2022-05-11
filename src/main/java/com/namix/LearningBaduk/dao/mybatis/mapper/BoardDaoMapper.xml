@@ -4,8 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.namix.LearningBaduk.dao.BoardDao">
 
-	<select id="getBoards">
-		
+	<select id="getBoards" resultType="com.namix.LearningBaduk.entity.BoardView">
+		select * from boardview where boardCategory = #{category} and ${field} like '%${query}%' order by boardId desc limit #{offset}, #{size}
+	</select>
+
+	<select id="getPageCount" resultType="int">
+		select count(*) from board where boardCategory = #{category} and ${field} like '%${query}%'
 	</select>
 
 </mapper>

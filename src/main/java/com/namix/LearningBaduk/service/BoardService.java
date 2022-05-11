@@ -6,7 +6,7 @@ import com.namix.LearningBaduk.entity.BoardView;
 
 public interface BoardService {
 
-	List<BoardView> getBoards(int page, String field, String query);
-	int getPageCount(String field, String query);
+	List<BoardView> getBoards(String category, int page, String field, String query);
+	int getPageCount(String category, String field, String query);
 	
 }

@@ -5,15 +5,17 @@ public class BoardView extends Board{
 	private int commentCount;
 	private int likeCount;
 	private int dislikeCount;
+	private String userNickname;
 	
 	public BoardView() {
 		
 	}
 
-	public BoardView(int commentCount, int likeCount, int dislikeCount) {
+	public BoardView(int commentCount, int likeCount, int dislikeCount, String userNickname) {
 		this.commentCount = commentCount;
 		this.likeCount = likeCount;
 		this.dislikeCount = dislikeCount;
+		this.userNickname = userNickname;
 	}
 
 	public int getCommentCount() {
@@ -38,6 +40,14 @@ public class BoardView extends Board{
 
 	public void setDislikeCount(int dislikeCount) {
 		this.dislikeCount = dislikeCount;
+	}
+	
+	public String getUserNickname() {
+		return userNickname;
+	}
+	
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
 	}
 	
 }

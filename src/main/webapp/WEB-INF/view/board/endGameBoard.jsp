@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="container-md py-5">
 		<div class="row">
 			<div class="fw-bold h4 mb-4 col-12">바둑 끝내기</div>
@@ -18,18 +19,20 @@
 		            </thead>
 		            <tbody>
 		                <tr>
-		                    <td class="boardDate text-muted text-center">17-08-14</td>
-		                    <td class="boardLike fw-bold">12</td>
-		                    <td class="boardTitle ">this is title is title man</td>
-		                    <td class="boardWriter fw-bold text-center">
-		                    	<div class="position-relative userMenuPointer">writer
-		                    	<ul class="userMenuBox">
-		                    		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
-		                    		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
-		                    	</ul>
-		                    	</div>
-		                    </td>
-		                    <td class="boardHit text-muted text-center">12</td>
+		                	<c:forEach var="b" items="${boards }">
+			                    <td class="boardDate text-muted text-center"><fmt:formatDate value="${b.boardDate }" pattern="yy-MM-dd"/></td>
+			                    <td class="boardLike fw-bold">${b.likeCount - b.dislikeCount}</td>
+			                    <td class="boardTitle ">${b.boardTitle }</td>
+			                    <td class="boardWriter fw-bold text-center">
+			                    	<div class="position-relative userMenuPointer">${b.userNickname }
+			                    	<ul class="userMenuBox">
+			                    		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
+			                    		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
+			                    	</ul>
+			                    	</div>
+			                    </td>
+			                    <td class="boardHit text-muted text-center">${b.boardHit }</td>
+		                	</c:forEach>
 		                </tr>
 		            </tbody>
 		        </table>
@@ -83,10 +86,10 @@
     		<fieldset>
         		<select class="form-select-sm" name="f" style="width:80px;">
 	           		<option ${param.f == "boardTitle"?"selected":"" } value="boardTitle">제목</option>
-	           		<option ${param.f == "userId"?"selected":"" } value="userId">작성자</option>
+	           		<option ${param.f == "userNickname"?"selected":"" } value="userNickname">작성자</option>
        			</select> 		
        			<input type="text" name="q" value="${param.q }" style="width: 150px;"/>
-				<input class="btn btn-sm btn-secondary" type="submit" value="검색" />
+				<input type="submit" class="btn btn-sm btn-secondary" />
            </fieldset>
        </form>
    </div>

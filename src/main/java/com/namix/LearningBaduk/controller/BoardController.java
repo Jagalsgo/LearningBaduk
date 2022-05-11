@@ -28,8 +28,9 @@ public class BoardController {
 											@RequestParam(value="f", defaultValue="boardTitle") String field,
 											@RequestParam(value="q", defaultValue="") String query, Model model) {
 		
-		List<BoardView> boards = service.getBoards(page, field, query);
-		int pageCount = service.getPageCount(field, query);
+		String category = "endGame";
+		List<BoardView> boards = service.getBoards(category, page, field, query);
+		int pageCount = service.getPageCount(category, field, query);
 		
 		model.addAttribute("boards", boards);
 		model.addAttribute("pageCount", pageCount);
@@ -37,7 +38,17 @@ public class BoardController {
 		return "board.endGameBoard";
 	}
 	@GetMapping("freeBoard")
-	public String freeBoard() {
+	public String freeBoard(@RequestParam(value="p", defaultValue="1") Integer page,
+			@RequestParam(value="f", defaultValue="boardTitle") String field,
+			@RequestParam(value="q", defaultValue="") String query, Model model) {
+		
+		String category = "free";
+		List<BoardView> boards = service.getBoards(category, page, field, query);
+		int pageCount = service.getPageCount(category, field, query);
+		
+		model.addAttribute("boards", boards);
+		model.addAttribute("pageCount", pageCount);
+		
 		return "board.freeBoard";
 	}
 	@GetMapping("myOwnBoard")
