@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
 	
 	userMenuOpend = 0;
 	userMenuOpendDetail = 0;
@@ -42,4 +42,4 @@ $(document).ready(function(){
 		}
 	});
 	
-})
+})*/

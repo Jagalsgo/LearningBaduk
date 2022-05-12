@@ -25,10 +25,7 @@
 			                    <td class="boardTitle ">${b.boardTitle }</td>
 			                    <td class="boardWriter fw-bold text-center">
 			                    	<div class="position-relative userMenuPointer">${b.userNickname }
-			                    	<ul class="userMenuBox">
-			                    		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
-			                    		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
-			                    	</ul>
+			                    	
 			                    	</div>
 			                    </td>
 			                    <td class="boardHit text-muted text-center">${b.boardHit }</td>

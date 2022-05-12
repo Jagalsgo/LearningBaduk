@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
 	
 	loginBoxOpend = 0;
 	userInfoOpend = 0;
@@ -44,4 +44,4 @@ $(document).ready(function(){
 		}
 	});
 
-})
+})*/

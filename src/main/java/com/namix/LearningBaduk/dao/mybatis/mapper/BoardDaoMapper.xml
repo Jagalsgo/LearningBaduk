@@ -9,7 +9,7 @@
 	</select>
 
 	<select id="getPageCount" resultType="int">
-		select count(*) from board where boardCategory = #{category} and ${field} like '%${query}%'
+		select count(*) from boardview where boardCategory = #{category} and ${field} like '%${query}%'
 	</select>
 
 </mapper>

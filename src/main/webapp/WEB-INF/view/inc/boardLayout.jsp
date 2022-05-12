@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/header.css">
 	<link rel="stylesheet" href="/css/board.css">
-    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
     <script src="https://kit.fontawesome.com/9e1a390ee4.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/js/header.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
@@ -24,7 +24,6 @@
 	<!-- main  -->
 	<tiles:insertAttribute name="main"></tiles:insertAttribute>
 	<!-- js setting -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>
