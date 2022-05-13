@@ -15,10 +15,10 @@
 			    			<div class="col text-center fw-bold h5">로그인</div>
 			    			<div class="col"><input type="checkbox"> 자동 로그인</div>
 			    		</div>
-			    		<form class="row" action="dsf">
+			    		<form class="row" action="/user/login" method="post">
 			    			<div class="col form-group">
-			    				<input class="form-control" type="text" placeholder="아이디">
-			    				<input class="form-control" type="password" placeholder="비밀번호">
+			    				<input class="form-control" type="text" name="username" placeholder="아이디">
+			    				<input class="form-control" type="password" name="userpassword" placeholder="비밀번호">
 			    			</div>
 			    			<div class="col-4 form-group">
 			    				<input class="form-control btn btn-secondary btn-sm mt-3" type="submit" value="로그인">

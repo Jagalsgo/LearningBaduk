@@ -72,7 +72,7 @@ public class User {
 	public void setUserReport(int userReport) {
 		this.userReport = userReport;
 	}
-
+	
 	public String getUserRole() {
 		return userRole;
 	}
@@ -80,5 +80,5 @@ public class User {
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
-	
+
 }

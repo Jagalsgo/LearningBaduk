@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="fw-bold h4 mb-4 col-12 container-md pt-5">자유게시판 - 글 작성</div>
+<div class="fw-bold h4 mb-4 col-12 container-md pt-5">${category } - 글 작성</div>
 	<div class="container-md border px-5 pt-4" id=writeFormBox>
 		<form action="write.jsp" method="post" id="writeForm">
 	        <div class="form-group mb-5">

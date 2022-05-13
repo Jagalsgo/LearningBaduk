@@ -1,9 +1,9 @@
 /* header */
 #loginFormBox{
-	display: none;
+	_display: none;
 }
 #userInfoFormBox{
-	_display: none;
+	display: none;
 }
 #openLoginBox{
 	display: none;
@@ -23,6 +23,7 @@
 	right: 0;
 	background: #dae8d3;
 	width: 300px;
+	z-index: 2;
 }
 .form-group{
     margin: 10px 0 10px 0;

@@ -41,7 +41,7 @@
 	<div class="container-md my-4">
 		<div class="row">
 			<!-- go to list  -->
-			<div class="col-sm-1 col-md-1" id="goToList"><i class="fa fa-solid fa-list fa-2x"></i></div>
+			<div class="col-sm-1 col-md-1" id="goToList"><a href="/board/endGameBoard"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
 			<!-- pagination -->
 			<c:set var="page" value="${(empty param.p)?1:param.p }" />
 			<c:set var="firstPage" value="${page - (page - 1) % 5}" />
@@ -72,7 +72,7 @@
 		    </div>
 		    <!-- 글 작성 버튼 -->
             <div class="col-sm-3 col-md-2" id="goToWrite">
-                <a href="write.jsp" ><button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="button"><i class="fa fa-solid fa-pen"></i> 글작성</button></a>
+                <a href="/detail/writeDetail?ct=끝내기" ><button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="button"><i class="fa fa-solid fa-pen"></i> 글작성</button></a>
             </div>
 	    </div>
     </div>

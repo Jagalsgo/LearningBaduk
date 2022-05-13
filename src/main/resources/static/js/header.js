@@ -1,4 +1,4 @@
-/*$(document).ready(function(){
+$(document).ready(function(){
 	
 	loginBoxOpend = 0;
 	userInfoOpend = 0;
@@ -29,7 +29,7 @@
 		}
 	})
 	
-	$('html').click(function(e) { 
+	/*$('html').click(function(e) { 
 		if(!$('#loginFormBox').has(e.target).length) {
 			$('#openLoginBox').hide();	
 			loginBoxOpend = 0;
@@ -42,6 +42,6 @@
 			userInfoOpend = 0;
 			return false;
 		}
-	});
+	});*/
 
-})*/
+})
