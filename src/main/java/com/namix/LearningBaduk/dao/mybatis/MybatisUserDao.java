@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.namix.LearningBaduk.dao.UserDao;
-import com.namix.LearningBaduk.entity.User;
+import com.namix.LearningBaduk.entity.SecurityUser;
 
 @Repository
 public class MybatisUserDao implements UserDao {
@@ -18,8 +18,8 @@ public class MybatisUserDao implements UserDao {
 	}
 	
 	@Override
-	public User login(String id, String password) {
-		return userDaoMapper.login(id, password);
+	public SecurityUser login(String id) {
+		return userDaoMapper.login(id);
 	}
 
 }

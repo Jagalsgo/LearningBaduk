@@ -1,9 +1,9 @@
 package com.namix.LearningBaduk.entity;
 
-public class User {
+public class User  {
 
 	private String userId;
-	private String userpassword;
+	private String userPassword;
 	private String userNickname;
 	private String userEmail;
 	private String userProfileImg;
@@ -14,10 +14,10 @@ public class User {
 		
 	}
 
-	public User(String userId, String userpassword, String userNickname, String userEmail, String userProfileImg,
+	public User(String userId, String userPassword, String userNickname, String userEmail, String userProfileImg,
 			int userReport, String userRole) {
 		this.userId = userId;
-		this.userpassword = userpassword;
+		this.userPassword = userPassword;
 		this.userNickname = userNickname;
 		this.userEmail = userEmail;
 		this.userProfileImg = userProfileImg;
@@ -33,12 +33,12 @@ public class User {
 		this.userId = userId;
 	}
 
-	public String getUserpassword() {
-		return userpassword;
+	public String getUserPassword() {
+		return userPassword;
 	}
 
-	public void setUserpassword(String userpassword) {
-		this.userpassword = userpassword;
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
 	}
 
 	public String getUserNickname() {

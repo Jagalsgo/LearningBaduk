@@ -9,28 +9,7 @@
 				</div>
 		    	<!-- 로그인 폼 -->
 			    <div class="col-sm-1 col-xs-1 text-right" id="loginFormBox">
-			    	<img alt="login" src="/img/login.jpg" width="30" height="30" id="loginBtn">
-			    	<div class="container openBox" id="openLoginBox">
-			    		<div class="row mt-3 mb-2">
-			    			<div class="col text-center fw-bold h5">로그인</div>
-			    			<div class="col"><input type="checkbox"> 자동 로그인</div>
-			    		</div>
-			    		<form class="row" action="/user/login" method="post">
-			    			<div class="col form-group">
-			    				<input class="form-control" type="text" name="username" placeholder="아이디">
-			    				<input class="form-control" type="password" name="userpassword" placeholder="비밀번호">
-			    			</div>
-			    			<div class="col-4 form-group">
-			    				<input class="form-control btn btn-secondary btn-sm mt-3" type="submit" value="로그인">
-			    			</div>
-			    		</form>
-			    		<div class="row my-3">
-			    			<a href="dlk" class="col text-center text-primary smText">아이디, 비밀번호가 기억 안납니까?</a>
-			    		</div>
-			    		<div class="row my-2">
-			    			<a href="lsdnv" class="col text-center smText">회원가입</a>
-			    		</div>
-			    	</div>
+			    	<a href="/user/login"><img alt="login" src="/img/login.jpg" width="30" height="30" id="loginBtn"></a>
 		    	</div> 
 			    <!-- 회원 정보 폼 -->
 			    <div class="col-sm-1 col-xs-1 text-right" id="userInfoFormBox">

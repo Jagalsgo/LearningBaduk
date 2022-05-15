@@ -1,9 +1,9 @@
 $(document).ready(function(){
 	
-	loginBoxOpend = 0;
+	/*loginBoxOpend = 0;*/
 	userInfoOpend = 0;
 	
-	// 로그인 버튼 클릭 시 박스 오픈
+	/*// 로그인 버튼 클릭 시 박스 오픈
 	$('#loginBtn').click(function(){
 		if(loginBoxOpend == 0){			
 			$('#openLoginBox').show();
@@ -14,7 +14,7 @@ $(document).ready(function(){
 			loginBoxOpend = 0;
 			return false;
 		}
-	})
+	})*/
 	
 	// 회원 정보 클릭 시 박스 오픈
 	$('#userInfoBtn').click(function(){
