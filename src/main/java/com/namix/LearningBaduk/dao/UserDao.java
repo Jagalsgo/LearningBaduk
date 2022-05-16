@@ -1,9 +1,9 @@
 package com.namix.LearningBaduk.dao;
 
-import com.namix.LearningBaduk.entity.SecurityUser;
+import com.namix.LearningBaduk.entity.User;
 
 public interface UserDao {
 
-	SecurityUser login(String id);
+	User login(String id, String password);
 	
 }

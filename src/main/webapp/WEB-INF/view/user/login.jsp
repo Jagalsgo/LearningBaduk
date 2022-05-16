@@ -16,11 +16,11 @@
 			</c:if>	
 	        <div class="form-group">
 	            <label for="loginId" class="loginFormLabel">아이디</label>
-	            <input type="text" class="form-control" placeholder="ID" id="username" name="username">
+	            <input type="text" class="form-control" placeholder="ID" id="userId" name="userId">
 	        </div>
 	        <div class="form-group">
 	            <label for="loginPassword" class="loginFormLabel">비밀번호</label>
-	            <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+	            <input type="password" class="form-control" placeholder="Password" id="userPassword" name="userPassword">
 	        </div>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="text-right">
