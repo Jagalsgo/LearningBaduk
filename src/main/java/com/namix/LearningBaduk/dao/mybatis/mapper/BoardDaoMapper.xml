@@ -11,5 +11,9 @@
 	<select id="getPageCount" resultType="int">
 		select count(*) from boardview where boardCategory = #{category} and ${field} like '%${query}%'
 	</select>
+	
+	<insert id="writeDetail">
+		insert into board(boardTitle, boardContent, boardCategory, userId) values(#{title}, #{content}, #{category}, #{userId})
+	</insert>
 
 </mapper>

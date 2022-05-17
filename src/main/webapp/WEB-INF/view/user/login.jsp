@@ -22,7 +22,6 @@
 	            <label for="loginPassword" class="loginFormLabel">비밀번호</label>
 	            <input type="password" class="form-control" placeholder="Password" id="userPassword" name="userPassword">
 	        </div>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="text-right">
             	<input type="submit" class="btn btn-secondary my-3" value="로그인">
             </div>

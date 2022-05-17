@@ -29,4 +29,9 @@ public class MybatisBoardDao implements BoardDao {
 		return boardDaoMapper.getPageCount(category, field, query);
 	}
 
+	@Override
+	public int writeDetail(String category, String title, String content, String userId) {
+		return boardDaoMapper.writeDetail(category, title, content, userId);
+	}
+
 }

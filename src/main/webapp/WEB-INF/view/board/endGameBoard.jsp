@@ -12,25 +12,25 @@
 		                <tr class="vertical-align">
 		                    <th style="width:10%" class="text-center listDate"><i class="fa fa-solid fa-clock fa-lg vertical-align"></i></th>
 		                    <th style="width:5%"><i class="fa fa-solid fa-thumbs-up fa-lg vertical-align"></i></th>
-		                    <th></th>
+		                    <th style="width: 65%"></th>
 		                    <th style="width:15%" class="text-center"><i class="fa fa-solid fa-user fa-lg text-center vertical-align"></i></th>
 		                    <th style="width:5%" class="text-center"><i class="fa fa-solid fa-eye fa-lg vertical-align"></i></th>
 		                </tr>
 		            </thead>
 		            <tbody>
-		                <tr>
 		                	<c:forEach var="b" items="${boards }">
-			                    <td class="boardDate text-muted text-center"><fmt:formatDate value="${b.boardDate }" pattern="yy-MM-dd"/></td>
-			                    <td class="boardLike fw-bold">${b.likeCount - b.dislikeCount}</td>
-			                    <td class="boardTitle ">${b.boardTitle }</td>
-			                    <td class="boardWriter fw-bold text-center">
-			                    	<div class="position-relative userMenuPointer">${b.userNickname }
-			                    	
-			                    	</div>
-			                    </td>
-			                    <td class="boardHit text-muted text-center">${b.boardHit }</td>
+			            	    <tr>
+				                    <td class="boardDate text-muted text-center"><fmt:formatDate value="${b.boardDate }" pattern="yy-MM-dd"/></td>
+				                    <td class="boardLike fw-bold">${b.likeCount - b.dislikeCount}</td>
+				                    <td class="boardTitle "><a href="/detail/detail">${b.boardTitle }</a></td>
+				                    <td class="boardWriter fw-bold text-center">
+				                    	<div class="position-relative userMenuPointer">${b.userNickname }
+				                    	
+				                    	</div>
+				                    </td>
+				                    <td class="boardHit text-muted text-center">${b.boardHit }</td>
+			         	       </tr>
 		                	</c:forEach>
-		                </tr>
 		            </tbody>
 		        </table>
 	        </div>	
@@ -71,9 +71,15 @@
 		        </ul>
 		    </div>
 		    <!-- 글 작성 버튼 -->
-            <div class="col-sm-3 col-md-2" id="goToWrite">
-                <a href="/detail/writeDetail?ct=끝내기" ><button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="button"><i class="fa fa-solid fa-pen"></i> 글작성</button></a>
-            </div>
+		    <c:if test="${!empty user }">
+	           <div class="col-sm-3 col-md-2" id="goToWrite">
+	           		<form action="/detail/writeDetail">
+	           			<input type="hidden" id="categoryEng" name="categoryEng" value="endGameBoard">
+	           			<input type="hidden" id="categoryKor" name="categoryKor" value="끝내기">
+	           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
+	           		</form>
+	           </div>
+            </c:if>
 	    </div>
     </div>
     

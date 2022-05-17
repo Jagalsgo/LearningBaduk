@@ -8,5 +8,6 @@ public interface BoardService {
 
 	List<BoardView> getBoards(String category, int page, String field, String query);
 	int getPageCount(String category, String field, String query);
+	int writeDetail(String category, String title, String content, String userId);
 	
 }

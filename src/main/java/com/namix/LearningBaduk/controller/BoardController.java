@@ -28,7 +28,7 @@ public class BoardController {
 											@RequestParam(value="f", defaultValue="boardTitle") String field,
 											@RequestParam(value="q", defaultValue="") String query, Model model) {
 		
-		String category = "endGame";
+		String category = "endGameBoard";
 		List<BoardView> boards = service.getBoards(category, page, field, query);
 		int pageCount = service.getPageCount(category, field, query);
 		
