@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.namix.LearningBaduk.dao.BoardDao;
 import com.namix.LearningBaduk.entity.BoardView;
+import com.namix.LearningBaduk.entity.Comment;
 
 @Service
 public class BoardServiceImp implements BoardService {
@@ -31,6 +32,26 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int writeDetail(String category, String title, String content, String userId) {
 		return boardDao.writeDetail(category, title, content, userId);
+	}
+
+	@Override
+	public BoardView getDetailBoard(int id) {
+		return boardDao.getDetailBoard(id);
+	}
+
+	@Override
+	public int updateDetail(int id, String title, String content) {
+		return boardDao.updateDetail(id, title, content);
+	}
+
+	@Override
+	public int deleteDetail(int id) {
+		return boardDao.deleteDetail(id);
+	}
+
+	@Override
+	public List<Comment> getComments(int id) {
+		return boardDao.getComments(id);
 	}
 
 }

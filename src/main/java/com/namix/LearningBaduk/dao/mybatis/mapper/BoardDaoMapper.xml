@@ -16,4 +16,20 @@
 		insert into board(boardTitle, boardContent, boardCategory, userId) values(#{title}, #{content}, #{category}, #{userId})
 	</insert>
 
+	<select id="getDetailBoard" resultType="com.namix.LearningBaduk.entity.BoardView">
+		select * from boardview where boardId = #{id}
+	</select>
+	
+	<update id="updateDetail">
+		update board set boardTitle = #{title}, boardContent = #{content} where boardId = #{id}
+	</update>
+	
+	<delete id="deleteDetail">
+		delete from board where boardId = #{id}
+	</delete>
+	
+	<select id="getComments" resultType="com.namix.LearningBaduk.entity.Comment">
+		select * from comment where boardId = #{id}
+	</select>
+
 </mapper>

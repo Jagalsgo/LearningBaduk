@@ -22,7 +22,7 @@
 			            	    <tr>
 				                    <td class="boardDate text-muted text-center"><fmt:formatDate value="${b.boardDate }" pattern="yy-MM-dd"/></td>
 				                    <td class="boardLike fw-bold">${b.likeCount - b.dislikeCount}</td>
-				                    <td class="boardTitle "><a href="/detail/detail">${b.boardTitle }</a></td>
+				                    <td class="boardTitle "><a href="/detail/detail?id=${b.boardId }&ctK=바둑 끝내기&ctE=endGameBoard">${b.boardTitle }</a></td>
 				                    <td class="boardWriter fw-bold text-center">
 				                    	<div class="position-relative userMenuPointer">${b.userNickname }
 				                    	

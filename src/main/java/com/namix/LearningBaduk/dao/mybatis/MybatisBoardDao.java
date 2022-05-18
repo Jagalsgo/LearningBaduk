@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.namix.LearningBaduk.dao.BoardDao;
 import com.namix.LearningBaduk.entity.BoardView;
+import com.namix.LearningBaduk.entity.Comment;
 
 @Repository
 public class MybatisBoardDao implements BoardDao {
@@ -32,6 +33,26 @@ public class MybatisBoardDao implements BoardDao {
 	@Override
 	public int writeDetail(String category, String title, String content, String userId) {
 		return boardDaoMapper.writeDetail(category, title, content, userId);
+	}
+
+	@Override
+	public BoardView getDetailBoard(int id) {
+		return boardDaoMapper.getDetailBoard(id);
+	}
+
+	@Override
+	public int updateDetail(int id, String title, String content) {
+		return boardDaoMapper.updateDetail(id, title, content);
+	}
+
+	@Override
+	public int deleteDetail(int id) {
+		return boardDaoMapper.deleteDetail(id);
+	}
+
+	@Override
+	public List<Comment> getComments(int id) {
+		return boardDaoMapper.getComments(id);
 	}
 
 }
