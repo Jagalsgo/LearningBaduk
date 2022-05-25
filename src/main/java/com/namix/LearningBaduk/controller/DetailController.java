@@ -33,8 +33,8 @@ public class DetailController {
 		
 		BoardView boardView = service.getDetailBoard(id);
 		List<Comment> comments = service.getComments(id);
-		model.addAttribute("comments", comments);
 		model.addAttribute("boardView", boardView);
+		model.addAttribute("comments", comments);
 		model.addAttribute("categoryKor", categoryKor);
 		model.addAttribute("categoryEng", categoryEng);
 		

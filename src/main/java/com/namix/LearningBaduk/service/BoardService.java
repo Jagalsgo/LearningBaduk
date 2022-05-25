@@ -14,5 +14,7 @@ public interface BoardService {
 	int updateDetail(int id, String title, String content);
 	int deleteDetail(int id);
 	List<Comment> getComments(int id);
+	int getCommentCount(int id);
+	int getPageCount(String categoryEng);
 	
 }

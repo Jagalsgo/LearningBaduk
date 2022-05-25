@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"s %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- detail content  -->
 	<div class="fw-bold h4 mb-4 col-12 container-md pt-5">${categoryKor }</div>
 	<div class="container-md border p-3">
@@ -63,13 +63,15 @@
 			<div class="col-12 p-3">
 				${c.commentContent }
 			</div>
-			<div class="text-right col-12 fw-bold text-muted" id="deleteComment">삭제</div>
+			<c:if test="${c.userId == user.userId }">
+				<div class="text-right col-12 fw-bold text-muted" id="deleteComment">삭제</div>
+			</c:if>
 			</c:forEach>
 		</div>
 		<!-- comment pagination -->
 			<div aria-label="Page navigation example" class="mt-5 mb-3" id="pagination">
 		        <ul class="pagination pagination-sm justify-content-center">
-		            <li class="page-item">
+		             <li class="page-item">
 		                <a class="page-link" href="#" aria-label="Previous">
 		                <span aria-hidden="true">&laquo;</span>
 		                </a>

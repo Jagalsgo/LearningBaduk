@@ -14,5 +14,6 @@ public interface BoardDao {
 	int updateDetail(int id, String title, String content);
 	int deleteDetail(int id);
 	List<Comment> getComments(int id);
+	int getCommentCount(int id);
 	
 }

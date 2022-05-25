@@ -23,6 +23,11 @@ public class BoardServiceImp implements BoardService {
 		
 		return boardDao.getBoards(category, offset, size, field, query);
 	}
+	
+	@Override
+	public int getPageCount(String category) {
+		return getPageCount(category, "boardTitle", "");
+	}
 
 	@Override
 	public int getPageCount(String category, String field, String query) {
@@ -52,6 +57,11 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public List<Comment> getComments(int id) {
 		return boardDao.getComments(id);
+	}
+
+	@Override
+	public int getCommentCount(int id) {
+		return boardDao.getCommentCount(id);
 	}
 
 }

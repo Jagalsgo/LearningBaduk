@@ -31,5 +31,9 @@
 	<select id="getComments" resultType="com.namix.LearningBaduk.entity.Comment">
 		select * from comment where boardId = #{id}
 	</select>
+	
+	<select id="getCommentCount" resultType="int">
+		select count(*) from comment where boardId = #{id}
+	</select>
 
 </mapper>

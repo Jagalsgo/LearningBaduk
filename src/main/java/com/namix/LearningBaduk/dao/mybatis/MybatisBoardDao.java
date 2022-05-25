@@ -55,4 +55,9 @@ public class MybatisBoardDao implements BoardDao {
 		return boardDaoMapper.getComments(id);
 	}
 
+	@Override
+	public int getCommentCount(int id) {
+		return boardDaoMapper.getCommentCount(id);
+	}
+
 }
