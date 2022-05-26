@@ -15,5 +15,6 @@ public interface BoardDao {
 	int deleteDetail(int id);
 	List<Comment> getComments(int id);
 	int getCommentCount(int id);
+	int getUsersLastBoardId(String userId);
 	
 }

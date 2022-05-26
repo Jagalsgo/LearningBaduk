@@ -22,4 +22,19 @@ public class MybatisUserDao implements UserDao {
 		return userDaoMapper.login(id, password);
 	}
 
+	@Override
+	public int idOverlapCheck(String id) {
+		return userDaoMapper.idOverlapCheck(id);
+	}
+
+	@Override
+	public int nicknameOverlapCheck(String nickname) {
+		return userDaoMapper.nicknameOverlapCheck(nickname);
+	}
+
+	@Override
+	public int signUp(String id, String password, String nickname, String email) {
+		return userDaoMapper.signUp(id, password, nickname, email);
+	}
+
 }

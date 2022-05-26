@@ -12,6 +12,7 @@
 	            <textarea type="text" class="form-control my-3" placeholder="내용" name="writeContent" maxlength="2048" style="height:350px" id="writeContent"></textarea>
 			</div>
 			<input type="hidden" name="categoryEng" value="${categoryEng }">
+			<input type="hidden" name="categoryDet" value="${categoryDet }">
 			<div class="row my-5">
 				<div class="col-6" id="goToList"><a href="/board/${categoryEng }"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
 				<div class="form-group col-6 text-right">

@@ -12,6 +12,7 @@
 	            <textarea type="text" class="form-control my-3" placeholder="내용" name="updateContent" maxlength="2048" style="height:350px" id="updateContent">${boardView.boardContent }</textarea>
 			</div>
 			<input type="hidden" id="id" name="id" value="${boardView.boardId }">
+			<input type="hidden" id="ct" name="ct" value="${category }">
 			<div class="row my-5">
 				<div class="col-6" id="goToList"><i class="fa fa-solid fa-list fa-2x"></i></div>
 				<div class="form-group col-6 text-right">

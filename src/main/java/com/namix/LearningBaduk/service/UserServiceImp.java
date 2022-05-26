@@ -17,4 +17,19 @@ public class UserServiceImp implements UserService {
 		return userDao.login(id, password);
 	}
 
+	@Override
+	public int idOverlapCheck(String id) {
+		return userDao.idOverlapCheck(id);
+	}
+
+	@Override
+	public int nicknameOverlapCheck(String nickname) {
+		return userDao.nicknameOverlapCheck(nickname);
+	}
+
+	@Override
+	public int signUp(String id, String password, String nickname, String email) {
+		return userDao.signUp(id, password, nickname, email);
+	}
+
 }

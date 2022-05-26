@@ -27,32 +27,31 @@ public class DetailController {
 	@Autowired
 	private BoardService service;
 	
-	@GetMapping("detail")
-	public String detail(@RequestParam("id") int id, @RequestParam("ctK") String categoryKor, 
-								@RequestParam("ctE") String categoryEng, Model model) {
+	@GetMapping("endGameDetail")
+	public String detail(@RequestParam("id") int id, Model model) {
 		
 		BoardView boardView = service.getDetailBoard(id);
 		List<Comment> comments = service.getComments(id);
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("comments", comments);
-		model.addAttribute("categoryKor", categoryKor);
-		model.addAttribute("categoryEng", categoryEng);
 		
-		return "detail.detail";
+		return "detail.endGameDetail";
 	}
 	
 	@GetMapping("updateDetail")
-	public String updateDetail(@RequestParam("id") int id, Model model) {
+	public String updateDetail(@RequestParam("id") int id, @RequestParam("ct") String category, Model model) {
 		
 		BoardView boardView = service.getDetailBoard(id);
 		model.addAttribute("boardView", boardView);
+		model.addAttribute("category", category);
 		
 		return "detail.updateDetail";
 	}
 	
 	@PostMapping("updateDetail")
 	public void updateDetailPost(@RequestParam("id") int id, @RequestParam("updateTitle") String title, 
-											@RequestParam("updateContent") String content, HttpServletResponse response) throws IOException {
+											@RequestParam("updateContent") String content, @RequestParam("ct") String category,
+											HttpServletResponse response) throws IOException {
 		
 		int updateDetailResult = 0;
 		updateDetailResult = service.updateDetail(id, title, content);
@@ -61,7 +60,7 @@ public class DetailController {
 			ScriptClass.alert(response, "글 수정 중 오류 발생");
 			ScriptClass.historyBack(response);
 		}else {
-			ScriptClass.alertAndMove(response, "글 수정 완료", "/detail/detail?id="+id);
+			ScriptClass.alertAndMove(response, "글 수정 완료", "/detail/"+category+"?id="+id);
 		}
 		
 	}
@@ -82,28 +81,32 @@ public class DetailController {
 	}
 	
 	@GetMapping("writeDetail")
-	public String writeDetail(@RequestParam("categoryEng") String categoryEng, @RequestParam("categoryKor") String categoryKor, Model model) {
+	public String writeDetail(@RequestParam("categoryEng") String categoryEng, @RequestParam("categoryKor") String categoryKor,
+										@RequestParam("categoryDet") String categoryDet, Model model) {
 		
 		model.addAttribute("categoryEng", categoryEng);
 		model.addAttribute("categoryKor", categoryKor);
+		model.addAttribute("categoryDet", categoryDet);
 		
 		return "detail.writeDetail";
 	}
 	
 	@PostMapping("writeDetail")
 	public void writeDetailPost(@RequestParam("writeTitle") String title, @RequestParam("writeContent") String content,
-											@RequestParam("categoryEng") String category, HttpSession session, HttpServletResponse response) throws IOException {
+											@RequestParam("categoryEng") String category, @RequestParam("categoryDet") String categoryDet
+											,HttpSession session, HttpServletResponse response) throws IOException {
 		
 		User user = (User) session.getAttribute("user");
 		String userId = user.getUserId();
 		int writeDetailResult = 0;
 		writeDetailResult = service.writeDetail(category, title, content, userId);
+		int boardId = service.getUsersLastBoardId(userId);
 		
 		if(writeDetailResult == 0) {
 			ScriptClass.alert(response, "글 작성 중 오류 발생");
 			ScriptClass.historyBack(response);
 		}else {
-			ScriptClass.alertAndMove(response, "글 작성 완료", "/detail/detail");
+			ScriptClass.alertAndMove(response, "글 작성 완료", "/detail/"+categoryDet+"?id="+boardId);
 		}
 		
 	}

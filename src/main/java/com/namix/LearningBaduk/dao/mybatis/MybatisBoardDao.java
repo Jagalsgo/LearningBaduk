@@ -60,4 +60,9 @@ public class MybatisBoardDao implements BoardDao {
 		return boardDaoMapper.getCommentCount(id);
 	}
 
+	@Override
+	public int getUsersLastBoardId(String userId) {
+		return boardDaoMapper.getUsersLastBoardId(userId);
+	}
+
 }

@@ -7,5 +7,17 @@
 	<select id="login" resultType="com.namix.LearningBaduk.entity.User">
 		select u.*, r.userRole from user as u inner join role as r on u.userId = r.userId where u.userId = #{id} and u.userPassword = #{password}
 	</select>
+	
+	<select id="idOverlapCheck" resultType="int">
+		select count(*) from user where userId = #{id}
+	</select>
+	
+	<select id="nicknameOverlapCheck" resultType="int">
+		select count(*) from user where userNickname = #{nickname}	
+	</select>
+	
+	<insert id="signUp">
+		insert into user(userId, userPassword, userNickname, userEmail) values(#{id}, #{password}, #{nickname}, #{email})
+	</insert>
 
 </mapper>

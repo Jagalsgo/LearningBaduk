@@ -64,4 +64,9 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.getCommentCount(id);
 	}
 
+	@Override
+	public int getUsersLastBoardId(String userId) {
+		return boardDao.getUsersLastBoardId(userId);
+	}
+
 }

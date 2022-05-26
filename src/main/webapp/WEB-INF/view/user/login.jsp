@@ -25,5 +25,7 @@
             <div class="text-right">
             	<input type="submit" class="btn btn-secondary my-3" value="로그인">
             </div>
+    	<div class="text-center my-4"><a href="/user/signUp" class="text-primary">계정이 없습니까?</a></div>
+    	<div class="text-center my-4"><a href="/user/findAccount" class="text-primary">계정을 잃어버렸습니까?</a></div>
     	</form>
 	</div>

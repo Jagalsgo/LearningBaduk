@@ -22,7 +22,7 @@
 			            	    <tr>
 				                    <td class="boardDate text-muted text-center"><fmt:formatDate value="${b.boardDate }" pattern="yy-MM-dd"/></td>
 				                    <td class="boardLike fw-bold">${b.likeCount - b.dislikeCount}</td>
-				                    <td class="boardTitle "><a href="/detail/detail?id=${b.boardId }&ctK=바둑 끝내기&ctE=endGameBoard">${b.boardTitle }</a></td>
+				                    <td class="boardTitle "><a href="/detail/endGameDetail?id=${b.boardId }">${b.boardTitle }</a></td>
 				                    <td class="boardWriter fw-bold text-center">
 				                    	<div class="position-relative userMenuPointer">${b.userNickname }
 				                    	
@@ -76,6 +76,7 @@
 	           		<form action="/detail/writeDetail">
 	           			<input type="hidden" id="categoryEng" name="categoryEng" value="endGameBoard">
 	           			<input type="hidden" id="categoryKor" name="categoryKor" value="끝내기">
+	           			<input type="hidden" id="categoryDet" name="categoryDet" value="endGameDetail">
 	           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
 	           		</form>
 	           </div>

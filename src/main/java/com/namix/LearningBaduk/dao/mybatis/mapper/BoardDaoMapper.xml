@@ -35,5 +35,9 @@
 	<select id="getCommentCount" resultType="int">
 		select count(*) from comment where boardId = #{id}
 	</select>
+	
+	<select id="getUsersLastBoardId" resultType="int">
+		select boardId from board where userId = #{userId} order by boardId desc limit 1;
+	</select>
 
 </mapper>

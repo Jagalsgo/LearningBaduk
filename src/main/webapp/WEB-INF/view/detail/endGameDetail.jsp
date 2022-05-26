@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- detail content  -->
-	<div class="fw-bold h4 mb-4 col-12 container-md pt-5">${categoryKor }</div>
+	<div class="fw-bold h4 mb-4 col-12 container-md pt-5">바둑 끝내기</div>
 	<div class="container-md border p-3">
 		<div class="row">
 			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
@@ -24,10 +24,12 @@
 			</div>
 			<div class="col-6 text-right my-4" id="likeIconBox"><i class="fa fa-solid fa-thumbs-up fa-2x"></i>  ${boardView.likeCount }</div>
 			<div class="col-6 my-4" id="dislikeIconBox"><i class="fa fa-solid fa-thumbs-down fa-2x"></i>  ${boardView.dislikeCount }</div>
-			<div class="col-12 my-4 text-right px-5">
-				<a href="/detail/updateDetail?id=${boardView.boardId }"><button class="btn btn-secondary lUDBtn mx-2">수정</button></a>
-            	<a href="/detail/deleteDetail?id=${boardView.boardId }&ct=${boardView.boardCategory}"><button class="btn btn-secondary lUDBtn">삭제</button></a>
-			</div>
+			<c:if test="${boardView.userId == user.userId }">
+				<div class="col-12 my-4 text-right px-5">
+					<a href="/detail/updateDetail?id=${boardView.boardId }&ct=endGameDetail"><button class="btn btn-secondary lUDBtn mx-2">수정</button></a>
+	            	<a href="/detail/deleteDetail?id=${boardView.boardId }&ct=endGameBoard"><button class="btn btn-secondary lUDBtn">삭제</button></a>
+				</div>
+			</c:if>
 		</div>
 	</div>
 	
@@ -127,7 +129,7 @@
 	<div class="container-md my-4">
 		<div class="row">
 			<!-- go to list  -->
-			<div class="col-sm-1 col-md-1" id="goToList"><a href="/board/${categoryEng }"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
+			<div class="col-sm-1 col-md-1" id="goToList"><a href="/board/endGameBoard"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
 			<!-- pagination -->
 			<div aria-label="Page navigation example" class="col-sm-8 col-md-9" id="pagination">
 		        <ul class="pagination pagination-sm justify-content-center">

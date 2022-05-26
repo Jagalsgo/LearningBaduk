@@ -16,5 +16,6 @@ public interface BoardService {
 	List<Comment> getComments(int id);
 	int getCommentCount(int id);
 	int getPageCount(String categoryEng);
+	int getUsersLastBoardId(String userId);
 	
 }
