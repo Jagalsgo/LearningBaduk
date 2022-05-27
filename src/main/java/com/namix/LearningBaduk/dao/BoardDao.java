@@ -16,5 +16,13 @@ public interface BoardDao {
 	List<Comment> getComments(int id);
 	int getCommentCount(int id);
 	int getUsersLastBoardId(String userId);
+	void addHit(int id);
+	String getBoardsUser(int id);
+	int likeClicked(int id, String userId);
+	int dislikeClicked(int id, String userId);
+	int addLike(int id, String userId);
+	int addDislike(int id, String userId);
+	int getLikeCount(int id);
+	int getDislikeCount(int id);
 	
 }

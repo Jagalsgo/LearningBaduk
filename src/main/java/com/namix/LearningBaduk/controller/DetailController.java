@@ -1,8 +1,12 @@
 package com.namix.LearningBaduk.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
@@ -28,14 +33,37 @@ public class DetailController {
 	private BoardService service;
 	
 	@GetMapping("endGameDetail")
-	public String detail(@RequestParam("id") int id, Model model) {
+	public String detail(@RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		BoardView boardView = service.getDetailBoard(id);
 		List<Comment> comments = service.getComments(id);
+		
+		Cookie[] cookies = request.getCookies();
+		
+		Cookie viewCookie = null;
+		
+		if(cookies != null && cookies.length > 0) {
+			for(int i=0; i<cookies.length; i++) {
+				if(cookies[i].getName().equals("cookie"+id)) {
+					viewCookie = cookies[i];
+				}
+			}
+		}
+			
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("comments", comments);
 		
+		if(viewCookie == null) {
+			
+			Cookie newCookie = new Cookie("cookie" + id, "|" + id + "|");
+			response.addCookie(newCookie);
+			
+			service.addHit(id);
+			
+		}
+		
 		return "detail.endGameDetail";
+			
 	}
 	
 	@GetMapping("updateDetail")
@@ -107,6 +135,74 @@ public class DetailController {
 			ScriptClass.historyBack(response);
 		}else {
 			ScriptClass.alertAndMove(response, "글 작성 완료", "/detail/"+categoryDet+"?id="+boardId);
+		}
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("addLike")
+	public Map<Object, Object> addLike(@RequestParam("id") int id, HttpSession session){
+		
+		User user = (User) session.getAttribute("user");
+		String userId = user.getUserId();
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		
+		// 작성자 본인일 경우
+		String boardUserId = service.getBoardsUser(id);
+		// 이미 추천을 눌렀을 경우
+		int likeClicked = service.likeClicked(id, userId);
+		// 이미 비추천을 눌렀을 경우
+		int dislikeClicked = service.DislikeClicked(id, userId);
+		
+		if(boardUserId.equals(userId)) {
+			map.put("addLikeResult", -1);
+			return map;
+		}else if(likeClicked >= 1 || dislikeClicked >= 1) {
+			map.put("addLikeResult", 0);
+			return map;
+		}else {
+			
+			// 아무것도 안한 경우
+			int addLikeResult = service.addLike(id, userId);
+			int likeCount = service.getLikeCount(id);
+			map.put("addLikeResult", addLikeResult);
+			map.put("likeCount", likeCount);
+			
+			return map;
+		}
+		// 로그인 하지 않은 경우
+	}
+	
+	@ResponseBody
+	@PostMapping("addDislike")
+	public Map<Object, Object> addDislike(@RequestParam("id") int id, HttpSession session){
+		
+		User user = (User) session.getAttribute("user");
+		String userId = user.getUserId();
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		
+		// 작성자 본인일 경우
+		String boardUserId = service.getBoardsUser(id);
+		// 이미 추천을 눌렀을 경우
+		int likeClicked = service.likeClicked(id, userId);
+		// 이미 비추천을 눌렀을 경우
+		int dislikeClicked = service.DislikeClicked(id, userId);
+		
+		if(boardUserId.equals(userId)) {
+			map.put("addDislikeResult", -1);
+			return map;
+		}else if(likeClicked >= 1 || dislikeClicked >= 1) {
+			map.put("addDislikeResult", 0);
+			return map;
+		}else {
+			
+			// 아무것도 안한 경우
+			int addDislikeResult = service.addDislike(id, userId);
+			int dislikeCount = service.getDislikeCount(id);
+			map.put("addDislikeResult", addDislikeResult);
+			map.put("dislikeCount", dislikeCount);
+			
+			return map;
 		}
 		
 	}

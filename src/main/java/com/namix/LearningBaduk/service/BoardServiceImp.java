@@ -69,4 +69,47 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.getUsersLastBoardId(userId);
 	}
 
+	@Override
+	public void addHit(int id) {
+		boardDao.addHit(id);
+		
+	}
+
+	@Override
+	public String getBoardsUser(int id) {
+		return boardDao.getBoardsUser(id);
+	}
+	
+	@Override
+	public int likeClicked(int id, String userId) {
+		return boardDao.likeClicked(id, userId);
+	}
+
+	@Override
+	public int DislikeClicked(int id, String userId) {
+		return boardDao.dislikeClicked(id, userId);
+	}
+	
+	@Override
+	public int addLike(int id, String userId) {
+		return boardDao.addLike(id, userId);
+	}
+
+	@Override
+	public int addDislike(int id, String userId) {
+		return boardDao.addDislike(id, userId);
+	}
+
+	@Override
+	public int getLikeCount(int id) {
+		return boardDao.getLikeCount(id);
+	}
+
+
+	@Override
+	public int getDislikeCount(int id) {
+		return boardDao.getDislikeCount(id);
+	}
+
+
 }

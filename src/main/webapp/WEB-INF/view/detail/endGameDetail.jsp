@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
 			<div class="col-7 p-3 border-bottom userMenu">
-				<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> ${boardView.userId }</span>
+				<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> ${boardView.userNickname }</span>
 				<div class="position-relative">
 					<ul class="userMenuBoxDetail">
 	               		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
@@ -22,8 +22,8 @@
 			<div class="col-12 px-3 py-5">
 				${boardView.boardContent }
 			</div>
-			<div class="col-6 text-right my-4" id="likeIconBox"><i class="fa fa-solid fa-thumbs-up fa-2x"></i>  ${boardView.likeCount }</div>
-			<div class="col-6 my-4" id="dislikeIconBox"><i class="fa fa-solid fa-thumbs-down fa-2x"></i>  ${boardView.dislikeCount }</div>
+			<div class="col-6 text-right my-4" id="likeIconBox"><i class="fa fa-solid fa-thumbs-up fa-2x likeDislikeImg" onclick="likeBtnClick(${boardView.boardId})" id="likeBtn"></i><span id="likeCount"> ${boardView.likeCount }</span></div>
+			<div class="col-6 my-4" id="dislikeIconBox"><i class="fa fa-solid fa-thumbs-down fa-2x likeDislikeImg" onclick="dislikeBtnClick(${boardView.boardId})" id="dislikeBtn"></i><span id="dislikeCount">  ${boardView.dislikeCount }</span></div>
 			<c:if test="${boardView.userId == user.userId }">
 				<div class="col-12 my-4 text-right px-5">
 					<a href="/detail/updateDetail?id=${boardView.boardId }&ct=endGameDetail"><button class="btn btn-secondary lUDBtn mx-2">수정</button></a>
@@ -49,7 +49,7 @@
 	
 	<!-- comment list -->
 	<div class="container-md border p-3 my-5">
-		<div class="mt-2 mb-4 fw-bold" id="commentList">댓글 목록</div>
+		<div class="mt-2 mb-4 fw-bold" id="commentList">댓글 목록  (${boardView.commentCount })</div>
 		<div class="row">
 			<c:forEach var="c" items="${comments }">
 			<div class="col-6 p-3 border-bottom border-top">

@@ -65,4 +65,47 @@ public class MybatisBoardDao implements BoardDao {
 		return boardDaoMapper.getUsersLastBoardId(userId);
 	}
 
+	@Override
+	public void addHit(int id) {
+		boardDaoMapper.addHit(id);
+		
+	}
+
+	@Override
+	public String getBoardsUser(int id) {
+		return boardDaoMapper.getBoardsUser(id);
+	}
+
+	@Override
+	public int likeClicked(int id, String userId) {
+		return boardDaoMapper.likeClicked(id, userId);
+	}
+	
+	@Override
+	public int dislikeClicked(int id, String userId) {
+		return boardDaoMapper.dislikeClicked(id, userId);
+	}
+
+	@Override
+	public int addLike(int id, String userId) {
+		return boardDaoMapper.addLike(id, userId);
+	}
+
+	@Override
+	public int addDislike(int id, String userId) {
+		return boardDaoMapper.addDislike(id, userId);
+	}
+
+	@Override
+	public int getLikeCount(int id) {
+		return boardDaoMapper.getLikeCount(id);
+	}
+
+
+	@Override
+	public int getDislikeCount(int id) {
+		return boardDaoMapper.getDislikeCount(id);
+	}
+
+
 }

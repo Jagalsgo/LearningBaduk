@@ -39,5 +39,37 @@
 	<select id="getUsersLastBoardId" resultType="int">
 		select boardId from board where userId = #{userId} order by boardId desc limit 1;
 	</select>
+	
+	<update id="addHit">
+		update board set boardHit = boardHit + 1 where boardId = #{id}
+	</update>
+	
+	<select id="getBoardsUser" resultType="String">
+		select userId from board where boardId = #{id}
+	</select>
+	
+	<select id="likeClicked" resultType="int">
+		select count(*) from likes where boardId = #{id} and userId = #{userId}
+	</select>
+	
+	<select id="dislikeClicked" resultType="int">
+		select count(*) from dislikes where boardId = #{id} and userId = #{userId}
+	</select>
+	
+	<insert id="addLike">
+		insert into likes(boardId, userId) values(#{id}, #{userId})	
+	</insert>
+	
+	<insert id="addDislike">
+		insert into dislikes(boardId, userId) values(#{id}, #{userId})	
+	</insert>
+	
+	<select id="getLikeCount" resultType="int">
+		select count(*) from likes where boardId = #{id}
+	</select>
+	
+	<select id="getDislikeCount" resultType="int">
+		select count(*) from dislikes where boardId = #{id}
+	</select>
 
 </mapper>

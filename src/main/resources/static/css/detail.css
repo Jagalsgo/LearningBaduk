@@ -1,3 +1,7 @@
+#likeText, #dislikeText{
+	display: none;
+}
+
 #detailTitle, #postCommentText, #commentList{
 	font-size: 1.1rem;
 }
@@ -9,4 +13,7 @@
 }
 #deleteComment{
 	padding-right: 40px;
+}
+.likeDislikeImg{
+	cursor: pointer;
 }

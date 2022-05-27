@@ -17,5 +17,13 @@ public interface BoardService {
 	int getCommentCount(int id);
 	int getPageCount(String categoryEng);
 	int getUsersLastBoardId(String userId);
+	void addHit(int id);
+	String getBoardsUser(int id);
+	int likeClicked(int id, String userId);
+	int DislikeClicked(int id, String userId);
+	int addLike(int id, String userId);
+	int addDislike(int id, String userId);
+	int getLikeCount(int id);
+	int getDislikeCount(int id);
 	
 }
