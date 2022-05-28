@@ -143,9 +143,13 @@ public class DetailController {
 	@PostMapping("addLike")
 	public Map<Object, Object> addLike(@RequestParam("id") int id, HttpSession session){
 		
-		User user = (User) session.getAttribute("user");
-		String userId = user.getUserId();
 		Map<Object, Object> map = new HashMap<Object, Object>();
+		User user = (User) session.getAttribute("user");
+		if(user == null) {
+			map.put("addLikeResult", -2);
+			return map;
+		}
+		String userId = user.getUserId();
 		
 		// 작성자 본인일 경우
 		String boardUserId = service.getBoardsUser(id);
@@ -170,16 +174,20 @@ public class DetailController {
 			
 			return map;
 		}
-		// 로그인 하지 않은 경우
+
 	}
 	
 	@ResponseBody
 	@PostMapping("addDislike")
 	public Map<Object, Object> addDislike(@RequestParam("id") int id, HttpSession session){
 		
-		User user = (User) session.getAttribute("user");
-		String userId = user.getUserId();
 		Map<Object, Object> map = new HashMap<Object, Object>();
+		User user = (User) session.getAttribute("user");
+		if(user == null) {
+			map.put("addDislikeResult", -2);
+			return map;
+		}
+		String userId = user.getUserId();
 		
 		// 작성자 본인일 경우
 		String boardUserId = service.getBoardsUser(id);
@@ -203,6 +211,41 @@ public class DetailController {
 			map.put("dislikeCount", dislikeCount);
 			
 			return map;
+		}
+		
+	}
+	
+	@PostMapping("postComment")
+	public void postComment(@RequestParam("commentContent") String commentContent, @RequestParam("boardId") int id,
+											@RequestParam("category") String category, HttpSession session, HttpServletResponse response) throws IOException {
+
+		User user = (User) session.getAttribute("user");
+		String userId = user.getUserId();
+		
+		int postCommentResult = 0;
+		postCommentResult = service.postComment(userId, commentContent, id);
+		
+		if(postCommentResult == 0) {
+			ScriptClass.alert(response, "댓글 작성 중 오류 발생");
+			ScriptClass.historyBack(response);
+		}else {
+			ScriptClass.alertAndMove(response, "댓글 작성 완료", "/detail/"+category+"?id="+id);
+		}
+		
+	}
+	
+	@GetMapping("deleteComment")
+	public void deleteComment(@RequestParam("cid") int cid, @RequestParam("id") int id,
+											@RequestParam("ct") String category, HttpServletResponse response) throws IOException {
+		
+		int deleteCommentResult = 0;
+		deleteCommentResult = service.deleteComment(cid);
+		
+		if(deleteCommentResult == 0) {
+			ScriptClass.alert(response, "댓글 작성 중 오류 발생");
+			ScriptClass.historyBack(response);
+		}else {
+			ScriptClass.alertAndMove(response, "댓글 삭제 완료", "/detail/"+category+"?id="+id);
 		}
 		
 	}

@@ -72,4 +72,12 @@
 		select count(*) from dislikes where boardId = #{id}
 	</select>
 
+	<insert id="postComment">
+		insert into comment(commentContent, userId, boardId) values(#{commentContent}, #{userId}, #{id})
+	</insert>
+
+	<delete id="deleteComment">
+		delete from comment where commentId = #{cid}
+	</delete>
+
 </mapper>

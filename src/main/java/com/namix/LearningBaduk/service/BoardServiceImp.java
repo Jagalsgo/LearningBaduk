@@ -111,5 +111,15 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.getDislikeCount(id);
 	}
 
+	@Override
+	public int postComment(String userId, String commentContent, int id) {
+		return boardDao.postComment(userId, commentContent, id);
+	}
+
+	@Override
+	public int deleteComment(int cid) {
+		return boardDao.deleteComment(cid);
+	}
+
 
 }

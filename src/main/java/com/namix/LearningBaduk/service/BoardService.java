@@ -25,5 +25,7 @@ public interface BoardService {
 	int addDislike(int id, String userId);
 	int getLikeCount(int id);
 	int getDislikeCount(int id);
+	int postComment(String userId, String commentContent, int id);
+	int deleteComment(int cid);
 	
 }

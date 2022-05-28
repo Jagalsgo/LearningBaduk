@@ -36,14 +36,25 @@
 	<!-- post comment -->
 	<div class="container-md border p-3 my-5">
 		<div class="mt-2 mb-4 fw-bold" id="postCommentText">댓글 </div>
-		<form action="postComment.jsp" id="commentForm">
+		<form action="/detail/postComment" id="commentForm" method="post">
 	        <div class="form-floating form-group">
-	            <input type="textarea" class="form-control" id="commentContent">
+	            <input type="textarea" class="form-control" id="commentContent" name="commentContent">
 	            <label for="commentContent">Comments</label>
 	        </div>
-	        <div class="form-group text-right my-1">
-	            <input type="submit" class="btn btn-secondary mt-2" value="작성" id="commentSubmitBtn">
-	        </div>
+	        <input type="hidden" value="${boardView.boardId }" name="boardId">
+	        <input type="hidden" value="endGameDetail" name="category">
+	        <c:choose>
+	        	<c:when test="${empty user }">
+			        <div class="text-right my-1">
+			        	<input type="button" class="btn btn-secondary mt-2" value="작성" id="commentNeedLoginBtn">
+			        </div>
+	        	</c:when>
+	        	<c:otherwise>
+			        <div class="form-group text-right my-1">
+			            <input type="submit" class="btn btn-secondary mt-2" value="작성" id="commentSubmitBtn">
+			        </div>
+	        	</c:otherwise>
+	        </c:choose>
 	    </form>
 	</div>
 	
@@ -61,12 +72,12 @@
                	</ul>
 			</div>
 			</div>
-			<div class="col-6 p-3  border-bottom text-muted text-right"><fmt:formatDate value="${c.commentDate}" pattern="yyyy-MM-dd"/></div>
+			<div class="col-6 p-3  border-bottom border-top text-muted text-right"><fmt:formatDate value="${c.commentDate}" pattern="yyyy-MM-dd"/></div>
 			<div class="col-12 p-3">
 				${c.commentContent }
 			</div>
 			<c:if test="${c.userId == user.userId }">
-				<div class="text-right col-12 fw-bold text-muted" id="deleteComment">삭제</div>
+				<div class="text-right col-12 my-4" id="deleteComment"><a class="fw-bold text-muted" href="/detail/deleteComment?cid=${c.commentId }&id=${boardView.boardId}&ct=endGameDetail">삭제</a></div>
 			</c:if>
 			</c:forEach>
 		</div>

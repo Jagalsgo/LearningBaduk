@@ -107,5 +107,15 @@ public class MybatisBoardDao implements BoardDao {
 		return boardDaoMapper.getDislikeCount(id);
 	}
 
+	@Override
+	public int postComment(String userId, String commentContent, int id) {
+		return boardDaoMapper.postComment(userId, commentContent, id);
+	}
+
+	@Override
+	public int deleteComment(int cid) {
+		return boardDaoMapper.deleteComment(cid);
+	}
+
 
 }
