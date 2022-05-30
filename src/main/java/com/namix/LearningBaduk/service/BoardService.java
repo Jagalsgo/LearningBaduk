@@ -14,6 +14,7 @@ public interface BoardService {
 	int updateDetail(int id, String title, String content);
 	int deleteDetail(int id);
 	List<Comment> getComments(int id);
+	List<Comment> getComments(int id, int page);
 	int getCommentCount(int id);
 	int getPageCount(String categoryEng);
 	int getUsersLastBoardId(String userId);
@@ -27,5 +28,6 @@ public interface BoardService {
 	int getDislikeCount(int id);
 	int postComment(String userId, String commentContent, int id);
 	int deleteComment(int cid);
+	
 	
 }

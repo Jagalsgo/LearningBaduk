@@ -1,12 +1,10 @@
 package com.namix.LearningBaduk.entity;
 
-import java.util.Date;
-
 public class Comment {
 
 	private int commentId;
 	private String commentContent;
-	private Date commentDate;
+	private String commentDate;
 	private String userId;
 	private int boardId;
 	
@@ -14,7 +12,7 @@ public class Comment {
 		
 	}
 
-	public Comment(int commentId, String commentContent, Date commentDate, String userId, int boardId) {
+	public Comment(int commentId, String commentContent, String commentDate, String userId, int boardId) {
 		this.commentId = commentId;
 		this.commentContent = commentContent;
 		this.commentDate = commentDate;
@@ -38,11 +36,11 @@ public class Comment {
 		this.commentContent = commentContent;
 	}
 
-	public Date getCommentDate() {
+	public String getCommentDate() {
 		return commentDate;
 	}
 
-	public void setCommentDate(Date commentDate) {
+	public void setCommentDate(String commentDate) {
 		this.commentDate = commentDate;
 	}
 

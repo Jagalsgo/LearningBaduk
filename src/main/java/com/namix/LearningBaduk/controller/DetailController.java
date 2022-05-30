@@ -36,7 +36,6 @@ public class DetailController {
 	public String detail(@RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		BoardView boardView = service.getDetailBoard(id);
-		List<Comment> comments = service.getComments(id);
 		
 		Cookie[] cookies = request.getCookies();
 		
@@ -51,7 +50,6 @@ public class DetailController {
 		}
 			
 		model.addAttribute("boardView", boardView);
-		model.addAttribute("comments", comments);
 		
 		if(viewCookie == null) {
 			
@@ -215,25 +213,6 @@ public class DetailController {
 		
 	}
 	
-	@PostMapping("postComment")
-	public void postComment(@RequestParam("commentContent") String commentContent, @RequestParam("boardId") int id,
-											@RequestParam("category") String category, HttpSession session, HttpServletResponse response) throws IOException {
-
-		User user = (User) session.getAttribute("user");
-		String userId = user.getUserId();
-		
-		int postCommentResult = 0;
-		postCommentResult = service.postComment(userId, commentContent, id);
-		
-		if(postCommentResult == 0) {
-			ScriptClass.alert(response, "댓글 작성 중 오류 발생");
-			ScriptClass.historyBack(response);
-		}else {
-			ScriptClass.alertAndMove(response, "댓글 작성 완료", "/detail/"+category+"?id="+id);
-		}
-		
-	}
-	
 	@GetMapping("deleteComment")
 	public void deleteComment(@RequestParam("cid") int cid, @RequestParam("id") int id,
 											@RequestParam("ct") String category, HttpServletResponse response) throws IOException {
@@ -248,6 +227,28 @@ public class DetailController {
 			ScriptClass.alertAndMove(response, "댓글 삭제 완료", "/detail/"+category+"?id="+id);
 		}
 		
+	}
+	
+	@ResponseBody
+	@PostMapping("postComment")
+	public int postComment(@RequestParam("boardId") int boardId, @RequestParam("commentContent") String commentContent,
+										HttpSession session) {
+		
+		User user = (User) session.getAttribute("user");
+		String userId = user.getUserId();
+		
+		int postCommentResult = 0;
+		postCommentResult = service.postComment(userId, commentContent, boardId);
+		return postCommentResult;
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("getComments")
+	public List<Comment> getComments (@RequestParam("boardId") int id, @RequestParam(value = "commentPage", defaultValue = "1") Integer page){
+		
+		List<Comment> comments = service.getComments(id, page);
+		return comments;
 	}
 
 }

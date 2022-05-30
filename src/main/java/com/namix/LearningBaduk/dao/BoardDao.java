@@ -13,7 +13,7 @@ public interface BoardDao {
 	BoardView getDetailBoard(int id);
 	int updateDetail(int id, String title, String content);
 	int deleteDetail(int id);
-	List<Comment> getComments(int id);
+	List<Comment> getComments(int id, int size, int offset);
 	int getCommentCount(int id);
 	int getUsersLastBoardId(String userId);
 	void addHit(int id);

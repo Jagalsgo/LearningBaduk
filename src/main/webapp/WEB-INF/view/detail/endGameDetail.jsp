@@ -7,6 +7,7 @@
 	<div class="fw-bold h4 mb-4 col-12 container-md pt-5">바둑 끝내기</div>
 	<div class="container-md border p-3">
 		<div class="row">
+			<input type="hidden" value="${boardView.boardId }" id="boardId" name="boardId">
 			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
 			<div class="col-7 p-3 border-bottom userMenu">
 				<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> ${boardView.userNickname }</span>
@@ -36,13 +37,10 @@
 	<!-- post comment -->
 	<div class="container-md border p-3 my-5">
 		<div class="mt-2 mb-4 fw-bold" id="postCommentText">댓글 </div>
-		<form action="/detail/postComment" id="commentForm" method="post">
 	        <div class="form-floating form-group">
-	            <input type="textarea" class="form-control" id="commentContent" name="commentContent">
-	            <label for="commentContent">Comments</label>
-	        </div>
-	        <input type="hidden" value="${boardView.boardId }" name="boardId">
-	        <input type="hidden" value="endGameDetail" name="category">
+                <input type="textarea" class="form-control" id="commentContent" name="commentContent">
+                <label for="commentContent">Comments</label>
+            </div>
 	        <c:choose>
 	        	<c:when test="${empty user }">
 			        <div class="text-right my-1">
@@ -50,37 +48,18 @@
 			        </div>
 	        	</c:when>
 	        	<c:otherwise>
-			        <div class="form-group text-right my-1">
-			            <input type="submit" class="btn btn-secondary mt-2" value="작성" id="commentSubmitBtn">
+			        <div class="text-right my-1">
+			            <button class="btn btn-secondary mt-2" onclick="postComment()" id="postCommentBtn">작성</button>
 			        </div>
 	        	</c:otherwise>
 	        </c:choose>
-	    </form>
 	</div>
 	
 	<!-- comment list -->
 	<div class="container-md border p-3 my-5">
 		<div class="mt-2 mb-4 fw-bold" id="commentList">댓글 목록  (${boardView.commentCount })</div>
-		<div class="row">
-			<c:forEach var="c" items="${comments }">
-			<div class="col-6 p-3 border-bottom border-top">
-			<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> ${c.userId }</span>
-			<div class="position-relative">
-				<ul class="userMenuBoxDetail">
-               		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
-               		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
-               	</ul>
+			<div class="row" id="comments">
 			</div>
-			</div>
-			<div class="col-6 p-3  border-bottom border-top text-muted text-right"><fmt:formatDate value="${c.commentDate}" pattern="yyyy-MM-dd"/></div>
-			<div class="col-12 p-3">
-				${c.commentContent }
-			</div>
-			<c:if test="${c.userId == user.userId }">
-				<div class="text-right col-12 my-4" id="deleteComment"><a class="fw-bold text-muted" href="/detail/deleteComment?cid=${c.commentId }&id=${boardView.boardId}&ct=endGameDetail">삭제</a></div>
-			</c:if>
-			</c:forEach>
-		</div>
 		<!-- comment pagination -->
 			<div aria-label="Page navigation example" class="mt-5 mb-3" id="pagination">
 		        <ul class="pagination pagination-sm justify-content-center">

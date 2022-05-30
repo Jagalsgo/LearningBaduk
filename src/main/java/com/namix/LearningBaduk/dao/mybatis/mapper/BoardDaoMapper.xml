@@ -29,7 +29,7 @@
 	</delete>
 	
 	<select id="getComments" resultType="com.namix.LearningBaduk.entity.Comment">
-		select * from comment where boardId = #{id}
+		select commentId, commentContent, date_format(commentDate, '%Y-%m-%d') as commentDate, userId, boardId from comment where boardId = #{id} order by commentId desc limit #{offset}, #{size}
 	</select>
 	
 	<select id="getCommentCount" resultType="int">

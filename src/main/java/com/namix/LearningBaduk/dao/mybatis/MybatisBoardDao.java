@@ -51,8 +51,8 @@ public class MybatisBoardDao implements BoardDao {
 	}
 
 	@Override
-	public List<Comment> getComments(int id) {
-		return boardDaoMapper.getComments(id);
+	public List<Comment> getComments(int id, int size, int offset) {
+		return boardDaoMapper.getComments(id, size, offset);
 	}
 
 	@Override
@@ -116,6 +116,5 @@ public class MybatisBoardDao implements BoardDao {
 	public int deleteComment(int cid) {
 		return boardDaoMapper.deleteComment(cid);
 	}
-
 
 }

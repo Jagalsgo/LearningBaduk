@@ -56,7 +56,16 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public List<Comment> getComments(int id) {
-		return boardDao.getComments(id);
+		return getComments(id, 1);
+	}
+	
+	@Override
+	public List<Comment> getComments(int id, int page) {
+
+		int size = 10;
+		int offset = 0+(page-1)*size;
+		
+		return boardDao.getComments(id, size, offset);
 	}
 
 	@Override
@@ -120,6 +129,5 @@ public class BoardServiceImp implements BoardService {
 	public int deleteComment(int cid) {
 		return boardDao.deleteComment(cid);
 	}
-
 
 }

@@ -1,7 +1,3 @@
-#likeText, #dislikeText{
-	display: none;
-}
-
 #detailTitle, #postCommentText, #commentList{
 	font-size: 1.1rem;
 }
