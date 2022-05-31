@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	
 	boardId = $('#boardId').val();
+	userId = $('#userId').val();
 
 	// comment login 필요
     $('#commentNeedLoginBtn').click(function(){
@@ -19,7 +20,7 @@ $(document).ready(function(){
         }
 	})
     
-	getComments(boardId, 1);
+	getComments(1);
 	
 })
 
@@ -92,7 +93,7 @@ function postComment(){
 			if(data >= 1){
 				alert('댓글 등록 완료');
 			}
-			getComments(boardId, 1);
+			getComments(1);
 			$('#commentContent').val('');
 		},
 		error: function(error){
@@ -102,13 +103,36 @@ function postComment(){
 
 }
 
+// 댓글 삭제
+function deleteComment(commentId){
+	
+	$.ajax({
+		url:"/detail/deleteComment",
+		type:"POST",
+		data:{"commentId":commentId},
+		success: function(data){
+			console.log(data);
+			if(data >= 1){
+				alert('댓글 삭제 완료');
+			}
+			getComments(1);
+		},
+		error: function(error){
+			alert('error : ' + error);
+		}
+	})
+	
+}
+
 // 댓글 불러오기
-function getComments(boardId, commentPage){
+function getComments(commentPage){
 	
 	var data = {
 		"boardId": boardId,
 		"commentPage": commentPage
 	};
+	
+	console.log(commentPage);
 	
 	$.ajax({
 		url:"/detail/getComments",
@@ -134,10 +158,11 @@ function getComments(boardId, commentPage){
 					 +	"<div class='col-6 p-3  border-bottom border-top text-muted text-right'>"+this.commentDate+"</div>"
 					 +	"<div class='col-12 p-3'>"
 					 +		this.commentContent	
-					 +	"</div>"
-					 +	"<c:if test='${c.userId == user.userId }'>"
-					 +		"<div class='text-right col-12 my-4' id='deleteComment'><a class='fw-bold text-muted' href='/detail/deleteComment?cid=${c.commentId }&id=${boardView.boardId}&ct=endGameDetail'>삭제</a></div>"
-					 +	"</c:if>";
+					 +	"</div>";
+					 
+				if(userId == this.userId){
+					str += "<div class='text-right col-12 my-4' id='deleteComment'><span class='fw-bold text-muted' id='deleteCommentBtn' onclick='deleteComment("+this.commentId+")'>삭제</span></div>"
+				}
 				
 			});
 			
@@ -149,5 +174,10 @@ function getComments(boardId, commentPage){
 		}
 		
 	})
+	
+}
+
+// detail view 아래 list 불러오기
+function getBoards(){
 	
 }

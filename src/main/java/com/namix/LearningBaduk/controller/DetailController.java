@@ -244,10 +244,22 @@ public class DetailController {
 	}
 	
 	@ResponseBody
+	@PostMapping("deleteComment")
+	public int deleteComment(@RequestParam("commentId") int commentId) {
+		
+		int deleteCommentResult = 0;
+		deleteCommentResult = service.deleteComment(commentId);
+		return deleteCommentResult;
+		
+	}
+	
+	@ResponseBody
 	@PostMapping("getComments")
-	public List<Comment> getComments (@RequestParam("boardId") int id, @RequestParam(value = "commentPage", defaultValue = "1") Integer page){
+	public List<Comment> getComments (@RequestParam("boardId") int id, @RequestParam(value = "commentPage", defaultValue = "1") Integer page,
+														Model model){
 		
 		List<Comment> comments = service.getComments(id, page);
+		model.addAttribute("commentPage", page);
 		return comments;
 	}
 

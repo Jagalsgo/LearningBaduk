@@ -8,6 +8,7 @@
 	<div class="container-md border p-3">
 		<div class="row">
 			<input type="hidden" value="${boardView.boardId }" id="boardId" name="boardId">
+			<input type="hidden" value="${user.userId }" id="userId" name="userId">
 			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
 			<div class="col-7 p-3 border-bottom userMenu">
 				<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> ${boardView.userNickname }</span>
@@ -60,22 +61,35 @@
 		<div class="mt-2 mb-4 fw-bold" id="commentList">댓글 목록  (${boardView.commentCount })</div>
 			<div class="row" id="comments">
 			</div>
-		<!-- comment pagination -->
+			<!-- comment pagination -->
+			<c:set var="commentPage" value="${(empty commentPage)?1:commentPage }" />
+			page : ${commentPage }<br>
+			<c:set var="firstCommentPage" value="${commentPage - (commentPage - 1) % 5}" />
+			first : ${firstCommentPage }<br>
+			<c:set var="lastCommentPage" value="${ fn:substringBefore(Math.ceil(boardView.commentCount/10), '.') }" />
+			last : ${lastCommentPage }<br>
+			
 			<div aria-label="Page navigation example" class="mt-5 mb-3" id="pagination">
 		        <ul class="pagination pagination-sm justify-content-center">
-		             <li class="page-item">
-		                <a class="page-link" href="#" aria-label="Previous">
-		                <span aria-hidden="true">&laquo;</span>
-		                </a>
-		            </li>
-		            <li class="page-item"><a class="page-link" href="#">1</a></li>
-		            <li class="page-item"><a class="page-link" href="#">2</a></li>
-		            <li class="page-item"><a class="page-link" href="#">3</a></li>
-		            <li class="page-item">
-		                <a class="page-link" href="#" aria-label="Next">
-		                <span aria-hidden="true">&raquo;</span>
-		                </a>
-		            </li>
+		             <c:if test="${firstCommentPage > 1 }">
+			            <li class="page-item">
+			                <a class="page-link" href="#" aria-label="Previous">
+			                <span aria-hidden="true">&laquo;</span>
+			                </a>
+			            </li>
+		            </c:if>
+		            <c:forEach var="i" begin="0" end="4">
+			            <c:if test="${(firstCommentPage + i) <= lastCommentPage }">
+				            <li class="page-item"><span class="page-link commentPage" onclick="getComments(${firstCommentPage + i })">${firstCommentPage + i }</span></li>
+			            </c:if>
+		            </c:forEach>
+		            <c:if test="${firstCommentPage + 4 < lastCommentPage }">
+			            <li class="page-item">
+			                <a class="page-link" href="#" aria-label="Next">
+			                <span aria-hidden="true">&raquo;</span>
+			                </a>
+			            </li>
+		            </c:if>
 		        </ul>
 		    </div>
 	</div>
