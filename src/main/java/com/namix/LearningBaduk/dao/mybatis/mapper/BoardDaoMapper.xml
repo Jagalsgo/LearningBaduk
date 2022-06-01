@@ -5,7 +5,7 @@
 <mapper namespace="com.namix.LearningBaduk.dao.BoardDao">
 
 	<select id="getBoards" resultType="com.namix.LearningBaduk.entity.BoardView">
-		select * from boardview where boardCategory = #{category} and ${field} like '%${query}%' order by boardId desc limit #{offset}, #{size}
+		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname from boardview where boardCategory = #{category} and ${field} like '%${query}%' order by boardId desc limit #{offset}, #{size}
 	</select>
 
 	<select id="getPageCount" resultType="int">
@@ -17,7 +17,7 @@
 	</insert>
 
 	<select id="getDetailBoard" resultType="com.namix.LearningBaduk.entity.BoardView">
-		select * from boardview where boardId = #{id}
+		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname from boardview where boardId = #{id}
 	</select>
 	
 	<update id="updateDetail">
@@ -79,5 +79,9 @@
 	<delete id="deleteComment">
 		delete from comment where commentId = #{cid}
 	</delete>
+	
+	<select id="getDetailsRowNumber" resultType="int">
+		select sb.rn from (select b.*, row_number() over(order by boardId desc) as rn from board as b) as sb where boardId = #{id};
+	</select>
 
 </mapper>

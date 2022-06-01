@@ -16,6 +16,11 @@ public class BoardServiceImp implements BoardService {
 	private BoardDao boardDao;
 	
 	@Override
+	public List<BoardView> getBoards(String category, int page) {
+		return getBoards(category, page, "boardTitle", "");
+	}
+	
+	@Override
 	public List<BoardView> getBoards(String category, int page, String field, String query) {
 		
 		int size = 10;
@@ -128,6 +133,19 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int deleteComment(int cid) {
 		return boardDao.deleteComment(cid);
+	}
+
+	@Override
+	public int getDetailsPage(int id) {
+		
+		int detailsRowNumber = boardDao.getDetailsRowNumber(id);
+		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
+		
+		if(detailsPage <= 1) {
+			detailsPage = 1;
+		}
+		
+		return detailsPage;
 	}
 
 }

@@ -2,6 +2,8 @@ $(document).ready(function(){
 	
 	boardId = $('#boardId').val();
 	userId = $('#userId').val();
+	category = $('#category').val();
+	detailsPage = $('#detailsPage').val();
 
 	// comment login 필요
     $('#commentNeedLoginBtn').click(function(){
@@ -21,6 +23,7 @@ $(document).ready(function(){
 	})
     
 	getComments(1);
+	getBoards(detailsPage);
 	
 })
 
@@ -132,8 +135,6 @@ function getComments(commentPage){
 		"commentPage": commentPage
 	};
 	
-	console.log(commentPage);
-	
 	$.ajax({
 		url:"/detail/getComments",
 		type:"POST",
@@ -144,7 +145,6 @@ function getComments(commentPage){
 			var str = "";
 			
 			$(data).each(function(){
-				
 				
 				str += "<div class='col-6 p-3 border-bottom border-top'>"
 					 +	"<span class='userMenuPointerDetail'><img alt='baduk' src='/img/baduk.png' width='25' height='25'> "+this.userId+"</span>"
@@ -173,11 +173,60 @@ function getComments(commentPage){
 			alert("error : " + error);
 		}
 		
-	})
+	});
 	
 }
 
 // detail view 아래 list 불러오기
-function getBoards(){
+function getBoards(boardPage){
+	
+	var data = {
+		"category": category,
+		"boardPage": boardPage
+	}
+	
+	$.ajax({
+		url:"/detail/getBoards",
+		type:"POST",
+		data: data,
+		dataType: 'json',
+		success: function(data){
+			
+			var str = "";
+			
+			$(data).each(function(){
+				
+				str += "<tr>"
+			                    +"<td class='boardDate text-muted text-center'>"+this.boardDate+"</td>"
+			                    +"<td class='boardLike fw-bold'>"+(this.likeCount-this.dislikeCount)+"</td>";
+			                    
+                if(this.boardId == boardId){
+					str += "<td class='boardTitle'><a class='text-primary fw-bold' href='/detail/endGameDetail?id="+this.boardId+"'>"+this.boardTitle+"  <span class='text-muted'>("+this.commentCount+")</span></a></td>";
+				}else{
+					str += "<td class='boardTitle'><a href='/detail/endGameDetail?id="+this.boardId+"'>"+this.boardTitle+"  <span class='text-muted'>("+this.commentCount+")</span></a></td>";
+				}
+			         
+				            
+			    str +=           "<td class='boardWriter fw-bold text-center'>"
+			                    	+"<div class='position-relative userMenuPointer'>"+this.userNickname
+			                    		+"<ul class='userMenuBox'>"
+				                    		+"<li><a href='dd'><i class='fa fa-solid fa-envelope'></i> 쪽지 보내기</a></li>"
+				                    		+"<li><a href='ss'><i class='fa fa-solid fa-flag'></i> 신고하기</a></li>"
+				                    	+"</ul>"
+			                    	+"</div>"
+			                    +"</td>"
+			                    +"<td class='boardHit text-muted text-center'>"+this.boardHit+"</td>"
+		         	       +"</tr>";
+	         	       
+			});
+			
+			$('#boards').html(str);
+			
+		},
+		error: function(error){
+			alert("error : " + error);
+		}
+		
+	});
 	
 }

@@ -4,11 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- detail content  -->
-	<div class="fw-bold h4 mb-4 col-12 container-md pt-5">바둑 끝내기</div>
+	<div class="fw-bold h4 mb-4 col-12 container-md pt-5"><a href="/board/endGameBoard">바둑 끝내기</a></div>
 	<div class="container-md border p-3">
 		<div class="row">
 			<input type="hidden" value="${boardView.boardId }" id="boardId" name="boardId">
 			<input type="hidden" value="${user.userId }" id="userId" name="userId">
+			<input type="hidden" value="endGameBoard" id="category" name="category">
+			<input type="hidden" value="${detailsPage }" id="detailsPage", name="detailsPage">
 			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
 			<div class="col-7 p-3 border-bottom userMenu">
 				<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> ${boardView.userNickname }</span>
@@ -19,7 +21,7 @@
 	               	</ul>
 				</div>
 			</div>
-			<div class="col-3 p-3  border-bottom text-muted text-right"><fmt:formatDate value="${boardView.boardDate }" pattern="yyyy-MM-dd"/></div>
+			<div class="col-3 p-3  border-bottom text-muted text-right">${boardView.boardDate }</div>
 			<div class="col-2 p-3  text-center border-bottom text-muted"><i class="fa fa-solid fa-eye fa-lg vertical-align"></i> ${boardView.boardHit }</div>
 			<div class="col-12 px-3 py-5">
 				${boardView.boardContent }
@@ -63,19 +65,16 @@
 			</div>
 			<!-- comment pagination -->
 			<c:set var="commentPage" value="${(empty commentPage)?1:commentPage }" />
-			page : ${commentPage }<br>
 			<c:set var="firstCommentPage" value="${commentPage - (commentPage - 1) % 5}" />
-			first : ${firstCommentPage }<br>
 			<c:set var="lastCommentPage" value="${ fn:substringBefore(Math.ceil(boardView.commentCount/10), '.') }" />
-			last : ${lastCommentPage }<br>
 			
-			<div aria-label="Page navigation example" class="mt-5 mb-3" id="pagination">
+			<div aria-label="Page navigation example" class="mt-5 mb-3 ">
 		        <ul class="pagination pagination-sm justify-content-center">
 		             <c:if test="${firstCommentPage > 1 }">
 			            <li class="page-item">
-			                <a class="page-link" href="#" aria-label="Previous">
+			                <div class="page-link commentPage" onclick="getComments(${firstCommentPage - 5})" aria-label="Previous">
 			                <span aria-hidden="true">&laquo;</span>
-			                </a>
+			                </div>
 			            </li>
 		            </c:if>
 		            <c:forEach var="i" begin="0" end="4">
@@ -85,9 +84,9 @@
 		            </c:forEach>
 		            <c:if test="${firstCommentPage + 4 < lastCommentPage }">
 			            <li class="page-item">
-			                <a class="page-link" href="#" aria-label="Next">
+			                <div class="page-link commetPage" onclick="${firstCommentPage + 5}" aria-label="Next">
 			                <span aria-hidden="true">&raquo;</span>
-			                </a>
+			                </div>
 			            </li>
 		            </c:if>
 		        </ul>
@@ -108,21 +107,7 @@
 		                    <th style="width:5%" class="text-center"><i class="fa fa-solid fa-eye fa-lg vertical-align"></i></th>
 		                </tr>
 		            </thead>
-		            <tbody>
-		                <tr>
-		                    <td class="boardDate text-muted text-center">17-08-14</td>
-		                    <td class="boardLike fw-bold">12</td>
-		                    <td class="boardTitle">this is title is title man</td>
-		                    <td class="boardWriter fw-bold text-center">
-		                    	<div class="position-relative userMenuPointer">writer
-		                    	<ul class="userMenuBox">
-		                    		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
-		                    		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
-		                    	</ul>
-		                    	</div>
-		                    </td>
-		                    <td class="boardHit text-muted text-center">12</td>
-		                </tr>
+		            <tbody id="boards">
 		            </tbody>
 		        </table>
 	        </div>	
@@ -135,22 +120,45 @@
 			<!-- go to list  -->
 			<div class="col-sm-1 col-md-1" id="goToList"><a href="/board/endGameBoard"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
 			<!-- pagination -->
-			<div aria-label="Page navigation example" class="col-sm-8 col-md-9" id="pagination">
+			<c:set var="boardPage" value="${(empty boardPage)?1:boardPage }" />
+			<c:set var="firstBoardPage" value="${boardPage - (boardPage - 1) % 5}" />
+			<c:set var="lastBoardPage" value="${ fn:substringBefore(Math.ceil(boardCount/10), '.') }" />
+			
+			<div aria-label="Page navigation example" class="col-sm-8 col-md-9" id="underListPagination">
 		        <ul class="pagination pagination-sm justify-content-center">
-		            <li class="page-item">
-		                <a class="page-link" href="#" aria-label="Previous">
-		                <span aria-hidden="true">&laquo;</span>
-		                </a>
-		            </li>
-		            <li class="page-item"><a class="page-link" href="#">1</a></li>
-		            <li class="page-item"><a class="page-link" href="#">2</a></li>
-		            <li class="page-item"><a class="page-link" href="#">3</a></li>
-		            <li class="page-item">
-		                <a class="page-link" href="#" aria-label="Next">
-		                <span aria-hidden="true">&raquo;</span>
-		                </a>
-		            </li>
+		             <c:if test="${firstBoardPage > 1 }">
+			            <li class="page-item">
+			                <div class="page-link boardPage" onclick="getBoards(${firstBoardPage - 5})" aria-label="Previous">
+			                <span aria-hidden="true">&laquo;</span>
+			                </div>
+			            </li>
+		            </c:if>
+		            <c:forEach var="i" begin="0" end="4">
+			            <c:if test="${(firstBoardPage + i) <= lastBoardPage }">
+				            <li class="page-item"><span class="page-link boardPage" onclick="getBoards(${firstBoardPage + i })">${firstBoardPage + i }</span></li>
+			            </c:if>
+		            </c:forEach>
+		            <c:if test="${firstBoardPage + 4 < lastBoardPage }">
+			            <li class="page-item">
+			                <div class="page-link boardPage" onclick="getBoards(${firstBoardPage + 5})" aria-label="Next">
+			                <span aria-hidden="true">&raquo;</span>
+			                </div>
+			            </li>
+		            </c:if>
 		        </ul>
 		    </div>
+		    
+		    <!-- 글 작성 버튼 -->
+		    <c:if test="${!empty user }">
+	           <div class="col-sm-3 col-md-2" id="goToWrite">
+	           		<form action="/detail/writeDetail">
+	           			<input type="hidden" id="categoryEng" name="categoryEng" value="endGameBoard">
+	           			<input type="hidden" id="categoryKor" name="categoryKor" value="끝내기">
+	           			<input type="hidden" id="categoryDet" name="categoryDet" value="endGameDetail">
+	           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
+	           		</form>
+	           </div>
+            </c:if>
+		    
 	    </div>
     </div>

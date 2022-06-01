@@ -117,4 +117,9 @@ public class MybatisBoardDao implements BoardDao {
 		return boardDaoMapper.deleteComment(cid);
 	}
 
+	@Override
+	public int getDetailsRowNumber(int id) {
+		return boardDaoMapper.getDetailsRowNumber(id);
+	}
+
 }

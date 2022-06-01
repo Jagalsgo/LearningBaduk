@@ -7,6 +7,7 @@ import com.namix.LearningBaduk.entity.Comment;
 
 public interface BoardService {
 
+	List<BoardView> getBoards(String category, int page);
 	List<BoardView> getBoards(String category, int page, String field, String query);
 	int getPageCount(String category, String field, String query);
 	int writeDetail(String category, String title, String content, String userId);
@@ -28,6 +29,7 @@ public interface BoardService {
 	int getDislikeCount(int id);
 	int postComment(String userId, String commentContent, int id);
 	int deleteComment(int cid);
+	int getDetailsPage(int id);
 	
 	
 }

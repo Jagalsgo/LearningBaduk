@@ -36,9 +36,13 @@ public class DetailController {
 	public String detail(@RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		BoardView boardView = service.getDetailBoard(id);
+		int boardCount = service.getPageCount("endGameBoard");
+		int detailsPage = service.getDetailsPage(id);
 		
+		model.addAttribute("boardView", boardView);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("detailsPage", detailsPage);
 		Cookie[] cookies = request.getCookies();
-		
 		Cookie viewCookie = null;
 		
 		if(cookies != null && cookies.length > 0) {
@@ -49,8 +53,6 @@ public class DetailController {
 			}
 		}
 			
-		model.addAttribute("boardView", boardView);
-		
 		if(viewCookie == null) {
 			
 			Cookie newCookie = new Cookie("cookie" + id, "|" + id + "|");
@@ -213,22 +215,6 @@ public class DetailController {
 		
 	}
 	
-	@GetMapping("deleteComment")
-	public void deleteComment(@RequestParam("cid") int cid, @RequestParam("id") int id,
-											@RequestParam("ct") String category, HttpServletResponse response) throws IOException {
-		
-		int deleteCommentResult = 0;
-		deleteCommentResult = service.deleteComment(cid);
-		
-		if(deleteCommentResult == 0) {
-			ScriptClass.alert(response, "댓글 작성 중 오류 발생");
-			ScriptClass.historyBack(response);
-		}else {
-			ScriptClass.alertAndMove(response, "댓글 삭제 완료", "/detail/"+category+"?id="+id);
-		}
-		
-	}
-	
 	@ResponseBody
 	@PostMapping("postComment")
 	public int postComment(@RequestParam("boardId") int boardId, @RequestParam("commentContent") String commentContent,
@@ -261,6 +247,17 @@ public class DetailController {
 		List<Comment> comments = service.getComments(id, page);
 		model.addAttribute("commentPage", page);
 		return comments;
+	}
+	
+	@ResponseBody
+	@PostMapping("getBoards")
+	public List<BoardView> getBoards(@RequestParam("category") String category, @RequestParam(value="boardPage", defaultValue = "1") Integer boardPage,
+													Model model){
+		
+		List<BoardView> boards = service.getBoards(category, boardPage);
+		model.addAttribute("boardPage", boardPage);
+		return boards;
+		
 	}
 
 }

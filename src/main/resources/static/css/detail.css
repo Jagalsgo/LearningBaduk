@@ -10,6 +10,6 @@
 #deleteComment{
 	padding-right: 40px;
 }
-.likeDislikeImg, #deleteCommentBtn, .commentPage{
+.likeDislikeImg, #deleteCommentBtn, .commentPage, .boardPage{
 	cursor: pointer;
 }

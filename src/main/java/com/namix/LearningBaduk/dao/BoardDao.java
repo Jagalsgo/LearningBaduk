@@ -26,5 +26,6 @@ public interface BoardDao {
 	int getDislikeCount(int id);
 	int postComment(String userId, String commentContent, int id);
 	int deleteComment(int cid);
+	int getDetailsRowNumber(int id);
 	
 }
