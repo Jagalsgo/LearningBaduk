@@ -21,9 +21,9 @@
 					    		<img class="mb-3 mt-4" alt="baduk" src="/img/baduk.png" width="100" height="100">
 					    		<div class="my-3" id="userInfoBorderBox">
 					    			<div class="innerBorderBox"><a href="s"><i class="fa fa-solid fa-envelope"></i> 쪽지함</a></div>
-					    			<div class="innerBorderBox"><a href="s"><i class="fa fa-solid fa-folder-open"></i> 내가 쓴 글</a></div>
-					    			<div class="innerBorderBox"><a href="s"><i class="fa fa-solid fa-book"></i> 나만의 게시판</a></div>
-					    			<div class="innerBorderBox2"><a href="s"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></div>
+					    			<div class="innerBorderBox"><a href="/board/myWritingBoard"><i class="fa fa-solid fa-folder-open"></i> 내가 쓴 글</a></div>
+					    			<div class="innerBorderBox"><a href="/board/myOwnBoard"><i class="fa fa-solid fa-book"></i> 나만의 게시판</a></div>
+					    			<div class="innerBorderBox2"><a href="/user/editProfile"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></div>
 					    		</div>
 					    		<div class="my-4">
 					    			<a href="/user/logout"><button class="btn btn-secondary">로그아웃</button></a>

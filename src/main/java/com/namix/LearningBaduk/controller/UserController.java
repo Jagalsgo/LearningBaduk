@@ -31,6 +31,37 @@ public class UserController {
 		return "user.editProfile";
 	}
 	
+	@PostMapping("editProfile")
+	public void editProfilePost(@RequestParam("editProfilePassword") String password, @RequestParam("editProfileNickname") String nickname,
+										@RequestParam("editProfileEmail") String email, @RequestParam("editProfileProfileImg") String profileImg,
+										@RequestParam("editProfileId") String id,
+										HttpServletResponse response, HttpSession session) throws IOException {
+		
+		User user = (User) session.getAttribute("user");
+		
+		if(password == "") {
+			password = user.getUserPassword();
+		}
+		if(nickname == "") {
+			nickname = user.getUserNickname();
+		}
+		if(email == "") {
+			email = user.getUserEmail();
+		}
+		if(profileImg == "") {
+			profileImg = user.getUserProfileImg();
+		}
+		
+		int editProfileResult = service.editProfile(password, nickname, email, profileImg, id);
+		if(editProfileResult == 0) {
+			ScriptClass.alert(response, "오류 발생");
+			ScriptClass.historyBack(response);
+		}else {
+			ScriptClass.alertAndMove(response, "회원 정보 수정 완료", "/board/home");
+		}	
+		
+	}
+	
 	@GetMapping("findAccount")
 	public String findAccout() {
 		return "user.findAccount";
@@ -53,6 +84,24 @@ public class UserController {
 			ScriptClass.historyBack(response);
 		}else {
 			ScriptClass.alertAndMove(response, "회원가입 완료", "/user/login");
+		}	
+		
+	}
+	
+	@GetMapping("withdraw")
+	public void withdraw(HttpSession session, HttpServletResponse response) throws IOException {
+		
+		User user = (User) session.getAttribute("user");
+		String userId = user.getUserId();
+		
+		int withdrawResult = 0;
+		withdrawResult = service.withdraw(userId);
+		if(withdrawResult == 0) {
+			ScriptClass.alert(response, "오류 발생");
+			ScriptClass.historyBack(response);
+		}else {
+			session.invalidate();
+			ScriptClass.alertAndMove(response, "회원 탈퇴 완료", "/board/home");
 		}	
 		
 	}

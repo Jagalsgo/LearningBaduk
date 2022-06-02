@@ -11,5 +11,9 @@ public interface UserDao {
 	int nicknameOverlapCheck(String nickname);
 
 	int signUp(String id, String password, String nickname, String email);
+
+	int editProfile(String password, String nickname, String email, String profileImg, String id);
+
+	int withdraw(String id);
 	
 }

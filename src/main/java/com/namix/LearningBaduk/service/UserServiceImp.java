@@ -32,4 +32,14 @@ public class UserServiceImp implements UserService {
 		return userDao.signUp(id, password, nickname, email);
 	}
 
+	@Override
+	public int editProfile(String password, String nickname, String email, String profileImg, String id) {
+		return userDao.editProfile(password, nickname, email, profileImg, id);
+	}
+
+	@Override
+	public int withdraw(String id) {
+		return userDao.withdraw(id);
+	}
+
 }

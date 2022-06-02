@@ -19,5 +19,13 @@
 	<insert id="signUp">
 		insert into user(userId, userPassword, userNickname, userEmail) values(#{id}, #{password}, #{nickname}, #{email})
 	</insert>
+	
+	<update id="editProfile">
+		update user set userPassword = #{password}, userNickname = #{nickname}, userEmail = #{email}, userProfileImg = #{profileImg} where userId = #{id}
+	</update>
+	
+	<delete id="withdraw">
+		delete from user where userId = #{id}
+	</delete>
 
 </mapper>

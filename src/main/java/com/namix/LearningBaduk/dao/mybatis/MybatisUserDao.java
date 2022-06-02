@@ -37,4 +37,14 @@ public class MybatisUserDao implements UserDao {
 		return userDaoMapper.signUp(id, password, nickname, email);
 	}
 
+	@Override
+	public int editProfile(String password, String nickname, String email, String profileImg, String id) {
+		return userDaoMapper.editProfile(password, nickname, email, profileImg, id);
+	}
+
+	@Override
+	public int withdraw(String id) {
+		return userDaoMapper.withdraw(id);
+	}
+
 }

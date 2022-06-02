@@ -11,5 +11,9 @@ public interface UserService {
 	int nicknameOverlapCheck(String signUpNickname);
 
 	int signUp(String id, String password, String nickname, String email);
+
+	int editProfile(String password, String nickname, String email, String profileImg, String id);
+
+	int withdraw(String id);
 	
 }
