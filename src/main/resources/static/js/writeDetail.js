@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	
 	writeTitle = $('#writeTitle');
-	writeContent = $('#writeContent');
+	writeContent = $('#ckeditor');
 	
 	$('#writeForm').submit(function(){
         if(writeTitle.val() == ''){

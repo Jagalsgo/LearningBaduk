@@ -16,7 +16,15 @@
     <script type="text/javascript" src="/js/header.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript" src="<tiles:getAsString name="js"/>"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/ckeditor5/ckeditor.js"></script>
     <title>Learning Baduk</title>
+    
+    <style>
+    	.ck-editor__editable {
+	    min-height: 350px;
+		}
+    </style>
 </head>
 <body>
 
@@ -24,7 +32,25 @@
 	<tiles:insertAttribute name="header"></tiles:insertAttribute>
 	<!-- main  -->
 	<tiles:insertAttribute name="main"></tiles:insertAttribute>
-	<!-- js setting -->
-    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+	
+	<script>
+		ClassicEditor
+			.create( document.querySelector( '#ckeditor' ), {
+				ckfinder: {
+			        uploadUrl: '/ckeditor/fileUpload' // 내가 지정한 업로드 url (post로 요청감)
+				},
+				alignment: {
+		            options: [ 'left', 'center', 'right' ]
+		        }
+			} )
+			.then( editor => {
+		        console.log( 'Editor was initialized', editor );
+		        myEditor = editor;
+		    } )
+			.catch( error => {
+			    console.error( error );
+			} );
+	</script>
+	
 </body>
 </html>
