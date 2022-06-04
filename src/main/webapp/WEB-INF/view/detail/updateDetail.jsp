@@ -8,8 +8,8 @@
 	            <input type="text" class="form-control" placeholder="제목" name="updateTitle" maxlength="50" id="updateTitle" value="${boardView.boardTitle }">
 	        </div>
 	        <div class="form-group">
-	        	<label for="updateContent" class="my-2 fw-bold" id="updateContentLabel">내용</label>
-	            <textarea type="text" class="form-control my-3" placeholder="내용" name="updateContent" maxlength="2048" style="height:350px" id="updateContent">${boardView.boardContent }</textarea>
+	        	<label for="ckeditor" class="my-2 fw-bold" id="ckeditorLabel">내용</label>
+	            <textarea class="form-control my-3" placeholder="내용" name="updateContent" maxlength="2048" style="height:350px" id="ckeditor">${boardView.boardContent }</textarea>
 			</div>
 			<input type="hidden" id="id" name="id" value="${boardView.boardId }">
 			<input type="hidden" id="ct" name="ct" value="${category }">

@@ -17,7 +17,7 @@
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript" src="<tiles:getAsString name="js"/>"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
-	<script type="text/javascript" src="/ckeditor5/ckeditor.js"></script>
+	<script type="text/javascript" src="/ckeditor5/build/ckeditor.js"></script>
     <title>Learning Baduk</title>
     
     <style>
@@ -37,16 +37,9 @@
 		ClassicEditor
 			.create( document.querySelector( '#ckeditor' ), {
 				ckfinder: {
-			        uploadUrl: '/ckeditor/fileUpload' // 내가 지정한 업로드 url (post로 요청감)
-				},
-				alignment: {
-		            options: [ 'left', 'center', 'right' ]
-		        }
+			        uploadUrl: '/file/imgUpload' // 내가 지정한 업로드 url (post로 요청감)
+				}
 			} )
-			.then( editor => {
-		        console.log( 'Editor was initialized', editor );
-		        myEditor = editor;
-		    } )
 			.catch( error => {
 			    console.error( error );
 			} );

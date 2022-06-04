@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="container-md">
-		<form action="/user/editProfile" method="post" class="border px-5 pt-4" id="editProfileForm">
+		<form action="/user/editProfile" method="post" class="border px-5 pt-4" id="editProfileForm" enctype="multipart/form-data">
 			<div class="fw-bold h4 mb-5 mt-3">회원 정보 수정</div>
 	        <div class="form-group">
 	            <label for="editProfileId" class="editProfileFormLabel">아이디</label>

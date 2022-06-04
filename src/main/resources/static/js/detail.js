@@ -4,6 +4,7 @@ $(document).ready(function(){
 	userId = $('#userId').val();
 	category = $('#category').val();
 	detailsPage = $('#detailsPage').val();
+	rv = false;
 
 	// comment login 필요
     $('#commentNeedLoginBtn').click(function(){
@@ -13,15 +14,6 @@ $(document).ready(function(){
 		}
 	})
 	
-	// comment post btn 클릭 내용이 없을 시
-    $('#postCommentBtn').click(function(){
-		if($('#commentContent').val() == ''){
-            alert('댓글 내용을 입력하세요.');
-            $('#commentContent').focus();
-            return false;
-        }
-	})
-    
 	getComments(1);
 	getBoards(detailsPage);
 	
@@ -81,6 +73,12 @@ function dislikeBtnClick(id){
 
 // 댓글 등록
 function postComment(){
+	
+	if($('#commentContent').val() == ''){
+            alert('댓글 내용을 입력하세요.');
+            $('#commentContent').focus();
+            return rv;
+    }
 	
 	var data = {
 		"boardId": boardId,
