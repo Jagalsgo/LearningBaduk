@@ -1,10 +1,20 @@
 package com.namix.LearningBaduk.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.namix.LearningBaduk.dao.UserDao;
 import com.namix.LearningBaduk.entity.User;
+import com.namix.LearningBaduk.entity.UserProfileImg;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -33,13 +43,51 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public int editProfile(String password, String nickname, String email, String profileImg, String id) {
-		return userDao.editProfile(password, nickname, email, profileImg, id);
+	public int editProfile(String password, String nickname, String email, String id) {
+		return userDao.editProfile(password, nickname, email, id);
 	}
 
 	@Override
 	public int withdraw(String id) {
 		return userDao.withdraw(id);
+	}
+
+	@Override
+	public void editProfileImg(MultipartFile file, HttpServletRequest request, String userId) throws IOException {
+		
+		String imgName = file.getName();
+		String imgPath = request.getServletContext().getRealPath("/profileImg");
+		
+		File uploadImg = new File(imgPath);
+		if(!uploadImg.exists()) {
+			uploadImg.mkdir();
+		}
+		
+		imgName = UUID.randomUUID().toString();
+		imgPath = imgPath + "/" + imgName;
+		String imgUrl = request.getContextPath() + "/profileImg/" + imgName;
+		
+		byte[] bytes = file.getBytes();
+		OutputStream out = new FileOutputStream(new File(imgPath));
+		out.write(bytes);
+		
+		addProfileImg(imgName, imgUrl, userId);
+		
+	}
+
+	@Override
+	public int addProfileImg(String imgName, String imgUrl, String userId) {
+		return userDao.addProfileImg(imgName, imgUrl, userId);
+	}
+
+	@Override
+	public int deleteProfileImg(String userId) {
+		return userDao.deleteProfileImg(userId);
+	}
+
+	@Override
+	public UserProfileImg getProfileImg(String userId) {
+		return userDao.getProfileImg(userId);
 	}
 
 }

@@ -1,6 +1,13 @@
 package com.namix.LearningBaduk.service;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.namix.LearningBaduk.entity.User;
+import com.namix.LearningBaduk.entity.UserProfileImg;
 
 public interface UserService {
 
@@ -12,8 +19,16 @@ public interface UserService {
 
 	int signUp(String id, String password, String nickname, String email);
 
-	int editProfile(String password, String nickname, String email, String profileImg, String id);
+	int editProfile(String password, String nickname, String email, String id);
 
 	int withdraw(String id);
+
+	void editProfileImg(MultipartFile file, HttpServletRequest request, String userId) throws IOException;
 	
+
+	int addProfileImg(String imgName, String imgUrl, String userId);
+
+	int deleteProfileImg(String userId);
+	
+	UserProfileImg getProfileImg(String userId);
 }

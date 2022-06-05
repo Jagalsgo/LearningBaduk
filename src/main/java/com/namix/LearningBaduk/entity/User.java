@@ -6,7 +6,6 @@ public class User  {
 	private String userPassword;
 	private String userNickname;
 	private String userEmail;
-	private String userProfileImg;
 	private int userReport;
 	private String userRole;
 	
@@ -14,13 +13,11 @@ public class User  {
 		
 	}
 
-	public User(String userId, String userPassword, String userNickname, String userEmail, String userProfileImg,
-			int userReport, String userRole) {
+	public User(String userId, String userPassword, String userNickname, String userEmail, int userReport, String userRole) {
 		this.userId = userId;
 		this.userPassword = userPassword;
 		this.userNickname = userNickname;
 		this.userEmail = userEmail;
-		this.userProfileImg = userProfileImg;
 		this.userReport = userReport;
 		this.userRole = userRole;
 	}
@@ -55,14 +52,6 @@ public class User  {
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
-	}
-
-	public String getUserProfileImg() {
-		return userProfileImg;
-	}
-
-	public void setUserProfileImg(String userProfileImg) {
-		this.userProfileImg = userProfileImg;
 	}
 
 	public int getUserReport() {

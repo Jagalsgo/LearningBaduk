@@ -17,7 +17,7 @@ $(document).ready(function(){
 	})*/
 	
 	// 회원 정보 클릭 시 박스 오픈
-	$('#userInfoBtn').click(function(){
+	$('#userInfoBtn, .headerProfileImg').click(function(){
 		if(userInfoOpend == 0){
 			$('#openUserInfoBox').show();
 			userInfoOpend = 1;

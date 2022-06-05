@@ -16,7 +16,14 @@
 		    		</c:when>
 		    		<c:otherwise>
 					    <div class="col-sm-1 col-xs-1 text-right" id="userInfoFormBox">
-					    	<i class="fa fa-solid fa-user fa-2x vertical-align" id="userInfoBtn"></i>
+					    	<c:choose>
+					    		<c:when test="${!empty profileImg }">
+					    			<img alt="" src="${profileImg.imgPath }" class="headerProfileImg vertical-align">
+					    		</c:when>
+					    		<c:otherwise>
+							    	<i class="fa fa-solid fa-user fa-2x vertical-align headerUserInfoBtn" id="userInfoBtn"></i>
+					    		</c:otherwise>
+					    	</c:choose>
 					    	<div class="openBox text-center" id="openUserInfoBox">
 					    		<img class="mb-3 mt-4" alt="baduk" src="/img/baduk.png" width="100" height="100">
 					    		<div class="my-3" id="userInfoBorderBox">

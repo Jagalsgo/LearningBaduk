@@ -7,11 +7,28 @@ $(document).ready(function(){
 	nicknameCheckedText = $('#nicknameChekedText');
 	nicknameCheckBtn = $("#nicknameCheckBtn");
 	nicknameCheckResult = 0;
+	rv = false;
 	
 	// 정규표현식
     passwordExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#>&])[A-Za-z\d$@$!%*#>&]{8,}$/;
     emailExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
     nicknameExp = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/;
+	
+	//프로필 사진 삭제 시 물어보기
+	$('#goToDeleteProfileImg').click(function(){
+		var result = confirm('프로필 사진을 삭제하겠습니까?')
+		if(!result){
+			return rv;
+		}
+	})
+	
+	//회원탈퇴 시 물어보기
+	$('#goToWithdraw').click(function(){
+		var result = confirm('회원 탈퇴 하시겠습니까?')
+		if(!result){
+			return rv;
+		}
+	})
 	
 	// 닉네임 변경 시 nicknameCheck 초기화
 	editProfileNickname.on("input", function(){
@@ -22,8 +39,6 @@ $(document).ready(function(){
     
     $('#editProfileForm').submit(function(){
 	
-		var rv = false;
-		
 		if(editProfilePassword.val() != "" || editProfilePasswordCheck.val() != ""){
 			
 			if(!passwordExp.test(editProfilePassword.val())){

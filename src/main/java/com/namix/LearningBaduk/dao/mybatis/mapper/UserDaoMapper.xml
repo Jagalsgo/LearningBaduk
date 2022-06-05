@@ -21,11 +21,23 @@
 	</insert>
 	
 	<update id="editProfile">
-		update user set userPassword = #{password}, userNickname = #{nickname}, userEmail = #{email}, userProfileImg = #{profileImg} where userId = #{id}
+		update user set userPassword = #{password}, userNickname = #{nickname}, userEmail = #{email} where userId = #{id}
 	</update>
 	
 	<delete id="withdraw">
 		delete from user where userId = #{id}
 	</delete>
+	
+	<insert id="addProfileImg">
+		insert into userProfileImg(imgName, imgPath, userId) values(#{imgName}, #{imgUrl}, #{userId})
+	</insert>
+	
+	<delete id="deleteProfileImg">
+		delete from userProfileImg where userId = #{userId}
+	</delete>
+	
+	<select id="getProfileImg" resultType="com.namix.LearningBaduk.entity.UserProfileImg">
+		select * from userProfileImg;
+	</select>
 
 </mapper>

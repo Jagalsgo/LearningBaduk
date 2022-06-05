@@ -6,7 +6,7 @@
 #headerList{
 	background-color: #ccd0cc;
 }
-#loginBtn, #userInfoBtn{
+#loginBtn, #userInfoBtn, .headerProfileImg{
 	cursor: pointer;
 }
 .openBox{
@@ -32,4 +32,8 @@
 .innerBorderBox, .innerBorderBox2{
 	font-size: 1.2rem;
 	padding: 5px;
+}
+.headerProfileImg, .headerUserInfoBtn{
+	height: 45px;
+	width: 45px;
 }
