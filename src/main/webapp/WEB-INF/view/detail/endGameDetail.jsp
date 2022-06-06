@@ -11,9 +11,19 @@
 			<input type="hidden" value="${user.userId }" id="userId" name="userId">
 			<input type="hidden" value="endGameBoard" id="category" name="category">
 			<input type="hidden" value="${detailsPage }" id="detailsPage", name="detailsPage">
+			
 			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
 			<div class="col-7 p-3 border-bottom userMenu">
-				<span class="userMenuPointerDetail"><img alt="baduk" src="/img/baduk.png" width="25" height="25"> ${boardView.userNickname }</span>
+				<span class="userMenuPointerDetail">
+					<c:choose>
+						<c:when test="${boardView.imgPath == null }">
+							<img alt="user" src="/img/user.png" width="25" height="25"> ${boardView.userNickname }
+						</c:when>
+						<c:otherwise>
+							<img alt="user" src="${boardView.imgPath }" width="25" height="25"> ${boardView.userNickname }
+						</c:otherwise>
+					</c:choose>
+				</span>
 				<div class="position-relative">
 					<ul class="userMenuBoxDetail">
 	               		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>

@@ -21,7 +21,8 @@
 					    			<img alt="" src="${profileImg.imgPath }" class="headerProfileImg vertical-align">
 					    		</c:when>
 					    		<c:otherwise>
-							    	<i class="fa fa-solid fa-user fa-2x vertical-align headerUserInfoBtn" id="userInfoBtn"></i>
+							    	<!-- <i class="fa fa-solid fa-user fa-2x vertical-align headerUserInfoBtn" id="userInfoBtn"></i> -->
+							    	<img alt="" src="/img/user.png" class="vertical-align headerUserInfoBtn" id="userInfoBtn">
 					    		</c:otherwise>
 					    	</c:choose>
 					    	<div class="openBox text-center" id="openUserInfoBox">

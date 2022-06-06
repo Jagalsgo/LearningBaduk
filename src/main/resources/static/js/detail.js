@@ -144,9 +144,15 @@ function getComments(commentPage){
 			
 			$(data).each(function(){
 				
-				str += "<div class='col-6 p-3 border-bottom border-top'>"
-					 +	"<span class='userMenuPointerDetail'><img alt='baduk' src='/img/baduk.png' width='25' height='25'> "+this.userId+"</span>"
-					 + "<div class='position-relative'>"
+				str += "<div class='col-6 p-3 border-bottom border-top'>";
+				
+				if(this.imgPath == null){
+					str += "<span class='userMenuPointerDetail'><img alt='user' src='/img/user.png' width='25' height='25'> "+this.userNickname+"</span>";
+				}else{
+					str += "<span class='userMenuPointerDetail'><img alt='user' src='"+this.imgPath+"' width='25' height='25'> "+this.userNickname+"</span>";
+				}
+				
+				str += "<div class='position-relative'>"
 					 +		"<ul class='userMenuBoxDetail'>"
 			         +     		"<li><a href='dd'><i class='fa fa-solid fa-envelope'></i> 쪽지 보내기</a></li>"
 			         +     		"<li><a href='ss'><i class='fa fa-solid fa-flag'></i> 신고하기</a></li>"

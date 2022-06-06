@@ -6,16 +6,18 @@ public class BoardView extends Board{
 	private int likeCount;
 	private int dislikeCount;
 	private String userNickname;
+	private String imgPath;
 	
 	public BoardView() {
 		
 	}
 
-	public BoardView(int commentCount, int likeCount, int dislikeCount, String userNickname) {
+	public BoardView(int commentCount, int likeCount, int dislikeCount, String userNickname, String imgPath) {
 		this.commentCount = commentCount;
 		this.likeCount = likeCount;
 		this.dislikeCount = dislikeCount;
 		this.userNickname = userNickname;
+		this.imgPath = imgPath;
 	}
 
 	public int getCommentCount() {
@@ -48,6 +50,14 @@ public class BoardView extends Board{
 	
 	public void setUserNickname(String userNickname) {
 		this.userNickname = userNickname;
+	}
+	
+	public String getImgPath() {
+		return imgPath;
+	}
+	
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 	
 }

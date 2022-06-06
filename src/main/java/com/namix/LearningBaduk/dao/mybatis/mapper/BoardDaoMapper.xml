@@ -5,7 +5,7 @@
 <mapper namespace="com.namix.LearningBaduk.dao.BoardDao">
 
 	<select id="getBoards" resultType="com.namix.LearningBaduk.entity.BoardView">
-		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname from boardview where boardCategory = #{category} and ${field} like '%${query}%' order by boardId desc limit #{offset}, #{size}
+		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname, imgPath from boardview where boardCategory = #{category} and ${field} like '%${query}%' order by boardId desc limit #{offset}, #{size}
 	</select>
 
 	<select id="getPageCount" resultType="int">
@@ -17,7 +17,7 @@
 	</insert>
 
 	<select id="getDetailBoard" resultType="com.namix.LearningBaduk.entity.BoardView">
-		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname from boardview where boardId = #{id}
+		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname, imgPath from boardview where boardId = #{id}
 	</select>
 	
 	<update id="updateDetail">
@@ -28,8 +28,8 @@
 		delete from board where boardId = #{id}
 	</delete>
 	
-	<select id="getComments" resultType="com.namix.LearningBaduk.entity.Comment">
-		select commentId, commentContent, date_format(commentDate, '%Y-%m-%d') as commentDate, userId, boardId from comment where boardId = #{id} order by commentId desc limit #{offset}, #{size}
+	<select id="getComments" resultType="com.namix.LearningBaduk.entity.CommentView">
+		select commentId, commentContent, date_format(commentDate, '%Y-%m-%d') as commentDate, userId, boardId, imgPath, userNickname from commentview where boardId = #{id} order by commentId desc limit #{offset}, #{size}
 	</select>
 	
 	<select id="getCommentCount" resultType="int">
