@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.MyBoard;
 
 public interface BoardDao {
 	
@@ -27,5 +28,13 @@ public interface BoardDao {
 	int postComment(String userId, String commentContent, int id);
 	int deleteComment(int cid);
 	int getDetailsRowNumber(int id);
+	List<BoardView> getMyWritingBoards(int page, String query, String userId, int size, int offset);
+	int getMyWritingPageCount(String query, String userId);
+	List<BoardView> getMyOwnBoards(Integer page, String query, String userId, int size, int offset);
+	int getMyOwnPageCount(String query, String userId);
+	int writeMyDetail(String title, String content, String userId);
+	int getUsersLastMyBoardId(String userId);
+	MyBoard getMyDetailBoard(int id);
+	int getMyDetailsRowNumber(int id);
 	
 }

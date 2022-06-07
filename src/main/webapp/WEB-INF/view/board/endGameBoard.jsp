@@ -96,7 +96,7 @@
 	           		<option ${param.f == "userNickname"?"selected":"" } value="userNickname">작성자</option>
        			</select> 		
        			<input type="text" name="q" value="${param.q }" style="width: 150px;"/>
-				<input type="submit" class="btn btn-sm btn-secondary" />
+				<input type="submit" class="btn btn-sm btn-secondary" value="검색" />
            </fieldset>
        </form>
    </div>

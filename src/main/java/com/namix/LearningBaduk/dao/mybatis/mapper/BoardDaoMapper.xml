@@ -83,5 +83,37 @@
 	<select id="getDetailsRowNumber" resultType="int">
 		select sb.rn from (select b.*, row_number() over(order by boardId desc) as rn from board as b) as sb where boardId = #{id};
 	</select>
+	
+	<select id="getMyWritingBoards" resultType="com.namix.LearningBaduk.entity.BoardView">
+		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname, imgPath from boardview where userId = #{userId} and boardTitle like '%${query}%' order by boardId desc limit #{offset}, #{size}
+	</select>
+
+	<select id="getMyWritingPageCount" resultType="int">
+		select count(*) from boardview where userId = #{userId} and boardTitle like '%${query}%'
+	</select>
+	
+	<select id="getMyOwnBoards" resultType="com.namix.LearningBaduk.entity.MyBoard">
+		select myBoardId, myBoardTitle, myBoardContent, date_format(myBoardDate, '%Y-%m-%d') as myBoardDate, userId from myboard where userId = #{userId} and myBoardTitle like '%${query}%' order by myBoardId desc limit #{offset}, #{size}
+	</select>
+
+	<select id="getMyOwnPageCount" resultType="int">
+		select count(*) from myboard where userId = #{userId} and myBoardTitle like '%${query}%'
+	</select>
+	
+	<insert id="writeMyDetail">
+		insert into myboard(myBoardTitle, myBoardContent, userId) values(#{title}, #{content}, #{userId})
+	</insert>
+	
+	<select id="getUsersLastMyBoardId" resultType="int">
+		select myBoardId from myboard where userId = #{userId} order by myBoardId desc limit 1;
+	</select>
+	
+	<select id="getMyDetailBoard" resultType="com.namix.LearningBaduk.entity.MyBoard">
+		select MyBoardId, MyBoardTitle, MyBoardContent, date_format(MyBoardDate, '%Y-%m-%d') as MyBoardDate, userId from myboard where myBoardId = #{id}
+	</select>
+	
+	<select id="getMyDetailsRowNumber" resultType="int">
+		select sb.rn from (select b.*, row_number() over(order by myBoardId desc) as rn from myboard as b) as sb where myBoardId = #{id};
+	</select>
 
 </mapper>

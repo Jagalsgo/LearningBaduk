@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.MyBoard;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.script.ScriptClass;
 import com.namix.LearningBaduk.service.BoardService;
@@ -33,7 +34,7 @@ public class DetailController {
 	private BoardService service;
 	
 	@GetMapping("endGameDetail")
-	public String detail(@RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String endGameDetail(@RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		BoardView boardView = service.getDetailBoard(id);
 		int boardCount = service.getPageCount("endGameBoard");
@@ -63,6 +64,24 @@ public class DetailController {
 		}
 		
 		return "detail.endGameDetail";
+			
+	}
+	
+	@GetMapping("myOwnDetail")
+	public String myOwnDetail(@RequestParam("id") int id, HttpServletResponse response, Model model, HttpSession session) {
+		
+		User user = (User) session.getAttribute("user");
+		String userId = user.getUserId();
+		
+		MyBoard board = service.getMyDetailBoard(id);
+		int boardCount = service.getMyOwnPageCount(userId);
+		int detailsPage = service.getMyDetailsPage(id);
+		
+		model.addAttribute("boardView", board);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("detailsPage", detailsPage);
+		
+		return "detail.myOwnDetail";
 			
 	}
 	
@@ -135,6 +154,30 @@ public class DetailController {
 			ScriptClass.historyBack(response);
 		}else {
 			ScriptClass.alertAndMove(response, "글 작성 완료", "/detail/"+categoryDet+"?id="+boardId);
+		}
+		
+	}
+	
+	@GetMapping("writeMyDetail")
+	public String writeMyDetail() {
+		return "detail.writeMyDetail";
+	}
+	
+	@PostMapping("writeMyDetail")
+	public void writeMyDetailPost(@RequestParam("writeTitle") String title, @RequestParam("writeContent") String content,
+												HttpSession session, HttpServletResponse response) throws IOException {
+		
+		User user = (User) session.getAttribute("user");
+		String userId = user.getUserId();
+		int writeMyDetailResult = 0;
+		writeMyDetailResult = service.writeMyDetail(title, content, userId);
+		int boardId = service.getUsersLastMyBoardId(userId);
+		
+		if(writeMyDetailResult == 0) {
+			ScriptClass.alert(response, "글 작성 중 오류 발생");
+			ScriptClass.historyBack(response);
+		}else {
+			ScriptClass.alertAndMove(response, "글 작성 완료", "/detail/myOwnsDetail?id="+boardId);
 		}
 		
 	}

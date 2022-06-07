@@ -2,6 +2,8 @@ package com.namix.LearningBaduk.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.namix.LearningBaduk.entity.BoardView;
+import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.service.BoardService;
 
 @Controller
@@ -52,11 +55,33 @@ public class BoardController {
 		return "board.freeBoard";
 	}
 	@GetMapping("myOwnBoard")
-	public String myOwnBoard() {
+	public String myOwnBoard(@RequestParam(value="p", defaultValue="1") Integer page,
+			@RequestParam(value="q", defaultValue="") String query, Model model, HttpSession session) {
+		
+		User user = (User) session.getAttribute("user");
+		String userId = user.getUserId();
+		
+		List<BoardView> boards = service.getMyOwnBoards(page, query, userId);
+		int pageCount = service.getMyOwnPageCount(query, userId);
+		
+		model.addAttribute("boards", boards);
+		model.addAttribute("pageCount", pageCount);
+		
 		return "board.myOwnBoard";
 	}
 	@GetMapping("myWritingBoard")
-	public String myWritingBoard() {
+	public String myWritingBoard(@RequestParam(value="p", defaultValue="1") Integer page,
+											@RequestParam(value="q", defaultValue="") String query, Model model, HttpSession session) {
+		
+		User user = (User) session.getAttribute("user");
+		String userId = user.getUserId();
+		
+		List<BoardView> boards = service.getMyWritingBoards(page, query, userId);
+		int pageCount = service.getMyWritingPageCount(query, userId);
+		
+		model.addAttribute("boards", boards);
+		model.addAttribute("pageCount", pageCount);
+		
 		return "board.myWritingBoard";
 	}
 	@GetMapping("noticeBoard")

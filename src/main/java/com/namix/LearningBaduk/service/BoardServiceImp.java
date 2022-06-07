@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.namix.LearningBaduk.dao.BoardDao;
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.MyBoard;
 
 @Service
 public class BoardServiceImp implements BoardService {
@@ -139,6 +140,66 @@ public class BoardServiceImp implements BoardService {
 	public int getDetailsPage(int id) {
 		
 		int detailsRowNumber = boardDao.getDetailsRowNumber(id);
+		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
+		
+		if(detailsPage <= 1) {
+			detailsPage = 1;
+		}
+		
+		return detailsPage;
+	}
+
+	@Override
+	public List<BoardView> getMyWritingBoards(int page, String query, String userId) {
+		
+		int size = 10;
+		int offset = 0+(page-1)*size;
+		
+		return boardDao.getMyWritingBoards(page, query, userId, size, offset);
+	}
+
+	@Override
+	public int getMyWritingPageCount(String query, String userId) {
+		return boardDao.getMyWritingPageCount(query, userId);
+	}
+
+	@Override
+	public List<BoardView> getMyOwnBoards(Integer page, String query, String userId) {
+		int size = 10;
+		int offset = 0+(page-1)*size;
+		
+		return boardDao.getMyOwnBoards(page, query, userId, size, offset);
+	}
+	
+	@Override
+	public int getMyOwnPageCount(String userId) {
+		return boardDao.getMyOwnPageCount("", userId);
+	}
+
+	@Override
+	public int getMyOwnPageCount(String query, String userId) {
+		return boardDao.getMyOwnPageCount(query, userId);
+	}
+
+	@Override
+	public int writeMyDetail(String title, String content, String userId) {
+		return boardDao.writeMyDetail(title, content, userId);
+	}
+
+	@Override
+	public int getUsersLastMyBoardId(String userId) {
+		return boardDao.getUsersLastMyBoardId(userId);
+	}
+
+	@Override
+	public MyBoard getMyDetailBoard(int id) {
+		return boardDao.getMyDetailBoard(id);
+	}
+
+	@Override
+	public int getMyDetailsPage(int id) {
+		
+		int detailsRowNumber = boardDao.getMyDetailsRowNumber(id);
 		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
 		
 		if(detailsPage <= 1) {

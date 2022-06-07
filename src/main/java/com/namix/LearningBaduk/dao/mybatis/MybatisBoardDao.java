@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.namix.LearningBaduk.dao.BoardDao;
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.MyBoard;
 
 @Repository
 public class MybatisBoardDao implements BoardDao {
@@ -120,6 +121,46 @@ public class MybatisBoardDao implements BoardDao {
 	@Override
 	public int getDetailsRowNumber(int id) {
 		return boardDaoMapper.getDetailsRowNumber(id);
+	}
+
+	@Override
+	public List<BoardView> getMyWritingBoards(int page, String query, String userId, int size, int offset) {
+		return boardDaoMapper.getMyWritingBoards(page, query, userId, size, offset);
+	}
+
+	@Override
+	public int getMyWritingPageCount(String query, String userId) {
+		return boardDaoMapper.getMyWritingPageCount(query, userId);
+	}
+
+	@Override
+	public List<BoardView> getMyOwnBoards(Integer page, String query, String userId, int size, int offset) {
+		return boardDaoMapper.getMyOwnBoards(page, query, userId, size, offset);
+	}
+
+	@Override
+	public int getMyOwnPageCount(String query, String userId) {
+		return boardDaoMapper.getMyOwnPageCount(query, userId);
+	}
+
+	@Override
+	public int writeMyDetail(String title, String content, String userId) {
+		return boardDaoMapper.writeMyDetail(title, content, userId);
+	}
+
+	@Override
+	public int getUsersLastMyBoardId(String userId) {
+		return boardDaoMapper.getUsersLastMyBoardId(userId);
+	}
+
+	@Override
+	public MyBoard getMyDetailBoard(int id) {
+		return boardDaoMapper.getMyDetailBoard(id);
+	}
+
+	@Override
+	public int getMyDetailsRowNumber(int id) {
+		return boardDaoMapper.getMyDetailsRowNumber(id);
 	}
 
 }

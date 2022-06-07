@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.MyBoard;
 
 public interface BoardService {
 
@@ -30,6 +31,15 @@ public interface BoardService {
 	int postComment(String userId, String commentContent, int id);
 	int deleteComment(int cid);
 	int getDetailsPage(int id);
+	List<BoardView> getMyWritingBoards(int page, String query, String userId);
+	int getMyWritingPageCount(String query, String userId);
+	List<BoardView> getMyOwnBoards(Integer page, String query, String userId);
+	int getMyOwnPageCount(String userId);
+	int getMyOwnPageCount(String query, String userId);
+	int writeMyDetail(String title, String content, String userId);
+	int getUsersLastMyBoardId(String userId);
+	MyBoard getMyDetailBoard(int id);
+	int getMyDetailsPage(int id);
 	
 	
 }

@@ -21,6 +21,13 @@
 	    <put-attribute name="js" value="/js/updateDetail.js" />
   </definition>
   
+  <definition name="detail.updateMyDetail" template="/WEB-INF/view/inc/CUDetailLayout.jsp">
+	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+	    <put-attribute name="main" value="/WEB-INF/view/detail/updateMyDetail.jsp" />
+	    <put-attribute name="css" value="/css/updateDetail.css" />
+	    <put-attribute name="js" value="/js/updateDetail.js" />
+  </definition>
+  
   <definition name="detail.writeDetail" template="/WEB-INF/view/inc/CUDetailLayout.jsp">
 	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
 	    <put-attribute name="main" value="/WEB-INF/view/detail/writeDetail.jsp" />
@@ -28,11 +35,18 @@
 	    <put-attribute name="js" value="/js/writeDetail.js" />
   </definition>
   
+  <definition name="detail.writeMyDetail" template="/WEB-INF/view/inc/CUDetailLayout.jsp">
+	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+	    <put-attribute name="main" value="/WEB-INF/view/detail/writeMyDetail.jsp" />
+	    <put-attribute name="css" value="/css/writeDetail.css" />
+	    <put-attribute name="js" value="/js/writeDetail.js" />
+  </definition>
+  
   <definition name="detail.*" template="/WEB-INF/view/inc/detailLayout.jsp">
 	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
 	    <put-attribute name="main" value="/WEB-INF/view/detail/{1}.jsp" />
-	    <put-attribute name="css" value="/css/{1}.css" />
-	    <put-attribute name="js" value="/js/{1}.js" />
+	    <put-attribute name="css" value="/css/detail.css" />
+	    <put-attribute name="js" value="/js/detail.js" />
   </definition>
   
   <definition name="user.*" template="/WEB-INF/view/inc/userLayout.jsp">

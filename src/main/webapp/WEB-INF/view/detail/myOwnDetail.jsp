@@ -7,23 +7,12 @@
 	<div class="fw-bold h4 mb-4 col-12 container-md pt-5"><a href="/board/endGameBoard">바둑 끝내기</a></div>
 	<div class="container-md border p-3">
 		<div class="row">
-			<input type="hidden" value="${boardView.boardId }" id="boardId" name="boardId">
+			<input type="hidden" value="${board.myBoardId }" id="myBoardId" name="myBoardId">
 			<input type="hidden" value="${user.userId }" id="userId" name="userId">
-			<input type="hidden" value="endGameBoard" id="category" name="category">
 			<input type="hidden" value="${detailsPage }" id="detailsPage" name="detailsPage">
 			
-			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
+			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${board.myBoardTitle }</div>
 			<div class="col-7 p-3 border-bottom userMenu">
-				<span class="userMenuPointerDetail">
-					<c:choose>
-						<c:when test="${boardView.imgPath == null }">
-							<img alt="user" src="/img/user.png" width="25" height="25"> ${boardView.userNickname }
-						</c:when>
-						<c:otherwise>
-							<img alt="user" src="${boardView.imgPath }" width="25" height="25"> ${boardView.userNickname }
-						</c:otherwise>
-					</c:choose>
-				</span>
 				<div class="position-relative">
 					<ul class="userMenuBoxDetail">
 	               		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
@@ -31,17 +20,17 @@
 	               	</ul>
 				</div>
 			</div>
-			<div class="col-3 p-3  border-bottom text-muted text-right">${boardView.boardDate }</div>
-			<div class="col-2 p-3  text-center border-bottom text-muted"><i class="fa fa-solid fa-eye fa-lg vertical-align"></i> ${boardView.boardHit }</div>
+			<div class="col-3 p-3  border-bottom text-muted text-right">${board.MyBoardDate }</div>
+			<div class="col-2 p-3  text-center border-bottom text-muted"><i class="fa fa-solid fa-eye fa-lg vertical-align"></i> ${board.boardHit }</div>
 			<div class="col-12 px-3 py-5">
-				${boardView.boardContent }
+				${board.boardContent }
 			</div>
-			<div class="col-6 text-right my-4" id="likeIconBox"><i class="fa fa-solid fa-thumbs-up fa-2x likeDislikeImg" onclick="likeBtnClick(${boardView.boardId})" id="likeBtn"></i><span id="likeCount"> ${boardView.likeCount }</span></div>
-			<div class="col-6 my-4" id="dislikeIconBox"><i class="fa fa-solid fa-thumbs-down fa-2x likeDislikeImg" onclick="dislikeBtnClick(${boardView.boardId})" id="dislikeBtn"></i><span id="dislikeCount">  ${boardView.dislikeCount }</span></div>
-			<c:if test="${boardView.userId == user.userId }">
+			<div class="col-6 text-right my-4" id="likeIconBox"><i class="fa fa-solid fa-thumbs-up fa-2x likeDislikeImg" onclick="likeBtnClick(${board.boardId})" id="likeBtn"></i><span id="likeCount"> ${board.likeCount }</span></div>
+			<div class="col-6 my-4" id="dislikeIconBox"><i class="fa fa-solid fa-thumbs-down fa-2x likeDislikeImg" onclick="dislikeBtnClick(${board.boardId})" id="dislikeBtn"></i><span id="dislikeCount">  ${board.dislikeCount }</span></div>
+			<c:if test="${board.userId == user.userId }">
 				<div class="col-12 my-4 text-right px-5">
-					<a href="/detail/updateDetail?id=${boardView.boardId }&ct=endGameDetail"><button class="btn btn-secondary lUDBtn mx-2">수정</button></a>
-	            	<a href="/detail/deleteDetail?id=${boardView.boardId }&ct=endGameBoard"><button class="btn btn-secondary lUDBtn">삭제</button></a>
+					<a href="/detail/updateDetail?id=${board.boardId }&ct=endGameDetail"><button class="btn btn-secondary lUDBtn mx-2">수정</button></a>
+	            	<a href="/detail/deleteDetail?id=${board.boardId }&ct=endGameBoard"><button class="btn btn-secondary lUDBtn">삭제</button></a>
 				</div>
 			</c:if>
 		</div>
@@ -70,13 +59,13 @@
 	
 	<!-- comment list -->
 	<div class="container-md border p-3 my-5">
-		<div class="mt-2 mb-4 fw-bold" id="commentList">댓글 목록  (${boardView.commentCount })</div>
+		<div class="mt-2 mb-4 fw-bold" id="commentList">댓글 목록  (${board.commentCount })</div>
 			<div class="row" id="comments">
 			</div>
 			<!-- comment pagination -->
 			<c:set var="commentPage" value="${(empty commentPage)?1:commentPage }" />
 			<c:set var="firstCommentPage" value="${commentPage - (commentPage - 1) % 5}" />
-			<c:set var="lastCommentPage" value="${ fn:substringBefore(Math.ceil(boardView.commentCount/10), '.') }" />
+			<c:set var="lastCommentPage" value="${ fn:substringBefore(Math.ceil(board.commentCount/10), '.') }" />
 			
 			<div aria-label="Page navigation example" class="mt-5 mb-3 ">
 		        <ul class="pagination pagination-sm justify-content-center">

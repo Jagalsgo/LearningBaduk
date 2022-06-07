@@ -40,28 +40,22 @@ public class FileController {
 					try {
 						
 						String fileName = file.getName();
-						System.out.println("fileName1 : " + fileName);
 						byte[] bytes = file.getBytes();
 						String uploadPath =request.getServletContext().getRealPath("/img");
-						System.out.println("uploadPath1 : " + uploadPath);
 						File uploadFile = new File(uploadPath);
-						System.out.println("uploadFile : "+uploadFile);
 						
 						if(!uploadFile.exists()) {
 							uploadFile.mkdir();
 						}
 						
 						fileName = UUID.randomUUID().toString();
-						System.out.println("fileName2 : " + fileName);
 						uploadPath = uploadPath + "/" + fileName;
-						System.out.println("uploadPath2 : " + uploadPath);
 						out = new FileOutputStream(new File(uploadPath));
 						
 						out.write(bytes);
 						printWriter = response.getWriter();
 						response.setContentType("text/html");
 						String fileUrl = request.getContextPath() + "/img/" + fileName;
-						System.out.println("fileUrl : "+fileUrl);
 						
 						json.addProperty("uploaded", 1);
 						json.addProperty("fileName", fileName);

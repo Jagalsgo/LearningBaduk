@@ -1,20 +1,18 @@
 package com.namix.LearningBaduk.entity;
 
-import java.util.Date;
-
 public class MyBoard {
 
 	private int myBoardId;
 	private String myBoardTitle;
 	private String myBoardContent;
-	private Date myBoardDate;
+	private String myBoardDate;
 	private String userId;
 	
 	public MyBoard() {
 		
 	}
 
-	public MyBoard(int myBoardId, String myBoardTitle, String myBoardContent, Date myBoardDate, String userId) {
+	public MyBoard(int myBoardId, String myBoardTitle, String myBoardContent, String myBoardDate, String userId) {
 		this.myBoardId = myBoardId;
 		this.myBoardTitle = myBoardTitle;
 		this.myBoardContent = myBoardContent;
@@ -46,11 +44,11 @@ public class MyBoard {
 		this.myBoardContent = myBoardContent;
 	}
 
-	public Date getMyBoardDate() {
+	public String getMyBoardDate() {
 		return myBoardDate;
 	}
 
-	public void setMyBoardDate(Date myBoardDate) {
+	public void setMyBoardDate(String myBoardDate) {
 		this.myBoardDate = myBoardDate;
 	}
 
