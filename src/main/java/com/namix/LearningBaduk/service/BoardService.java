@@ -33,13 +33,15 @@ public interface BoardService {
 	int getDetailsPage(int id);
 	List<BoardView> getMyWritingBoards(int page, String query, String userId);
 	int getMyWritingPageCount(String query, String userId);
-	List<BoardView> getMyOwnBoards(Integer page, String query, String userId);
+	List<MyBoard> getMyOwnBoards(int page, String query, String userId);
 	int getMyOwnPageCount(String userId);
 	int getMyOwnPageCount(String query, String userId);
 	int writeMyDetail(String title, String content, String userId);
 	int getUsersLastMyBoardId(String userId);
 	MyBoard getMyDetailBoard(int id);
 	int getMyDetailsPage(int id);
+	int deleteMyDetail(int id);
+	int updateMyDetail(int id, String title, String content);
 	
 	
 }

@@ -3,7 +3,7 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-  
+
   <definition name="board.home" template="/WEB-INF/view/inc/homeLayout.jsp">
 	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
 	    <put-attribute name="main" value="/WEB-INF/view/board/home.jsp" />
@@ -41,6 +41,13 @@
 	    <put-attribute name="css" value="/css/writeDetail.css" />
 	    <put-attribute name="js" value="/js/writeDetail.js" />
   </definition>
+  
+	 <definition name="detail.myOwnDetail" template="/WEB-INF/view/inc/detailLayout.jsp">
+	   <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+	   <put-attribute name="main" value="/WEB-INF/view/detail/myOwnDetail.jsp" />
+	   <put-attribute name="css" value="/css/detail.css" />
+	   <put-attribute name="js" value="/js/myOwnDetail.js" />
+	</definition>
   
   <definition name="detail.*" template="/WEB-INF/view/inc/detailLayout.jsp">
 	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />

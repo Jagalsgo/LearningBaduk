@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/detail.css">
+    <link rel="stylesheet" href="<tiles:getAsString name = "css"/>">
     <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
     <script src="https://kit.fontawesome.com/9e1a390ee4.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/js/header.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
-    <script type="text/javascript" src="/js/detail.js"></script>
+    <script type="text/javascript" src="<tiles:getAsString name="js"/>"></script>
     <title>Learning Baduk</title>
 </head>
 <body>

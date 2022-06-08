@@ -164,7 +164,7 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public List<BoardView> getMyOwnBoards(Integer page, String query, String userId) {
+	public List<MyBoard> getMyOwnBoards(int page, String query, String userId) {
 		int size = 10;
 		int offset = 0+(page-1)*size;
 		
@@ -207,6 +207,16 @@ public class BoardServiceImp implements BoardService {
 		}
 		
 		return detailsPage;
+	}
+
+	@Override
+	public int deleteMyDetail(int id) {
+		return boardDao.deleteMyDetail(id);
+	}
+
+	@Override
+	public int updateMyDetail(int id, String title, String content) {
+		return boardDao.updateMyDetail(id, title, content);
 	}
 
 }

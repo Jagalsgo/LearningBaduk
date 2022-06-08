@@ -77,7 +77,7 @@ public class DetailController {
 		int boardCount = service.getMyOwnPageCount(userId);
 		int detailsPage = service.getMyDetailsPage(id);
 		
-		model.addAttribute("boardView", board);
+		model.addAttribute("board", board);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("detailsPage", detailsPage);
 		
@@ -112,6 +112,32 @@ public class DetailController {
 		
 	}
 	
+	@GetMapping("updateMyDetail")
+	public String updateMyDetail(@RequestParam("id") int id, Model model) {
+		
+		MyBoard board = service.getMyDetailBoard(id);
+		model.addAttribute("board", board);
+		
+		return "detail.updateMyDetail";
+	}
+	
+	@PostMapping("updateMyDetail")
+	public void updateMyDetailPost(@RequestParam("id") int id, @RequestParam("updateTitle") String title, 
+											@RequestParam("updateContent") String content, 
+											HttpServletResponse response) throws IOException {
+		
+		int updateDetailResult = 0;
+		updateDetailResult = service.updateMyDetail(id, title, content);
+		
+		if(updateDetailResult == 0) {
+			ScriptClass.alert(response, "글 수정 중 오류 발생");
+			ScriptClass.historyBack(response);
+		}else {
+			ScriptClass.alertAndMove(response, "글 수정 완료", "/detail/myOwnDetail?id="+id);
+		}
+		
+	}
+	
 	@GetMapping("deleteDetail")
 	public void deleteDetail(@RequestParam("id") int id, @RequestParam("ct") String category, HttpServletResponse response) throws IOException {
 		
@@ -123,6 +149,21 @@ public class DetailController {
 			ScriptClass.historyBack(response);
 		}else {
 			ScriptClass.alertAndMove(response, "글 삭제 완료", "/board/"+category);
+		}
+		
+	}
+	
+	@GetMapping("deleteMyDetail")
+	public void deleteMyDetail(@RequestParam("id") int id, HttpServletResponse response) throws IOException {
+		
+		int deleteDetailResult = 0;
+		deleteDetailResult = service.deleteMyDetail(id);
+		
+		if(deleteDetailResult == 0) {
+			ScriptClass.alert(response, "글 삭제 중 오류 발생");
+			ScriptClass.historyBack(response);
+		}else {
+			ScriptClass.alertAndMove(response, "글 삭제 완료", "/board/myOwnBoard");
 		}
 		
 	}
@@ -298,6 +339,19 @@ public class DetailController {
 													Model model){
 		
 		List<BoardView> boards = service.getBoards(category, boardPage);
+		model.addAttribute("boardPage", boardPage);
+		return boards;
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("getMyBoards")
+	public List<MyBoard> getMyBoards(@RequestParam(value="boardPage", defaultValue = "1") Integer boardPage, 
+														Model model, HttpSession session){
+		
+		User user = (User) session.getAttribute("user");
+		String userId = user.getUserId();
+		List<MyBoard> boards =  service.getMyOwnBoards(boardPage, "", userId);
 		model.addAttribute("boardPage", boardPage);
 		return boards;
 		

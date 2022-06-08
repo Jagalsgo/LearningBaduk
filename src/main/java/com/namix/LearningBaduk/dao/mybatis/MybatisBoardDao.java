@@ -134,7 +134,7 @@ public class MybatisBoardDao implements BoardDao {
 	}
 
 	@Override
-	public List<BoardView> getMyOwnBoards(Integer page, String query, String userId, int size, int offset) {
+	public List<MyBoard> getMyOwnBoards(int page, String query, String userId, int size, int offset) {
 		return boardDaoMapper.getMyOwnBoards(page, query, userId, size, offset);
 	}
 
@@ -161,6 +161,16 @@ public class MybatisBoardDao implements BoardDao {
 	@Override
 	public int getMyDetailsRowNumber(int id) {
 		return boardDaoMapper.getMyDetailsRowNumber(id);
+	}
+
+	@Override
+	public int deleteMyDetail(int id) {
+		return boardDaoMapper.deleteMyDetail(id);
+	}
+
+	@Override
+	public int updateMyDetail(int id, String title, String content) {
+		return boardDaoMapper.updateMyDetail(id, title, content);
 	}
 
 }

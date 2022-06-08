@@ -3,6 +3,7 @@ $(document).ready(function(){
 	boardId = $('#boardId').val();
 	userId = $('#userId').val();
 	category = $('#category').val();
+	categoryDetail = $('#categoryDetail').val();
 	detailsPage = $('#detailsPage').val();
 	rv = false;
 
@@ -205,9 +206,9 @@ function getBoards(boardPage){
 			                    +"<td class='boardLike fw-bold'>"+(this.likeCount-this.dislikeCount)+"</td>";
 			                    
                 if(this.boardId == boardId){
-					str += "<td class='boardTitle'><a class='text-primary fw-bold' href='/detail/endGameDetail?id="+this.boardId+"'>"+this.boardTitle+"  <span class='text-muted'>("+this.commentCount+")</span></a></td>";
+					str += "<td class='boardTitle'><a class='text-primary fw-bold' href='/detail/"+categoryDetail+"?id="+this.boardId+"'>"+this.boardTitle+"  <span class='text-muted'>("+this.commentCount+")</span></a></td>";
 				}else{
-					str += "<td class='boardTitle'><a href='/detail/endGameDetail?id="+this.boardId+"'>"+this.boardTitle+"  <span class='text-muted'>("+this.commentCount+")</span></a></td>";
+					str += "<td class='boardTitle'><a href='/detail/"+categoryDetail+"?id="+this.boardId+"'>"+this.boardTitle+"  <span class='text-muted'>("+this.commentCount+")</span></a></td>";
 				}
 			         
 				            

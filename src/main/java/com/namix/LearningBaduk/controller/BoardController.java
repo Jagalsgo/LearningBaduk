@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.namix.LearningBaduk.entity.BoardView;
+import com.namix.LearningBaduk.entity.MyBoard;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.service.BoardService;
 
@@ -61,7 +62,7 @@ public class BoardController {
 		User user = (User) session.getAttribute("user");
 		String userId = user.getUserId();
 		
-		List<BoardView> boards = service.getMyOwnBoards(page, query, userId);
+		List<MyBoard> boards = service.getMyOwnBoards(page, query, userId);
 		int pageCount = service.getMyOwnPageCount(query, userId);
 		
 		model.addAttribute("boards", boards);

@@ -30,11 +30,13 @@ public interface BoardDao {
 	int getDetailsRowNumber(int id);
 	List<BoardView> getMyWritingBoards(int page, String query, String userId, int size, int offset);
 	int getMyWritingPageCount(String query, String userId);
-	List<BoardView> getMyOwnBoards(Integer page, String query, String userId, int size, int offset);
+	List<MyBoard> getMyOwnBoards(int page, String query, String userId, int size, int offset);
 	int getMyOwnPageCount(String query, String userId);
 	int writeMyDetail(String title, String content, String userId);
 	int getUsersLastMyBoardId(String userId);
 	MyBoard getMyDetailBoard(int id);
 	int getMyDetailsRowNumber(int id);
+	int deleteMyDetail(int id);
+	int updateMyDetail(int id, String title, String content);
 	
 }

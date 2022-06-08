@@ -10,6 +10,7 @@
 			<input type="hidden" value="${boardView.boardId }" id="boardId" name="boardId">
 			<input type="hidden" value="${user.userId }" id="userId" name="userId">
 			<input type="hidden" value="endGameBoard" id="category" name="category">
+			<input type="hidden" value="endGameDetail" id="categoryDetail" name="categoryDetail">
 			<input type="hidden" value="${detailsPage }" id="detailsPage" name="detailsPage">
 			
 			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>

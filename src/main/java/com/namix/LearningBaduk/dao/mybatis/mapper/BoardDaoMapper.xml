@@ -115,5 +115,13 @@
 	<select id="getMyDetailsRowNumber" resultType="int">
 		select sb.rn from (select b.*, row_number() over(order by myBoardId desc) as rn from myboard as b) as sb where myBoardId = #{id};
 	</select>
+	
+	<delete id="deleteMyDetail">
+		delete from myboard where myBoardId = #{id}
+	</delete>
+	
+	<update id="updateMyDetail">
+		update myboard set myBoardTitle = #{title}, myBoardContent = #{content} where myBoardId = #{id}
+	</update>
 
 </mapper>
