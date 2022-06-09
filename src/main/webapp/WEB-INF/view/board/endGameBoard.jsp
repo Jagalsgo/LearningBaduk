@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="container-md py-5">
 		<div class="row">
-			<div class="fw-bold h4 mb-4 col-12"><a href="/board/endGameBoard">바둑 끝내기</a></div>
+			<div class="fw-bold h4 mb-4 col-12"><a href="/board/endGameBoard">바둑 끝내기 ${category.ct }</a></div>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">

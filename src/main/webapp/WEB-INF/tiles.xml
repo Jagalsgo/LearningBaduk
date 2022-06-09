@@ -11,7 +11,7 @@
   
   <definition name="board.*" template="/WEB-INF/view/inc/boardLayout.jsp">
 	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/board/{1}.jsp" />
+	    <put-attribute name="main" value="/WEB-INF/view/board/endGameBoard.jsp" />
   </definition>
   
   <definition name="detail.updateDetail" template="/WEB-INF/view/inc/CUDetailLayout.jsp">

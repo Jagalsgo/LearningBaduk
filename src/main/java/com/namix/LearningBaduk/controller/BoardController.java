@@ -1,6 +1,8 @@
 package com.namix.LearningBaduk.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.MyBoard;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.service.BoardService;
+import com.namix.LearningBaduk.service.EtcService;
 
 @Controller
 @RequestMapping("/board/")
@@ -22,22 +25,26 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService service;
+	@Autowired
+	private EtcService etcService;
 	
 	@GetMapping("home")
 	public String home() {
 		return "board.home";
 	}
-	@GetMapping("endGameBoard")
+	@GetMapping("a")
 	public String endGameBoard(@RequestParam(value="p", defaultValue="1") Integer page,
 											@RequestParam(value="f", defaultValue="boardTitle") String field,
-											@RequestParam(value="q", defaultValue="") String query, Model model) {
-		
-		String category = "endGameBoard";
-		List<BoardView> boards = service.getBoards(category, page, field, query);
-		int pageCount = service.getPageCount(category, field, query);
+											@RequestParam(value="q", defaultValue="") String query, 
+											@RequestParam("ct") String ct, Model model) {
+		Map<String, String> map = new HashMap<String, String>();
+		map = etcService.getCategorys(ct);
+		List<BoardView> boards = service.getBoards(map.get("categoryBoard"), page, field, query);
+		int pageCount = service.getPageCount(map.get("categoryBoard"), field, query);
 		
 		model.addAttribute("boards", boards);
 		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("cateogry", map);
 		
 		return "board.endGameBoard";
 	}

@@ -50,7 +50,7 @@
 			   	<div class="col-sm-3 col-md fw-bold mb-2"><a href="/board/ruleBoard">룰</a></div>
 			   	<div class="col-sm-3 col-md fw-bold mb-2"><a href="/board/patternBoard">정석</a></div>
 			   	<div class="col-sm-3 col-md fw-bold mb-2"><a href="/board/openingBoard">포석</a></div>
-			   	<div class="col-sm-3 col-md fw-bold mb-2"><a href="/board/endGameBoard">끝내기</a></div>
+			   	<div class="col-sm-3 col-md fw-bold mb-2"><a href="/board/a?ct=endGame">끝내기</a></div>
 			   	<div class="col-sm-3 col-md fw-bold mb-2"><a href="/board/quetionBoard">바둑Q&A</a></div>
 			   	<div class="col-sm-3 col-md fw-bold mb-2"><a href="/board/scheduleBoard">프로바둑일정</a></div>
 			   	<div class="col-sm-3 col-md fw-bold mb-2"><a href="/board/noticeBoard">공지</a></div>
