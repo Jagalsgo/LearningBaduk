@@ -11,7 +11,7 @@
   
   <definition name="board.*" template="/WEB-INF/view/inc/boardLayout.jsp">
 	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/board/endGameBoard.jsp" />
+	    <put-attribute name="main" value="/WEB-INF/view/board/{1}.jsp" />
   </definition>
   
   <definition name="detail.updateDetail" template="/WEB-INF/view/inc/CUDetailLayout.jsp">
@@ -49,9 +49,9 @@
 	   <put-attribute name="js" value="/js/myOwnDetail.js" />
 	</definition>
   
-  <definition name="detail.*" template="/WEB-INF/view/inc/detailLayout.jsp">
+  <definition name="detail.detail" template="/WEB-INF/view/inc/detailLayout.jsp">
 	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/detail/{1}.jsp" />
+	    <put-attribute name="main" value="/WEB-INF/view/detail/detail.jsp" />
 	    <put-attribute name="css" value="/css/detail.css" />
 	    <put-attribute name="js" value="/js/detail.js" />
   </definition>

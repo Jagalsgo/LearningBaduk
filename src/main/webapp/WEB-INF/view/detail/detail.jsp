@@ -4,13 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- detail content  -->
-	<div class="fw-bold h4 mb-4 col-12 container-md pt-5"><a href="/board/endGameBoard">바둑 끝내기</a></div>
+	<div class="fw-bold h4 mb-4 col-12 container-md pt-5"><a href="/board/board?ct=${category.ct }">${category.categoryKor }</a></div>
 	<div class="container-md border p-3">
 		<div class="row">
 			<input type="hidden" value="${boardView.boardId }" id="boardId" name="boardId">
 			<input type="hidden" value="${user.userId }" id="userId" name="userId">
-			<input type="hidden" value="endGameBoard" id="category" name="category">
-			<input type="hidden" value="endGameDetail" id="categoryDetail" name="categoryDetail">
+			<input type="hidden" value="${category.categoryBoard }" id="category" name="category">
+			<input type="hidden" value="${category.ct }" id="categoryCt" name="categoryCt">
 			<input type="hidden" value="${detailsPage }" id="detailsPage" name="detailsPage">
 			
 			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
@@ -41,8 +41,8 @@
 			<div class="col-6 my-4" id="dislikeIconBox"><i class="fa fa-solid fa-thumbs-down fa-2x likeDislikeImg" onclick="dislikeBtnClick(${boardView.boardId})" id="dislikeBtn"></i><span id="dislikeCount">  ${boardView.dislikeCount }</span></div>
 			<c:if test="${boardView.userId == user.userId }">
 				<div class="col-12 my-4 text-right px-5">
-					<a href="/detail/updateDetail?id=${boardView.boardId }&ct=endGameDetail"><button class="btn btn-secondary lUDBtn mx-2">수정</button></a>
-	            	<a href="/detail/deleteDetail?id=${boardView.boardId }&ct=endGameBoard"><button class="btn btn-secondary lUDBtn">삭제</button></a>
+					<a href="/detail/updateDetail?id=${boardView.boardId }&ct=${category.ct}"><button class="btn btn-secondary lUDBtn mx-2">수정</button></a>
+	            	<a href="/detail/deleteDetail?id=${boardView.boardId }&ct=${category.ct}"><button class="btn btn-secondary lUDBtn">삭제</button></a>
 				</div>
 			</c:if>
 		</div>
@@ -129,7 +129,7 @@
 	<div class="container-md my-4">
 		<div class="row">
 			<!-- go to list  -->
-			<div class="col-sm-1 col-md-1" id="goToList"><a href="/board/endGameBoard"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
+			<div class="col-sm-1 col-md-1" id="goToList"><a href="/board/board?ct=${category.ct }"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
 			<!-- pagination -->
 			<c:set var="boardPage" value="${(empty boardPage)?1:boardPage }" />
 			<c:set var="firstBoardPage" value="${boardPage - (boardPage - 1) % 5}" />
@@ -163,9 +163,7 @@
 		    <c:if test="${!empty user }">
 	           <div class="col-sm-3 col-md-2" id="goToWrite">
 	           		<form action="/detail/writeDetail">
-	           			<input type="hidden" id="categoryEng" name="categoryEng" value="endGameBoard">
-	           			<input type="hidden" id="categoryKor" name="categoryKor" value="끝내기">
-	           			<input type="hidden" id="categoryDet" name="categoryDet" value="endGameDetail">
+	           			<input type="hidden" id="writeCt" name="writeCt" value="${category.ct }">
 	           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
 	           		</form>
 	           </div>

@@ -19,11 +19,11 @@
 		            </thead>
 		            <tbody>
 		                	<c:forEach var="b" items="${boards }">
-		                		<c:set var="detailCategory" value="${fn:replace(b.boardCategory, 'Board', 'Detail') }" />
+		                		<c:set var="ct" value="${fn:replace(b.boardCategory, 'Board', '') }" />
 			            	    <tr>
 				                    <td class="boardDate text-muted text-center">${b.boardDate }</td>
 				                    <td class="boardLike fw-bold">${b.likeCount - b.dislikeCount}</td>
-				                    <td class="boardTitle "><a href="/detail/${detailCategory }?id=${b.boardId }">${b.boardTitle }  <span class="text-muted">(${b.commentCount })</span></a></td>
+				                    <td class="boardTitle "><a href="/detail/detail?ct=${ct }&id=${b.boardId }">${b.boardTitle }  <span class="text-muted">(${b.commentCount })</span></a></td>
 				                    <td class="boardWriter fw-bold text-center">
 				                    	<div class="position-relative userMenuPointer">${b.userNickname }
 				                    		<ul class="userMenuBox">

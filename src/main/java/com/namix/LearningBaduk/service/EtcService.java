@@ -4,6 +4,5 @@ import java.util.Map;
 
 public interface EtcService {
 	
-	Map<String, String> getCategorys(String categoryBoard);
 
 }

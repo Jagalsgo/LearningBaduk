@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 	<div class="container-md py-5">
 		<div class="row">
-			<div class="fw-bold h3 mb-4 col-12">Home</div>
+			<div class="fw-bold h3 mb-4 col-12">Home <a href="/admin/adminBoard?ct=endGame">endGameAdmin</a></div>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">

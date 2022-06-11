@@ -1,8 +1,6 @@
 package com.namix.LearningBaduk.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,43 +23,29 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService service;
-	@Autowired
-	private EtcService etcService;
 	
 	@GetMapping("home")
 	public String home() {
 		return "board.home";
 	}
-	@GetMapping("a")
-	public String endGameBoard(@RequestParam(value="p", defaultValue="1") Integer page,
+	@GetMapping("board")
+	public String board(@RequestParam(value="p", defaultValue="1") Integer page,
 											@RequestParam(value="f", defaultValue="boardTitle") String field,
 											@RequestParam(value="q", defaultValue="") String query, 
 											@RequestParam("ct") String ct, Model model) {
-		Map<String, String> map = new HashMap<String, String>();
-		map = etcService.getCategorys(ct);
-		List<BoardView> boards = service.getBoards(map.get("categoryBoard"), page, field, query);
-		int pageCount = service.getPageCount(map.get("categoryBoard"), field, query);
+		
+		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
+		
+		List<BoardView> boards = service.getBoards(category.getCategoryBoard(), page, field, query);
+		int pageCount = service.getPageCount(category.getCategoryBoard(), field, query);
 		
 		model.addAttribute("boards", boards);
 		model.addAttribute("pageCount", pageCount);
-		model.addAttribute("cateogry", map);
+		model.addAttribute("category", category);
 		
-		return "board.endGameBoard";
+		return "board.board";
 	}
-	@GetMapping("freeBoard")
-	public String freeBoard(@RequestParam(value="p", defaultValue="1") Integer page,
-			@RequestParam(value="f", defaultValue="boardTitle") String field,
-			@RequestParam(value="q", defaultValue="") String query, Model model) {
-		
-		String category = "free";
-		List<BoardView> boards = service.getBoards(category, page, field, query);
-		int pageCount = service.getPageCount(category, field, query);
-		
-		model.addAttribute("boards", boards);
-		model.addAttribute("pageCount", pageCount);
-		
-		return "board.freeBoard";
-	}
+	
 	@GetMapping("myOwnBoard")
 	public String myOwnBoard(@RequestParam(value="p", defaultValue="1") Integer page,
 			@RequestParam(value="q", defaultValue="") String query, Model model, HttpSession session) {
@@ -91,30 +75,6 @@ public class BoardController {
 		model.addAttribute("pageCount", pageCount);
 		
 		return "board.myWritingBoard";
-	}
-	@GetMapping("noticeBoard")
-	public String noticeBoard() {
-		return "board.noticeBoard";
-	}
-	@GetMapping("openingBoard")
-	public String openingBoard() {
-		return "board.openingBoard";
-	}
-	@GetMapping("patternBoard")
-	public String patternBoard() {
-		return "board.patternBoard";
-	}
-	@GetMapping("quetionBoard")
-	public String quetionBoard() {
-		return "board.quetionBoard";
-	}
-	@GetMapping("ruleBoard")
-	public String ruleBoard() {
-		return "board.ruleBoard";
-	}
-	@GetMapping("scheduleBoard")
-	public String scheduleBoard() {
-		return "board.scheduleBoard";
 	}
 
 }

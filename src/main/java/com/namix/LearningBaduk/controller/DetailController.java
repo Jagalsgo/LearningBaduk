@@ -33,16 +33,20 @@ public class DetailController {
 	@Autowired
 	private BoardService service;
 	
-	@GetMapping("endGameDetail")
-	public String endGameDetail(@RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response, Model model) {
+	@GetMapping("detail")
+	public String detail(@RequestParam("id") int id, HttpServletRequest request, @RequestParam("ct") String ct,
+								HttpServletResponse response, Model model) {
 		
+		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		BoardView boardView = service.getDetailBoard(id);
-		int boardCount = service.getPageCount("endGameBoard");
+		int boardCount = service.getPageCount(category.getCategoryBoard());
 		int detailsPage = service.getDetailsPage(id);
 		
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("detailsPage", detailsPage);
+		model.addAttribute("category", category);
+		
 		Cookie[] cookies = request.getCookies();
 		Cookie viewCookie = null;
 		
@@ -63,7 +67,7 @@ public class DetailController {
 			
 		}
 		
-		return "detail.endGameDetail";
+		return "detail.detail";
 			
 	}
 	
@@ -86,8 +90,9 @@ public class DetailController {
 	}
 	
 	@GetMapping("updateDetail")
-	public String updateDetail(@RequestParam("id") int id, @RequestParam("ct") String category, Model model) {
+	public String updateDetail(@RequestParam("id") int id, @RequestParam("ct") String ct, Model model) {
 		
+		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		BoardView boardView = service.getDetailBoard(id);
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("category", category);
@@ -97,9 +102,10 @@ public class DetailController {
 	
 	@PostMapping("updateDetail")
 	public void updateDetailPost(@RequestParam("id") int id, @RequestParam("updateTitle") String title, 
-											@RequestParam("updateContent") String content, @RequestParam("ct") String category,
+											@RequestParam("updateContent") String content, @RequestParam("ct") String ct,
 											HttpServletResponse response) throws IOException {
 		
+		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		int updateDetailResult = 0;
 		updateDetailResult = service.updateDetail(id, title, content);
 		
@@ -107,7 +113,7 @@ public class DetailController {
 			ScriptClass.alert(response, "글 수정 중 오류 발생");
 			ScriptClass.historyBack(response);
 		}else {
-			ScriptClass.alertAndMove(response, "글 수정 완료", "/detail/"+category+"?id="+id);
+			ScriptClass.alertAndMove(response, "글 수정 완료", "/detail/detail?ct="+category.getCt()+"&id="+id);
 		}
 		
 	}
@@ -139,7 +145,7 @@ public class DetailController {
 	}
 	
 	@GetMapping("deleteDetail")
-	public void deleteDetail(@RequestParam("id") int id, @RequestParam("ct") String category, HttpServletResponse response) throws IOException {
+	public void deleteDetail(@RequestParam("id") int id, @RequestParam("ct") String ct, HttpServletResponse response) throws IOException {
 		
 		int deleteDetailResult = 0;
 		deleteDetailResult = service.deleteDetail(id);
@@ -148,7 +154,7 @@ public class DetailController {
 			ScriptClass.alert(response, "글 삭제 중 오류 발생");
 			ScriptClass.historyBack(response);
 		}else {
-			ScriptClass.alertAndMove(response, "글 삭제 완료", "/board/"+category);
+			ScriptClass.alertAndMove(response, "글 삭제 완료", "/board/board?ct="+ct);
 		}
 		
 	}
@@ -169,32 +175,32 @@ public class DetailController {
 	}
 	
 	@GetMapping("writeDetail")
-	public String writeDetail(@RequestParam("categoryEng") String categoryEng, @RequestParam("categoryKor") String categoryKor,
-										@RequestParam("categoryDet") String categoryDet, Model model) {
+	public String writeDetail(@RequestParam("writeCt") String ct, Model model) {
 		
-		model.addAttribute("categoryEng", categoryEng);
-		model.addAttribute("categoryKor", categoryKor);
-		model.addAttribute("categoryDet", categoryDet);
+		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
+		
+		model.addAttribute("category", category);
 		
 		return "detail.writeDetail";
 	}
 	
 	@PostMapping("writeDetail")
 	public void writeDetailPost(@RequestParam("writeTitle") String title, @RequestParam("writeContent") String content,
-											@RequestParam("categoryEng") String category, @RequestParam("categoryDet") String categoryDet
-											,HttpSession session, HttpServletResponse response) throws IOException {
+											@RequestParam("ct") String ct,
+											HttpSession session, HttpServletResponse response) throws IOException {
 		
+		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		User user = (User) session.getAttribute("user");
 		String userId = user.getUserId();
 		int writeDetailResult = 0;
-		writeDetailResult = service.writeDetail(category, title, content, userId);
+		writeDetailResult = service.writeDetail(category.getCategoryBoard(), title, content, userId);
 		int boardId = service.getUsersLastBoardId(userId);
 		
 		if(writeDetailResult == 0) {
 			ScriptClass.alert(response, "글 작성 중 오류 발생");
 			ScriptClass.historyBack(response);
 		}else {
-			ScriptClass.alertAndMove(response, "글 작성 완료", "/detail/"+categoryDet+"?id="+boardId);
+			ScriptClass.alertAndMove(response, "글 작성 완료", "/detail/detail?ct="+category.getCt()+"&id="+boardId);
 		}
 		
 	}
