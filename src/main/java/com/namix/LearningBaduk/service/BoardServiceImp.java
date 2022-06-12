@@ -139,7 +139,7 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int getDetailsPage(int id) {
 		
-		int detailsRowNumber = boardDao.getDetailsRowNumber(id);
+		int detailsRowNumber = boardDao.getDetailsRowNumber(id) - 1 ;
 		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
 		
 		if(detailsPage <= 1) {
@@ -199,9 +199,10 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int getMyDetailsPage(int id) {
 		
-		int detailsRowNumber = boardDao.getMyDetailsRowNumber(id);
-		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
+		int detailsRowNumber = boardDao.getMyDetailsRowNumber(id) - 1;
 		
+		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
+
 		if(detailsPage <= 1) {
 			detailsPage = 1;
 		}
@@ -217,6 +218,22 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int updateMyDetail(int id, String title, String content) {
 		return boardDao.updateMyDetail(id, title, content);
+	}
+
+	@Override
+	public void deleteBoards(List<Integer> chkArray) {
+		for(int i=0; i<chkArray.size(); i++) {
+			int id = chkArray.get(i);
+			boardDao.deleteDetail(id);
+		}
+	}
+
+	@Override
+	public void deleteComments(List<Integer> chkArray) {
+		for(int i=0; i<chkArray.size(); i++) {
+			int id = chkArray.get(i);
+			boardDao.deleteComment(id);
+		}
 	}
 
 }

@@ -2,12 +2,18 @@ package com.namix.LearningBaduk.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.service.BoardService;
@@ -38,7 +44,39 @@ public class AdminController {
 	}
 
 	@GetMapping("adminDetail")
-	public String adminDetail() {
+	public String adminDetail(@RequestParam("id") int id, HttpServletRequest request, @RequestParam("ct") String ct,
+										HttpServletResponse response, Model model) {
+		
+		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
+		BoardView boardView = boardService.getDetailBoard(id);
+		int boardCount = boardService.getPageCount(category.getCategoryBoard());
+		int detailsPage = boardService.getDetailsPage(id);
+		
+		model.addAttribute("boardView", boardView);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("detailsPage", detailsPage);
+		model.addAttribute("category", category);
+		
+		Cookie[] cookies = request.getCookies();
+		Cookie viewCookie = null;
+		
+		if(cookies != null && cookies.length > 0) {
+			for(int i=0; i<cookies.length; i++) {
+				if(cookies[i].getName().equals("cookie"+id)) {
+					viewCookie = cookies[i];
+				}
+			}
+		}
+			
+		if(viewCookie == null) {
+			
+			Cookie newCookie = new Cookie("cookie" + id, "|" + id + "|");
+			response.addCookie(newCookie);
+			
+			boardService.addHit(id);
+			
+		}
+		
 		return "admin.adminDetail";
 	}
 	
@@ -50,6 +88,18 @@ public class AdminController {
 	@GetMapping("userManagement")
 	public String userManagement() {
 		return "admin.userManagement";
+	}
+	
+	@ResponseBody
+	@PostMapping("deleteBoards")
+	public void deleteBoards(@RequestParam("chkArray[]") List<Integer> chkArray) {
+		boardService.deleteBoards(chkArray);
+	}
+	
+	@ResponseBody
+	@PostMapping("deleteComments")
+	public void deleteComments(@RequestParam("chkArray[]") List<Integer> chkArray) {
+		boardService.deleteComments(chkArray);
 	}
 	
 }

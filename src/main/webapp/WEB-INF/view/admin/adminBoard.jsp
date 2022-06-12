@@ -10,7 +10,7 @@
 				<table class="table">
 		            <thead class="table-secondary">
 		                <tr class="vertical-align">
-		                	<th style="width: 1%"><input type="checkbox" name="allCheckBox" value="allChk"></th>
+		                	<th style="width: 1%"><input type="checkbox" name="allChk" value="allChk" id="allChk"></th>
 		                    <th style="width:10%" class="text-center listDate"><i class="fa fa-solid fa-clock fa-lg vertical-align"></i></th>
 		                    <th style="width:5%"><i class="fa fa-solid fa-thumbs-up fa-lg vertical-align"></i></th>
 		                    <th></th>
@@ -21,10 +21,10 @@
 		            <tbody>
 		           		<c:forEach var="b" items="${boards }">
 			                <tr>
-			                	<td><input type="checkbox" name="chk" value="chk"></td>
+			                	<td><input type="checkbox" name="chk" value="${b.boardId }"></td>
 			                    <td class="boardDate text-muted text-center">${b.boardDate }</td>
 			                    <td class="boardLike fw-bold">${b.likeCount - b.dislikeCount}</td>
-			                    <td class="boardTitle"><a href="/detail/detail?ct=${category.ct }&id=${b.boardId }">${b.boardTitle }  <span class="text-muted">(${b.commentCount })</span></a></td>
+			                    <td class="boardTitle"><a href="/admin/adminDetail?ct=${category.ct }&id=${b.boardId }">${b.boardTitle }  <span class="text-muted">(${b.commentCount })</span></a></td>
 			                    <td class="boardWriter fw-bold text-center">
 			                    	<div class="position-relative userMenuPointer">${b.userNickname }
 			                    	<ul class="userMenuBox">
@@ -40,7 +40,7 @@
 		            </tbody>
 		        </table>
 	        </div>
-	        <span><a href="write.jsp" ><button class="btn btn-sm btn-secondary" id="deleteBtn" type="button">삭제</button></a></span>	
+	        <span><button class="btn btn-sm btn-secondary" id="deleteBtn" type="button" onclick="deleteBoards()">삭제</button></span>	
 		</div>
 	</div>
 	

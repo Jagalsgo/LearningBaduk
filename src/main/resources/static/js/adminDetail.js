@@ -15,6 +15,28 @@ $(document).ready(function(){
 		}
 	})
 	
+	// 전체 체크
+	$("#allChk").click(function() {
+		console.log('aaa');
+		if($("#allChk").is(":checked")){
+			$("input[name=chk]").prop("checked", true);
+		} else{
+			$("input[name=chk]").prop("checked", false);
+		} 
+	})
+	
+	// 전체 체크 시 allChk 체크
+	$("input[name=chk]").click(function() {
+		var total = $("input[name=chk]").length;
+		var checked = $("input[name=chk]:checked").length;
+
+		if(total != checked){
+			$("#allChk").prop("checked", false);
+		} else{
+			$("#allChk").prop("checked", true); 
+		} 
+	});
+
 	getComments(1);
 	getBoards(detailsPage);
 	
@@ -143,12 +165,12 @@ function getComments(commentPage){
 			
 			$(data).each(function(){
 				
-				str += "<div class='col-6 p-3 border-bottom border-top'>";
+				str += "<div class='col-6 p-3 border-bottom border-top'><input type='checkbox' name='chk' value='"+this.commentId+"'>";
 				
 				if(this.imgPath == null){
-					str += "<span class='userMenuPointerDetail'><img alt='user' src='/img/user.png' width='25' height='25'> "+this.userNickname+"</span>";
+					str += "<span class='userMenuPointerDetail mx-2'><img alt='user' src='/img/user.png' width='25' height='25'> "+this.userNickname+"</span>";
 				}else{
-					str += "<span class='userMenuPointerDetail'><img alt='user' src='"+this.imgPath+"' width='25' height='25'> "+this.userNickname+"</span>";
+					str += "<span class='userMenuPointerDetail mx-2'><img alt='user' src='"+this.imgPath+"' width='25' height='25'> "+this.userNickname+"</span>";
 				}
 				
 				str += "<div class='position-relative'>"
@@ -161,12 +183,9 @@ function getComments(commentPage){
 					 +	"<div class='col-6 p-3  border-bottom border-top text-muted text-right'>"+this.commentDate+"</div>"
 					 +	"<div class='col-12 p-3'>"
 					 +		this.commentContent	
-					 +	"</div>";
+					 +	"</div>"
+					 + "<div class='text-right col-12 my-4' id='deleteComment'><span class='fw-bold text-muted' id='deleteCommentBtn' onclick='deleteComment("+this.commentId+")'>삭제</span></div>";
 					 
-				if(userId == this.userId){
-					str += "<div class='text-right col-12 my-4' id='deleteComment'><span class='fw-bold text-muted' id='deleteCommentBtn' onclick='deleteComment("+this.commentId+")'>삭제</span></div>"
-				}
-				
 			});
 			
 			$('#comments').html(str);
@@ -204,9 +223,9 @@ function getBoards(boardPage){
 			                    +"<td class='boardLike fw-bold'>"+(this.likeCount-this.dislikeCount)+"</td>";
 			                    
                 if(this.boardId == boardId){
-					str += "<td class='boardTitle'><a class='text-primary fw-bold' href='/detail/detail?ct="+categoryCt+"&id="+this.boardId+"'>"+this.boardTitle+"  <span class='text-muted'>("+this.commentCount+")</span></a></td>";
+					str += "<td class='boardTitle'><a class='text-primary fw-bold' href='/admin/adminDetail?ct="+categoryCt+"&id="+this.boardId+"'>"+this.boardTitle+"  <span class='text-muted'>("+this.commentCount+")</span></a></td>";
 				}else{
-					str += "<td class='boardTitle'><a href='/detail/detail?ct="+categoryCt+"&id="+this.boardId+"'>"+this.boardTitle+"  <span class='text-muted'>("+this.commentCount+")</span></a></td>";
+					str += "<td class='boardTitle'><a href='/admin/adminDetail?ct="+categoryCt+"&id="+this.boardId+"'>"+this.boardTitle+"  <span class='text-muted'>("+this.commentCount+")</span></a></td>";
 				}
 			         
 				            
@@ -231,5 +250,40 @@ function getBoards(boardPage){
 		}
 		
 	});
+	
+}
+
+// admin 댓글 삭제
+function deleteComments(){
+	
+	chk_arr = $("input[name='chk']");
+    chkArray = [];
+    for( var i=0; i<chk_arr.length; i++ ) {
+        if( chk_arr[i].checked == true ) {
+            chkArray.push(chk_arr[i].value);
+        }
+    }
+	
+	if(chkArray.length == 0){
+		alert("삭제할 댓글을 선택하세요.");
+	}else{
+		var deleteCommentConfirm = confirm('체크된 댓글들을 삭제하시겠습니까?');
+		if(deleteCommentConfirm){
+			$.ajax({
+				url:"/admin/deleteComments",
+				type:"POST",
+				data: {
+					"chkArray": chkArray
+				},
+				success: function(){
+					alert('삭제 완료');
+					window.location.reload();
+				},
+				error: function(error){
+					alert("error : " + error);
+				}
+			})
+		}
+	}
 	
 }

@@ -51,22 +51,22 @@
 	<!-- post comment -->
 	<div class="container-md border p-3 my-5">
 		<div class="mt-2 mb-4 fw-bold" id="postCommentText">댓글 </div>
-	        <div class="form-floating form-group">
-                <input type="textarea" class="form-control" id="commentContent" name="commentContent">
-                <label for="commentContent">Comments</label>
-            </div>
-	        <c:choose>
-	        	<c:when test="${empty user }">
-			        <div class="text-right my-1">
-			        	<input type="button" class="btn btn-secondary mt-2" value="작성" id="commentNeedLoginBtn">
-			        </div>
-	        	</c:when>
-	        	<c:otherwise>
-			        <div class="text-right my-1">
-			            <button class="btn btn-secondary mt-2" onclick="postComment()" id="postCommentBtn">작성</button>
-			        </div>
-	        	</c:otherwise>
-	        </c:choose>
+        <div class="form-floating form-group">
+               <input type="textarea" class="form-control" id="commentContent" name="commentContent">
+               <label for="commentContent">Comments</label>
+           </div>
+        <c:choose>
+        	<c:when test="${empty user }">
+		        <div class="text-right my-1">
+		        	<input type="button" class="btn btn-secondary mt-2" value="작성" id="commentNeedLoginBtn">
+		        </div>
+        	</c:when>
+        	<c:otherwise>
+		        <div class="text-right my-1">
+		            <button class="btn btn-secondary mt-2" onclick="postComment()" id="postCommentBtn">작성</button>
+		        </div>
+        	</c:otherwise>
+        </c:choose>
 	</div>
 	
 	<!-- comment list -->

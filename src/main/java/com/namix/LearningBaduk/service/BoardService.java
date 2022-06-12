@@ -42,6 +42,8 @@ public interface BoardService {
 	int getMyDetailsPage(int id);
 	int deleteMyDetail(int id);
 	int updateMyDetail(int id, String title, String content);
+	void deleteBoards(List<Integer> chkArray);
+	void deleteComments(List<Integer> chkArray);
 	
 	
 }
