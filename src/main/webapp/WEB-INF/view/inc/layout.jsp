@@ -10,12 +10,19 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/detail.css">
     <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
     <script src="https://kit.fontawesome.com/9e1a390ee4.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/js/header.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/ckeditor5/build/ckeditor.js"></script>
     <title>Learning Baduk</title>
+    
+    <style>
+    	.ck-editor__editable {
+	    min-height: 350px;
+		}
+    </style>
 </head>
 <body>
 
@@ -23,8 +30,18 @@
 	<tiles:insertAttribute name="header"></tiles:insertAttribute>
 	<!-- main  -->
 	<tiles:insertAttribute name="main"></tiles:insertAttribute>
-	<!-- js setting -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+	
+	<script>
+		ClassicEditor
+			.create( document.querySelector( '#ckeditor' ), {
+				ckfinder: {
+			        uploadUrl: '/file/imgUpload' // 내가 지정한 업로드 url (post로 요청감)
+				}
+			} )
+			.catch( error => {
+			    console.error( error );
+			} );
+	</script>
+	
 </body>
 </html>

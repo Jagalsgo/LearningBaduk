@@ -38,5 +38,8 @@ public interface BoardDao {
 	int getMyDetailsRowNumber(int id);
 	int deleteMyDetail(int id);
 	int updateMyDetail(int id, String title, String content);
+	List<BoardView> getReportBoards(int offset, int size, String field, String query);
+	int getReportPageCount(String field, String query);
+	int initBoardReport(int id);
 	
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="/css/writeDetail.css">
+<script type="text/javascript" src="/js/writeDetail.js"></script>
 <div class="fw-bold h4 mb-4 col-12 container-md pt-5">나만의 게시판 - 글 작성</div>
 <div class="container-md border px-5 pt-4" id=writeFormBox>
 	<form action="/detail/writeMyDetail" method="post" id="writeForm">

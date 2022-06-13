@@ -1,6 +1,8 @@
 package com.namix.LearningBaduk.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +17,6 @@ import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.MyBoard;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.service.BoardService;
-import com.namix.LearningBaduk.service.EtcService;
 
 @Controller
 @RequestMapping("/board/")
@@ -25,7 +26,14 @@ public class BoardController {
 	private BoardService service;
 	
 	@GetMapping("home")
-	public String home() {
+	public String home(Model model) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map = service.getHomeBoards();
+		
+		model.addAttribute("map", map);
+		model.addAttribute("endGame", map.get("endGame"));
+		
 		return "board.home";
 	}
 	@GetMapping("board")

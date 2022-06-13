@@ -4,73 +4,9 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-  <definition name="board.home" template="/WEB-INF/view/inc/homeLayout.jsp">
+  <definition name="*.*" template="/WEB-INF/view/inc/layout.jsp">
 	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/board/home.jsp" />
-  </definition>
-  
-  <definition name="board.*" template="/WEB-INF/view/inc/boardLayout.jsp">
-	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/board/{1}.jsp" />
-  </definition>
-  
-  <definition name="detail.updateDetail" template="/WEB-INF/view/inc/CUDetailLayout.jsp">
-	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/detail/updateDetail.jsp" />
-	    <put-attribute name="css" value="/css/updateDetail.css" />
-	    <put-attribute name="js" value="/js/updateDetail.js" />
-  </definition>
-  
-  <definition name="detail.updateMyDetail" template="/WEB-INF/view/inc/CUDetailLayout.jsp">
-	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/detail/updateMyDetail.jsp" />
-	    <put-attribute name="css" value="/css/updateDetail.css" />
-	    <put-attribute name="js" value="/js/updateDetail.js" />
-  </definition>
-  
-  <definition name="detail.writeDetail" template="/WEB-INF/view/inc/CUDetailLayout.jsp">
-	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/detail/writeDetail.jsp" />
-	    <put-attribute name="css" value="/css/writeDetail.css" />
-	    <put-attribute name="js" value="/js/writeDetail.js" />
-  </definition>
-  
-  <definition name="detail.writeMyDetail" template="/WEB-INF/view/inc/CUDetailLayout.jsp">
-	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/detail/writeMyDetail.jsp" />
-	    <put-attribute name="css" value="/css/writeDetail.css" />
-	    <put-attribute name="js" value="/js/writeDetail.js" />
-  </definition>
-  
-	 <definition name="detail.myOwnDetail" template="/WEB-INF/view/inc/detailLayout.jsp">
-	   <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	   <put-attribute name="main" value="/WEB-INF/view/detail/myOwnDetail.jsp" />
-	   <put-attribute name="css" value="/css/detail.css" />
-	   <put-attribute name="js" value="/js/myOwnDetail.js" />
-	</definition>
-  
-  <definition name="detail.detail" template="/WEB-INF/view/inc/detailLayout.jsp">
-	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/detail/detail.jsp" />
-	    <put-attribute name="css" value="/css/detail.css" />
-	    <put-attribute name="js" value="/js/detail.js" />
-  </definition>
-  
-  <definition name="user.*" template="/WEB-INF/view/inc/userLayout.jsp">
-	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/user/{1}.jsp" />
-	    <put-attribute name="css" value="/css/{1}.css" />
-	    <put-attribute name="js" value="/js/{1}.js" />
-  </definition>
-  
-  <definition name="admin.adminDetail" template="/WEB-INF/view/inc/adminDetailLayout.jsp">
-	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/admin/adminDetail.jsp" />
-  </definition>
-  
-  <definition name="admin.*" template="/WEB-INF/view/inc/boardLayout.jsp">
-	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
-	    <put-attribute name="main" value="/WEB-INF/view/admin/{1}.jsp" />
+	    <put-attribute name="main" value="/WEB-INF/view/{1}/{2}.jsp" />
   </definition>
   
 </tiles-definitions>

@@ -123,5 +123,17 @@
 	<update id="updateMyDetail">
 		update myboard set myBoardTitle = #{title}, myBoardContent = #{content} where myBoardId = #{id}
 	</update>
+	
+	<select id="getReportBoards" resultType="com.namix.LearningBaduk.entity.BoardView">
+		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname, imgPath from boardview where boardReport >= 1 and ${field} like '%${query}%' order by boardId desc limit #{offset}, #{size}
+	</select>
+
+	<select id="getReportPageCount" resultType="int">
+		select count(*) from boardview where boardReport >= 1 and ${field} like '%${query}%'
+	</select>
+	
+	<update id="initBoardReport">
+		update board set boardReport = 0 where boardId = #{id}
+	</update>
 
 </mapper>

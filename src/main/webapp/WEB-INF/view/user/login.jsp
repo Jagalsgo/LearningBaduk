@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="/css/login.css">
+<script type="text/javascript" src="/js/login.js"></script>
 <div class="container-md">
 		<form action="/user/login" method="post" class="border px-5 py-4" id="loginForm">
 			<div class="fw-bold h4 mb-5 mt-3">로그인</div>

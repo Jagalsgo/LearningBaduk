@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.namix.LearningBaduk.entity.BoardView;
+import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.service.BoardService;
+import com.namix.LearningBaduk.service.UserService;
 
 @Controller
 @RequestMapping("/admin/")
@@ -24,6 +26,8 @@ public class AdminController {
 	
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("adminBoard")
 	public String adminBoard(@RequestParam(value="p", defaultValue="1") Integer page,
@@ -80,13 +84,45 @@ public class AdminController {
 		return "admin.adminDetail";
 	}
 	
-	@GetMapping("reportHistoryBoard")
-	public String reportHistoryBoard() {
-		return "admin.reportHistoryBoard";
+	@GetMapping("boardReportList")
+	public String boardReportList(@RequestParam(value="p", defaultValue="1") Integer page,
+												@RequestParam(value="f", defaultValue="boardTitle") String field,
+												@RequestParam(value="q", defaultValue="") String query, Model model) {
+		
+		List<BoardView> boards = boardService.getReportBoards(page, field, query);
+		int pageCount = boardService.getReportPageCount(field, query);
+		
+		model.addAttribute("boards", boards);
+		model.addAttribute("pageCount", pageCount);
+		
+		return "admin.boardReportList";
+	}
+	
+	@GetMapping("userReportList")
+	public String userReportList(@RequestParam(value="p", defaultValue="1") Integer page,
+											@RequestParam(value="f", defaultValue="userNickname") String field,
+											@RequestParam(value="q", defaultValue="") String query, Model model) {
+		
+		List<User> users = userService.getReportUsers(page, field, query);
+		int userCount = userService.getReportUserCount(field, query);
+		
+		model.addAttribute("users", users);
+		model.addAttribute("userCount", userCount);
+		
+		return "admin.userReportList";
 	}
 	
 	@GetMapping("userManagement")
-	public String userManagement() {
+	public String userManagement(@RequestParam(value="p", defaultValue="1") Integer page,
+												@RequestParam(value="f", defaultValue="userNickname") String field,
+												@RequestParam(value="q", defaultValue="") String query, Model model) {
+		
+		List<User> users = userService.getUsers(page, field, query);
+		int userCount = userService.getUserCount(field, query);
+		
+		model.addAttribute("users", users);
+		model.addAttribute("userCount", userCount);
+		
 		return "admin.userManagement";
 	}
 	
@@ -100,6 +136,18 @@ public class AdminController {
 	@PostMapping("deleteComments")
 	public void deleteComments(@RequestParam("chkArray[]") List<Integer> chkArray) {
 		boardService.deleteComments(chkArray);
+	}
+	
+	@ResponseBody
+	@PostMapping("initBoardReports")
+	public void initBoardReports(@RequestParam("chkArray[]") List<Integer> chkArray) {
+		boardService.initBoardReports(chkArray);
+	}
+	
+	@ResponseBody
+	@PostMapping("initUserReports")
+	public void initUserReports(@RequestParam("chkArray[]") List<String> chkArray) {
+		userService.initUserReports(chkArray);
 	}
 	
 }

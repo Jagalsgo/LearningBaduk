@@ -1,6 +1,7 @@
 package com.namix.LearningBaduk.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,4 +32,14 @@ public interface UserService {
 	int deleteProfileImg(String userId);
 	
 	UserProfileImg getProfileImg(String userId);
+
+	List<User> getUsers(Integer page, String field, String query);
+
+	int getUserCount(String field, String query);
+
+	List<User> getReportUsers(int page, String field, String query);
+
+	int getReportUserCount(String field, String query);
+
+	void initUserReports(List<String> chkArray);
 }

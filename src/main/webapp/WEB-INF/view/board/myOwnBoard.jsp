@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link rel="stylesheet" href="/css/board.css">
 <div class="container-md py-5">
 		<div class="row">
 			<div class="fw-bold h4 mb-4 col-12"><a href="/board/myOwnBoard">나만의 게시판</a></div>

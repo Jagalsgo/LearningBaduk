@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="/css/signUp.css">
+<script type="text/javascript" src="/js/signUp.js"></script>
 <div class="container-md">
 		<form action="/user/signUp" method="post" class="border px-5 py-4" id="signUpForm">
 			<div class="fw-bold h4 mb-5">회원가입</div>

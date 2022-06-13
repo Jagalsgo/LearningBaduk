@@ -39,5 +39,25 @@
 	<select id="getProfileImg" resultType="com.namix.LearningBaduk.entity.UserProfileImg">
 		select * from userProfileImg;
 	</select>
+	
+	<select id="getUsers" resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where ${field} like '%${query}%' order by userDate desc limit #{offset}, #{size}
+	</select>
+	
+	<select id="getUserCount" resultType="int">
+		select count(*) from user where ${field} like '%${query}%'
+	</select>
+	
+	<select id="getReportUsers" resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where userReport >= 1 and ${field} like '%${query}%' order by userDate desc limit #{offset}, #{size}
+	</select>
+	
+	<select id="getReportUserCount" resultType="int">
+		select count(*) from user where userReport >= 1 and ${field} like '%${query}%'
+	</select>
+	
+	<update id="initUserReport">
+		update user set userReport = 0 where userId = #{id}
+	</update>
 
 </mapper>

@@ -1,6 +1,8 @@
 package com.namix.LearningBaduk.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -234,6 +236,44 @@ public class BoardServiceImp implements BoardService {
 			int id = chkArray.get(i);
 			boardDao.deleteComment(id);
 		}
+	}
+
+	@Override
+	public List<BoardView> getReportBoards(Integer page, String field, String query) {
+		int size = 10;
+		int offset = 0+(page-1)*size;
+		
+		return boardDao.getReportBoards(offset, size, field, query);
+	}
+
+	@Override
+	public int getReportPageCount(String field, String query) {
+		return boardDao.getReportPageCount(field, query);
+	}
+
+	@Override
+	public void initBoardReports(List<Integer> chkArray) {
+		for(int i=0; i<chkArray.size(); i++) {
+			int id = chkArray.get(i);
+			boardDao.initBoardReport(id);
+		}
+	}
+
+	@Override
+	public Map<String, Object> getHomeBoards() {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("free", boardDao.getBoards("freeBoard", 0, 5, "boardTitle", ""));
+		map.put("rule", boardDao.getBoards("ruleBoard", 0, 5, "boardTitle", ""));
+		map.put("pattern", boardDao.getBoards("patternBoard", 0, 5, "boardTitle", ""));
+		map.put("opening", boardDao.getBoards("openingBoard", 0, 5, "boardTitle", ""));
+		map.put("endGame", boardDao.getBoards("endGameBoard", 0, 5, "boardTitle", ""));
+		map.put("quetion", boardDao.getBoards("quetionBoard", 0, 5, "boardTitle", ""));
+		map.put("schedule", boardDao.getBoards("scheduleBoard", 0, 5, "boardTitle", ""));
+		map.put("notice", boardDao.getBoards("noticeBoard", 0, 5, "boardTitle", ""));
+		
+		return map;
 	}
 
 }

@@ -2,42 +2,49 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="/css/board.css">
+<script type="text/javascript" src="/js/adminBoard.js"></script>
 <div class="container-md py-5">
 		<div class="row">
-			<div class="fw-bold h4 mb-4 col-12"><a href="/board/board?ct=${category.ct }">${category.categoryKor }</a></div>
+			<div class="fw-bold h4 mb-4 col-12"><a href="/admin/boardReportList">신고당한 글 내역</a></div>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">
 		                <tr class="vertical-align">
+		                	<th style="width: 1%"><input type="checkbox" name="allChk" value="allChk" id="allChk"></th>
 		                    <th style="width:10%" class="text-center listDate"><i class="fa fa-solid fa-clock fa-lg vertical-align"></i></th>
 		                    <th style="width:5%"><i class="fa fa-solid fa-thumbs-up fa-lg vertical-align"></i></th>
-		                    <th style="width: 65%"></th>
+		                    <th></th>
 		                    <th style="width:15%" class="text-center"><i class="fa fa-solid fa-user fa-lg text-center vertical-align"></i></th>
 		                    <th style="width:5%" class="text-center"><i class="fa fa-solid fa-eye fa-lg vertical-align"></i></th>
+		                    <th style="width:5%" class="text-center"><i class="fa fa-solid fa-flag vertical-ailgn fa-lg"></i></th>
 		                </tr>
 		            </thead>
 		            <tbody>
-		                	<c:forEach var="b" items="${boards }">
-			            	    <tr>
-				                    <td class="boardDate text-muted text-center">${b.boardDate }</td>
-				                    <td class="boardLike fw-bold">${b.likeCount - b.dislikeCount}</td>
-				                    <td class="boardTitle "><a href="/detail/detail?ct=${category.ct }&id=${b.boardId }">${b.boardTitle }  <span class="text-muted">(${b.commentCount })</span></a></td>
-				                    <td class="boardWriter fw-bold text-center">
-				                    	<div class="position-relative userMenuPointer">${b.userNickname }
-				                    		<ul class="userMenuBox">
-					                    		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
-					                    		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
-					                    	</ul>
-				                    	</div>
-				                    </td>
-				                    <td class="boardHit text-muted text-center">${b.boardHit }</td>
-			         	       </tr>
-		                	</c:forEach>
+		            	<c:forEach var="b" items="${boards }">
+		            	<c:set var="ct" value="${fn:replace(b.boardCategory, 'Board', '') }" />
+			                <tr>
+			                	<td><input type="checkbox" name="chk" value="${b.boardId }"></td>
+			                    <td class="boardDate text-muted text-center">${b.boardDate }</td>
+			                    <td class="boardLike fw-bold">${b.likeCount - b.dislikeCount}</td>
+			                    <td class="boardTitle"><a href="/admin/adminDetail?ct=${category.ct }&id=${b.boardId }">${b.boardTitle }  <span class="text-muted">(${b.commentCount })</span></a></td>
+			                    <td class="boardWriter fw-bold text-center">
+			                    	<div class="position-relative userMenuPointer">${b.userNickname }
+			                    	<ul class="userMenuBox">
+			                    		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
+			                    		<li><a href="s"><i class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a></li>
+			                    		<li><a href="sdfds"><i class="fa fa-solid fa-ban"> 회원 제거</i></a></li>
+			                    	</ul>
+			                    	</div>
+			                    </td>
+			                    <td class="boardHit text-muted text-center">${b.boardHit }</td>
+			                    <td class="boardReport text-muted text-center">${b.boardReport }</td>
+			                </tr>
+		            	</c:forEach>
 		            </tbody>
 		        </table>
-	        </div>	
+	        </div>
+	        <span><button class="btn btn-sm btn-secondary" id="deleteBtn" type="button" onclick="initUserReports()">신고 횟수 초기화</button></span>	
 		</div>
 	</div>
 	
@@ -45,7 +52,7 @@
 	<div class="container-md my-4">
 		<div class="row">
 			<!-- go to list  -->
-			<div class="col-sm-1 col-md-1" id="goToList"><a href="/board/board?ct=${category.ct }"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
+			<div class="col-sm-1 col-md-1" id="goToList"><a href="/admin/boardReportList?"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
 			<!-- pagination -->
 			<c:set var="page" value="${(empty param.p)?1:param.p }" />
 			<c:set var="firstPage" value="${page - (page - 1) % 5}" />
@@ -55,34 +62,26 @@
 		        <ul class="pagination pagination-sm justify-content-center">
 		        	<c:if test="${firstPage > 1 }">
 			            <li class="page-item">
-			                <a class="page-link" href="?ct=${category.ct }&f=${param.f }&q=${param.q }&p=${firstPage - 5 }" aria-label="Previous">
+			                <a class="page-link" href="?f=${param.f }&q=${param.q }&p=${firstPage - 5 }" aria-label="Previous">
 			                <span aria-hidden="true">&laquo;</span>
 			                </a>
 			            </li>
 		            </c:if>
 		            <c:forEach var="i" begin="0" end="4">
 			            <c:if test="${(firstPage + i) <= lastPage }">
-				            <li class="page-item"><a class="page-link" href="?ct=${category.ct }&?f=${param.f }&q=${param.q}&p=${firstPage + i}">${firstPage + i }</a></li>
+				            <li class="page-item"><a class="page-link" href="?f=${param.f }&q=${param.q}&p=${firstPage + i}">${firstPage + i }</a></li>
 			            </c:if>
 		            </c:forEach>
 		            <c:if test="${firstPage + 4 < lastPage }">
 			            <li class="page-item">
-			                <a class="page-link" href="?ct=${category.ct }&?f=${param.f }&q=${param.q }&p=${firstPage + 5 }" aria-label="Next">
+			                <a class="page-link" href="?f=${param.f }&q=${param.q }&p=${firstPage + 5 }" aria-label="Next">
 			                <span aria-hidden="true">&raquo;</span>
 			                </a>
 			            </li>
 		            </c:if>
 		        </ul>
 		    </div>
-		    <!-- 글 작성 버튼 -->
-		    <c:if test="${!empty user }">
-	           <div class="col-sm-3 col-md-2" id="goToWrite">
-	           		<form action="/detail/writeDetail">
-	           			<input type="hidden" id="writeCt" name="writeCt" value="${category.ct }">
-	           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
-	           		</form>
-	           </div>
-            </c:if>
+		    
 	    </div>
     </div>
     
@@ -95,7 +94,6 @@
 	           		<option ${param.f == "userNickname"?"selected":"" } value="userNickname">작성자</option>
        			</select> 		
        			<input type="text" name="q" value="${param.q }" style="width: 150px;"/>
-       			<input type="hidden" name="ct" value="${category.ct }">
 				<input type="submit" class="btn btn-sm btn-secondary" value="검색" />
            </fieldset>
        </form>

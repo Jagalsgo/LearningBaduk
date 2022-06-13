@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link rel="stylesheet" href="/css/detail.css">
+<script type="text/javascript" src="/js/detail.js"></script>
 <!-- detail content  -->
 	<div class="fw-bold h4 mb-4 col-12 container-md pt-5"><a href="/board/board?ct=${category.ct }">${category.categoryKor }</a></div>
 	<div class="container-md border p-3">

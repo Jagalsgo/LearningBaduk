@@ -1,6 +1,7 @@
 package com.namix.LearningBaduk.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
@@ -44,6 +45,10 @@ public interface BoardService {
 	int updateMyDetail(int id, String title, String content);
 	void deleteBoards(List<Integer> chkArray);
 	void deleteComments(List<Integer> chkArray);
+	List<BoardView> getReportBoards(Integer page, String field, String query);
+	int getReportPageCount(String field, String query);
+	void initBoardReports(List<Integer> chkArray);
+	Map<String, Object> getHomeBoards();
 	
 	
 }

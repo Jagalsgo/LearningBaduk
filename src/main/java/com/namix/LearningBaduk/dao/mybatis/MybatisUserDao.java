@@ -1,5 +1,7 @@
 package com.namix.LearningBaduk.dao.mybatis;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -61,6 +63,31 @@ public class MybatisUserDao implements UserDao {
 	@Override
 	public UserProfileImg getProfileImg(String userId) {
 		return userDaoMapper.getProfileImg(userId);
+	}
+
+	@Override
+	public List<User> getUsers(int offset, int size, String field, String query) {
+		return userDaoMapper.getUsers(offset, size, field, query);
+	}
+
+	@Override
+	public int getUserCount(String field, String query) {
+		return userDaoMapper.getUserCount(field, query);
+	}
+
+	@Override
+	public List<User> getReportUsers(int offset, int size, String field, String query) {
+		return userDaoMapper.getReportUsers(offset, size, field, query);
+	}
+
+	@Override
+	public int getReportUserCount(String field, String query) {
+		return userDaoMapper.getReportUserCount(field, query);
+	}
+
+	@Override
+	public int initUserReport(String id) {
+		return userDaoMapper.initUserReport(id);
 	}
 
 }

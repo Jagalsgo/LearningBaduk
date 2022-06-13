@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" href="/css/board.css">
+<script type="text/javascript" src="/js/adminBoard.js"></script>
 <div class="container-md py-5">
 		<div class="row">
-			<div class="fw-bold h4 mb-4 col-12"><a href="/admin/userManagement">회원 관리</a></div>
+			<div class="fw-bold h4 mb-4 col-12"><a href="/admin/userReportList">신고당한 유저 내역</a></div>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">
 		                <tr class="vertical-align">
+		                	<th style="width: 1%"><input type="checkbox" name="allChk" value="allChk" id="allChk"></th>
 		                    <th style="width:10%" class="text-center listDate"><i class="fa fa-solid fa-clock fa-lg vertical-align"></i></th>
 		                    <th>user ID</th>
 							<th>user Email</th>
@@ -21,6 +23,7 @@
 		            <tbody>
 	                	<c:forEach var="u" items="${users }">
 			                <tr>
+			                	<td><input type="checkbox" name="chk" value="${u.userId }"></td>
 			                    <td class="userDate text-muted text-center"><fmt:formatDate value="${u.userDate }" pattern="yyyy-MM-dd"/></td>
 			                    <td class="userId">${u.userId }</td>
 			                    <td class="userEmail">${u.userEmail }</td>
@@ -39,6 +42,7 @@
 		            </tbody>
 		        </table>
 	        </div>
+	        <span><button class="btn btn-sm btn-secondary" id="deleteBtn" type="button" onclick="initUserReports()">신고 횟수 초기화</button></span>
 		</div>
 	</div>
 	
@@ -46,7 +50,7 @@
 	<div class="container-md my-4">
 		<div class="row">
 			<!-- go to list  -->
-			<div class="col-sm-1 col-md-1" id="goToList"><a href="/admin/userManagement"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
+			<div class="col-sm-1 col-md-1" id="goToList"><a href="/admin/userReportList"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
 			<!-- pagination -->
 			<c:set var="page" value="${(empty param.p)?1:param.p }" />
 			<c:set var="firstPage" value="${page - (page - 1) % 5}" />

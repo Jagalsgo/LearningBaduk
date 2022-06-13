@@ -1,5 +1,7 @@
 package com.namix.LearningBaduk.entity;
 
+import java.util.Date;
+
 public class User  {
 
 	private String userId;
@@ -8,18 +10,20 @@ public class User  {
 	private String userEmail;
 	private int userReport;
 	private String userRole;
+	private Date userDate;
 	
 	public User() {
 		
 	}
 
-	public User(String userId, String userPassword, String userNickname, String userEmail, int userReport, String userRole) {
+	public User(String userId, String userPassword, String userNickname, String userEmail, int userReport, String userRole, Date userDate) {
 		this.userId = userId;
 		this.userPassword = userPassword;
 		this.userNickname = userNickname;
 		this.userEmail = userEmail;
 		this.userReport = userReport;
 		this.userRole = userRole;
+		this.userDate = userDate;
 	}
 
 	public String getUserId() {
@@ -68,6 +72,14 @@ public class User  {
 
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
+	}
+
+	public Date getUserDate() {
+		return userDate;
+	}
+
+	public void setUserDate(Date userDate) {
+		this.userDate = userDate;
 	}
 
 }

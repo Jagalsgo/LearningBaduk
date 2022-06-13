@@ -173,4 +173,19 @@ public class MybatisBoardDao implements BoardDao {
 		return boardDaoMapper.updateMyDetail(id, title, content);
 	}
 
+	@Override
+	public List<BoardView> getReportBoards(int offset, int size, String field, String query) {
+		return boardDaoMapper.getReportBoards(offset, size, field, query);
+	}
+
+	@Override
+	public int getReportPageCount(String field, String query) {
+		return boardDaoMapper.getReportPageCount(field, query);
+	}
+
+	@Override
+	public int initBoardReport(int id) {
+		return boardDaoMapper.initBoardReport(id);
+	}
+
 }
