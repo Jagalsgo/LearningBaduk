@@ -1,18 +1,16 @@
 package com.namix.LearningBaduk.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.namix.LearningBaduk.dao.UserDao;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
 import com.namix.LearningBaduk.script.ScriptClass;
@@ -32,6 +31,10 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private UserDao userDao;
 	
 	@GetMapping("editProfile")
 	public String editProfile() {
@@ -90,18 +93,21 @@ public class UserController {
 	}
 	
 	@PostMapping("signUp")
-	public void signUpPost(@RequestParam("signUpId") String signUpId, @RequestParam("signUpPassword") String signUpPassword,
-									@RequestParam("signUpNickname") String signUpNickname, @RequestParam("signUpEmail") String signUpEmail,
-									HttpServletResponse response) throws IOException {
+	public void signUpPost(User user, HttpServletResponse response) throws IOException {
 		
-		int signUpResult = 0;
-		signUpResult = service.signUp(signUpId, signUpPassword, signUpNickname, signUpEmail);
-		if(signUpResult == 0) {
-			ScriptClass.alert(response, "오류 발생");
-			ScriptClass.historyBack(response);
-		}else {
-			ScriptClass.alertAndMove(response, "회원가입 완료", "/user/login");
-		}	
+		String rawPassword = user.getUserPassword();
+		String encPassword = passwordEncoder.encode(rawPassword);
+		user.setUserPassword(encPassword	);
+		
+		userDao.signUp(user);
+		
+		/*
+		 * UserVo userVo = new UserVo(); userVo.setUserId(signUpId);
+		 * userVo.setUserPassword(signUpPassword);
+		 * userVo.setUserNickname(signUpNickname); userVo.setUserEmail(signUpEmail);
+		 * securityService.signUp(userVo);
+		 */
+		ScriptClass.alertAndMove(response, "회원가입 완료", "/user/login");
 		
 	}
 	
@@ -128,28 +134,26 @@ public class UserController {
 		return "user.login";
 	}
 	
-	@PostMapping("login")
-	public void loginPost(@RequestParam("userId") String userId, @RequestParam("userPassword") String userPassword,
-									HttpServletResponse response, HttpSession session) throws IOException {
-		
-		User user = service.login(userId, userPassword);
-		UserProfileImg profileImg = service.getProfileImg(userId);
-		if(user == null) {
-			ScriptClass.alert(response, "아이디나 비밀번호가 올바르지 않습니다.");
-			ScriptClass.historyBack(response);
-		}else {
-			session.setAttribute("user", user);
-			session.setAttribute("profileImg", profileImg);
-			ScriptClass.alertAndMove(response, "로그인 완료", "/board/home");
-		}	
-		
-	}
+	/*
+	 * @PostMapping("login") public void loginPost(@RequestParam("userId") String
+	 * userId, @RequestParam("userPassword") String userPassword,
+	 * HttpServletResponse response, HttpSession session) throws IOException {
+	 * 
+	 * System.out.println("로그인 post 컨트롤러"); // UserVo userVo =
+	 * userService.loadUserByUsername(userId); UserProfileImg profileImg =
+	 * service.getProfileImg(userId);
+	 * 
+	 * // session.setAttribute("user", userVo); session.setAttribute("profileImg",
+	 * profileImg); ScriptClass.alertAndMove(response, "로그인 완료", "/board/home");
+	 * 
+	 * }
+	 */
 	
-	@GetMapping("logout")
-	public void logout(HttpSession session, HttpServletResponse response) throws IOException {
-		session.invalidate();
-		ScriptClass.alertAndMove(response, "로그아웃 완료", "/board/home");
-	}
+	/*
+	 * @GetMapping("logout") public void logout(HttpSession session,
+	 * HttpServletResponse response) throws IOException { session.invalidate();
+	 * ScriptClass.alertAndMove(response, "로그아웃 완료", "/board/home"); }
+	 */
 	
 	@GetMapping("deleteProfile")
 	public void deleteProfile(HttpSession session, HttpServletResponse response) throws IOException {
@@ -164,6 +168,13 @@ public class UserController {
 		}
 		ScriptClass.alertAndMove(response, "프로필 사진 삭제 완료", "/user/editProfile");
 		
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@GetMapping("info")
+	@ResponseBody
+	public String info() {
+		return "info";
 	}
 	
 	@ResponseBody

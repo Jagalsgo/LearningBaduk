@@ -23,10 +23,10 @@ public class UserServiceImp implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	@Override
-	public User login(String id, String password) {
-		return userDao.login(id, password);
-	}
+	/*
+	 * @Override public User login(String id, String password) { return
+	 * userDao.login(id, password); }
+	 */
 
 	@Override
 	public int idOverlapCheck(String id) {
@@ -38,10 +38,10 @@ public class UserServiceImp implements UserService {
 		return userDao.nicknameOverlapCheck(nickname);
 	}
 
-	@Override
-	public int signUp(String id, String password, String nickname, String email) {
-		return userDao.signUp(id, password, nickname, email);
-	}
+	/*
+	 * @Override public int signUp(String id, String password, String nickname,
+	 * String email) { return userDao.signUp(id, password, nickname, email); }
+	 */
 
 	@Override
 	public int editProfile(String password, String nickname, String email, String id) {

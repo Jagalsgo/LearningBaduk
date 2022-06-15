@@ -31,7 +31,7 @@
 	<!-- main  -->
 	<tiles:insertAttribute name="main"></tiles:insertAttribute>
 	
-	<script>
+	<!-- <script>
 		ClassicEditor
 			.create( document.querySelector( '#ckeditor' ), {
 				ckfinder: {
@@ -41,7 +41,7 @@
 			.catch( error => {
 			    console.error( error );
 			} );
-	</script>
+	</script> -->
 	
 </body>
 </html>

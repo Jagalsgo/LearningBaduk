@@ -7,13 +7,13 @@ import com.namix.LearningBaduk.entity.UserProfileImg;
 
 public interface UserDao {
 
-	User login(String id, String password);
+	User login(String id);
 
 	int idOverlapCheck(String id);
 
 	int nicknameOverlapCheck(String nickname);
 
-	int signUp(String id, String password, String nickname, String email);
+	int signUp(User user);
 
 	int editProfile(String password, String nickname, String email, String id);
 

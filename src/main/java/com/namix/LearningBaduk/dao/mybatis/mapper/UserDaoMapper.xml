@@ -5,7 +5,7 @@
 <mapper namespace="com.namix.LearningBaduk.dao.UserDao">
 
 	<select id="login" resultType="com.namix.LearningBaduk.entity.User">
-		select * from user where userId = #{id} and userPassword = #{password}
+		select * from user where userId = #{id}
 	</select>
 	
 	<select id="idOverlapCheck" resultType="int">
@@ -16,8 +16,8 @@
 		select count(*) from user where userNickname = #{nickname}	
 	</select>
 	
-	<insert id="signUp">
-		insert into user(userId, userPassword, userNickname, userEmail) values(#{id}, #{password}, #{nickname}, #{email})
+	<insert id="signUp" parameterType="com.namix.LearningBaduk.entity.User">
+		insert into user(userId, userPassword, userNickname, userEmail) values(#{userId}, #{userPassword}, #{userNickname}, #{userEmail})
 	</insert>
 	
 	<update id="editProfile">
