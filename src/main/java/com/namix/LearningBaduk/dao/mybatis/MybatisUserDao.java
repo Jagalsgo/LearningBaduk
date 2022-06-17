@@ -21,8 +21,8 @@ public class MybatisUserDao implements UserDao {
 	}
 	
 	@Override
-	public User login(String id) {
-		return userDaoMapper.login(id);
+	public User getUser(String id) {
+		return userDaoMapper.getUser(id);
 	}
 
 	@Override
@@ -88,6 +88,16 @@ public class MybatisUserDao implements UserDao {
 	@Override
 	public int initUserReport(String id) {
 		return userDaoMapper.initUserReport(id);
+	}
+
+	@Override
+	public int addUserProfileImg(String imgUrl, String userId) {
+		return userDaoMapper.addUserProfileImg(imgUrl, userId);
+	}
+
+	@Override
+	public int deleteUserProfileImg(String userId) {
+		return userDaoMapper.deleteUserProfileImg(userId);
 	}
 
 }

@@ -7,7 +7,7 @@ import com.namix.LearningBaduk.entity.UserProfileImg;
 
 public interface UserDao {
 
-	User login(String id);
+	User getUser(String id);
 
 	int idOverlapCheck(String id);
 
@@ -34,5 +34,9 @@ public interface UserDao {
 	int getReportUserCount(String field, String query);
 
 	int initUserReport(String id);
+
+	int addUserProfileImg(String imgUrl, String userId);
+
+	int deleteUserProfileImg(String userId);
 	
 }

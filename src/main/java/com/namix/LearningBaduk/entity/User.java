@@ -11,12 +11,13 @@ public class User  {
 	private int userReport;
 	private String userRole;
 	private Date userDate;
+	private String userProfileImg;
 	
 	public User() {
 		
 	}
 
-	public User(String userId, String userPassword, String userNickname, String userEmail, int userReport, String userRole, Date userDate) {
+	public User(String userId, String userPassword, String userNickname, String userEmail, int userReport, String userRole, Date userDate, String userProfileImg) {
 		this.userId = userId;
 		this.userPassword = userPassword;
 		this.userNickname = userNickname;
@@ -24,6 +25,7 @@ public class User  {
 		this.userReport = userReport;
 		this.userRole = userRole;
 		this.userDate = userDate;
+		this.userProfileImg = userProfileImg;
 	}
 
 	public String getUserId() {
@@ -80,6 +82,14 @@ public class User  {
 
 	public void setUserDate(Date userDate) {
 		this.userDate = userDate;
+	}
+	
+	public String getUserProfileImg() {
+		return userProfileImg;
+	}
+
+	public void setUserProfileImg(String userProfileImg) {
+		this.userProfileImg = userProfileImg;
 	}
 
 }

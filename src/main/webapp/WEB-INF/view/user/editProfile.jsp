@@ -1,41 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <link rel="stylesheet" href="/css/editProfile.css">
 <script type="text/javascript" src="/js/editProfile.js"></script>
 <div class="container-md">
 		<form action="/user/editProfile" method="post" class="border px-5 pt-4" id="editProfileForm" enctype="multipart/form-data">
 			<div class="fw-bold h4 mb-5 mt-3">회원 정보 수정</div>
-			<c:if test="${!empty profileImg }">
-				<div class="text-center my-5"><img alt="" src="${profileImg.imgPath }" style="height: 300px; width: 300px;"></div>
+			
+			<sec:authorize access="isAuthenticated">
+				<sec:authentication property="principal.userProfileImg" var="userProfileImg"/>
+				<sec:authentication property="principal.username" var="userId"/>
+			</sec:authorize>
+			
+			<c:if test="${!empty userProfileImg }">
+				<div class="text-center my-5"><img alt="" src="${userProfileImg }" style="height: 300px; width: 300px;"></div>
 			</c:if>
 	        <div class="form-group">
 	            <label for="editProfileId" class="editProfileFormLabel">아이디</label>
-	            <div class="my-2">${user.userId }</div>
-	            <input type="hidden" value="${user.userId }" id="editProfileId" name="editProfileId">
+	            <div class="my-2">${userId }</div>
+	            <input type="hidden" value="${userId }" id="editProfileId" name="userId">
 	        </div>
 	        <div class="form-group">
 	            <label for="editProfilePassword" class="editProfileFormLabel">비밀번호 변경</label>
-	            <input type="password" class="form-control" placeholder="PASSWORD" id="editProfilePassword" name="editProfilePassword">
+	            <input type="password" class="form-control" placeholder="PASSWORD" id="editProfilePassword" name="userPassword">
 	        </div>
 	        <div class="form-group">
 	            <label for="editProfilePasswordCheck" class="editProfileFormLabel">비밀번호 확인</label>
-	            <input type="password" class="form-control" placeholder="PASSWORD CHECK" id="editProfilePasswordCheck" name="editProfilePasswordCheck">
+	            <input type="password" class="form-control" placeholder="PASSWORD CHECK" id="editProfilePasswordCheck" name="userPasswordCheck">
 	        </div>
 	        <div class="form-group">
 	            <label for="editProfileName" class="editProfileFormLabel">닉네임</label>
-	            <input type="text" class="form-control" placeholder="NICKNAME" id="editProfileNickname" name="editProfileNickname">
+	            <input type="text" class="form-control" placeholder="NICKNAME" id="editProfileNickname" name="userNickname">
 	            <input type="button" class="btn btn-secondary btn-sm" id="nicknameCheckBtn" value="닉네임 중복 체크" onclick="nicknameOverlapCheck()">
 	            <div class="text-success" id="nicknameCheckedText">checked!</div>
 	        </div>
 	        <div class="form-group">
 	            <label for="editProfileEmail" class="editProfileFormLabel">이메일</label>
-	            <input type="email" class="form-control" placeholder="EMAIL" id="editProfileEmail" name="editProfileEmail">
+	            <input type="email" class="form-control" placeholder="EMAIL" id="editProfileEmail" name="userEmail">
 	        </div>
 	        <div class="form-group">
 	        	<label for="editProfileProfileImg" class="editProfileFormLabel">프로필 사진</label>
 	        	<input type="file" accept="image/*" class="form-control" id="editProfileProfileImg" name="profileImg">
 	        	<a href="/user/deleteProfile" ><button class="btn btn-secondary pull-left" id="goToDeleteProfileImg" type="button">프로필 사진 삭제</button></a>
+	        </div>
+	        <div class="form-group">
+	            <label for="editProfilePassword" class="editProfileFormLabel">기존 비밀번호</label>
+	            <input type="password" class="form-control" placeholder="" id="oldPassword" name="oldPassword">
 	        </div>
 	        <div class="form-group text-center my-5" id="editProfileSubmitBtnBox">
 	            <input type="submit" class="btn btn-primary pull-right" value="회원 정보 수정" id="editProfileSubmitBtn">

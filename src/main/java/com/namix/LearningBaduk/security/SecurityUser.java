@@ -47,6 +47,10 @@ public class SecurityUser implements UserDetails {
 	public String getUsername() {
 		return user.getUserId();
 	}
+	
+	public String getUserProfileImg() {
+		return user.getUserProfileImg();
+	}
 
 	@Override
 	public boolean isAccountNonExpired() {
@@ -71,37 +75,5 @@ public class SecurityUser implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	/*
-	 * public String getUserId() { return userId; }
-	 * 
-	 * public void setUserId(String userId) { this.userId = userId; }
-	 * 
-	 * public String getUserPassword() { return userPassword; }
-	 * 
-	 * public void setUserPassword(String userPassword) { this.userPassword =
-	 * userPassword; }
-	 * 
-	 * public String getUserNickname() { return userNickname; }
-	 * 
-	 * public void setUserNickname(String userNickname) { this.userNickname =
-	 * userNickname; }
-	 * 
-	 * public String getUserEmail() { return userEmail; }
-	 * 
-	 * public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
-	 * 
-	 * public int getUserReport() { return userReport; }
-	 * 
-	 * public void setUserReport(int userReport) { this.userReport = userReport; }
-	 * 
-	 * public String getUserRole() { return userRole; }
-	 * 
-	 * public void setUserRole(String userRole) { this.userRole = userRole; }
-	 * 
-	 * public Date getUserDate() { return userDate; }
-	 * 
-	 * public void setUserDate(Date userDate) { this.userDate = userDate; }
-	 */
 
 }

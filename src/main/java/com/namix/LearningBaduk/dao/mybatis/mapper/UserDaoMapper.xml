@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.namix.LearningBaduk.dao.UserDao">
 
-	<select id="login" resultType="com.namix.LearningBaduk.entity.User">
+	<select id="getUser" resultType="com.namix.LearningBaduk.entity.User">
 		select * from user where userId = #{id}
 	</select>
 	
@@ -58,6 +58,14 @@
 	
 	<update id="initUserReport">
 		update user set userReport = 0 where userId = #{id}
+	</update>
+	
+	<update id="addUserProfileImg">
+		update user set userProfileImg = #{imgUrl} where userId = #{userId}
+	</update>
+	
+	<update id="deleteUserProfileImg">
+		update user set userProfileImg = null where userId = #{userId};
 	</update>
 
 </mapper>

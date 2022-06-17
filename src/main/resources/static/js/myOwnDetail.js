@@ -11,6 +11,9 @@ $(document).ready(function(){
 // detail view 아래 list 불러오기
 function getBoards(boardPage){
 	
+	$('.boardPage').removeClass('text-warning');
+	$('.listPage'+boardPage).addClass('text-warning');
+	
 	var data = {
 		"boardPage": boardPage
 	}

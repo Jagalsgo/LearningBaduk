@@ -149,6 +149,9 @@ function deleteComment(commentId){
 // 댓글 불러오기
 function getComments(commentPage){
 	
+	$('.commentPage').removeClass('text-warning');
+	$('.cListPage'+commentPage).addClass('text-warning');
+	
 	var data = {
 		"boardId": boardId,
 		"commentPage": commentPage
@@ -201,6 +204,9 @@ function getComments(commentPage){
 
 // detail view 아래 list 불러오기
 function getBoards(boardPage){
+	
+	$('.boardPage').removeClass('text-warning');
+	$('.listPage'+boardPage).addClass('text-warning');
 	
 	var data = {
 		"category": category,

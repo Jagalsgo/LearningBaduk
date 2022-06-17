@@ -12,24 +12,19 @@ import com.namix.LearningBaduk.entity.UserProfileImg;
 
 public interface UserService {
 
-	/* User login(String id, String userPassword); */
-
 	int idOverlapCheck(String signUpId);
 
 	int nicknameOverlapCheck(String signUpNickname);
-
-	/* int signUp(String id, String password, String nickname, String email); */
-
-	int editProfile(String password, String nickname, String email, String id);
 
 	int withdraw(String id);
 
 	void editProfileImg(MultipartFile file, HttpServletRequest request, String userId) throws IOException;
 	
+	int addUserProfileImg(String imgUrl, String userId);
 
 	int addProfileImg(String imgName, String imgUrl, String userId);
 
-	int deleteProfileImg(String userId);
+	void deleteProfileImg(String userId);
 	
 	UserProfileImg getProfileImg(String userId);
 
@@ -42,4 +37,6 @@ public interface UserService {
 	int getReportUserCount(String field, String query);
 
 	void initUserReports(List<String> chkArray);
+
+	void deleteUserProfileImg(String userId);
 }

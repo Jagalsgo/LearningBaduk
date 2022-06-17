@@ -23,11 +23,6 @@ public class UserServiceImp implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	/*
-	 * @Override public User login(String id, String password) { return
-	 * userDao.login(id, password); }
-	 */
-
 	@Override
 	public int idOverlapCheck(String id) {
 		return userDao.idOverlapCheck(id);
@@ -36,16 +31,6 @@ public class UserServiceImp implements UserService {
 	@Override
 	public int nicknameOverlapCheck(String nickname) {
 		return userDao.nicknameOverlapCheck(nickname);
-	}
-
-	/*
-	 * @Override public int signUp(String id, String password, String nickname,
-	 * String email) { return userDao.signUp(id, password, nickname, email); }
-	 */
-
-	@Override
-	public int editProfile(String password, String nickname, String email, String id) {
-		return userDao.editProfile(password, nickname, email, id);
 	}
 
 	@Override
@@ -72,8 +57,14 @@ public class UserServiceImp implements UserService {
 		OutputStream out = new FileOutputStream(new File(imgPath));
 		out.write(bytes);
 		
+		addUserProfileImg(imgUrl, userId);
 		addProfileImg(imgName, imgUrl, userId);
 		
+	}
+
+	@Override
+	public int addUserProfileImg(String imgUrl, String userId) {
+		return userDao.addUserProfileImg(imgUrl, userId);
 	}
 
 	@Override
@@ -82,8 +73,9 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public int deleteProfileImg(String userId) {
-		return userDao.deleteProfileImg(userId);
+	public void deleteProfileImg(String userId) {
+		userDao.deleteProfileImg(userId);
+		// userDao.deleteUserProfileImg(userId);
 	}
 
 	@Override
@@ -123,6 +115,11 @@ public class UserServiceImp implements UserService {
 			String id = chkArray.get(i);
 			userDao.initUserReport(id);
 		}
+	}
+
+	@Override
+	public void deleteUserProfileImg(String userId) {
+		userDao.deleteUserProfileImg(userId);
 	}
 
 }

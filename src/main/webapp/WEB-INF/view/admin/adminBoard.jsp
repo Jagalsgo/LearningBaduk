@@ -66,7 +66,7 @@
 		            </c:if>
 		            <c:forEach var="i" begin="0" end="4">
 			            <c:if test="${(firstPage + i) <= lastPage }">
-				            <li class="page-item"><a class="page-link" href="?ct=${category.ct }&f=${param.f }&q=${param.q}&p=${firstPage + i}">${firstPage + i }</a></li>
+				            <li class="page-item"><a class="page-link ${(param.p==(firstPage+i))?'text-warning':'' }" href="?ct=${category.ct }&f=${param.f }&q=${param.q}&p=${firstPage + i}">${firstPage + i }</a></li>
 			            </c:if>
 		            </c:forEach>
 		            <c:if test="${firstPage + 4 < lastPage }">
@@ -79,14 +79,12 @@
 		        </ul>
 		    </div>
 		    <!-- 글 작성 버튼 -->
-		    <c:if test="${!empty user }">
-	           <div class="col-sm-3 col-md-2" id="goToWrite">
-	           		<form action="/detail/writeDetail">
-	           			<input type="hidden" id="writeCt" name="writeCt" value="${category.ct }">
-	           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
-	           		</form>
-	           </div>
-            </c:if>
+           <div class="col-sm-3 col-md-2" id="goToWrite">
+           		<form action="/detail/writeDetail">
+           			<input type="hidden" id="writeCt" name="writeCt" value="${category.ct }">
+           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
+           		</form>
+           </div>
 	    </div>
     </div>
     

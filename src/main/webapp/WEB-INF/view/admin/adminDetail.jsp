@@ -55,18 +55,9 @@
                <input type="textarea" class="form-control" id="commentContent" name="commentContent">
                <label for="commentContent">Comments</label>
            </div>
-        <c:choose>
-        	<c:when test="${empty user }">
-		        <div class="text-right my-1">
-		        	<input type="button" class="btn btn-secondary mt-2" value="작성" id="commentNeedLoginBtn">
-		        </div>
-        	</c:when>
-        	<c:otherwise>
-		        <div class="text-right my-1">
+        <div class="text-right my-1">
 		            <button class="btn btn-secondary mt-2" onclick="postComment()" id="postCommentBtn">작성</button>
-		        </div>
-        	</c:otherwise>
-        </c:choose>
+        </div>
 	</div>
 	
 	<!-- comment list -->
@@ -94,7 +85,7 @@
 	            </c:if>
 	            <c:forEach var="i" begin="0" end="4">
 		            <c:if test="${(firstCommentPage + i) <= lastCommentPage }">
-			            <li class="page-item"><span class="page-link commentPage" onclick="getComments(${firstCommentPage + i })">${firstCommentPage + i }</span></li>
+			            <li class="page-item"><span class="page-link commentPage cListPage${firstBoardPage+i }" onclick="getComments(${firstCommentPage + i })">${firstCommentPage + i }</span></li>
 		            </c:if>
 	            </c:forEach>
 	            <c:if test="${firstCommentPage + 4 < lastCommentPage }">
@@ -150,7 +141,7 @@
 		            </c:if>
 		            <c:forEach var="i" begin="0" end="4">
 			            <c:if test="${(firstBoardPage + i) <= lastBoardPage }">
-				            <li class="page-item"><span class="page-link boardPage" onclick="getBoards(${firstBoardPage + i })">${firstBoardPage + i }</span></li>
+				            <li class="page-item"><span class="page-link boardPage listPage${firstBoardPage+i }" onclick="getBoards(${firstBoardPage + i })">${firstBoardPage + i }</span></li>
 			            </c:if>
 		            </c:forEach>
 		            <c:if test="${firstBoardPage + 4 < lastBoardPage }">
@@ -164,14 +155,12 @@
 		    </div>
 		    
 		    <!-- 글 작성 버튼 -->
-		    <c:if test="${!empty user }">
-	           <div class="col-sm-3 col-md-2" id="goToWrite">
-	           		<form action="/detail/writeDetail">
-	           			<input type="hidden" id="writeCt" name="writeCt" value="${category.ct }">
-	           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
-	           		</form>
-	           </div>
-            </c:if>
+           <div class="col-sm-3 col-md-2" id="goToWrite">
+           		<form action="/detail/writeDetail">
+           			<input type="hidden" id="writeCt" name="writeCt" value="${category.ct }">
+           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
+           		</form>
+           </div>
 		    
 	    </div>
     </div>

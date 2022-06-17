@@ -4,7 +4,7 @@ $(document).ready(function(){
 	editProfilePasswordCheck = $('#editProfilePasswordCheck');
 	editProfileNickname = $('#editProfileNickname');
 	editProfileEmail = $('#editProfileEmail');
-	nicknameCheckedText = $('#nicknameChekedText');
+	nicknameCheckedText = $('#nicknameCheckedText');
 	nicknameCheckBtn = $("#nicknameCheckBtn");
 	nicknameCheckResult = 0;
 	rv = false;

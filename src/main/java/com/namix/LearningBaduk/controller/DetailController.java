@@ -1,6 +1,7 @@
 package com.namix.LearningBaduk.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,6 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
 import com.namix.LearningBaduk.entity.MyBoard;
-import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.script.ScriptClass;
 import com.namix.LearningBaduk.service.BoardService;
 
@@ -72,10 +71,9 @@ public class DetailController {
 	}
 	
 	@GetMapping("myOwnDetail")
-	public String myOwnDetail(@RequestParam("id") int id, HttpServletResponse response, Model model, HttpSession session) {
+	public String myOwnDetail(@RequestParam("id") int id, HttpServletResponse response, Model model, Principal principal) {
 		
-		User user = (User) session.getAttribute("user");
-		String userId = user.getUserId();
+		String userId = principal.getName();
 		
 		MyBoard board = service.getMyDetailBoard(id);
 		int boardCount = service.getMyOwnPageCount(userId);
@@ -187,11 +185,10 @@ public class DetailController {
 	@PostMapping("writeDetail")
 	public void writeDetailPost(@RequestParam("writeTitle") String title, @RequestParam("writeContent") String content,
 											@RequestParam("ct") String ct,
-											HttpSession session, HttpServletResponse response) throws IOException {
+											Principal principal, HttpServletResponse response) throws IOException {
 		
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
-		User user = (User) session.getAttribute("user");
-		String userId = user.getUserId();
+		String userId = principal.getName();
 		int writeDetailResult = 0;
 		writeDetailResult = service.writeDetail(category.getCategoryBoard(), title, content, userId);
 		int boardId = service.getUsersLastBoardId(userId);
@@ -212,10 +209,9 @@ public class DetailController {
 	
 	@PostMapping("writeMyDetail")
 	public void writeMyDetailPost(@RequestParam("writeTitle") String title, @RequestParam("writeContent") String content,
-												HttpSession session, HttpServletResponse response) throws IOException {
+												Principal principal, HttpServletResponse response) throws IOException {
 		
-		User user = (User) session.getAttribute("user");
-		String userId = user.getUserId();
+		String userId = principal.getName();
 		int writeMyDetailResult = 0;
 		writeMyDetailResult = service.writeMyDetail(title, content, userId);
 		int boardId = service.getUsersLastMyBoardId(userId);
@@ -231,15 +227,11 @@ public class DetailController {
 	
 	@ResponseBody
 	@PostMapping("addLike")
-	public Map<Object, Object> addLike(@RequestParam("id") int id, HttpSession session){
+	public Map<Object, Object> addLike(@RequestParam("id") int id, Principal principal){
 		
 		Map<Object, Object> map = new HashMap<Object, Object>();
-		User user = (User) session.getAttribute("user");
-		if(user == null) {
-			map.put("addLikeResult", -2);
-			return map;
-		}
-		String userId = user.getUserId();
+
+		String userId = principal.getName();
 		
 		// 작성자 본인일 경우
 		String boardUserId = service.getBoardsUser(id);
@@ -269,15 +261,11 @@ public class DetailController {
 	
 	@ResponseBody
 	@PostMapping("addDislike")
-	public Map<Object, Object> addDislike(@RequestParam("id") int id, HttpSession session){
+	public Map<Object, Object> addDislike(@RequestParam("id") int id, Principal principal){
 		
 		Map<Object, Object> map = new HashMap<Object, Object>();
-		User user = (User) session.getAttribute("user");
-		if(user == null) {
-			map.put("addDislikeResult", -2);
-			return map;
-		}
-		String userId = user.getUserId();
+
+		String userId = principal.getName();
 		
 		// 작성자 본인일 경우
 		String boardUserId = service.getBoardsUser(id);
@@ -308,10 +296,9 @@ public class DetailController {
 	@ResponseBody
 	@PostMapping("postComment")
 	public int postComment(@RequestParam("boardId") int boardId, @RequestParam("commentContent") String commentContent,
-										HttpSession session) {
+										Principal principal) {
 		
-		User user = (User) session.getAttribute("user");
-		String userId = user.getUserId();
+		String userId = principal.getName();
 		
 		int postCommentResult = 0;
 		postCommentResult = service.postComment(userId, commentContent, boardId);
@@ -333,7 +320,6 @@ public class DetailController {
 	@PostMapping("getComments")
 	public List<Comment> getComments (@RequestParam("boardId") int id, @RequestParam(value = "commentPage", defaultValue = "1") Integer page,
 														Model model){
-		
 		List<Comment> comments = service.getComments(id, page);
 		model.addAttribute("commentPage", page);
 		return comments;
@@ -353,10 +339,9 @@ public class DetailController {
 	@ResponseBody
 	@PostMapping("getMyBoards")
 	public List<MyBoard> getMyBoards(@RequestParam(value="boardPage", defaultValue = "1") Integer boardPage, 
-														Model model, HttpSession session){
+														Model model, Principal principal){
 		
-		User user = (User) session.getAttribute("user");
-		String userId = user.getUserId();
+		String userId = principal.getName();
 		List<MyBoard> boards =  service.getMyOwnBoards(boardPage, "", userId);
 		model.addAttribute("boardPage", boardPage);
 		return boards;

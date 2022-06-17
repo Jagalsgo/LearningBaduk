@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <link rel="stylesheet" href="/css/detail.css">
 <script type="text/javascript" src="/js/detail.js"></script>
 <!-- detail content  -->
@@ -10,10 +11,17 @@
 	<div class="container-md border p-3">
 		<div class="row">
 			<input type="hidden" value="${boardView.boardId }" id="boardId" name="boardId">
-			<input type="hidden" value="${user.userId }" id="userId" name="userId">
 			<input type="hidden" value="${category.categoryBoard }" id="category" name="category">
 			<input type="hidden" value="${category.ct }" id="categoryCt" name="categoryCt">
 			<input type="hidden" value="${detailsPage }" id="detailsPage" name="detailsPage">
+			<sec:authorize access="isAuthenticated">
+				<sec:authentication property="principal.username" var="userId"/>
+				<input type="hidden" value="${userId }" id="userId" name="userId">
+			</sec:authorize>
+			<sec:authorize access="isAnonymous">
+				<input type="hidden" value="-1" id="userId" name="userId">
+			</sec:authorize>
+
 			
 			<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
 			<div class="col-7 p-3 border-bottom userMenu">
@@ -57,18 +65,21 @@
                <input type="textarea" class="form-control" id="commentContent" name="commentContent">
                <label for="commentContent">Comments</label>
            </div>
-        <c:choose>
-        	<c:when test="${empty user }">
-		        <div class="text-right my-1">
-		        	<input type="button" class="btn btn-secondary mt-2" value="작성" id="commentNeedLoginBtn">
-		        </div>
-        	</c:when>
-        	<c:otherwise>
-		        <div class="text-right my-1">
-		            <button class="btn btn-secondary mt-2" onclick="postComment()" id="postCommentBtn">작성</button>
-		        </div>
-        	</c:otherwise>
-        </c:choose>
+        
+       	<!-- 로그인 전 -->
+        <sec:authorize access="isAnonymous">
+        	<div class="text-right my-1">
+	        	<input type="button" class="btn btn-secondary mt-2" value="작성" id="commentNeedLoginBtn">
+	        </div>
+        </sec:authorize>
+        
+        <!-- 로그인 후 -->
+        <sec:authorize access="isAuthenticated">
+	        <div class="text-right my-1">
+	            <button class="btn btn-secondary mt-2" onclick="postComment()" id="postCommentBtn">작성</button>
+	        </div>
+        </sec:authorize>
+        
 	</div>
 	
 	<!-- comment list -->
@@ -92,7 +103,7 @@
 		            </c:if>
 		            <c:forEach var="i" begin="0" end="4">
 			            <c:if test="${(firstCommentPage + i) <= lastCommentPage }">
-				            <li class="page-item"><span class="page-link commentPage" onclick="getComments(${firstCommentPage + i })">${firstCommentPage + i }</span></li>
+				            <li class="page-item"><span class="page-link commentPage cListPage${firstBoardPage+i }" onclick="getComments(${firstCommentPage + i })">${firstCommentPage + i }</span></li>
 			            </c:if>
 		            </c:forEach>
 		            <c:if test="${firstCommentPage + 4 < lastCommentPage }">
@@ -148,7 +159,7 @@
 		            </c:if>
 		            <c:forEach var="i" begin="0" end="4">
 			            <c:if test="${(firstBoardPage + i) <= lastBoardPage }">
-				            <li class="page-item"><span class="page-link boardPage" onclick="getBoards(${firstBoardPage + i })">${firstBoardPage + i }</span></li>
+				            <li class="page-item"><span class="page-link boardPage listPage${firstBoardPage+i }" onclick="getBoards(${firstBoardPage + i })">${firstBoardPage + i }</span></li>
 			            </c:if>
 		            </c:forEach>
 		            <c:if test="${firstBoardPage + 4 < lastBoardPage }">
@@ -162,14 +173,14 @@
 		    </div>
 		    
 		    <!-- 글 작성 버튼 -->
-		    <c:if test="${!empty user }">
-	           <div class="col-sm-3 col-md-2" id="goToWrite">
+		    <sec:authorize access="isAuthenticated">
+			    <div class="col-sm-3 col-md-2" id="goToWrite">
 	           		<form action="/detail/writeDetail">
 	           			<input type="hidden" id="writeCt" name="writeCt" value="${category.ct }">
 	           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
 	           		</form>
-	           </div>
-            </c:if>
+       	  		</div>
+		    </sec:authorize>
 		    
 	    </div>
     </div>

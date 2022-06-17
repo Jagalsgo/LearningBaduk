@@ -63,7 +63,7 @@
 		            </c:if>
 		            <c:forEach var="i" begin="0" end="4">
 			            <c:if test="${(firstPage + i) <= lastPage }">
-				            <li class="page-item"><a class="page-link" href="?f=${param.f }&q=${param.q}&p=${firstPage + i}">${firstPage + i }</a></li>
+				            <li class="page-item"><a class="page-link ${(param.p==(firstPage+i))?'text-warning':'' }" href="?f=${param.f }&q=${param.q}&p=${firstPage + i}">${firstPage + i }</a></li>
 			            </c:if>
 		            </c:forEach>
 		            <c:if test="${firstPage + 4 < lastPage }">

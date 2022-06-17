@@ -49,7 +49,7 @@
 		            </c:if>
 		            <c:forEach var="i" begin="0" end="4">
 			            <c:if test="${(firstPage + i) <= lastPage }">
-				            <li class="page-item"><a class="page-link" href="?q=${param.q}&p=${firstPage + i}">${firstPage + i }</a></li>
+				            <li class="page-item"><a class="page-link ${(param.p==(firstPage+i))?'text-warning':'' }" href="?q=${param.q}&p=${firstPage + i}">${firstPage + i }</a></li>
 			            </c:if>
 		            </c:forEach>
 		            <c:if test="${firstPage + 4 < lastPage }">
@@ -61,17 +61,13 @@
 		            </c:if>
 		        </ul>
 		    </div>
+		    
 		    <!-- 글 작성 버튼 -->
-		    <c:if test="${!empty user }">
-	           <div class="col-sm-3 col-md-2" id="goToWrite">
-	           		<form action="/detail/writeMyDetail">
-	           			<!-- <input type="hidden" id="categoryEng" name="categoryEng" value="endGameBoard">
-	           			<input type="hidden" id="categoryKor" name="categoryKor" value="나만의 게시판">
-	           			<input type="hidden" id="categoryDet" name="categoryDet" value="endGameDetail"> -->
-	           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
-	           		</form>
-	           </div>
-            </c:if>
+           <div class="col-sm-3 col-md-2" id="goToWrite">
+           		<form action="/detail/writeMyDetail">
+           			<button class="btn btn-sm btn-secondary" id="goToWriteBtn" type="submit"><i class="fa fa-solid fa-pen"></i> 글작성</button>
+           		</form>
+           </div>
 	    </div>
     </div>
     
@@ -79,10 +75,6 @@
     <div class="container-md mb-5 mt-2" id="searchFormBox">
 		<form class="search-form">
     		<fieldset>
-        		<%-- <select class="form-select-sm" name="f" style="width:80px;">
-	           		<option ${param.f == "boardTitle"?"selected":"" } value="boardTitle">제목</option>
-	           		<option ${param.f == "userNickname"?"selected":"" } value="userNickname">작성자</option>
-       			</select> 		 --%>
        			<label for="query" class="fw-bold">제목</label>
        			<input type="text" class="mx-3" name="q" id="query" value="${param.q }" style="width: 150px;"/>
 				<input type="submit" class="btn btn-sm btn-secondary" value="검색" />
