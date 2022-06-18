@@ -15,7 +15,7 @@ $(document).ready(function(){
     nicknameExp = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/;
 	
 	//프로필 사진 삭제 시 물어보기
-	$('#goToDeleteProfileImg').click(function(){
+	$('#deleteProfileImgBtn').click(function(){
 		var result = confirm('프로필 사진을 삭제하겠습니까?')
 		if(!result){
 			return rv;
@@ -23,7 +23,7 @@ $(document).ready(function(){
 	})
 	
 	//회원탈퇴 시 물어보기
-	$('#goToWithdraw').click(function(){
+	$('#withdrawBtn').click(function(){
 		var result = confirm('회원 탈퇴 하시겠습니까?')
 		if(!result){
 			return rv;
@@ -118,6 +118,59 @@ function nicknameOverlapCheck(){
                 nicknameCheckedText.hide();
                 nicknameCheckResult = 0;
                 editProfileNickname.focus();
+            }
+		},
+		error: function(error){
+            alert('error : ' + error);
+        }
+	});
+	
+}
+
+// 프로필 사진 삭제
+function deleteProfileImg(){
+	console.log('aaa');
+	$.ajax({
+		type: "POST",
+		url: "/user/deleteProfileImg",
+		data: {
+			"userId": $('#userId').val(),
+			"oldPassword": $('#oldPassword').val()
+			},
+		success: function(data){
+			if(data.result == -1){
+                alert('기존 비밀번호가 올바르지 않습니다.');
+                window.opener.location.reload();
+				$('#oldPassword').focus();
+            }else{
+                alert('프로필 사진이 삭제되었습니다.');
+                location.href = '/user/editProfile';
+            }
+		},
+		error: function(error){
+            alert('error : ' + error);
+        }
+	});
+	
+}
+
+// 회원 탈퇴
+function withdraw(){
+	
+	$.ajax({
+		type: "POST",
+		url: "/user/withdraw",
+		data: {
+			"userId": $('#userId').val(),
+			"oldPassword": $('#oldPassword').val()
+			},
+		success: function(data){
+			if(data.result == -1){
+                alert('기존 비밀번호가 올바르지 않습니다.');
+				$('#oldPassword').focus();
+            }else{
+                alert('회원 탈퇴 되었습니다.');
+                location.href = '/board/home';
             }
 		},
 		error: function(error){

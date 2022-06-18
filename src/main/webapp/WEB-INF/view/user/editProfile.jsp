@@ -19,7 +19,7 @@
 	        <div class="form-group">
 	            <label for="editProfileId" class="editProfileFormLabel">아이디</label>
 	            <div class="my-2">${userId }</div>
-	            <input type="hidden" value="${userId }" id="editProfileId" name="userId">
+	            <input type="hidden" value="${userId }" id="userId" name="userId">
 	        </div>
 	        <div class="form-group">
 	            <label for="editProfilePassword" class="editProfileFormLabel">비밀번호 변경</label>
@@ -42,15 +42,15 @@
 	        <div class="form-group">
 	        	<label for="editProfileProfileImg" class="editProfileFormLabel">프로필 사진</label>
 	        	<input type="file" accept="image/*" class="form-control" id="editProfileProfileImg" name="profileImg">
-	        	<a href="/user/deleteProfile" ><button class="btn btn-secondary pull-left" id="goToDeleteProfileImg" type="button">프로필 사진 삭제</button></a>
+	        	<input type="button" class="btn btn-secondary btn-sm" id="deleteProfileImgBtn" value="프로필 사진 삭제" onclick="deleteProfileImg()">
 	        </div>
 	        <div class="form-group">
-	            <label for="editProfilePassword" class="editProfileFormLabel">기존 비밀번호</label>
-	            <input type="password" class="form-control" placeholder="" id="oldPassword" name="oldPassword">
+	            <label for="editProfilePassword" class="editProfileFormLabel mt-5 h5">현재 비밀번호</label>
+	            <input type="password" class="form-control mb-3" placeholder="" id="oldPassword" name="oldPassword">
 	        </div>
 	        <div class="form-group text-center my-5" id="editProfileSubmitBtnBox">
 	            <input type="submit" class="btn btn-primary pull-right" value="회원 정보 수정" id="editProfileSubmitBtn">
 	        </div>
-    	<div class="text-right"><a href="/user/withdraw" ><button class="btn btn-secondary pull-left" id="goToWithdraw" type="button">회원탈퇴</button></a></div>
+    	<input type="button" class="btn btn-secondary btn-sm" id="withdrawBtn" value="회원탈퇴" onclick="withdraw()">
     	</form>
 	</div>

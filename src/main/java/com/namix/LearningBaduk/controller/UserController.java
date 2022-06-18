@@ -51,18 +51,18 @@ public class UserController {
 		
 		String userId = user.getUserId();
 		
+		boolean passwordMatch = securityService.isOldPasswordMatch(userId, oldPassword);
+		if(!passwordMatch) {
+			ScriptClass.alert(response, "기존 비밀번호가 올바르지 않습니다.");
+			ScriptClass.historyBack(response);
+		}
+		
 		if(!file.isEmpty()) {
 			UserProfileImg originProfileImg = service.getProfileImg(userId);
 			if(originProfileImg != null) {
 				service.deleteProfileImg(userId);
 			}
 			service.editProfileImg(file, request, userId);
-		}
-		
-		boolean passwordMatch = securityService.isOldPasswordMatch(userId, oldPassword);
-		if(!passwordMatch) {
-			ScriptClass.alert(response, "기존 비밀번호가 올바르지 않습니다.");
-			ScriptClass.historyBack(response);
 		}
 		
 		securityService.editProfile(user);
@@ -99,39 +99,53 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("withdraw")
-	public void withdraw(Principal principal, HttpServletResponse response, HttpSession session) throws IOException {
-		
-		String userId = principal.getName();
-		
-		int withdrawResult = 0;
-		withdrawResult = service.withdraw(userId);
-		if(withdrawResult == 0) {
-			ScriptClass.alert(response, "오류 발생");
-			ScriptClass.historyBack(response);
-		}else {
-			session.invalidate();
-			ScriptClass.alertAndMove(response, "회원 탈퇴 완료", "/board/home");
-		}	
-		
-	}
-	
 	@GetMapping("login")
 	public String login() {
 		return "user.login";
 	}
 	
-	@GetMapping("deleteProfile")
-	public void deleteProfile(Principal principal, HttpServletResponse response) throws IOException {
+	@ResponseBody
+	@PostMapping("withdraw")
+	public Map<Object, Object> withdraw(String userId, String oldPassword, HttpSession session) throws IOException {
 		
-		String userId = principal.getName();
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		
+		boolean passwordMatch = securityService.isOldPasswordMatch(userId, oldPassword);
+		if(!passwordMatch) {
+			map.put("result", -1);
+			return map;
+		}
+		
+		service.withdraw(userId);
+		map.put("result", 1);
+		session.invalidate();
+		return map;
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("deleteProfileImg")
+	public Map<Object, Object> deleteProfileImg(String userId, String oldPassword) throws IOException {
+		
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		
+		boolean passwordMatch = securityService.isOldPasswordMatch(userId, oldPassword);
+		if(!passwordMatch) {
+			map.put("result", -1);
+			return map;
+		}
 		
 		UserProfileImg originProfileImg = service.getProfileImg(userId);
 		if(originProfileImg != null) {
 			service.deleteProfileImg(userId);
 			service.deleteUserProfileImg(userId);
 		}
-		ScriptClass.alertAndMove(response, "프로필 사진 삭제 완료", "/user/editProfile");
+		
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userId, oldPassword));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		map.put("result", 1);
+		return map;
 		
 	}
 	

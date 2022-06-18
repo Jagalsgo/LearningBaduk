@@ -69,13 +69,10 @@ public class SecurityService implements UserDetailsService {
 	}
 
 	public boolean isOldPasswordMatch(String userId, String oldPassword) {
+		
 		User user = userDao.getUser(userId);
 		String dbPassword = user.getUserPassword();
-		if(passwordEncoder.matches(dbPassword, oldPassword)) {
-			return true;
-		}else {
-			return false;
-		}
+		return passwordEncoder.matches(oldPassword, dbPassword);
 		
 	}
 

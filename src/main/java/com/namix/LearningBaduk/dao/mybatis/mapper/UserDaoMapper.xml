@@ -37,7 +37,7 @@
 	</delete>
 	
 	<select id="getProfileImg" resultType="com.namix.LearningBaduk.entity.UserProfileImg">
-		select * from userProfileImg;
+		select * from userProfileImg where userId = #{userId}
 	</select>
 	
 	<select id="getUsers" resultType="com.namix.LearningBaduk.entity.User">
