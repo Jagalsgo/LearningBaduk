@@ -1,0 +1,14 @@
+.tableHeader{
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	border-right: 1px solid black;
+	padding: 5px 5px 5px 20px;
+	background: #b7baaf;
+	font-weight: bold;
+}
+.tableBody{
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 5px 5px 5px 15px;
+	background: #eff0ef;
+}

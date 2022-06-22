@@ -4,68 +4,119 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.namix.LearningBaduk.dao.UserDao">
 
-	<select id="getUser" resultType="com.namix.LearningBaduk.entity.User">
+	<select id="getUser"
+		resultType="com.namix.LearningBaduk.entity.User">
 		select * from user where userId = #{id}
 	</select>
-	
+
 	<select id="idOverlapCheck" resultType="int">
-		select count(*) from user where userId = #{id}
+		select count(*) from user
+		where userId = #{id}
 	</select>
-	
+
 	<select id="nicknameOverlapCheck" resultType="int">
-		select count(*) from user where userNickname = #{nickname}	
+		select count(*)
+		from user where userNickname = #{nickname}
 	</select>
-	
-	<insert id="signUp" parameterType="com.namix.LearningBaduk.entity.User">
-		insert into user(userId, userPassword, userNickname, userEmail) values(#{userId}, #{userPassword}, #{userNickname}, #{userEmail})
+
+	<insert id="signUp"
+		parameterType="com.namix.LearningBaduk.entity.User">
+		insert into user(userId, userPassword, userNickname,
+		userEmail) values(#{userId}, #{userPassword}, #{userNickname},
+		#{userEmail})
 	</insert>
-	
+
 	<update id="editProfile">
-		update user set userPassword = #{password}, userNickname = #{nickname}, userEmail = #{email} where userId = #{id}
+		update user set userPassword = #{password},
+		userNickname = #{nickname}, userEmail = #{email} where userId = #{id}
 	</update>
-	
+
 	<delete id="withdraw">
 		delete from user where userId = #{id}
 	</delete>
-	
+
 	<insert id="addProfileImg">
-		insert into userProfileImg(imgName, imgPath, userId) values(#{imgName}, #{imgUrl}, #{userId})
+		insert into userProfileImg(imgName, imgPath, userId)
+		values(#{imgName}, #{imgUrl}, #{userId})
 	</insert>
-	
+
 	<delete id="deleteProfileImg">
 		delete from userProfileImg where userId = #{userId}
 	</delete>
-	
-	<select id="getProfileImg" resultType="com.namix.LearningBaduk.entity.UserProfileImg">
+
+	<select id="getProfileImg"
+		resultType="com.namix.LearningBaduk.entity.UserProfileImg">
 		select * from userProfileImg where userId = #{userId}
 	</select>
-	
-	<select id="getUsers" resultType="com.namix.LearningBaduk.entity.User">
-		select * from user where ${field} like '%${query}%' order by userDate desc limit #{offset}, #{size}
+
+	<select id="getUsers"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where ${field} like '%${query}%' order
+		by userDate desc limit #{offset}, #{size}
 	</select>
-	
+
 	<select id="getUserCount" resultType="int">
-		select count(*) from user where ${field} like '%${query}%'
+		select count(*) from user
+		where ${field} like '%${query}%'
 	</select>
-	
-	<select id="getReportUsers" resultType="com.namix.LearningBaduk.entity.User">
-		select * from user where userReport >= 1 and ${field} like '%${query}%' order by userDate desc limit #{offset}, #{size}
+
+	<select id="getReportUsers"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where userReport >= 1 and ${field} like
+		'%${query}%' order by userDate desc limit #{offset}, #{size}
 	</select>
-	
+
 	<select id="getReportUserCount" resultType="int">
-		select count(*) from user where userReport >= 1 and ${field} like '%${query}%'
+		select count(*) from
+		user where userReport >= 1 and ${field} like '%${query}%'
 	</select>
-	
+
 	<update id="initUserReport">
 		update user set userReport = 0 where userId = #{id}
 	</update>
-	
+
 	<update id="addUserProfileImg">
-		update user set userProfileImg = #{imgUrl} where userId = #{userId}
+		update user set userProfileImg = #{imgUrl} where
+		userId = #{userId}
 	</update>
-	
+
 	<update id="deleteUserProfileImg">
-		update user set userProfileImg = null where userId = #{userId};
+		update user set userProfileImg = null where userId =
+		#{userId};
 	</update>
+
+	<update id="addUsersReport">
+		update user set userReport = userReport + 1 where
+		userId = #{reportedUser}
+	</update>
+
+	<insert id="postReportList">
+		insert into reportlist(reportContent, reportedUser,
+		reporter, reportType)
+		values(#{reportContent}, #{reportedUser},
+		#{reporter}, #{type})
+	</insert>
+
+	<select id="getUserReportList"
+		resultType="com.namix.LearningBaduk.entity.ReportList">
+		select * from reportlist where reportedUser = #{userId}
+		order
+		by reportDate desc limit
+		#{offset}, #{size}
+	</select>
+
+	<select id="getUserReportsCount" resultType="int">
+		select count(*) from
+		reportlist where reportedUser = #{userId}
+	</select>
+
+	<select id="getReport"
+		resultType="com.namix.LearningBaduk.entity.ReportList">
+		select * from reportlist where reportId = #{id}
+	</select>
+	
+	<delete id="deleteUserReportList">
+		delete from reportlist where reportedUser = #{id} and reportType = 'user'
+	</delete>
 
 </mapper>

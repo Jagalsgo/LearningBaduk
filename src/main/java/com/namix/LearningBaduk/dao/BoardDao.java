@@ -41,5 +41,8 @@ public interface BoardDao {
 	List<BoardView> getReportBoards(int offset, int size, String field, String query);
 	int getReportPageCount(String field, String query);
 	int initBoardReport(int id);
+	int haveYouReported(String boardIdString, String userId);
+	int addBoardReport(int boardId);
+	int deleteBoardReportList(String boardIdString);
 	
 }

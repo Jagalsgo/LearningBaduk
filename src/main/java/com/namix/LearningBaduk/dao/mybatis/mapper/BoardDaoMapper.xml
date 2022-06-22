@@ -135,5 +135,18 @@
 	<update id="initBoardReport">
 		update board set boardReport = 0 where boardId = #{id}
 	</update>
+	
+	<update id="addBoardReport">
+		update board set boardReport = boardReport + 1 where
+		boardId = #{boardId}
+	</update>
+	
+	<select id="haveYouReported" resultType="int">
+		select count(*) from reportlist where reportedUser = #{boardIdString} and reporter = #{userId}
+	</select>
+	
+	<delete id="deleteBoardReportList">
+		delete from reportlist where reportedUser = #{boardIdString} and reportType = 'board'
+	</delete>
 
 </mapper>

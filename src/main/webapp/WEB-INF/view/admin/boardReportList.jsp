@@ -44,7 +44,7 @@
 		            </tbody>
 		        </table>
 	        </div>
-	        <span><button class="btn btn-sm btn-secondary" id="deleteBtn" type="button" onclick="initUserReports()">신고 횟수 초기화</button></span>	
+	        <span><button class="btn btn-sm btn-secondary" id="deleteBtn" type="button" onclick="initBoardReports()">신고 횟수 초기화</button></span>	
 		</div>
 	</div>
 	

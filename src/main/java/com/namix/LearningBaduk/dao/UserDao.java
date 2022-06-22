@@ -2,6 +2,7 @@ package com.namix.LearningBaduk.dao;
 
 import java.util.List;
 
+import com.namix.LearningBaduk.entity.ReportList;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
 
@@ -38,5 +39,17 @@ public interface UserDao {
 	int addUserProfileImg(String imgUrl, String userId);
 
 	int deleteUserProfileImg(String userId);
-	
+
+	int addUsersReport(String reportedUser);
+
+	int postReportList(String type, String reportedUser, String reportContent, String reporter);
+
+	List<ReportList> getUserReportList(String userId, int size, int offset);
+
+	int getUserReportsCount(String userId);
+
+	ReportList getReport(int id);
+
+	int deleteUserReportList(String id);
+
 }

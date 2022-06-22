@@ -1,7 +1,6 @@
 package com.namix.LearningBaduk.controller;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,139 +37,151 @@ public class UserController {
 	private SecurityService securityService;
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
 	@GetMapping("editProfile")
 	public String editProfile() {
 		return "user.editProfile";
 	}
-	
+
 	@PostMapping("editProfile")
 	public void editProfilePost(User user, @RequestParam(value = "profileImg", required = false) MultipartFile file,
-										HttpServletResponse response, HttpServletRequest request, 
-										@RequestParam("oldPassword") String oldPassword) throws IOException {
-		
+			HttpServletResponse response, HttpServletRequest request, @RequestParam("oldPassword") String oldPassword)
+			throws IOException {
+
 		String userId = user.getUserId();
-		
+
 		boolean passwordMatch = securityService.isOldPasswordMatch(userId, oldPassword);
-		if(!passwordMatch) {
+		if (!passwordMatch) {
 			ScriptClass.alert(response, "기존 비밀번호가 올바르지 않습니다.");
 			ScriptClass.historyBack(response);
 		}
-		
-		if(!file.isEmpty()) {
+
+		if (!file.isEmpty()) {
 			UserProfileImg originProfileImg = service.getProfileImg(userId);
-			if(originProfileImg != null) {
+			if (originProfileImg != null) {
 				service.deleteProfileImg(userId);
 			}
 			service.editProfileImg(file, request, userId);
 		}
-		
+
 		securityService.editProfile(user);
-		
+
 		String loginPwd;
-		if(user.getUserPassword() == null || user.getUserPassword().equals("")) {
+		if (user.getUserPassword() == null || user.getUserPassword().equals("")) {
 			loginPwd = oldPassword;
-		}else {
+		} else {
 			loginPwd = user.getUserPassword();
 		}
-		
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userId, loginPwd));
+
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(userId, loginPwd));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
+
 		ScriptClass.alertAndMove(response, "회원 정보 수정 완료", "/board/home");
-		
+
 	}
-	
+
 	@GetMapping("findAccount")
 	public String findAccout() {
 		return "user.findAccount";
 	}
-	
+
 	@GetMapping("signUp")
 	public String signUp() {
 		return "user.signUp";
 	}
-	
+
 	@PostMapping("signUp")
 	public void signUpPost(User user, HttpServletResponse response) throws IOException {
-		
+
 		securityService.signUp(user);
 		ScriptClass.alertAndMove(response, "회원가입 완료", "/user/login");
-		
+
 	}
-	
+
 	@GetMapping("login")
 	public String login() {
 		return "user.login";
 	}
-	
+
 	@ResponseBody
 	@PostMapping("withdraw")
 	public Map<Object, Object> withdraw(String userId, String oldPassword, HttpSession session) throws IOException {
-		
+
 		Map<Object, Object> map = new HashMap<Object, Object>();
-		
+
 		boolean passwordMatch = securityService.isOldPasswordMatch(userId, oldPassword);
-		if(!passwordMatch) {
+		if (!passwordMatch) {
 			map.put("result", -1);
 			return map;
 		}
-		
+
 		service.withdraw(userId);
 		map.put("result", 1);
 		session.invalidate();
 		return map;
-		
+
 	}
-	
+
 	@ResponseBody
 	@PostMapping("deleteProfileImg")
 	public Map<Object, Object> deleteProfileImg(String userId, String oldPassword) throws IOException {
-		
+
 		Map<Object, Object> map = new HashMap<Object, Object>();
-		
+
 		boolean passwordMatch = securityService.isOldPasswordMatch(userId, oldPassword);
-		if(!passwordMatch) {
+		if (!passwordMatch) {
 			map.put("result", -1);
 			return map;
 		}
-		
+
 		UserProfileImg originProfileImg = service.getProfileImg(userId);
-		if(originProfileImg != null) {
+		if (originProfileImg != null) {
 			service.deleteProfileImg(userId);
 			service.deleteUserProfileImg(userId);
 		}
-		
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userId, oldPassword));
+
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(userId, oldPassword));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		map.put("result", 1);
 		return map;
-		
+
 	}
-	
+
 	@ResponseBody
 	@PostMapping("idOverlapCheck")
-	public Map<Object, Object> idOverlapCheck(String signUpId){
-		
+	public Map<Object, Object> idOverlapCheck(String signUpId) {
+
 		int idCheckResult = 0;
 		idCheckResult = service.idOverlapCheck(signUpId);
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("count", idCheckResult);
 		return map;
-		
+
 	}
-	
+
 	@ResponseBody
 	@PostMapping("nicknameOverlapCheck")
-	public Map<Object, Object> nicknameOverlapCheck(String signUpNickname){
-		
+	public Map<Object, Object> nicknameOverlapCheck(String signUpNickname) {
+
 		int nicknameCheckResult = 0;
 		nicknameCheckResult = service.nicknameOverlapCheck(signUpNickname);
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("count", nicknameCheckResult);
 		return map;
-		
+
 	}
-	
+
+	@ResponseBody
+	@PostMapping("deleteUser")
+	public int deleteUser(@RequestParam("userId") String userId) {
+
+		int deleteUserResult = 0;
+		deleteUserResult = service.withdraw(userId);
+		return deleteUserResult;
+
+	}
+
 }

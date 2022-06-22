@@ -4,6 +4,10 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
+	<definition name="popup.*" template="/WEB-INF/view/inc/popupLayout.jsp">
+	    <put-attribute name="main" value="/WEB-INF/view/popup/{1}.jsp" />
+	</definition>
+	
   <definition name="*.*" template="/WEB-INF/view/inc/layout.jsp">
 	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
 	    <put-attribute name="main" value="/WEB-INF/view/{1}/{2}.jsp" />

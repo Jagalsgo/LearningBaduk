@@ -32,8 +32,15 @@
 						    	<img alt="" src="/img/user.png" class="vertical-align headerUserInfoBtn" id="userInfoBtn">
 				    		</c:otherwise>
 				    	</c:choose>
-				    	<div class="openBox text-center" id="openUserInfoBox">
-				    		<img class="mb-3 mt-4" alt="baduk" src="/img/baduk.png" width="100" height="100">
+				    	<div class="openMyInfo text-center" id="openUserInfoBox">
+				    		<c:choose>
+					    		<c:when test="${!empty userProfileImg }">
+					    			<img alt="" src="${userProfileImg }" class="mb-3 mt-4" width="100" height="100">
+					    		</c:when>
+					    		<c:otherwise>
+							    	<img alt="" src="/img/user.png" class="mb-3 mt-4" width="100" height="100">
+					    		</c:otherwise>
+					    	</c:choose>
 				    		<div class="my-3" id="userInfoBorderBox">
 				    			<div class="innerBorderBox"><a href="s"><i class="fa fa-solid fa-envelope"></i> 쪽지함</a></div>
 				    			<div class="innerBorderBox"><a href="/board/myWritingBoard"><i class="fa fa-solid fa-folder-open"></i> 내가 쓴 글</a></div>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.namix.LearningBaduk.dao.BoardDao;
+import com.namix.LearningBaduk.dao.UserDao;
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
 import com.namix.LearningBaduk.entity.MyBoard;
@@ -17,21 +18,23 @@ public class BoardServiceImp implements BoardService {
 
 	@Autowired
 	private BoardDao boardDao;
-	
+	@Autowired
+	private UserDao userDao;
+
 	@Override
 	public List<BoardView> getBoards(String category, int page) {
 		return getBoards(category, page, "boardTitle", "");
 	}
-	
+
 	@Override
 	public List<BoardView> getBoards(String category, int page, String field, String query) {
-		
+
 		int size = 10;
-		int offset = 0+(page-1)*size;
-		
+		int offset = 0 + (page - 1) * size;
+
 		return boardDao.getBoards(category, offset, size, field, query);
 	}
-	
+
 	@Override
 	public int getPageCount(String category) {
 		return getPageCount(category, "boardTitle", "");
@@ -66,13 +69,13 @@ public class BoardServiceImp implements BoardService {
 	public List<Comment> getComments(int id) {
 		return getComments(id, 1);
 	}
-	
+
 	@Override
 	public List<Comment> getComments(int id, int page) {
 
 		int size = 10;
-		int offset = 0+(page-1)*size;
-		
+		int offset = 0 + (page - 1) * size;
+
 		return boardDao.getComments(id, size, offset);
 	}
 
@@ -89,14 +92,14 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public void addHit(int id) {
 		boardDao.addHit(id);
-		
+
 	}
 
 	@Override
 	public String getBoardsUser(int id) {
 		return boardDao.getBoardsUser(id);
 	}
-	
+
 	@Override
 	public int likeClicked(int id, String userId) {
 		return boardDao.likeClicked(id, userId);
@@ -106,7 +109,7 @@ public class BoardServiceImp implements BoardService {
 	public int DislikeClicked(int id, String userId) {
 		return boardDao.dislikeClicked(id, userId);
 	}
-	
+
 	@Override
 	public int addLike(int id, String userId) {
 		return boardDao.addLike(id, userId);
@@ -121,7 +124,6 @@ public class BoardServiceImp implements BoardService {
 	public int getLikeCount(int id) {
 		return boardDao.getLikeCount(id);
 	}
-
 
 	@Override
 	public int getDislikeCount(int id) {
@@ -140,23 +142,23 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public int getDetailsPage(int id) {
-		
-		int detailsRowNumber = boardDao.getDetailsRowNumber(id) - 1 ;
+
+		int detailsRowNumber = boardDao.getDetailsRowNumber(id) - 1;
 		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
-		
-		if(detailsPage <= 1) {
+
+		if (detailsPage <= 1) {
 			detailsPage = 1;
 		}
-		
+
 		return detailsPage;
 	}
 
 	@Override
 	public List<BoardView> getMyWritingBoards(int page, String query, String userId) {
-		
+
 		int size = 10;
-		int offset = 0+(page-1)*size;
-		
+		int offset = 0 + (page - 1) * size;
+
 		return boardDao.getMyWritingBoards(page, query, userId, size, offset);
 	}
 
@@ -168,11 +170,11 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public List<MyBoard> getMyOwnBoards(int page, String query, String userId) {
 		int size = 10;
-		int offset = 0+(page-1)*size;
-		
+		int offset = 0 + (page - 1) * size;
+
 		return boardDao.getMyOwnBoards(page, query, userId, size, offset);
 	}
-	
+
 	@Override
 	public int getMyOwnPageCount(String userId) {
 		return boardDao.getMyOwnPageCount("", userId);
@@ -200,15 +202,15 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public int getMyDetailsPage(int id) {
-		
+
 		int detailsRowNumber = boardDao.getMyDetailsRowNumber(id) - 1;
-		
+
 		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
 
-		if(detailsPage <= 1) {
+		if (detailsPage <= 1) {
 			detailsPage = 1;
 		}
-		
+
 		return detailsPage;
 	}
 
@@ -224,7 +226,7 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public void deleteBoards(List<Integer> chkArray) {
-		for(int i=0; i<chkArray.size(); i++) {
+		for (int i = 0; i < chkArray.size(); i++) {
 			int id = chkArray.get(i);
 			boardDao.deleteDetail(id);
 		}
@@ -232,7 +234,7 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public void deleteComments(List<Integer> chkArray) {
-		for(int i=0; i<chkArray.size(); i++) {
+		for (int i = 0; i < chkArray.size(); i++) {
 			int id = chkArray.get(i);
 			boardDao.deleteComment(id);
 		}
@@ -241,8 +243,8 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public List<BoardView> getReportBoards(Integer page, String field, String query) {
 		int size = 10;
-		int offset = 0+(page-1)*size;
-		
+		int offset = 0 + (page - 1) * size;
+
 		return boardDao.getReportBoards(offset, size, field, query);
 	}
 
@@ -253,17 +255,21 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public void initBoardReports(List<Integer> chkArray) {
-		for(int i=0; i<chkArray.size(); i++) {
+		for (int i = 0; i < chkArray.size(); i++) {
 			int id = chkArray.get(i);
 			boardDao.initBoardReport(id);
+		}
+		for (int i = 0; i < chkArray.size(); i++) {
+			String boardIdString = Integer.toString(chkArray.get(i));
+			boardDao.deleteBoardReportList(boardIdString);
 		}
 	}
 
 	@Override
 	public Map<String, Object> getHomeBoards() {
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+
 		map.put("free", boardDao.getBoards("freeBoard", 0, 5, "boardTitle", ""));
 		map.put("rule", boardDao.getBoards("ruleBoard", 0, 5, "boardTitle", ""));
 		map.put("pattern", boardDao.getBoards("patternBoard", 0, 5, "boardTitle", ""));
@@ -272,8 +278,23 @@ public class BoardServiceImp implements BoardService {
 		map.put("quetion", boardDao.getBoards("quetionBoard", 0, 5, "boardTitle", ""));
 		map.put("schedule", boardDao.getBoards("scheduleBoard", 0, 5, "boardTitle", ""));
 		map.put("notice", boardDao.getBoards("noticeBoard", 0, 5, "boardTitle", ""));
-		
+
 		return map;
+	}
+
+	@Override
+	public int reportBoard(int boardId, String userId) {
+
+		String boardIdString = Integer.toString(boardId);
+		int haveReported = boardDao.haveYouReported(boardIdString, userId);
+		if (haveReported >= 1) {
+			return -1;
+		} else {
+			boardDao.addBoardReport(boardId);
+			userDao.postReportList("board", boardIdString, "", userId);
+			return 1;
+		}
+
 	}
 
 }

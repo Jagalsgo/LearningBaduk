@@ -49,6 +49,7 @@ public interface BoardService {
 	int getReportPageCount(String field, String query);
 	void initBoardReports(List<Integer> chkArray);
 	Map<String, Object> getHomeBoards();
+	int reportBoard(int boardId, String userId);
 	
 	
 }

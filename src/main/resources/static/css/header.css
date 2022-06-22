@@ -9,7 +9,7 @@
 #loginBtn, #userInfoBtn, .headerProfileImg{
 	cursor: pointer;
 }
-.openBox{
+.openMyInfo{
 	position: absolute;
 	right: 0;
 	background: #dae8d3;

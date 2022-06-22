@@ -11,18 +11,21 @@ a{
 }
 
 /* userMenu */
-.userMenuBox{
-	display: none;
-}
+
 .userMenuBoxDetail{
 	display: none;
+}
+.userMenuClick:hover{
+	text-decoration: underline;
 }
 
 .userMenuBox{
 	position: absolute;
 	right: -30px;
+	top: 30px;
 	background: #dae8d3;
 	padding: 10px;
+	z-index: 3;
 }
 .userMenuBoxDetail{
 	position: absolute;
@@ -36,4 +39,11 @@ a{
 }
 .userMenuPointer, .userMenuPointerDetail{
 	cursor: pointer;
+}
+
+/* popup */
+.popupHeader{
+	background: #ccd0cc;
+	padding: 15px;
+	font-weight: bold;
 }

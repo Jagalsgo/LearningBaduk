@@ -15,12 +15,12 @@ import com.namix.LearningBaduk.entity.MyBoard;
 public class MybatisBoardDao implements BoardDao {
 
 	private BoardDao boardDaoMapper;
-	
+
 	@Autowired
 	public MybatisBoardDao(SqlSession sqlsession) {
 		boardDaoMapper = sqlsession.getMapper(BoardDao.class);
 	}
-	
+
 	@Override
 	public List<BoardView> getBoards(String category, int offset, int size, String field, String query) {
 		return boardDaoMapper.getBoards(category, offset, size, field, query);
@@ -69,7 +69,7 @@ public class MybatisBoardDao implements BoardDao {
 	@Override
 	public void addHit(int id) {
 		boardDaoMapper.addHit(id);
-		
+
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class MybatisBoardDao implements BoardDao {
 	public int likeClicked(int id, String userId) {
 		return boardDaoMapper.likeClicked(id, userId);
 	}
-	
+
 	@Override
 	public int dislikeClicked(int id, String userId) {
 		return boardDaoMapper.dislikeClicked(id, userId);
@@ -101,7 +101,6 @@ public class MybatisBoardDao implements BoardDao {
 	public int getLikeCount(int id) {
 		return boardDaoMapper.getLikeCount(id);
 	}
-
 
 	@Override
 	public int getDislikeCount(int id) {
@@ -186,6 +185,21 @@ public class MybatisBoardDao implements BoardDao {
 	@Override
 	public int initBoardReport(int id) {
 		return boardDaoMapper.initBoardReport(id);
+	}
+
+	@Override
+	public int haveYouReported(String boardIdString, String userId) {
+		return boardDaoMapper.haveYouReported(boardIdString, userId);
+	}
+
+	@Override
+	public int addBoardReport(int boardId) {
+		return boardDaoMapper.addBoardReport(boardId);
+	}
+
+	@Override
+	public int deleteBoardReportList(String boardIdString) {
+		return boardDaoMapper.deleteBoardReportList(boardIdString);
 	}
 
 }

@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.namix.LearningBaduk.dao.BoardDao;
 import com.namix.LearningBaduk.dao.UserDao;
+import com.namix.LearningBaduk.entity.ReportList;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
 
@@ -22,7 +24,9 @@ public class UserServiceImp implements UserService {
 
 	@Autowired
 	private UserDao userDao;
-	
+	@Autowired
+	private BoardDao boardDao;
+
 	@Override
 	public int idOverlapCheck(String id) {
 		return userDao.idOverlapCheck(id);
@@ -40,26 +44,26 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public void editProfileImg(MultipartFile file, HttpServletRequest request, String userId) throws IOException {
-		
+
 		String imgName = file.getName();
 		String imgPath = request.getServletContext().getRealPath("/profileImg");
-		
+
 		File uploadImg = new File(imgPath);
-		if(!uploadImg.exists()) {
+		if (!uploadImg.exists()) {
 			uploadImg.mkdir();
 		}
-		
+
 		imgName = UUID.randomUUID().toString();
 		imgPath = imgPath + "/" + imgName;
 		String imgUrl = request.getContextPath() + "/profileImg/" + imgName;
-		
+
 		byte[] bytes = file.getBytes();
 		OutputStream out = new FileOutputStream(new File(imgPath));
 		out.write(bytes);
-		
+
 		addUserProfileImg(imgUrl, userId);
 		addProfileImg(imgName, imgUrl, userId);
-		
+
 	}
 
 	@Override
@@ -86,8 +90,8 @@ public class UserServiceImp implements UserService {
 	@Override
 	public List<User> getUsers(Integer page, String field, String query) {
 		int size = 10;
-		int offset = 0+(page-1)*size;
-		
+		int offset = 0 + (page - 1) * size;
+
 		return userDao.getUsers(offset, size, field, query);
 	}
 
@@ -99,8 +103,8 @@ public class UserServiceImp implements UserService {
 	@Override
 	public List<User> getReportUsers(int page, String field, String query) {
 		int size = 10;
-		int offset = 0+(page-1)*size;
-		
+		int offset = 0 + (page - 1) * size;
+
 		return userDao.getReportUsers(offset, size, field, query);
 	}
 
@@ -111,15 +115,57 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public void initUserReports(List<String> chkArray) {
-		for(int i=0; i<chkArray.size(); i++) {
+		for (int i = 0; i < chkArray.size(); i++) {
 			String id = chkArray.get(i);
 			userDao.initUserReport(id);
+		}
+		for (int i = 0; i < chkArray.size(); i++) {
+			String id = chkArray.get(i);
+			userDao.deleteUserReportList(id);
 		}
 	}
 
 	@Override
 	public void deleteUserProfileImg(String userId) {
 		userDao.deleteUserProfileImg(userId);
+	}
+
+	@Override
+	public User getUser(String userId) {
+		return userDao.getUser(userId);
+	}
+
+	@Override
+	public int reportUser(String reportedUser, String reportContent, String reporter) {
+
+		int haveReported = boardDao.haveYouReported(reportedUser, reporter);
+		if (haveReported >= 1) {
+			return -1;
+		}else {
+			userDao.addUsersReport(reportedUser);
+			userDao.postReportList("user", reportedUser, reportContent, reporter);
+			return 1;
+		}
+
+
+	}
+
+	@Override
+	public List<ReportList> getUserReportList(String userId, int page) {
+
+		int size = 10;
+		int offset = 0 + (page - 1) * size;
+		return userDao.getUserReportList(userId, size, offset);
+	}
+
+	@Override
+	public int getUserReportsCount(String userId) {
+		return userDao.getUserReportsCount(userId);
+	}
+
+	@Override
+	public ReportList getReport(int id) {
+		return userDao.getReport(id);
 	}
 
 }
