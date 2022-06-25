@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.Message;
+import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.MyBoard;
 
 public interface BoardDao {
@@ -44,5 +46,10 @@ public interface BoardDao {
 	int haveYouReported(String boardIdString, String userId);
 	int addBoardReport(int boardId);
 	int deleteBoardReportList(String boardIdString);
+	List<MessageView> getMessages(int offset, int size, String field, String query, String messageField, String messageQuery, String deleted);
+	int getMessageCount(String field, String query, String messageField, String messageQuery, String deleted);
+	int deleteMessage(int id, String deleted);
+	int deleteDbMessage(int id);
+	MessageView getMessage(int id);
 	
 }

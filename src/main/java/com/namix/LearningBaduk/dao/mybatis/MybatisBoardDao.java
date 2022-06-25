@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.namix.LearningBaduk.dao.BoardDao;
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.MyBoard;
 
 @Repository
@@ -200,6 +201,31 @@ public class MybatisBoardDao implements BoardDao {
 	@Override
 	public int deleteBoardReportList(String boardIdString) {
 		return boardDaoMapper.deleteBoardReportList(boardIdString);
+	}
+
+	@Override
+	public List<MessageView> getMessages(int offset, int size, String field, String query, String messageField, String messageQuery, String deleted) {
+		return boardDaoMapper.getMessages(offset, size, field, query, messageField, messageQuery, deleted);
+	}
+
+	@Override
+	public int getMessageCount(String field, String query, String messageField, String messageQuery, String deleted) {
+		return boardDaoMapper.getMessageCount(field, query, messageField, messageQuery, deleted);
+	}
+
+	@Override
+	public int deleteMessage(int id, String deleted) {
+		return boardDaoMapper.deleteMessage(id, deleted);
+	}
+
+	@Override
+	public int deleteDbMessage(int id) {
+		return boardDaoMapper.deleteDbMessage(id);
+	}
+
+	@Override
+	public MessageView getMessage(int id) {
+		return boardDaoMapper.getMessage(id);
 	}
 
 }

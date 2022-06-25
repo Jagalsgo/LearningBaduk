@@ -1,48 +1,53 @@
 /* common */
-a{
+a {
 	text-decoration: none;
 	color: black;
 }
-.text-right{
+
+.text-right {
 	text-align: right;
 }
-.vertical-align{
-	vertical-align:middle;
+
+.vertical-align {
+	vertical-align: middle;
 }
 
 /* userMenu */
-
-.userMenuBoxDetail{
-	display: none;
-}
-.userMenuClick:hover{
+.userMenuClick:hover {
 	text-decoration: underline;
 }
 
-.userMenuBox{
+.messages .userMenuBox {
 	position: absolute;
-	right: -30px;
+	left: -100px;
 	top: 30px;
 	background: #dae8d3;
 	padding: 10px;
 	z-index: 3;
+	width: 150px;
 }
-.userMenuBoxDetail{
+
+.userMenuBox {
 	position: absolute;
-	left: 30px;
+	left: -30px;
+	top: 30px;
 	background: #dae8d3;
 	padding: 10px;
+	z-index: 3;
+	width: 150px;
 }
-.userMenuBox li, .userMenuBoxDetail li{
+
+.userMenuBox li {
 	list-style: none;
 	margin: 3px 0 3px 0;
 }
-.userMenuPointer, .userMenuPointerDetail{
+
+.userMenuPointer {
 	cursor: pointer;
 }
 
 /* popup */
-.popupHeader{
+.popupHeader {
 	background: #ccd0cc;
 	padding: 15px;
 	font-weight: bold;

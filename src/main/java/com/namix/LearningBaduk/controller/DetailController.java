@@ -221,7 +221,7 @@ public class DetailController {
 			ScriptClass.alert(response, "글 작성 중 오류 발생");
 			ScriptClass.historyBack(response);
 		} else {
-			ScriptClass.alertAndMove(response, "글 작성 완료", "/detail/myOwnsDetail?id=" + boardId);
+			ScriptClass.alertAndMove(response, "글 작성 완료", "/detail/myOwnDetail?id=" + boardId);
 		}
 
 	}

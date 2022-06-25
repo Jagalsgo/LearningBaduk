@@ -114,9 +114,26 @@
 		resultType="com.namix.LearningBaduk.entity.ReportList">
 		select * from reportlist where reportId = #{id}
 	</select>
-	
+
 	<delete id="deleteUserReportList">
-		delete from reportlist where reportedUser = #{id} and reportType = 'user'
+		delete from reportlist where reportedUser = #{id} and
+		reportType = 'user'
 	</delete>
+
+	<select id="getUserByNickname"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where userNickname = #{userNickname}
+	</select>
+
+	<insert id="sendMessage">
+		insert into message(sender, receiver, messageTitle,
+		messageContent) values(#{sender}, #{receiver}, #{messageTitle},
+		#{messageContent})
+	</insert>
+
+	<select id="getMessage"
+		resultType="com.namix.LearningBaduk.entity.Message">
+		select * from message where messageId = #{id}
+	</select>
 
 </mapper>

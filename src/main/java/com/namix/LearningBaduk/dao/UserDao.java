@@ -2,6 +2,7 @@ package com.namix.LearningBaduk.dao;
 
 import java.util.List;
 
+import com.namix.LearningBaduk.entity.Message;
 import com.namix.LearningBaduk.entity.ReportList;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
@@ -51,5 +52,11 @@ public interface UserDao {
 	ReportList getReport(int id);
 
 	int deleteUserReportList(String id);
+
+	User getUserByNickname(String userNickname);
+
+	int sendMessage(String sender, String receiver, String messageTitle, String messageContent);
+
+	Message getMessage(int id);
 
 }

@@ -173,18 +173,23 @@ function getComments(commentPage) {
 				str += "<div class='col-6 p-3 border-bottom border-top'>";
 
 				if (this.imgPath == null) {
-					str += "<span class='userMenuPointerDetail'><img alt='user' src='/img/user.png' width='25' height='25'> " + this.userNickname + "</span>";
+					str += "<span class='userMenuClick userMenuPointer mx-2'"
+						+ "onclick = 'openUserMenuC(" + this.commentId + ", \"" + this.userId + "\")' >"
+						+ "<img alt='user' src='/img/user.png' width='25' height='25'>"
+						+ this.userNickname + "<span id='commentId" + this.commentId + "'"
+						+ "class='commentIdAll position-relative'></span>"
+						+ "</span >";
 				} else {
-					str += "<span class='userMenuPointerDetail'><img alt='user' src='" + this.imgPath + "' width='25' height='25'> " + this.userNickname + "</span>";
+					str += "<span class='userMenuClick userMenuPointer mx-2'"
+						+ "onclick = 'openUserMenuC(" + this.commentId + ", \"" + this.userId + "\")' >"
+						+ "<img alt='user' src='" + this.imgPath + "' width='25' height='25'>"
+						+ this.userNickname + "<span id='commentId" + this.commentId + "'"
+						+ "class='commentIdAll position-relative'></span>"
+						+ "</span >";
+
 				}
 
-				str += "<div class='position-relative'>"
-					+ "<ul class='userMenuBoxDetail'>"
-					+ "<li><a href='dd'><i class='fa fa-solid fa-envelope'></i> 쪽지 보내기</a></li>"
-					+ "<li><a href='ss'><i class='fa fa-solid fa-flag'></i> 신고하기</a></li>"
-					+ "</ul>"
-					+ "</div>"
-					+ "</div>"
+				str += "</div>"
 					+ "<div class='col-6 p-3  border-bottom border-top text-muted text-right'>" + this.commentDate + "</div>"
 					+ "<div class='col-12 p-3'>"
 					+ this.commentContent
@@ -240,13 +245,7 @@ function getBoards(boardPage) {
 				}
 
 
-				str += "<td class='boardWriter fw-bold text-center'>"
-					+ "<div class='position-relative userMenuPointer'>" + this.userNickname
-					+ "<ul class='userMenuBox'>"
-					+ "<li><a href='dd'><i class='fa fa-solid fa-envelope'></i> 쪽지 보내기</a></li>"
-					+ "<li><a href='ss'><i class='fa fa-solid fa-flag'></i> 신고하기</a></li>"
-					+ "</ul>"
-					+ "</div>"
+				str += "<td class='boardWriter fw-bold text-center'>" + this.userNickname
 					+ "</td>"
 					+ "<td class='boardHit text-muted text-center'>" + this.boardHit + "</td>"
 					+ "</tr>";

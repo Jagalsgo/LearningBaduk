@@ -36,10 +36,10 @@
 									<span class="text-muted">(${b.commentCount })</span>
 							</a></td>
 							<td class="boardWriter fw-bold text-center">
-								<div class="position-relative userMenuPointer userMenuClick"
+								<span class="userMenuPointer userMenuClick"
 									onclick="openUserMenu(${b.boardId}, '${b.userId }')">${b.userNickname }
-									<div id="boardId${b.boardId }" class="boardIdAll"></div>
-								</div>
+									<span id="boardId${b.boardId }" class="boardIdAll position-relative"></span>
+								</span>
 							</td>
 							<td class="boardHit text-muted text-center">${b.boardHit }</td>
 						</tr>

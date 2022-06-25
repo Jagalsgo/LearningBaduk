@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.Message;
+import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.MyBoard;
 
 public interface BoardService {
@@ -50,6 +52,10 @@ public interface BoardService {
 	void initBoardReports(List<Integer> chkArray);
 	Map<String, Object> getHomeBoards();
 	int reportBoard(int boardId, String userId);
-	
+	List<MessageView> getMessages(Integer page, String field, String query, String messageField, String messageQuery, String string);
+	int getMessageCount(String field, String query, String messageField, String messageQuery, String deleted);
+	void deleteMessage(List<Integer> chkArray, String deleted);
+	MessageView getMessage(int id);
+	void deleteMessageDetail(int id, String deleted);
 	
 }

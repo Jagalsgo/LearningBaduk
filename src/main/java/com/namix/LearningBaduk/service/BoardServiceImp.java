@@ -11,6 +11,8 @@ import com.namix.LearningBaduk.dao.BoardDao;
 import com.namix.LearningBaduk.dao.UserDao;
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.Message;
+import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.MyBoard;
 
 @Service
@@ -295,6 +297,50 @@ public class BoardServiceImp implements BoardService {
 			return 1;
 		}
 
+	}
+
+	@Override
+	public List<MessageView> getMessages(Integer page, String field, String query, String messageField, String messageQuery,
+			String deleted) {
+		int size = 10;
+		int offset = 0 + (page - 1) * size;
+
+		return boardDao.getMessages(offset, size, field, query, messageField, messageQuery, deleted);
+	}
+
+	@Override
+	public int getMessageCount(String field, String query, String messageField, String messageQuery, String deleted) {
+		return boardDao.getMessageCount(field, query, messageField, messageQuery, deleted);
+	}
+
+	@Override
+	public void deleteMessage(List<Integer> chkArray, String deleted) {
+
+		for (int i = 0; i < chkArray.size(); i++) {
+			int id = chkArray.get(i);
+			boardDao.deleteMessage(id, deleted);
+			Message message = userDao.getMessage(id);
+			if(message.isDeleteByReceiver() && message.isDeleteBySender()) {
+				boardDao.deleteDbMessage(id);
+			}
+		}
+
+	}
+
+	@Override
+	public MessageView getMessage(int id) {
+		return boardDao.getMessage(id);
+	}
+
+	@Override
+	public void deleteMessageDetail(int id, String deleted) {
+		
+		boardDao.deleteMessage(id, deleted);
+		Message message = userDao.getMessage(id);
+		if(message.isDeleteByReceiver() && message.isDeleteBySender()) {
+			boardDao.deleteDbMessage(id);
+		}
+		
 	}
 
 }

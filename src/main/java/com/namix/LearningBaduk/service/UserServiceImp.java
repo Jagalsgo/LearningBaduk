@@ -168,4 +168,14 @@ public class UserServiceImp implements UserService {
 		return userDao.getReport(id);
 	}
 
+	@Override
+	public User getUserByNickname(String userNickname) {
+		return userDao.getUserByNickname(userNickname);
+	}
+
+	@Override
+	public int sendMessage(String sender, String receiver, String messageTitle, String messageContent) {
+		return userDao.sendMessage(sender, receiver, messageTitle, messageContent);
+	}
+
 }

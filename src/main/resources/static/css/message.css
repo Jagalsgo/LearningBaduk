@@ -1,0 +1,20 @@
+#headerList{
+	background: buttonshadow;
+}
+#headerList a{
+	font-size: 12px;
+}
+
+.messageDetailBox{
+	border-top: 2px solid gray;
+	border-bottom: 2px solid gray;
+}
+
+.messageDetailTitle{
+	font-size: 20px;
+}
+
+.messageDetailContent{
+	border-top: 2px solid gray;
+	border-bottom: 2px solid gray;
+}

@@ -51,4 +51,8 @@ public interface UserService {
 
 	ReportList getReport(int id);
 
+	User getUserByNickname(String userNickname);
+
+	int sendMessage(String sender, String receiver, String messageTitle, String messageContent);
+
 }

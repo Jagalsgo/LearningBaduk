@@ -32,12 +32,15 @@
 							<td><input type="checkbox" name="chk" value="${u.userId }"></td>
 							<td class="userDate text-muted text-center"><fmt:formatDate
 									value="${u.userDate }" pattern="yyyy-MM-dd" /></td>
-							<td class="userId" onclick="viewUserReports('${u.userId}')"><a class="" style="cursor: pointer;">${u.userId }</a></td>
+							<td class="userId" onclick="viewUserReports('${u.userId}')"><a
+								class="" style="cursor: pointer;">${u.userId }</a></td>
 							<td class="userEmail">${u.userEmail }</td>
-							<td class="userNickname fw-bold text-center">
-								<div class="position-relative userMenuPointer">${u.userNickname }
-								</div>
-							</td>
+							<td class="boardWriter fw-bold text-center"><span
+								class="userMenuPointer userMenuClick"
+								onclick="openUserMenu('${u.userId }', '${u.userId }')">${u.userNickname }
+									<span id="boardId${u.userId }"
+									class="boardIdAll position-relative"></span>
+							</span></td>
 							<td class="userReport text-muted text-center">${u.userReport }</td>
 						</tr>
 					</c:forEach>

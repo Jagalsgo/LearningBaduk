@@ -13,5 +13,5 @@
 </div>
 <div class="my-3 mx-3">
 	<button class="btn btn-secondary btn-sm" id="reportUserPostBtn"
-		onclick="reportUserPost('${b.userId }')">신고하기</button>
+		onclick="reportUserPost()">신고하기</button>
 </div>

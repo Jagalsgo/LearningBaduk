@@ -1,21 +1,5 @@
 $(document).ready(function() {
 
-	/*chkArray = new Array();
-	$("input[name='chk']:checked").each(function(){
-		chkArray.push(this.value);
-		console.log(this.value);
-	})*/
-
-	/*chk_arr = $("input[name='chk']");
-	console.log(chk_arr.length);
-		chkArray = [];
-		for( var i=0; i<chk_arr.length; i++ ) {
-				if( chk_arr[i].checked == true ) {
-						chkArray.push(chk_arr[i].value);
-						console.log(chk_arr[i].value);
-				}
-		}*/
-
 	// 전체 체크
 	$("#allChk").click(function() {
 		if ($("#allChk").is(":checked")) {
@@ -36,6 +20,7 @@ $(document).ready(function() {
 			$("#allChk").prop("checked", true);
 		}
 	});
+
 })
 
 // admin 글 삭제
@@ -143,8 +128,8 @@ function initUserReports() {
 
 }
 
-function viewUserReports(userId){
-	
+function viewUserReports(userId) {
+
 	window.open("/popup/userReports?userId=" + userId, "userReports", "width=400,height=500");
-	
+
 }

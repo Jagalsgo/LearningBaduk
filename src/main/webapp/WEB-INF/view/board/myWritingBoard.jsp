@@ -25,14 +25,7 @@
 				                    <td class="boardDate text-muted text-center">${b.boardDate }</td>
 				                    <td class="boardLike fw-bold">${b.likeCount - b.dislikeCount}</td>
 				                    <td class="boardTitle "><a href="/detail/detail?ct=${ct }&id=${b.boardId }">${b.boardTitle }  <span class="text-muted">(${b.commentCount })</span></a></td>
-				                    <td class="boardWriter fw-bold text-center">
-				                    	<div class="position-relative userMenuPointer">${b.userNickname }
-				                    		<ul class="userMenuBox">
-					                    		<li><a href="dd"><i class="fa fa-solid fa-envelope"></i> 쪽지 보내기</a></li>
-					                    		<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
-					                    	</ul>
-				                    	</div>
-				                    </td>
+				                    <td class="boardWriter fw-bold text-center">${b.userNickname }</td>
 				                    <td class="boardHit text-muted text-center">${b.boardHit }</td>
 			         	       </tr>
 		                	</c:forEach>

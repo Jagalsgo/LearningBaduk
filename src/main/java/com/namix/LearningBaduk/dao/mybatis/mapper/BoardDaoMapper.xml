@@ -4,149 +4,240 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.namix.LearningBaduk.dao.BoardDao">
 
-	<select id="getBoards" resultType="com.namix.LearningBaduk.entity.BoardView">
-		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname, imgPath from boardview where boardCategory = #{category} and ${field} like '%${query}%' order by boardId desc limit #{offset}, #{size}
+	<select id="getBoards"
+		resultType="com.namix.LearningBaduk.entity.BoardView">
+		select boardId, boardTitle, boardContent,
+		date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory,
+		boardReport, userId, boardHit, commentCount, likeCount, dislikeCount,
+		userNickname, imgPath from boardview where boardCategory = #{category}
+		and ${field} like '%${query}%' order by boardId desc limit #{offset},
+		#{size}
 	</select>
 
 	<select id="getPageCount" resultType="int">
-		select count(*) from boardview where boardCategory = #{category} and ${field} like '%${query}%'
+		select count(*) from
+		boardview where boardCategory = #{category} and ${field} like
+		'%${query}%'
 	</select>
-	
+
 	<insert id="writeDetail">
-		insert into board(boardTitle, boardContent, boardCategory, userId) values(#{title}, #{content}, #{category}, #{userId})
+		insert into board(boardTitle, boardContent,
+		boardCategory, userId) values(#{title}, #{content}, #{category},
+		#{userId})
 	</insert>
 
-	<select id="getDetailBoard" resultType="com.namix.LearningBaduk.entity.BoardView">
-		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname, imgPath from boardview where boardId = #{id}
+	<select id="getDetailBoard"
+		resultType="com.namix.LearningBaduk.entity.BoardView">
+		select boardId, boardTitle, boardContent,
+		date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory,
+		boardReport, userId, boardHit, commentCount, likeCount, dislikeCount,
+		userNickname, imgPath from boardview where boardId = #{id}
 	</select>
-	
+
 	<update id="updateDetail">
-		update board set boardTitle = #{title}, boardContent = #{content} where boardId = #{id}
+		update board set boardTitle = #{title}, boardContent
+		= #{content} where boardId = #{id}
 	</update>
-	
+
 	<delete id="deleteDetail">
 		delete from board where boardId = #{id}
 	</delete>
-	
-	<select id="getComments" resultType="com.namix.LearningBaduk.entity.CommentView">
-		select commentId, commentContent, date_format(commentDate, '%Y-%m-%d') as commentDate, userId, boardId, imgPath, userNickname from commentview where boardId = #{id} order by commentId desc limit #{offset}, #{size}
+
+	<select id="getComments"
+		resultType="com.namix.LearningBaduk.entity.CommentView">
+		select commentId, commentContent, date_format(commentDate,
+		'%Y-%m-%d') as commentDate, userId, boardId, imgPath, userNickname
+		from commentview where boardId = #{id} order by commentId desc limit
+		#{offset}, #{size}
 	</select>
-	
+
 	<select id="getCommentCount" resultType="int">
-		select count(*) from comment where boardId = #{id}
+		select count(*) from
+		comment where boardId = #{id}
 	</select>
-	
+
 	<select id="getUsersLastBoardId" resultType="int">
-		select boardId from board where userId = #{userId} order by boardId desc limit 1;
+		select boardId from
+		board where userId = #{userId} order by boardId desc limit 1;
 	</select>
-	
+
 	<update id="addHit">
-		update board set boardHit = boardHit + 1 where boardId = #{id}
+		update board set boardHit = boardHit + 1 where
+		boardId = #{id}
 	</update>
-	
+
 	<select id="getBoardsUser" resultType="String">
-		select userId from board where boardId = #{id}
+		select userId from board
+		where boardId = #{id}
 	</select>
-	
+
 	<select id="likeClicked" resultType="int">
-		select count(*) from likes where boardId = #{id} and userId = #{userId}
+		select count(*) from likes
+		where boardId = #{id} and userId = #{userId}
 	</select>
-	
+
 	<select id="dislikeClicked" resultType="int">
-		select count(*) from dislikes where boardId = #{id} and userId = #{userId}
+		select count(*) from
+		dislikes where boardId = #{id} and userId = #{userId}
 	</select>
-	
+
 	<insert id="addLike">
-		insert into likes(boardId, userId) values(#{id}, #{userId})	
+		insert into likes(boardId, userId) values(#{id},
+		#{userId})
 	</insert>
-	
+
 	<insert id="addDislike">
-		insert into dislikes(boardId, userId) values(#{id}, #{userId})	
+		insert into dislikes(boardId, userId) values(#{id},
+		#{userId})
 	</insert>
-	
+
 	<select id="getLikeCount" resultType="int">
-		select count(*) from likes where boardId = #{id}
+		select count(*) from likes
+		where boardId = #{id}
 	</select>
-	
+
 	<select id="getDislikeCount" resultType="int">
-		select count(*) from dislikes where boardId = #{id}
+		select count(*) from
+		dislikes where boardId = #{id}
 	</select>
 
 	<insert id="postComment">
-		insert into comment(commentContent, userId, boardId) values(#{commentContent}, #{userId}, #{id})
+		insert into comment(commentContent, userId, boardId)
+		values(#{commentContent}, #{userId}, #{id})
 	</insert>
 
 	<delete id="deleteComment">
 		delete from comment where commentId = #{cid}
 	</delete>
-	
+
 	<select id="getDetailsRowNumber" resultType="int">
-		select sb.rn from (select b.*, row_number() over(order by boardId desc) as rn from board as b) as sb where boardId = #{id};
+		select sb.rn from
+		(select b.*, row_number() over(order by boardId desc) as rn from board
+		as b) as sb where boardId = #{id};
 	</select>
-	
-	<select id="getMyWritingBoards" resultType="com.namix.LearningBaduk.entity.BoardView">
-		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname, imgPath from boardview where userId = #{userId} and boardTitle like '%${query}%' order by boardId desc limit #{offset}, #{size}
+
+	<select id="getMyWritingBoards"
+		resultType="com.namix.LearningBaduk.entity.BoardView">
+		select boardId, boardTitle, boardContent,
+		date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory,
+		boardReport, userId, boardHit, commentCount, likeCount, dislikeCount,
+		userNickname, imgPath from boardview where userId = #{userId} and
+		boardTitle like '%${query}%' order by boardId desc limit #{offset},
+		#{size}
 	</select>
 
 	<select id="getMyWritingPageCount" resultType="int">
-		select count(*) from boardview where userId = #{userId} and boardTitle like '%${query}%'
+		select count(*)
+		from boardview where userId = #{userId} and boardTitle like
+		'%${query}%'
 	</select>
-	
-	<select id="getMyOwnBoards" resultType="com.namix.LearningBaduk.entity.MyBoard">
-		select myBoardId, myBoardTitle, myBoardContent, date_format(myBoardDate, '%Y-%m-%d') as myBoardDate, userId from myboard where userId = #{userId} and myBoardTitle like '%${query}%' order by myBoardId desc limit #{offset}, #{size}
+
+	<select id="getMyOwnBoards"
+		resultType="com.namix.LearningBaduk.entity.MyBoard">
+		select myBoardId, myBoardTitle, myBoardContent,
+		date_format(myBoardDate, '%Y-%m-%d') as myBoardDate, userId from
+		myboard where userId = #{userId} and myBoardTitle like '%${query}%'
+		order by myBoardId desc limit #{offset}, #{size}
 	</select>
 
 	<select id="getMyOwnPageCount" resultType="int">
-		select count(*) from myboard where userId = #{userId} and myBoardTitle like '%${query}%'
+		select count(*) from
+		myboard where userId = #{userId} and myBoardTitle like '%${query}%'
 	</select>
-	
+
 	<insert id="writeMyDetail">
-		insert into myboard(myBoardTitle, myBoardContent, userId) values(#{title}, #{content}, #{userId})
+		insert into myboard(myBoardTitle, myBoardContent,
+		userId) values(#{title}, #{content}, #{userId})
 	</insert>
-	
+
 	<select id="getUsersLastMyBoardId" resultType="int">
-		select myBoardId from myboard where userId = #{userId} order by myBoardId desc limit 1;
+		select myBoardId
+		from myboard where userId = #{userId} order by myBoardId desc limit 1;
 	</select>
-	
-	<select id="getMyDetailBoard" resultType="com.namix.LearningBaduk.entity.MyBoard">
-		select MyBoardId, MyBoardTitle, MyBoardContent, date_format(MyBoardDate, '%Y-%m-%d') as MyBoardDate, userId from myboard where myBoardId = #{id}
+
+	<select id="getMyDetailBoard"
+		resultType="com.namix.LearningBaduk.entity.MyBoard">
+		select MyBoardId, MyBoardTitle, MyBoardContent,
+		date_format(MyBoardDate, '%Y-%m-%d') as MyBoardDate, userId from
+		myboard where myBoardId = #{id}
 	</select>
-	
+
 	<select id="getMyDetailsRowNumber" resultType="int">
-		select sb.rn from (select b.*, row_number() over(order by myBoardId desc) as rn from myboard as b) as sb where myBoardId = #{id};
+		select sb.rn from
+		(select b.*, row_number() over(order by myBoardId desc) as rn from
+		myboard as b) as sb where myBoardId = #{id};
 	</select>
-	
+
 	<delete id="deleteMyDetail">
 		delete from myboard where myBoardId = #{id}
 	</delete>
-	
+
 	<update id="updateMyDetail">
-		update myboard set myBoardTitle = #{title}, myBoardContent = #{content} where myBoardId = #{id}
+		update myboard set myBoardTitle = #{title},
+		myBoardContent = #{content} where myBoardId = #{id}
 	</update>
-	
-	<select id="getReportBoards" resultType="com.namix.LearningBaduk.entity.BoardView">
-		select boardId, boardTitle, boardContent, date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory, boardReport, userId, boardHit, commentCount, likeCount, dislikeCount, userNickname, imgPath from boardview where boardReport >= 1 and ${field} like '%${query}%' order by boardId desc limit #{offset}, #{size}
+
+	<select id="getReportBoards"
+		resultType="com.namix.LearningBaduk.entity.BoardView">
+		select boardId, boardTitle, boardContent,
+		date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory,
+		boardReport, userId, boardHit, commentCount, likeCount, dislikeCount,
+		userNickname, imgPath from boardview where boardReport >= 1 and
+		${field} like '%${query}%' order by boardId desc limit #{offset},
+		#{size}
 	</select>
 
 	<select id="getReportPageCount" resultType="int">
-		select count(*) from boardview where boardReport >= 1 and ${field} like '%${query}%'
+		select count(*) from
+		boardview where boardReport >= 1 and ${field} like '%${query}%'
 	</select>
-	
+
 	<update id="initBoardReport">
-		update board set boardReport = 0 where boardId = #{id}
+		update board set boardReport = 0 where boardId =
+		#{id}
 	</update>
-	
+
 	<update id="addBoardReport">
 		update board set boardReport = boardReport + 1 where
 		boardId = #{boardId}
 	</update>
-	
+
 	<select id="haveYouReported" resultType="int">
-		select count(*) from reportlist where reportedUser = #{boardIdString} and reporter = #{userId}
+		select count(*) from
+		reportlist where reportedUser = #{boardIdString} and reporter =
+		#{userId}
+	</select>
+
+	<delete id="deleteBoardReportList">
+		delete from reportlist where reportedUser =
+		#{boardIdString} and reportType = 'board'
+	</delete>
+
+	<select id="getMessages"
+		resultType="com.namix.LearningBaduk.entity.MessageView">
+		select * from messageview where ${field} like '%${query}%' and
+		${messageField} = #{messageQuery} and ${deleted} = false
+		order by
+		messageId desc limit #{offset},
+		#{size}
+	</select>
+
+	<select id="getMessageCount" resultType="int">
+		select count(*) from
+		messageview where ${field} like '%${query}%' and ${messageField} =
+		#{messageQuery} and ${deleted} = false
 	</select>
 	
-	<delete id="deleteBoardReportList">
-		delete from reportlist where reportedUser = #{boardIdString} and reportType = 'board'
+	<update id="deleteMessage">
+		update message set ${deleted} = true where messageId = #{id}
+	</update>
+	
+	<delete id="deleteDbMessage">
+		delete from message where messageId = #{id}
 	</delete>
+	
+	<select id="getMessage" resultType="com.namix.LearningBaduk.entity.MessageView">
+		select * from messageview where messageId = #{id}
+	</select>
 
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.namix.LearningBaduk.dao.UserDao;
+import com.namix.LearningBaduk.entity.Message;
 import com.namix.LearningBaduk.entity.ReportList;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
@@ -129,6 +130,21 @@ public class MybatisUserDao implements UserDao {
 	@Override
 	public int deleteUserReportList(String id) {
 		return userDaoMapper.deleteUserReportList(id);
+	}
+
+	@Override
+	public User getUserByNickname(String userNickname) {
+		return userDaoMapper.getUserByNickname(userNickname);
+	}
+
+	@Override
+	public int sendMessage(String sender, String receiver, String messageTitle, String messageContent) {
+		return userDaoMapper.sendMessage(sender, receiver, messageTitle, messageContent);
+	}
+
+	@Override
+	public Message getMessage(int id) {
+		return userDaoMapper.getMessage(id);
 	}
 
 }

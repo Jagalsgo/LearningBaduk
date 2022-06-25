@@ -32,20 +32,25 @@
 		<div class="col-7 p-3 border-bottom userMenu">
 			<span class="userMenuPointerDetail"> <c:choose>
 					<c:when test="${boardView.imgPath == null }">
-						<img alt="user" src="/img/user.png" width="25" height="25"> ${boardView.userNickname }
-						</c:when>
+						<span class="userMenuClick userMenuPointer"
+							onclick="openUserMenu(${boardView.boardId}, '${boardView.userId }')">
+							<img alt="user" src="/img/user.png" width="25" height="25">
+							${boardView.userNickname } <span
+							id="boardId${boardView.boardId }"
+							class="boardIdAll position-relative"></span>
+						</span>
+					</c:when>
 					<c:otherwise>
-						<img alt="user" src="${boardView.imgPath }" width="25" height="25"> ${boardView.userNickname }
-						</c:otherwise>
+						<span class="userMenuClick userMenuPointer"
+							onclick="openUserMenu(${boardView.boardId}, '${boardView.userId }')">
+							<img alt="user" src="${boardView.imgPath }" width="25"
+							height="25"> ${boardView.userNickname } <span
+							id="boardId${boardView.boardId }"
+							class="boardIdAll position-relative"></span>
+						</span>
+					</c:otherwise>
 				</c:choose>
 			</span>
-			<div class="position-relative">
-				<ul class="userMenuBoxDetail">
-					<li><a href="dd"><i class="fa fa-solid fa-envelope"></i>
-							쪽지 보내기</a></li>
-					<li><a href="ss"><i class="fa fa-solid fa-flag"></i> 신고하기</a></li>
-				</ul>
-			</div>
 		</div>
 		<div class="col-3 p-3  border-bottom text-muted text-right">${boardView.boardDate }</div>
 		<div class="col-2 p-3  text-center border-bottom text-muted">
@@ -84,8 +89,8 @@
 				<!-- 로그인 후 -->
 				<sec:authorize access="isAuthenticated">
 					<div class="text-right my-1">
-						<button class="btn btn-danger mx-2" onclick="reportBoard(${boardView.boardId})"
-							id="reportBoardBtn">신고</button>
+						<button class="btn btn-danger mx-2"
+							onclick="reportBoard(${boardView.boardId})" id="reportBoardBtn">신고</button>
 					</div>
 				</sec:authorize>
 			</c:otherwise>
