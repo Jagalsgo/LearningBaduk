@@ -1,39 +1,70 @@
 /* header */
-#openUserInfoBox{
+#openUserInfoBox {
 	display: none;
 }
 
-#headerList{
+#headerList {
 	background-color: #ccd0cc;
 }
-#loginBtn, #userInfoBtn, .headerProfileImg{
+
+#loginBtn, #userInfoBtn, .headerProfileImg {
 	cursor: pointer;
 }
-.openMyInfo{
+
+.openMyInfo {
 	position: absolute;
 	right: 0;
 	background: #dae8d3;
 	width: 300px;
 	z-index: 2;
 }
-.form-group{
-    margin: 10px 0 10px 0;
+
+.form-group {
+	margin: 10px 0 10px 0;
 }
-.smText{
+
+.smText {
 	font-size: small;
 }
-#userInfoBorderBox{
+
+#userInfoBorderBox {
 	border: 2px solid #8e8994;
-	width: 200px; margin: auto;
+	width: 200px;
+	margin: auto;
 }
-.innerBorderBox{
+
+.innerBorderBox {
 	border-bottom: 2px solid #8e8994;
 }
-.innerBorderBox, .innerBorderBox2{
+
+.innerBorderBox, .innerBorderBox2 {
 	font-size: 1.2rem;
 	padding: 5px;
 }
-.headerProfileImg, .headerUserInfoBtn{
+
+.headerProfileImg, .headerUserInfoBtn {
 	height: 45px;
 	width: 45px;
+}
+
+#alarmsOpen {
+	position: absolute;
+	top: 40px;
+	left: -140px;
+	background: #dae8d3;
+}
+
+.alarmText{
+	font-size: 0.7rem;
+	font-weight: bold;
+	cursor: pointer;
+}
+.removeAlarmText{
+	font-size: 0.7rem;
+	cursor: pointer;
+}
+
+/* websocket alert */
+#socketAlert {
+	display: none;
 }

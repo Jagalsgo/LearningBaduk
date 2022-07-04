@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
-import com.namix.LearningBaduk.entity.Message;
 import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.MyBoard;
 
@@ -27,7 +26,7 @@ public interface BoardDao {
 	int addDislike(int id, String userId);
 	int getLikeCount(int id);
 	int getDislikeCount(int id);
-	int postComment(String userId, String commentContent, int id);
+	int postComment(Comment comment);
 	int deleteComment(int cid);
 	int getDetailsRowNumber(int id);
 	List<BoardView> getMyWritingBoards(int page, String query, String userId, int size, int offset);
@@ -51,5 +50,7 @@ public interface BoardDao {
 	int deleteMessage(int id, String deleted);
 	int deleteDbMessage(int id);
 	MessageView getMessage(int id);
+	String getCategory(int id);
+	int addCommentAlarm(String receiver, String sender, int boardId, int commentId);
 	
 }

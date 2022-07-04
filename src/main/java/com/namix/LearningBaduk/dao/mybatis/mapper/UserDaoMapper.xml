@@ -125,15 +125,44 @@
 		select * from user where userNickname = #{userNickname}
 	</select>
 
-	<insert id="sendMessage">
-		insert into message(sender, receiver, messageTitle,
-		messageContent) values(#{sender}, #{receiver}, #{messageTitle},
+	<insert id="sendMessage"
+		parameterType="com.namix.LearningBaduk.entity.Message"
+		useGeneratedKeys="true" keyProperty="messageId">
+		insert into message(sender,
+		receiver, messageTitle,
+		messageContent) values(#{sender}, #{receiver},
+		#{messageTitle},
 		#{messageContent})
+	</insert>
+
+	<insert id="addMessageAlarm"
+		parameterType="com.namix.LearningBaduk.entity.Message">
+		insert into alarm(alarmType, receiver, sender,
+		messageId) values("message", #{receiver}, #{sender}, #{messageId})
 	</insert>
 
 	<select id="getMessage"
 		resultType="com.namix.LearningBaduk.entity.Message">
 		select * from message where messageId = #{id}
 	</select>
+
+	<select id="getAlarmCount" resultType="int">
+		select count(*) from alarm
+		where receiver = #{receiver}
+	</select>
+
+	<select id="getAlarms"
+		resultType="com.namix.LearningBaduk.entity.AlarmView">
+		select * from alarmview where receiver = #{receiver} order
+		by alarmId desc limit 0, 5
+	</select>
+	
+	<delete id="deleteAlarm">
+		delete from alarm where alarmId = #{alarmId}
+	</delete>
+	
+	<delete id="deleteAllAlarm">
+		delete from alarm where receiver = #{receiver}
+	</delete>
 
 </mapper>

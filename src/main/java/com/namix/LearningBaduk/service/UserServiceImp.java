@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.namix.LearningBaduk.dao.BoardDao;
 import com.namix.LearningBaduk.dao.UserDao;
+import com.namix.LearningBaduk.entity.AlarmView;
+import com.namix.LearningBaduk.entity.Message;
 import com.namix.LearningBaduk.entity.ReportList;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
@@ -141,12 +143,11 @@ public class UserServiceImp implements UserService {
 		int haveReported = boardDao.haveYouReported(reportedUser, reporter);
 		if (haveReported >= 1) {
 			return -1;
-		}else {
+		} else {
 			userDao.addUsersReport(reportedUser);
 			userDao.postReportList("user", reportedUser, reportContent, reporter);
 			return 1;
 		}
-
 
 	}
 
@@ -175,7 +176,35 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public int sendMessage(String sender, String receiver, String messageTitle, String messageContent) {
-		return userDao.sendMessage(sender, receiver, messageTitle, messageContent);
+		Message message = new Message();
+		message.setSender(sender);
+		message.setReceiver(receiver);
+		message.setMessageTitle(messageTitle);
+		message.setMessageContent(messageContent);
+		int result = userDao.sendMessage(message);
+		userDao.addMessageAlarm(message);
+
+		return result;
+	}
+
+	@Override
+	public int getAlarmCount(String receiver) {
+		return userDao.getAlarmCount(receiver);
+	}
+
+	@Override
+	public List<AlarmView> getAlarms(String receiver) {
+		return userDao.getAlarms(receiver);
+	}
+
+	@Override
+	public int deleteAlarm(int alarmId) {
+		return userDao.deleteAlarm(alarmId);
+	}
+
+	@Override
+	public int deleteAllAlarm(String receiver) {
+		return userDao.deleteAllAlarm(receiver);
 	}
 
 }

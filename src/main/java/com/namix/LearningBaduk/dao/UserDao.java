@@ -2,6 +2,8 @@ package com.namix.LearningBaduk.dao;
 
 import java.util.List;
 
+import com.namix.LearningBaduk.entity.Alarm;
+import com.namix.LearningBaduk.entity.AlarmView;
 import com.namix.LearningBaduk.entity.Message;
 import com.namix.LearningBaduk.entity.ReportList;
 import com.namix.LearningBaduk.entity.User;
@@ -55,8 +57,18 @@ public interface UserDao {
 
 	User getUserByNickname(String userNickname);
 
-	int sendMessage(String sender, String receiver, String messageTitle, String messageContent);
+	int sendMessage(Message message);
 
 	Message getMessage(int id);
+
+	int getAlarmCount(String receiver);
+
+	List<AlarmView> getAlarms(String receiver);
+
+	int addMessageAlarm(Message message);
+
+	int deleteAlarm(int alarmId);
+
+	int deleteAllAlarm(String receiver);
 
 }

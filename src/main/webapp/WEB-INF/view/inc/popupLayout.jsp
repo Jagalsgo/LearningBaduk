@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,9 +11,18 @@
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="/css/common.css">
 <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
-<script src="https://kit.fontawesome.com/9e1a390ee4.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/9e1a390ee4.js"
+	crossorigin="anonymous"></script>
 <script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
+	integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"
+	integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <title>Learning Baduk</title>
 </head>
 <body>

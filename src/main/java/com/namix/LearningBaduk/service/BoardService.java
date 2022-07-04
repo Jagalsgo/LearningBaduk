@@ -31,7 +31,7 @@ public interface BoardService {
 	int addDislike(int id, String userId);
 	int getLikeCount(int id);
 	int getDislikeCount(int id);
-	int postComment(String userId, String commentContent, int id);
+	int postComment(String userId, String commentContent, int id, String receiver);
 	int deleteComment(int cid);
 	int getDetailsPage(int id);
 	List<BoardView> getMyWritingBoards(int page, String query, String userId);
@@ -57,5 +57,6 @@ public interface BoardService {
 	void deleteMessage(List<Integer> chkArray, String deleted);
 	MessageView getMessage(int id);
 	void deleteMessageDetail(int id, String deleted);
+	String getCategory(int id);
 	
 }

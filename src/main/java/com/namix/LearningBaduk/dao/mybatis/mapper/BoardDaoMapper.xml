@@ -101,9 +101,13 @@
 		dislikes where boardId = #{id}
 	</select>
 
-	<insert id="postComment">
-		insert into comment(commentContent, userId, boardId)
-		values(#{commentContent}, #{userId}, #{id})
+	<insert id="postComment"
+		parameterType="com.namix.LearningBaduk.entity.Comment"
+		useGeneratedKeys="true" keyProperty="commentId">
+		insert into
+		comment(commentContent, userId, boardId)
+		values(#{commentContent},
+		#{userId}, #{boardId})
 	</insert>
 
 	<delete id="deleteComment">
@@ -215,7 +219,8 @@
 
 	<select id="getMessages"
 		resultType="com.namix.LearningBaduk.entity.MessageView">
-		select * from messageview where ${field} like '%${query}%' and
+		select * from messageview where ${field} like '%${query}%'
+		and
 		${messageField} = #{messageQuery} and ${deleted} = false
 		order by
 		messageId desc limit #{offset},
@@ -227,17 +232,30 @@
 		messageview where ${field} like '%${query}%' and ${messageField} =
 		#{messageQuery} and ${deleted} = false
 	</select>
-	
+
 	<update id="deleteMessage">
-		update message set ${deleted} = true where messageId = #{id}
+		update message set ${deleted} = true where messageId
+		= #{id}
 	</update>
-	
+
 	<delete id="deleteDbMessage">
 		delete from message where messageId = #{id}
 	</delete>
-	
-	<select id="getMessage" resultType="com.namix.LearningBaduk.entity.MessageView">
+
+	<select id="getMessage"
+		resultType="com.namix.LearningBaduk.entity.MessageView">
 		select * from messageview where messageId = #{id}
 	</select>
+
+	<select id="getCategory" resultType="String">
+		select boardCategory from
+		board where boardId = #{id}
+	</select>
+
+	<insert id="addCommentAlarm">
+		insert into alarm(alarmType, receiver, sender,
+		boardId, commentId) values("comment", #{receiver}, #{sender},
+		#{boardId}, #{commentId})
+	</insert>
 
 </mapper>

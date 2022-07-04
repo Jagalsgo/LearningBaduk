@@ -133,11 +133,18 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int postComment(String userId, String commentContent, int id) {
-		return boardDao.postComment(userId, commentContent, id);
+	public int postComment(String userId, String commentContent, int id, String receiver) {
+		Comment comment = new Comment();
+		comment.setUserId(userId);
+		comment.setCommentContent(commentContent);
+		comment.setBoardId(id);
+		int result = boardDao.postComment(comment);
+		boardDao.addCommentAlarm(receiver, userId, id, comment.getCommentId());
+		
+		return result;
 	}
 
-	@Override
+	@Override 
 	public int deleteComment(int cid) {
 		return boardDao.deleteComment(cid);
 	}
@@ -341,6 +348,13 @@ public class BoardServiceImp implements BoardService {
 			boardDao.deleteDbMessage(id);
 		}
 		
+	}
+
+	@Override
+	public String getCategory(int id) {
+		String categoryTmp = boardDao.getCategory(id);
+		String ct = categoryTmp.replace("Board", "");
+		return ct;
 	}
 
 }

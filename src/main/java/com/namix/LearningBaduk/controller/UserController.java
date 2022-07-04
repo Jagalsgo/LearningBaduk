@@ -2,6 +2,7 @@ package com.namix.LearningBaduk.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.namix.LearningBaduk.entity.AlarmView;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
 import com.namix.LearningBaduk.script.ScriptClass;
@@ -182,6 +184,37 @@ public class UserController {
 		deleteUserResult = service.withdraw(userId);
 		return deleteUserResult;
 
+	}
+
+	@ResponseBody
+	@PostMapping("getAlarmCount")
+	public int getAlamCount(@RequestParam("receiver") String receiver) {
+		
+		int alarmCount = 0;
+		alarmCount = service.getAlarmCount(receiver);
+		return alarmCount;
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("getAlarms")
+	public List<AlarmView> getAlarms(@RequestParam("receiver") String receiver) {
+		
+		List<AlarmView> alarms = service.getAlarms(receiver);
+		return alarms;	
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("deleteAlarm")
+	public void deleteAlarm(@RequestParam("alarmId") Integer alarmId) {
+		service.deleteAlarm(alarmId);
+	}
+	
+	@ResponseBody
+	@PostMapping("deleteAllAlarm")
+	public void deleteAllAlarm(@RequestParam("receiver") String receiver) {
+		service.deleteAllAlarm(receiver);
 	}
 
 }

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.namix.LearningBaduk.entity.Alarm;
+import com.namix.LearningBaduk.entity.AlarmView;
 import com.namix.LearningBaduk.entity.ReportList;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
@@ -54,5 +56,13 @@ public interface UserService {
 	User getUserByNickname(String userNickname);
 
 	int sendMessage(String sender, String receiver, String messageTitle, String messageContent);
+
+	int getAlarmCount(String receiver);
+
+	List<AlarmView> getAlarms(String receiver);
+
+	int deleteAlarm(int alarmId);
+
+	int deleteAllAlarm(String receiver);
 
 }

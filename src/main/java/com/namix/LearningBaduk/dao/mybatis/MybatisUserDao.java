@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.namix.LearningBaduk.dao.UserDao;
+import com.namix.LearningBaduk.entity.AlarmView;
 import com.namix.LearningBaduk.entity.Message;
 import com.namix.LearningBaduk.entity.ReportList;
 import com.namix.LearningBaduk.entity.User;
@@ -138,13 +139,38 @@ public class MybatisUserDao implements UserDao {
 	}
 
 	@Override
-	public int sendMessage(String sender, String receiver, String messageTitle, String messageContent) {
-		return userDaoMapper.sendMessage(sender, receiver, messageTitle, messageContent);
+	public int sendMessage(Message message) {
+		return userDaoMapper.sendMessage(message);
 	}
 
 	@Override
 	public Message getMessage(int id) {
 		return userDaoMapper.getMessage(id);
+	}
+
+	@Override
+	public int getAlarmCount(String receiver) {
+		return userDaoMapper.getAlarmCount(receiver);
+	}
+
+	@Override
+	public List<AlarmView> getAlarms(String receiver) {
+		return userDaoMapper.getAlarms(receiver);
+	}
+
+	@Override
+	public int addMessageAlarm(Message message) {
+		return userDaoMapper.addMessageAlarm(message);
+	}
+
+	@Override
+	public int deleteAlarm(int alarmId) {
+		return userDaoMapper.deleteAlarm(alarmId);
+	}
+
+	@Override
+	public int deleteAllAlarm(String receiver) {
+		return userDaoMapper.deleteAllAlarm(receiver);
 	}
 
 }

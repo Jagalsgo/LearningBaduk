@@ -33,9 +33,12 @@ public class DetailController {
 	private BoardService service;
 
 	@GetMapping("detail")
-	public String detail(@RequestParam("id") int id, HttpServletRequest request, @RequestParam("ct") String ct,
+	public String detail(@RequestParam("id") int id, HttpServletRequest request, @RequestParam(value = "ct", required = false) String ct,
 			HttpServletResponse response, Model model) {
 
+		if(ct == null) {
+			ct = service.getCategory(id);
+		}
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		BoardView boardView = service.getDetailBoard(id);
 		int boardCount = service.getPageCount(category.getCategoryBoard());
@@ -300,9 +303,10 @@ public class DetailController {
 			Principal principal) {
 
 		String userId = principal.getName();
+		String receiver = service.getBoardsUser(boardId);
 
 		int postCommentResult = 0;
-		postCommentResult = service.postComment(userId, commentContent, boardId);
+		postCommentResult = service.postComment(userId, commentContent, boardId, receiver);
 		return postCommentResult;
 
 	}

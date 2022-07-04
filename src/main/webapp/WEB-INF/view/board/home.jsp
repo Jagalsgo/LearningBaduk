@@ -7,7 +7,6 @@
 		<div class="row">
 			<div class="fw-bold h3 mb-4 col-12">Home <a href="/admin/adminBoard?ct=endGame">adminBoard</a></div>
 			<span><a href="/admin/adminDetail?ct=endGame&id=30">adminDetail</a></span>
-			<span id="popup">popup</span>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">

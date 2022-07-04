@@ -6,7 +6,7 @@
 <div class="headerItem" id="headerForm">
 	<div class="container-md my-3">
 		<div class="row vertical-align">
-			<div class="col-sm-11 col-xs-11">
+			<div class="col-8">
 				<img alt="baduk" src="/img/baduk.png" width="40" height="40">
 				<span class="h4 fw-bold mx-2"><a href="/board/home">Learning
 						Baduk</a></span>
@@ -14,9 +14,9 @@
 
 			<!-- 로그인 전 -->
 			<sec:authorize access="isAnonymous">
-				<div class="col-sm-1 col-xs-1 text-right" id="loginFormBox">
+				<div class="col-4 text-right" id="loginFormBox">
 					<a href="/user/login"><img alt="login" src="/img/login.jpg"
-						width="30" height="30" id="loginBtn"></a>
+						width="40" height="40" id="loginBtn"></a>
 				</div>
 			</sec:authorize>
 
@@ -26,8 +26,24 @@
 				<sec:authentication property="principal.userProfileImg"
 					var="userProfileImg" />
 				<sec:authentication property="principal.username" var="userId" />
+				<input type="hidden" id="userId" value="${userId }">
 
-				<div class="col-sm-1 col-xs-1 text-right" id="userInfoFormBox">
+				<div class="col-4 text-right" id="userInfoFormBox">
+					<!-- <i class="fa fa-solid fa-bell fa-2x vertical-align mx-3"></i> -->
+					<!-- <button type="button" class="btn btn-primary position-relative"> -->
+					<span class="position-relative"> <i
+						class="fa fa-solid fa-bell fa-2x vertical-align position-relative mx-3 alarmClick"
+						style="cursor: pointer;" onclick="getAlarms()" id="alarmClick">
+							<span
+							class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+							style="width: 10px; height: 20px;" id="alarmCountView"> <span
+								class="position-absolute top-50 left-10 translate-middle"
+								style="font-size: 0.7rem;" id="alarmCountText"></span><span
+								class="visually-hidden">unread messages</span>
+						</span>
+					</i> <span id="alarmsOpen" class="text-center alarmsOpen" style="width: 300px;"></span>
+					</span>
+					<!-- </button> -->
 					<c:choose>
 						<c:when test="${!empty userProfileImg }">
 							<img alt="" src="${userProfileImg }"
@@ -41,8 +57,8 @@
 					<div class="openMyInfo text-center" id="openUserInfoBox">
 						<c:choose>
 							<c:when test="${!empty userProfileImg }">
-								<img alt="" src="${userProfileImg }" class="mb-3 mt-4"
-									width="100" height="100">
+								<img alt="" src="${userProfileImg }"
+									class="mb-3 mt-4 vertical-align" width="100" height="100">
 							</c:when>
 							<c:otherwise>
 								<img alt="" src="/img/user.png" class="mb-3 mt-4" width="100"
@@ -51,7 +67,8 @@
 						</c:choose>
 						<div class="my-3" id="userInfoBorderBox">
 							<div class="innerBorderBox">
-								<a onclick="receivedMessage()" class="" style="cursor: pointer;"><i class="fa fa-solid fa-envelope"></i> 쪽지함</a>
+								<a onclick="receivedMessage()" class="" style="cursor: pointer;"><i
+									class="fa fa-solid fa-envelope"></i> 쪽지함</a>
 							</div>
 							<div class="innerBorderBox">
 								<a href="/board/myWritingBoard"><i
@@ -77,6 +94,7 @@
 	</div>
 </div>
 <div class="headerItem" id="headerList">
+	<div class="alert alert-success" role="alert" id="socketAlert"></div>
 	<div class="container-md py-3">
 		<div class="row">
 			<div class="col-sm-3 col-md fw-bold mb-2">

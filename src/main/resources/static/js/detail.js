@@ -2,6 +2,7 @@ $(document).ready(function() {
 
 	boardId = $('#boardId').val();
 	userId = $('#userId').val();
+	boardUserId = $('#boardUserId').val();
 	category = $('#category').val();
 	categoryCt = $('#categoryCt').val();
 	detailsPage = $('#detailsPage').val();
@@ -120,6 +121,20 @@ function postComment() {
 			}
 			getComments(1);
 			$('#commentContent').val('');
+
+			// 웹소켓 알림 연결
+			if (socket) {
+				var socketMsg = {
+					type: "comment",
+					receiver: boardUserId,
+					boardId: boardId,
+					sender: userId
+				}
+				if (boardUserId != userId) {
+					socket.send(JSON.stringify(socketMsg));
+				}
+			}
+
 		},
 		error: function(error) {
 			alert('error : ' + error);
@@ -263,6 +278,7 @@ function getBoards(boardPage) {
 
 }
 
+// 게시글 신고
 function reportBoard(boardId) {
 
 	$.ajax({
@@ -272,7 +288,7 @@ function reportBoard(boardId) {
 		success: function(data) {
 			if (data <= 0) {
 				alert('이미 신고하셨습니다.');
-			}else{
+			} else {
 				alert('신고 완료');
 			}
 		},

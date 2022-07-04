@@ -13,6 +13,7 @@
 </div>
 <div class="container-md border p-3">
 	<div class="row">
+		<input type="hidden" value="${boardView.userId }" id="boardUserId">
 		<input type="hidden" value="${boardView.boardId }" id="boardId"
 			name="boardId"> <input type="hidden"
 			value="${category.categoryBoard }" id="category" name="category">
@@ -152,7 +153,7 @@
 			<c:forEach var="i" begin="0" end="4">
 				<c:if test="${(firstCommentPage + i) <= lastCommentPage }">
 					<li class="page-item"><span
-						class="page-link commentPage cListPage${firstBoardPage+i }"
+						class="page-link commentPage cListPage${firstCommentPage + i }"
 						onclick="getComments(${firstCommentPage + i })">${firstCommentPage + i }</span></li>
 				</c:if>
 			</c:forEach>

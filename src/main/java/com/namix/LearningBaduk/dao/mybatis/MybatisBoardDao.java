@@ -109,8 +109,8 @@ public class MybatisBoardDao implements BoardDao {
 	}
 
 	@Override
-	public int postComment(String userId, String commentContent, int id) {
-		return boardDaoMapper.postComment(userId, commentContent, id);
+	public int postComment(Comment comment) {
+		return boardDaoMapper.postComment(comment);
 	}
 
 	@Override
@@ -227,5 +227,16 @@ public class MybatisBoardDao implements BoardDao {
 	public MessageView getMessage(int id) {
 		return boardDaoMapper.getMessage(id);
 	}
+
+	@Override
+	public String getCategory(int id) {
+		return boardDaoMapper.getCategory(id);
+	}
+
+	@Override
+	public int addCommentAlarm(String receiver, String sender, int boardId, int commentId) {
+		return boardDaoMapper.addCommentAlarm(receiver, sender, boardId, commentId);
+	}
+
 
 }
