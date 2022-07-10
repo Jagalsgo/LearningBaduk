@@ -9,14 +9,25 @@
 		select * from user where userId = #{id}
 	</select>
 
+	<select id="getVerifiedUser"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where userId = #{id} and emailAuth = 1
+	</select>
+
 	<select id="idOverlapCheck" resultType="int">
 		select count(*) from user
-		where userId = #{id}
+		where userId = #{id} and emailAuth = 1
 	</select>
 
 	<select id="nicknameOverlapCheck" resultType="int">
 		select count(*)
-		from user where userNickname = #{nickname}
+		from user where userNickname = #{nickname} and emailAuth = 1
+	</select>
+
+	<select id="emailOverlapCheck" resultType="int">
+		select count(*)
+		from
+		user where userEmail = #{email} and emailAuth = 1
 	</select>
 
 	<insert id="signUp"
@@ -51,13 +62,14 @@
 
 	<select id="getUsers"
 		resultType="com.namix.LearningBaduk.entity.User">
-		select * from user where ${field} like '%${query}%' order
+		select * from user where ${field} like '%${query}%' and
+		emailAuth = 1 order
 		by userDate desc limit #{offset}, #{size}
 	</select>
 
 	<select id="getUserCount" resultType="int">
 		select count(*) from user
-		where ${field} like '%${query}%'
+		where ${field} like '%${query}%' and emailAuth = 1
 	</select>
 
 	<select id="getReportUsers"
@@ -156,13 +168,29 @@
 		select * from alarmview where receiver = #{receiver} order
 		by alarmId desc limit 0, 5
 	</select>
-	
+
 	<delete id="deleteAlarm">
 		delete from alarm where alarmId = #{alarmId}
 	</delete>
-	
+
 	<delete id="deleteAllAlarm">
 		delete from alarm where receiver = #{receiver}
 	</delete>
+
+	<select id="getUserByEmail"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where userEmail = #{email}
+	</select>
+
+	<select id="getVerifiedUserByEmail"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where userEmail = #{email} and emailAuth
+		= 1
+	</select>
+
+	<update id="editUserPassword">
+		update user set userPassword = #{password} where
+		userId = #{id}
+	</update>
 
 </mapper>

@@ -173,4 +173,29 @@ public class MybatisUserDao implements UserDao {
 		return userDaoMapper.deleteAllAlarm(receiver);
 	}
 
+	@Override
+	public User getUserByEmail(String email) {
+		return userDaoMapper.getUserByEmail(email);
+	}
+
+	@Override
+	public int emailOverlapCheck(String email) {
+		return userDaoMapper.emailOverlapCheck(email);
+	}
+
+	@Override
+	public int editUserPassword(String id, String password) {
+		return userDaoMapper.editUserPassword(id, password);
+	}
+
+	@Override
+	public User getVerifiedUser(String userId) {
+		return userDaoMapper.getVerifiedUser(userId);
+	}
+
+	@Override
+	public User getVerifiedUserByEmail(String email) {
+		return userDaoMapper.getVerifiedUserByEmail(email);
+	}
+
 }

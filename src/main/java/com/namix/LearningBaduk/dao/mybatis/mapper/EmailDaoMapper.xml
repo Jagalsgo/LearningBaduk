@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.namix.LearningBaduk.dao.EmailDao">
+
+	<select id="getEmailToken"
+		resultType="com.namix.LearningBaduk.entity.EmailToken">
+		select * from emailtoken where emailTokenId =
+		#{emailTokenId}
+	</select>
+
+	<insert id="save"
+		parameterType="com.namix.LearningBaduk.entity.EmailToken"
+		useGeneratedKeys="true" keyProperty="emailTokenId">
+		insert into emailtoken(email,
+		authToken, expired) values(#{email}, #{authToken},
+		#{expired})
+	</insert>
+
+	<update id="useToken">
+		update emailtoken set expired = true where
+		emailTokenId = #{emailTokenId}
+	</update>
+
+	<update id="emailVerifySuccess">
+		update user set emailAuth = true where userId =
+		#{userId}
+	</update>
+
+	<update id="updateTokenExpiredDate">
+		update emailtoken set expiredDate = #{now} where
+		emailTokenId = #{emailTokenId}
+	</update>
+
+</mapper>

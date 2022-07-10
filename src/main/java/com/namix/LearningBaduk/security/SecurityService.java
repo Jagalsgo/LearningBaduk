@@ -1,5 +1,7 @@
 package com.namix.LearningBaduk.security;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,14 +10,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.namix.LearningBaduk.dao.EmailDao;
 import com.namix.LearningBaduk.dao.UserDao;
+import com.namix.LearningBaduk.entity.EmailToken;
 import com.namix.LearningBaduk.entity.User;
+import com.namix.LearningBaduk.service.EmailService;
 
 @Service
 public class SecurityService implements UserDetailsService {
 
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private EmailDao emailDao;
+	@Autowired
+	private EmailService emailService;
+	
 	
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
@@ -24,11 +34,16 @@ public class SecurityService implements UserDetailsService {
 	  
 		String rawPassword = user.getUserPassword();
 		String encPassword = passwordEncoder.encode(rawPassword);
-		user.setUserPassword(encPassword	);
+		user.setUserPassword(encPassword);
 		
 		userDao.signUp(user);
+		
+		EmailToken emailToken = new EmailToken(user.getUserEmail(), UUID.randomUUID().toString(), false, null);
+		emailDao.save(emailToken);
+		emailService.sendEmail(emailToken.getEmail(), emailToken.getAuthToken(), emailToken.getEmailTokenId(), user.getUserId());
 	  
 	  }
+	  
 	  
 	  @Transactional
 	  public void editProfile(User user) {

@@ -2,7 +2,7 @@ package com.namix.LearningBaduk.entity;
 
 import java.util.Date;
 
-public class User  {
+public class User {
 
 	private String userId;
 	private String userPassword;
@@ -12,12 +12,14 @@ public class User  {
 	private String userRole;
 	private Date userDate;
 	private String userProfileImg;
-	
+	private boolean emailAuth;
+
 	public User() {
-		
+
 	}
 
-	public User(String userId, String userPassword, String userNickname, String userEmail, int userReport, String userRole, Date userDate, String userProfileImg) {
+	public User(String userId, String userPassword, String userNickname, String userEmail, int userReport,
+			String userRole, Date userDate, String userProfileImg, boolean emailAuth) {
 		this.userId = userId;
 		this.userPassword = userPassword;
 		this.userNickname = userNickname;
@@ -26,6 +28,7 @@ public class User  {
 		this.userRole = userRole;
 		this.userDate = userDate;
 		this.userProfileImg = userProfileImg;
+		this.emailAuth = emailAuth;
 	}
 
 	public String getUserId() {
@@ -67,7 +70,7 @@ public class User  {
 	public void setUserReport(int userReport) {
 		this.userReport = userReport;
 	}
-	
+
 	public String getUserRole() {
 		return userRole;
 	}
@@ -83,7 +86,7 @@ public class User  {
 	public void setUserDate(Date userDate) {
 		this.userDate = userDate;
 	}
-	
+
 	public String getUserProfileImg() {
 		return userProfileImg;
 	}
@@ -92,4 +95,12 @@ public class User  {
 		this.userProfileImg = userProfileImg;
 	}
 
+	public boolean isEmailAuth() {
+		return emailAuth;
+	}
+
+	public void setEmailAuth(boolean emailAuth) {
+		this.emailAuth = emailAuth;
+	}
+	
 }

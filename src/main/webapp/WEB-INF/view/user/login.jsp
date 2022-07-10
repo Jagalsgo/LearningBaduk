@@ -7,8 +7,8 @@
 		<form action="/login" method="post" class="border px-5 py-4" id="loginForm">
 			<div class="fw-bold h4 mb-5 mt-3">로그인</div>
 			<c:if test="${param.error != null}">
-				<p>
-					Invalid username and password.
+				<p class="text-secondary fw-bold" style="font-size: 0.8rem;">
+					아이디, 비밀번호가 올바르지 않거나, 이메일 인증이 안되었습니다.
 				</p>
 			</c:if>
 			<c:if test="${param.logout != null}">

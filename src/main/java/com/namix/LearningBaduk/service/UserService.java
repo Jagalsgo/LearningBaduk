@@ -65,4 +65,12 @@ public interface UserService {
 
 	int deleteAllAlarm(String receiver);
 
+	int emailOverlapCheck(String email);
+	
+	User getUserByEmail(String email);
+
+	User getVerifiedUser(String userId);
+
+	User getVerifiedUserByEmail(String email);
+
 }

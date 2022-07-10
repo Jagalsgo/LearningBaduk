@@ -207,4 +207,24 @@ public class UserServiceImp implements UserService {
 		return userDao.deleteAllAlarm(receiver);
 	}
 
+	@Override
+	public int emailOverlapCheck(String email) {
+		return userDao.emailOverlapCheck(email);
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		return userDao.getUserByEmail(email);
+	}
+
+	@Override
+	public User getVerifiedUser(String userId) {
+		return userDao.getVerifiedUser(userId);
+	}
+
+	@Override
+	public User getVerifiedUserByEmail(String email) {
+		return userDao.getVerifiedUserByEmail(email);
+	}
+
 }

@@ -1,7 +1,4 @@
-#idCheckedText{
-	display: none;
-}
-#nicknameChekedText{
+#idCheckedText, #nicknameCheckedText, #emailCheckedText{
 	display: none;
 }
 

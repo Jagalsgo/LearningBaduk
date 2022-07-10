@@ -56,6 +56,8 @@ public interface UserDao {
 	int deleteUserReportList(String id);
 
 	User getUserByNickname(String userNickname);
+	
+	User getUserByEmail(String email);
 
 	int sendMessage(Message message);
 
@@ -70,5 +72,13 @@ public interface UserDao {
 	int deleteAlarm(int alarmId);
 
 	int deleteAllAlarm(String receiver);
+
+	int emailOverlapCheck(String email);
+	
+	int editUserPassword(String id, String password);
+
+	User getVerifiedUser(String userId);
+
+	User getVerifiedUserByEmail(String email);
 
 }

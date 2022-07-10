@@ -12,16 +12,6 @@ import com.namix.LearningBaduk.entity.User;
 
 public class SecurityUser implements UserDetails {
 
-	/*
-	 * private static final long serialVersionUID = 1L; private String userId;
-	 * private String userPassword; private String userNickname; private String
-	 * userEmail; private int userReport; private String userRole; private Date
-	 * userDate;
-	 */
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private User user;
 	
@@ -73,7 +63,7 @@ public class SecurityUser implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return true;
+		return user.isEmailAuth();
 	}
 
 }

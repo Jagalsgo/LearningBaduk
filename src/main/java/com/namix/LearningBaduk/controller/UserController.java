@@ -27,6 +27,7 @@ import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
 import com.namix.LearningBaduk.script.ScriptClass;
 import com.namix.LearningBaduk.security.SecurityService;
+import com.namix.LearningBaduk.service.EmailService;
 import com.namix.LearningBaduk.service.UserService;
 
 @Controller
@@ -35,6 +36,8 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
+	@Autowired
+	private EmailService emailService;
 	@Autowired
 	private SecurityService securityService;
 	@Autowired
@@ -177,6 +180,49 @@ public class UserController {
 	}
 
 	@ResponseBody
+	@PostMapping("emailOverlapCheck")
+	public Map<Object, Object> emailOverlapCheck(String signUpEmail) {
+
+		int emailCheckResult = 0;
+		emailCheckResult = service.emailOverlapCheck(signUpEmail);
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("count", emailCheckResult);
+		return map;
+
+	}
+
+	@ResponseBody
+	@PostMapping("findId")
+	public String findId(String findIdEmail) {
+
+		User user = service.getVerifiedUserByEmail(findIdEmail);
+		if (user != null) {
+			return user.getUserId();
+		}
+
+		return "null";
+	}
+
+	@ResponseBody
+	@PostMapping("findPassword")
+	public String findPassword(String findPasswordId, String findPasswordEmail) {
+
+		User user = service.getVerifiedUser(findPasswordId);
+		if (user != null) {
+			
+			if (!user.getUserEmail().equals(findPasswordEmail)) {
+				return "incorrectEmail"; // 해당 유저의 이메일이 올바르지 않은 경우
+			} else {
+				emailService.sendRandomPassword(findPasswordId, findPasswordEmail);
+				return "sendRandomPassword"; // 임시 비밀번호 메일로 전송
+			}
+
+		}
+
+		return "null"; // 해당 아이디의 유저가 없을 경우
+	}
+
+	@ResponseBody
 	@PostMapping("deleteUser")
 	public int deleteUser(@RequestParam("userId") String userId) {
 
@@ -189,28 +235,28 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("getAlarmCount")
 	public int getAlamCount(@RequestParam("receiver") String receiver) {
-		
+
 		int alarmCount = 0;
 		alarmCount = service.getAlarmCount(receiver);
 		return alarmCount;
-		
+
 	}
-	
+
 	@ResponseBody
 	@PostMapping("getAlarms")
 	public List<AlarmView> getAlarms(@RequestParam("receiver") String receiver) {
-		
+
 		List<AlarmView> alarms = service.getAlarms(receiver);
-		return alarms;	
-		
+		return alarms;
+
 	}
-	
+
 	@ResponseBody
 	@PostMapping("deleteAlarm")
 	public void deleteAlarm(@RequestParam("alarmId") Integer alarmId) {
 		service.deleteAlarm(alarmId);
 	}
-	
+
 	@ResponseBody
 	@PostMapping("deleteAllAlarm")
 	public void deleteAllAlarm(@RequestParam("receiver") String receiver) {

@@ -6,11 +6,14 @@ $(document).ready(function() {
 	signUpNickname = $('#signUpNickname');
 	signUpEmail = $('#signUpEmail');
 	idCheckedText = $('#idCheckedText');
-	nicknameCheckedText = $('#nicknameChekedText');
 	idCheckBtn = $('#idCheckBtn');
+	nicknameCheckedText = $('#nicknameChekedText');
 	nicknameCheckBtn = $("#nicknameCheckBtn");
+	emailCheckedText = $('#emailCheckedText');
+	emailCheckBtn = $("#emailCheckBtn");
 	idCheckResult = 0;
 	nicknameCheckResult = 0;
+	emailCheckResult = 0;
 
 	// 정규표현식
 	idExp = /^[A-Za-z]{1}[A-Za-z0-9]{3,19}$/;
@@ -30,6 +33,13 @@ $(document).ready(function() {
 		nicknameCheckBtn.show();
 		nicknameCheckedText.hide();
 		nicknameCheckResult = 0;
+	});
+	
+	// 이메일 변경 시 emailCheck 초기화
+	signUpEmail.on("input", function() {
+		emailCheckBtn.show();
+		emailCheckedText.hide();
+		emailCheckResult = 0;
 	});
 
 	// 회원가입 버튼 클릭
@@ -77,6 +87,13 @@ $(document).ready(function() {
 		if (nicknameCheckResult != 1) {
 			alert('닉네임 중복 검사를 해주세요.');
 			signUpNickname.focus();
+			return rv;
+		}
+		
+		// 이메일 중복 검사 안했을 시
+		if (emailCheckResult != 1) {
+			alert('이메일 중복 검사를 해주세요.');
+			signUpEmail.focus();
 			return rv;
 		}
 
@@ -159,6 +176,48 @@ function nicknameOverlapCheck() {
 				nicknameCheckedText.hide();
 				nicknameCheckResult = 0;
 				signUpNickname.focus();
+			}
+		},
+		error: function(error) {
+			alert('error : ' + error);
+		}
+	});
+
+}
+
+// 이메일 중복 체크 함수
+function emailOverlapCheck() {
+
+	if (signUpEmail.val() == '') {
+		alert('이메일을 입력하세요.');
+		signUpEmail.focus();
+		return false;
+	}
+
+	if (!emailExp.test(signUpEmail.val())) {
+		alert('이메일 형식이 올바르지 않습니다.');
+		signUpEmail.focus();
+		return false;
+	}
+
+	$.ajax({
+		type: "POST",
+		url: "/user/emailOverlapCheck",
+		data: { "signUpEmail": signUpEmail.val() },
+		success: function(data) {
+			if (data.count == 0) {
+				alert('사용 가능한 이메일입니다.');
+				emailCheckBtn.hide();
+				emailCheckedText.show();
+				signUpEmail.focus();
+				emailCheckResult = 1;
+				window.opener.location.reload();
+			} else {
+				alert('같은 이메일이 존재합니다.');
+				emailCheckBtn.show();
+				emailCheckedText.hide();
+				emailCheckResult = 0;
+				signUpEmail.focus();
 			}
 		},
 		error: function(error) {
