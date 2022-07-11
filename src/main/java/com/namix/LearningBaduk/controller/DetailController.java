@@ -305,9 +305,9 @@ public class DetailController {
 		String userId = principal.getName();
 		String receiver = service.getBoardsUser(boardId);
 
-		int postCommentResult = 0;
-		postCommentResult = service.postComment(userId, commentContent, boardId, receiver);
-		return postCommentResult;
+		service.postComment(userId, commentContent, boardId, receiver);
+		BoardView bv = service.getDetailBoard(boardId);
+		return bv.getCommentCount();
 
 	}
 

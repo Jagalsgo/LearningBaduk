@@ -46,14 +46,16 @@
 	<select id="getComments"
 		resultType="com.namix.LearningBaduk.entity.CommentView">
 		select commentId, commentContent, date_format(commentDate,
-		'%Y-%m-%d') as commentDate, userId, boardId, imgPath, userNickname
-		from commentview where boardId = #{id} order by commentId desc limit
+		'%Y-%m-%d') as commentDate, userId, boardId, imgPath, userNickname,
+		deleted, deletedDate, commentDepth, parentId
+		from commentview where
+		boardId = #{id} order by commentId limit
 		#{offset}, #{size}
 	</select>
 
 	<select id="getCommentCount" resultType="int">
 		select count(*) from
-		comment where boardId = #{id}
+		comment where boardId = #{id} and deleted = 0
 	</select>
 
 	<select id="getUsersLastBoardId" resultType="int">
@@ -257,5 +259,14 @@
 		boardId, commentId) values("comment", #{receiver}, #{sender},
 		#{boardId}, #{commentId})
 	</insert>
+
+	<select id="getChildCount">
+		select count(*) from comment where parentId = #{cid}
+	</select>
+
+	<update id="setCommentDeletedTrue">
+		update comment set deleted = 1 where commentId =
+		#{cid}
+	</update>
 
 </mapper>

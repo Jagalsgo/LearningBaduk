@@ -52,5 +52,7 @@ public interface BoardDao {
 	MessageView getMessage(int id);
 	String getCategory(int id);
 	int addCommentAlarm(String receiver, String sender, int boardId, int commentId);
+	int getChildCount(int cid);
+	int setCommentDeletedTrue(int cid);
 	
 }

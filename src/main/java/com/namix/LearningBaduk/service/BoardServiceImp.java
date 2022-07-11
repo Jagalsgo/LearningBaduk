@@ -146,7 +146,15 @@ public class BoardServiceImp implements BoardService {
 
 	@Override 
 	public int deleteComment(int cid) {
-		return boardDao.deleteComment(cid);
+		
+		int childCount = 0;
+		childCount = boardDao.getChildCount(cid);
+		if(childCount == 0) {
+			return boardDao.deleteComment(cid);
+		}else {
+			return boardDao.setCommentDeletedTrue(cid);
+		}
+		
 	}
 
 	@Override

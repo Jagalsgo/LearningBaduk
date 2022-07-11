@@ -116,10 +116,9 @@ function postComment() {
 		type: "POST",
 		data: data,
 		success: function(data) {
-			if (data >= 1) {
-				alert('댓글 등록 완료');
-			}
-			getComments(1);
+			alert('댓글 등록 완료');
+			var lastCommentPage = Math.ceil(data / 10);
+			getComments(lastCommentPage);
 			$('#commentContent').val('');
 
 			// 웹소켓 알림 연결
@@ -166,8 +165,8 @@ function deleteComment(commentId) {
 // 댓글 불러오기
 function getComments(commentPage) {
 
-	$('.commentPage').removeClass('text-warning');
-	$('.cListPage' + commentPage).addClass('text-warning');
+	var firstCommentPage = commentPage - (commentPage - 1) % 5;
+	var lastCommentPage = Math.ceil($('#commentCountJs').val() / 10);
 
 	var data = {
 		"boardId": boardId,
@@ -210,11 +209,52 @@ function getComments(commentPage) {
 					+ this.commentContent
 					+ "</div>";
 
+				// 답글 쓰기
+				if (userId) {
+					str += "<div class='text-right col-12 my-4' id='postReComment'><span class='fw-bold' id='postReCommentBtn' onclick='postReComment(" + this.commentId + ")'>댓글달기</span></div>";
+				}
+				// 댓글 삭제
 				if (userId == this.userId) {
-					str += "<div class='text-right col-12 my-4' id='deleteComment'><span class='fw-bold text-muted' id='deleteCommentBtn' onclick='deleteComment(" + this.commentId + ")'>삭제</span></div>"
+					str += "<div class='text-right col-12 mb-4' id='deleteComment'><span class='fw-bold text-muted' id='deleteCommentBtn' onclick='deleteComment(" + this.commentId + ")'>삭제</span></div>"
 				}
 
 			});
+			
+			// comment pagenation
+			str += "<div aria-label='Page navigation example' class='mt-5 mb-3'>"
+					+ "<ul class='pagination pagination-sm justify-content-center'>";
+			// << 페이지
+			if(firstCommentPage > 1){
+				str += "<li class='page-item'>"
+								+ "<div class='page-link commentPage' onclick='getComments("+(firstCommentPage - 5)+")' aria-label='Previous'>"
+									+ "<span aria-hidden='true'>&laquo;</span>"
+								+ "</div>"
+							+ "</li>";
+			}
+			// 중간 페이지
+			for(var i = 0; i < 5; i++){
+				if((firstCommentPage + i) <= lastCommentPage){
+					str += "<li class='page-item'><span "
+					if(commentPage == (firstCommentPage + i)){
+						str += "class='page-link commentPage text-warning' ";
+					}else{
+						str += "class='page-link commentPage' ";
+					}
+					str	+= "onclick='getComments("+(firstCommentPage + i)+")'>"+(firstCommentPage + i)+"</span></li>";
+				}
+			}
+			// >> 페이지	
+			if(firstCommentPage + 4 < lastCommentPage){
+				str += "<li class='page-item'>"
+							+ "<div class='page-link commetPage' onclick='getComments("+(firstCommentPage + 5)+")'"
+								+ "aria-label='Next'>"
+								+ "<span aria-hidden='true'>&raquo;</span>"
+							+ "</div>"
+						+ "</li>";
+			}
+					
+			str	+= "</ul>"
+			+ "</div>";
 
 			$('#comments').html(str);
 

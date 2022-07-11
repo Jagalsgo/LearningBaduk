@@ -238,5 +238,15 @@ public class MybatisBoardDao implements BoardDao {
 		return boardDaoMapper.addCommentAlarm(receiver, sender, boardId, commentId);
 	}
 
+	@Override
+	public int getChildCount(int cid) {
+		return boardDaoMapper.getChildCount(cid);
+	}
+
+	@Override
+	public int setCommentDeletedTrue(int cid) {
+		return boardDaoMapper.setCommentDeletedTrue(cid);
+	}
+
 
 }
