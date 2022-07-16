@@ -54,5 +54,10 @@ public interface BoardDao {
 	int addCommentAlarm(String receiver, String sender, int boardId, int commentId);
 	int getChildCount(int cid);
 	int setCommentDeletedTrue(int cid);
+	Comment getComment(int id);
+	int postReComment(Comment comment);
+	int addReCommentAlarm(String receiver, String sender, int commentId, int boardId);
+	int setCommentGroup(int commentId, int commentGroup);
+	int getCommentCurrentPage(int commentId, int boardId);
 	
 }

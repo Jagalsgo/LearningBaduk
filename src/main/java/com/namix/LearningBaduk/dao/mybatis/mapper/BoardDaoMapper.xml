@@ -49,8 +49,9 @@
 		'%Y-%m-%d') as commentDate, userId, boardId, imgPath, userNickname,
 		deleted, deletedDate, commentDepth, parentId
 		from commentview where
-		boardId = #{id} order by commentId limit
-		#{offset}, #{size}
+		boardId = #{id} order by commentGroup, commentId limit
+		#{offset},
+		#{size}
 	</select>
 
 	<select id="getCommentCount" resultType="int">
@@ -127,8 +128,10 @@
 		select boardId, boardTitle, boardContent,
 		date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory,
 		boardReport, userId, boardHit, commentCount, likeCount, dislikeCount,
-		userNickname, imgPath from boardview where userId = #{userId} and
-		boardTitle like '%${query}%' order by boardId desc limit #{offset},
+		userNickname, imgPath, commentGroup from boardview where userId =
+		#{userId} and
+		boardTitle like '%${query}%' order by boardId desc limit
+		#{offset},
 		#{size}
 	</select>
 
@@ -260,13 +263,45 @@
 		#{boardId}, #{commentId})
 	</insert>
 
-	<select id="getChildCount">
-		select count(*) from comment where parentId = #{cid}
+	<select id="getChildCount" resultType="int">
+		select count(*) from
+		comment where parentId = #{cid}
 	</select>
 
 	<update id="setCommentDeletedTrue">
 		update comment set deleted = 1 where commentId =
 		#{cid}
 	</update>
+
+	<select id="getComment"
+		resultType="com.namix.LearningBaduk.entity.Comment">
+		select * from comment where commentId = #{id}
+	</select>
+
+	<insert id="postReComment"
+		parameterType="com.namix.LearningBaduk.entity.Comment"
+		useGeneratedKeys="true" keyProperty="commentId">
+		insert into
+		comment(commentContent, userId, boardId, commentDepth, parentId)
+		values(#{commentContent},
+		#{userId}, #{boardId}, 1, #{parentId})
+	</insert>
+
+	<insert id="addReCommentAlarm">
+		insert into alarm(alarmType, receiver, sender,
+		commentId, boardId) values("reComment", #{receiver}, #{sender}, #{commentId}, #{boardId})
+	</insert>
+
+	<update id="setCommentGroup">
+		update comment set commentGroup = #{commentGroup}
+		where commentId = #{commentId}
+	</update>
+
+	<select id="getCommentCurrentPage" resultType="int">
+		select num from
+		(select *, row_number() over(order by commentGroup, commentId) as num
+		from comment where boardId = #{boardId} order by commentGroup, commentId) as A where commentId =
+		#{commentId};
+	</select>
 
 </mapper>

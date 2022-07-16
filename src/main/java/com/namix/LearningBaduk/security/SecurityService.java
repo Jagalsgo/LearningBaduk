@@ -78,7 +78,6 @@ public class SecurityService implements UserDetailsService {
         if (user != null){
             return new SecurityUser(user);
         }
-        System.out.println("null");
         return null;
 		
 	}

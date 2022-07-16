@@ -10,6 +10,7 @@
 <!-- detail content  -->
 <div class="fw-bold h4 mb-4 col-12 container-md pt-5">
 	<a href="/board/board?ct=${category.ct }">${category.categoryKor }</a>
+	<a href="/detail/detail?id=57#commentIdIs108">skull</a>
 </div>
 <div class="container-md border p-3">
 	<div class="row">

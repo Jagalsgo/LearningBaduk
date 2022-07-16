@@ -13,13 +13,14 @@ public class Comment {
 	private Date deletedDate;
 	private int commentDepth;
 	private int parentId;
+	private int commentGroup;
 
 	public Comment() {
 
 	}
 
 	public Comment(int commentId, String commentContent, String commentDate, String userId, int boardId,
-			boolean deleted, Date deletedDate, int commentDepth, int parentId) {
+			boolean deleted, Date deletedDate, int commentDepth, int parentId, int commentGroup) {
 		this.commentId = commentId;
 		this.commentContent = commentContent;
 		this.commentDate = commentDate;
@@ -29,6 +30,7 @@ public class Comment {
 		this.deletedDate = deletedDate;
 		this.commentDepth = commentDepth;
 		this.parentId = parentId;
+		this.commentGroup = commentGroup;
 	}
 
 	public int getCommentId() {
@@ -101,6 +103,14 @@ public class Comment {
 
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
+	}
+
+	public int getCommentGroup() {
+		return commentGroup;
+	}
+
+	public void setCommentGroup(int commentGroup) {
+		this.commentGroup = commentGroup;
 	}
 	
 }

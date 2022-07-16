@@ -182,7 +182,9 @@ public class UserServiceImp implements UserService {
 		message.setMessageTitle(messageTitle);
 		message.setMessageContent(messageContent);
 		int result = userDao.sendMessage(message);
-		userDao.addMessageAlarm(message);
+		if(!sender.equals(receiver)) {
+			userDao.addMessageAlarm(message);
+		}
 
 		return result;
 	}

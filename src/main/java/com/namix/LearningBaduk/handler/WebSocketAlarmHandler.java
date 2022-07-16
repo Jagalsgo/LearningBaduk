@@ -37,10 +37,12 @@ public class WebSocketAlarmHandler extends TextWebSocketHandler {
 		String msg = message.getPayload();
 		Gson gson = new Gson();
 		AlarmMessage alarmMsg = gson.fromJson(msg, AlarmMessage.class);
-
+		
 		TextMessage sendMsg = new TextMessage(gson.toJson(alarmMsg));
 		WebSocketSession receiverSession = userSessions.get(alarmMsg.getReceiver());
-		receiverSession.sendMessage(sendMsg);
+		if(receiverSession != null) {
+			receiverSession.sendMessage(sendMsg);
+		}
 
 		/*
 		 * if (StringUtils.isNotEmpty(msg)) { String[] strs = msg.split(","); if (strs

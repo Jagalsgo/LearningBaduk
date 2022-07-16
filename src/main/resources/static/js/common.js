@@ -267,13 +267,15 @@ function getAlarms() {
 			$(data).each(function() {
 
 				if (this.alarmType == 'comment') {
-					str += "<div><a class='alarmText' onclick='clickCommentAlarm(" + this.alarmId + ", " + this.boardId + ")'><span class='text-secondary'>" + this.senderNickname + "</span>님이 내 게시글에 댓글을 달았습니다</a></div>";
+					str += "<div><a class='alarmText' onclick='clickCommentAlarm(" + this.alarmId + ", " + this.boardId + ", " + this.commentId + ")'><span class='text-secondary'>" + this.senderNickname + "</span>님이 내 게시글에 댓글을 달았습니다</a></div>";
 				} else if (this.alarmType == 'message') {
 					str += "<div><a class='alarmText' onclick='clickMessageAlarm(" + this.alarmId + ")'><span class='text-secondary'>" + this.senderNickname + "</span>님이 쪽지를 보내셨습니다</a></div>";
+				} else if (this.alarmType == 'reComment') {
+					str += "<div><a class='alarmText' onclick='clickCommentAlarm(" + this.alarmId + ", " + this.boardId + ", " + this.commentId + ")'><span class='text-secondary'>" + this.senderNickname + "</span>님이 내 댓글에 답글을 달았습니다</a></div>";
 				}
-				str += "<div><a class='removeAlarmText text-muted' onclick='deleteAllAlarm(\"" + this.receiver + "\")'>모두 지움</a></div>"
 
 			});
+			str += "<div><a class='removeAlarmText text-muted' onclick='deleteAllAlarm(\"" + $('#userId').val() + "\")'>모두 지움</a></div>"
 
 			if (alarmsOpend == 0) {
 				$('.alarmsOpen').html(str);
@@ -291,20 +293,24 @@ function getAlarms() {
 
 }
 
-function clickCommentAlarm(alarmId, boardId) {
+function clickCommentAlarm(alarmId, boardId, commentId) {
 	$.ajax({
 		url: "/user/deleteAlarm",
 		type: "POST",
-		data: { "alarmId": alarmId },
-		success: function() {
-
+		data: {
+			"alarmId": alarmId,
+			"commentId": commentId,
+			"boardId": boardId
+		},
+		success: function(data) {
+			location.href = '/detail/detail?id=' + boardId;
+			localStorage.setItem('page', data);
+			localStorage.setItem('commentId', commentId);
 		},
 		error: function(error) {
 			alert('error : ' + error);
 		}
 	});
-
-	location.href = '/detail/detail?id=' + boardId;
 
 }
 
@@ -339,7 +345,7 @@ function deleteAllAlarm(receiver) {
 			alert('error : ' + error);
 		}
 	});
-	
+
 	getAlarmCount();
 
 }

@@ -7,9 +7,12 @@
 #dislikeIconBox{
 	padding-left: 40px;
 }
-#deleteComment, #postReComment{
+#deleteComment, #postReCommentBox{
 	padding-right: 40px;
 }
-.likeDislikeImg, #deleteCommentBtn, .commentPage, .boardPage, #postReCommentBtn, .commetPage{
+.likeDislikeImg, #deleteCommentBtn, .commentPage, .boardPage, #postReCommentBoxBtn, .commetPage{
 	cursor: pointer;
+}
+.reCommentContent{
+	margin-left: 50px;
 }

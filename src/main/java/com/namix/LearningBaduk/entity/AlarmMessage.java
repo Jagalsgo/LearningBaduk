@@ -12,7 +12,6 @@ public class AlarmMessage {
 	}
 
 	public AlarmMessage(String type, String receiver, String sender, int boardId, int count) {
-		super();
 		this.type = type;
 		this.receiver = receiver;
 		this.sender = sender;

@@ -133,28 +133,31 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int postComment(String userId, String commentContent, int id, String receiver) {
+	public Comment postComment(String userId, String commentContent, int id, String receiver) {
 		Comment comment = new Comment();
 		comment.setUserId(userId);
 		comment.setCommentContent(commentContent);
 		comment.setBoardId(id);
-		int result = boardDao.postComment(comment);
-		boardDao.addCommentAlarm(receiver, userId, id, comment.getCommentId());
-		
-		return result;
+		boardDao.postComment(comment);
+		boardDao.setCommentGroup(comment.getCommentId(), comment.getCommentId());
+		if (!receiver.equals(userId)) {
+			boardDao.addCommentAlarm(receiver, userId, id, comment.getCommentId());
+		}
+
+		return comment;
 	}
 
-	@Override 
+	@Override
 	public int deleteComment(int cid) {
-		
+
 		int childCount = 0;
 		childCount = boardDao.getChildCount(cid);
-		if(childCount == 0) {
+		if (childCount == 0) {
 			return boardDao.deleteComment(cid);
-		}else {
+		} else {
 			return boardDao.setCommentDeletedTrue(cid);
 		}
-		
+
 	}
 
 	@Override
@@ -315,8 +318,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public List<MessageView> getMessages(Integer page, String field, String query, String messageField, String messageQuery,
-			String deleted) {
+	public List<MessageView> getMessages(Integer page, String field, String query, String messageField,
+			String messageQuery, String deleted) {
 		int size = 10;
 		int offset = 0 + (page - 1) * size;
 
@@ -335,7 +338,7 @@ public class BoardServiceImp implements BoardService {
 			int id = chkArray.get(i);
 			boardDao.deleteMessage(id, deleted);
 			Message message = userDao.getMessage(id);
-			if(message.isDeleteByReceiver() && message.isDeleteBySender()) {
+			if (message.isDeleteByReceiver() && message.isDeleteBySender()) {
 				boardDao.deleteDbMessage(id);
 			}
 		}
@@ -349,13 +352,13 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public void deleteMessageDetail(int id, String deleted) {
-		
+
 		boardDao.deleteMessage(id, deleted);
 		Message message = userDao.getMessage(id);
-		if(message.isDeleteByReceiver() && message.isDeleteBySender()) {
+		if (message.isDeleteByReceiver() && message.isDeleteBySender()) {
 			boardDao.deleteDbMessage(id);
 		}
-		
+
 	}
 
 	@Override
@@ -363,6 +366,39 @@ public class BoardServiceImp implements BoardService {
 		String categoryTmp = boardDao.getCategory(id);
 		String ct = categoryTmp.replace("Board", "");
 		return ct;
+	}
+
+	@Override
+	public Comment getComment(int id) {
+		return boardDao.getComment(id);
+	}
+
+	@Override
+	public Comment postReComment(String userId, String reCommentContent, int boardId, int parentId, String receiver) {
+		Comment comment = new Comment();
+		comment.setUserId(userId);
+		comment.setCommentContent(reCommentContent);
+		comment.setBoardId(boardId);
+		comment.setParentId(parentId);
+		boardDao.postReComment(comment);
+		boardDao.setCommentGroup(comment.getCommentId(), parentId);
+		if (!receiver.equals(userId)) {
+			boardDao.addReCommentAlarm(receiver, userId, comment.getCommentId(), boardId);
+		}
+
+		return comment;
+	}
+
+	@Override
+	public int getCommentCurrentPage(int commentId, int boardId) {
+
+		int result = boardDao.getCommentCurrentPage(commentId, boardId);
+		if (result % 10 == 0) {
+			return result / 10;
+		} else {
+			return (result / 10) + 1;
+		}
+
 	}
 
 }

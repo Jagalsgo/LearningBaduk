@@ -30,7 +30,6 @@ public class BoardController {
 		map = service.getHomeBoards();
 
 		model.addAttribute("map", map);
-		model.addAttribute("endGame", map.get("endGame"));
 
 		return "board.home";
 	}

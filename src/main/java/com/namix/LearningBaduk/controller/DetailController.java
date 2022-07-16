@@ -1,4 +1,4 @@
- package com.namix.LearningBaduk.controller;
+package com.namix.LearningBaduk.controller;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -33,10 +33,10 @@ public class DetailController {
 	private BoardService service;
 
 	@GetMapping("detail")
-	public String detail(@RequestParam("id") int id, HttpServletRequest request, @RequestParam(value = "ct", required = false) String ct,
-			HttpServletResponse response, Model model) {
+	public String detail(@RequestParam("id") int id, HttpServletRequest request,
+			@RequestParam(value = "ct", required = false) String ct, HttpServletResponse response, Model model) {
 
-		if(ct == null) {
+		if (ct == null) {
 			ct = service.getCategory(id);
 		}
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
@@ -299,15 +299,40 @@ public class DetailController {
 
 	@ResponseBody
 	@PostMapping("postComment")
-	public int postComment(@RequestParam("boardId") int boardId, @RequestParam("commentContent") String commentContent,
+	public Map<Object, Object> postComment(@RequestParam("boardId") int boardId, @RequestParam("commentContent") String commentContent,
 			Principal principal) {
 
 		String userId = principal.getName();
 		String receiver = service.getBoardsUser(boardId);
 
-		service.postComment(userId, commentContent, boardId, receiver);
+		Comment comment = service.postComment(userId, commentContent, boardId, receiver);
 		BoardView bv = service.getDetailBoard(boardId);
-		return bv.getCommentCount();
+		
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("commentCount", bv.getCommentCount());
+		
+		return map;
+
+	}
+
+	@ResponseBody
+	@PostMapping("postReComment")
+	public Map<Object, Object> postReComment(@RequestParam("boardId") int boardId,
+			@RequestParam("reCommentContent") String reCommentContent, @RequestParam("parentId") int parentId,
+			Principal principal) {
+
+		String userId = principal.getName();
+		Comment parentComment = service.getComment(parentId);
+		String receiver = parentComment.getUserId();
+		
+		Comment childComment = service.postReComment(userId, reCommentContent, boardId, parentId, receiver);
+		int currentPage = service.getCommentCurrentPage(childComment.getCommentId(), boardId);
+		
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("receiver", receiver);
+		map.put("currentPage", currentPage);
+		
+		return map;
 
 	}
 
@@ -352,16 +377,16 @@ public class DetailController {
 		return boards;
 
 	}
-	
+
 	@ResponseBody
 	@PostMapping("reportBoard")
 	public int reportBoard(@RequestParam("boardId") Integer boardId, Principal principal) {
-		
+
 		String userId = principal.getName();
 		int result = service.reportBoard(boardId, userId);
-		
+
 		return result;
-		
+
 	}
 
 }

@@ -42,7 +42,7 @@ a {
 	margin: 3px 0 3px 0;
 }
 
-.userMenuPointer {
+.userMenuPointer, .mousePointer {
 	cursor: pointer;
 }
 

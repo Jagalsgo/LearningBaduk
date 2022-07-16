@@ -27,6 +27,7 @@ import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
 import com.namix.LearningBaduk.script.ScriptClass;
 import com.namix.LearningBaduk.security.SecurityService;
+import com.namix.LearningBaduk.service.BoardService;
 import com.namix.LearningBaduk.service.EmailService;
 import com.namix.LearningBaduk.service.UserService;
 
@@ -38,6 +39,8 @@ public class UserController {
 	private UserService service;
 	@Autowired
 	private EmailService emailService;
+	@Autowired
+	private BoardService boardService;
 	@Autowired
 	private SecurityService securityService;
 	@Autowired
@@ -209,7 +212,7 @@ public class UserController {
 
 		User user = service.getVerifiedUser(findPasswordId);
 		if (user != null) {
-			
+
 			if (!user.getUserEmail().equals(findPasswordEmail)) {
 				return "incorrectEmail"; // 해당 유저의 이메일이 올바르지 않은 경우
 			} else {
@@ -253,8 +256,10 @@ public class UserController {
 
 	@ResponseBody
 	@PostMapping("deleteAlarm")
-	public void deleteAlarm(@RequestParam("alarmId") Integer alarmId) {
+	public int deleteAlarm(@RequestParam("alarmId") Integer alarmId, @RequestParam("commentId") Integer commentId,
+			@RequestParam("boardId") Integer boardId) {
 		service.deleteAlarm(alarmId);
+		return boardService.getCommentCurrentPage(commentId, boardId);
 	}
 
 	@ResponseBody
