@@ -41,7 +41,8 @@
 								style="font-size: 0.7rem;" id="alarmCountText"></span><span
 								class="visually-hidden">unread messages</span>
 						</span>
-					</i> <span id="alarmsOpen" class="text-center alarmsOpen" style="width: 300px;"></span>
+					</i> <span id="alarmsOpen" class="text-center alarmsOpen"
+						style="width: 300px;"></span>
 					</span>
 					<!-- </button> -->
 					<c:choose>
@@ -93,34 +94,35 @@
 		</div>
 	</div>
 </div>
-<div class="headerItem" id="headerList">
-	<div class="alert alert-success" role="alert" id="socketAlert"></div>
-	<div class="container-md py-3">
-		<div class="row">
-			<div class="col-sm-3 col-md fw-bold mb-2">
-				<a href="/board/board?ct=free">자유게시판</a>
-			</div>
-			<div class="col-sm-3 col-md fw-bold mb-2">
-				<a href="/board/board?ct=rule">룰</a>
-			</div>
-			<div class="col-sm-3 col-md fw-bold mb-2">
-				<a href="/board/board?ct=pattern">정석</a>
-			</div>
-			<div class="col-sm-3 col-md fw-bold mb-2">
-				<a href="/board/board?ct=opening">포석</a>
-			</div>
-			<div class="col-sm-3 col-md fw-bold mb-2">
-				<a href="/board/board?ct=endGame">끝내기</a>
-			</div>
-			<div class="col-sm-3 col-md fw-bold mb-2">
-				<a href="/board/board?ct=quetion">바둑Q&A</a>
-			</div>
-			<div class="col-sm-3 col-md fw-bold mb-2">
-				<a href="/board/board?ct=schedule">프로바둑일정</a>
-			</div>
-			<div class="col-sm-3 col-md fw-bold mb-2">
-				<a href="/board/board?ct=notice">공지</a>
-			</div>
+<nav class="navbar navbar-expand-md navbar-light headerItem"
+	id="headerList">
+	<div class="container-md py-1">
+		<!-- toggle button for mobile nav -->
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<!-- navbar links -->
+		<div class="collapse navbar-collapse align-center" id="navbarNav" >
+			<ul class="navbar-nav row" style="width:100%">
+				<li class="fw-bold mb-2 nav-item col-md"><a
+					href="/board/board?ct=free" class="nav-link">자유게시판</a></li>
+				<li class="fw-bold mb-2 nav-item col-md"><a
+					href="/board/board?ct=rule" class="nav-link">룰</a></li>
+				<li class="fw-bold mb-2 nav-item col-md"><a
+					href="/board/board?ct=pattern" class="nav-link">정석</a></li>
+				<li class="fw-bold mb-2 nav-item col-md"><a
+					href="/board/board?ct=opening" class="nav-link">포석</a></li>
+				<li class="fw-bold mb-2 nav-item col-md"><a
+					href="/board/board?ct=endGame" class="nav-link">끝내기</a></li>
+				<li class="fw-bold mb-2 nav-item col-md"><a
+					href="/board/board?ct=quetion" class="nav-link">바둑Q&A</a></li>
+				<li class="fw-bold mb-2 nav-item col-md"><a
+					href="/board/board?ct=schedule" class="nav-link">프로바둑일정</a></li>
+				<li class="fw-bold mb-2 nav-item col-md"><a
+					href="/board/board?ct=notice" class="nav-link">공지</a></li>
+			</ul>
 		</div>
 	</div>
-</div>
+</nav>

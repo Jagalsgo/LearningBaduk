@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -127,25 +128,25 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@PostMapping("deleteBoards")
+	@DeleteMapping("deleteBoards")
 	public void deleteBoards(@RequestParam("chkArray[]") List<Integer> chkArray) {
 		boardService.deleteBoards(chkArray);
 	}
 	
 	@ResponseBody
-	@PostMapping("deleteComments")
+	@DeleteMapping("deleteComments")
 	public void deleteComments(@RequestParam("chkArray[]") List<Integer> chkArray) {
 		boardService.deleteComments(chkArray);
 	}
 	
 	@ResponseBody
-	@PostMapping("initBoardReports")
+	@PutMapping("initBoardReports")
 	public void initBoardReports(@RequestParam("chkArray[]") List<Integer> chkArray) {
 		boardService.initBoardReports(chkArray);
 	}
 	
 	@ResponseBody
-	@PostMapping("initUserReports")
+	@PutMapping("initUserReports")
 	public void initUserReports(@RequestParam("chkArray[]") List<String> chkArray) {
 		userService.initUserReports(chkArray);
 	}

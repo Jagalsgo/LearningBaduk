@@ -131,7 +131,7 @@ function deleteComment(commentId) {
 
 	$.ajax({
 		url: "/detail/deleteComment",
-		type: "POST",
+		type: "DELETE",
 		data: { "commentId": commentId },
 		success: function(data) {
 			if (data >= 1) {
@@ -279,7 +279,7 @@ function deleteComments() {
 		if (deleteCommentConfirm) {
 			$.ajax({
 				url: "/admin/deleteComments",
-				type: "POST",
+				type: "DELETE",
 				data: {
 					"chkArray": chkArray
 				},

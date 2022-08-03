@@ -32,7 +32,7 @@ $(document).ready(function() {
 		}
 	})*/
 
-	connectSockJs();
+	// connectSockJs();
 	if ($('#userId').val()) {
 		getAlarmCount();
 	}
@@ -188,7 +188,7 @@ function deleteUser(userId) {
 
 	if (confirm('정말 회원을 제거하시겠습니까?')) {
 		$.ajax({
-			type: "POST",
+			type: "DELETE",
 			url: "/user/deleteUser",
 			data: { "userId": userId },
 			success: function(data) {
@@ -239,6 +239,7 @@ function getAlarmCount() {
 		data: { "receiver": $('#userId').val() },
 		success: function(data) {
 			if (data >= 1) {
+				$('#alarmCountView').show();
 				if (data >= 100) {
 					data = '99+';
 				}
@@ -296,7 +297,7 @@ function getAlarms() {
 function clickCommentAlarm(alarmId, boardId, commentId) {
 	$.ajax({
 		url: "/user/deleteAlarm",
-		type: "POST",
+		type: "DELETE",
 		data: {
 			"alarmId": alarmId,
 			"commentId": commentId,
@@ -320,14 +321,13 @@ function clickMessageAlarm(alarmId) {
 		type: "POST",
 		data: { "alarmId": alarmId },
 		success: function() {
-
+			getAlarmCount();
 		},
 		error: function(error) {
 			alert('error : ' + error);
 		}
 	});
 
-	getAlarmCount();
 	receivedMessage();
 
 }
@@ -336,16 +336,14 @@ function deleteAllAlarm(receiver) {
 
 	$.ajax({
 		url: "/user/deleteAllAlarm",
-		type: "POST",
+		type: "DELETE",
 		data: { "receiver": receiver },
 		success: function() {
-
+			getAlarmCount();
 		},
 		error: function(error) {
 			alert('error : ' + error);
 		}
 	});
-
-	getAlarmCount();
 
 }

@@ -132,7 +132,7 @@ function postComment() {
 			}, 1000);*/
 
 			// 웹소켓 알림 연결
-			if (socket) {
+			/*if (socket) {
 				var socketMsg = {
 					type: "comment",
 					receiver: boardUserId,
@@ -144,7 +144,7 @@ function postComment() {
 				} else {
 				}
 			}
-
+*/
 		},
 		error: function(error) {
 			alert('error : ' + error);
@@ -158,7 +158,7 @@ function deleteComment(commentId) {
 
 	$.ajax({
 		url: "/detail/deleteComment",
-		type: "POST",
+		type: "DELETE",
 		data: { "commentId": commentId },
 		success: function(data) {
 			if (data >= 1) {
@@ -373,7 +373,7 @@ function postReComment(parentId) {
 			$('#reCommentContent').val('');
 
 			// 웹소켓 알림 연결
-			if (socket) {
+			/*if (socket) {
 				var socketMsg = {
 					type: "reComment",
 					receiver: data.receiver,
@@ -382,7 +382,7 @@ function postReComment(parentId) {
 				if (data.receiver != userId) {
 					socket.send(JSON.stringify(socketMsg));
 				}
-			}
+			}*/
 
 		},
 		error: function(error) {

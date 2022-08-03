@@ -1,5 +1,9 @@
 package com.namix.LearningBaduk.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +15,7 @@ import com.namix.LearningBaduk.dao.BoardDao;
 import com.namix.LearningBaduk.dao.UserDao;
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.CommentView;
 import com.namix.LearningBaduk.entity.Message;
 import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.MyBoard;
@@ -33,8 +38,47 @@ public class BoardServiceImp implements BoardService {
 
 		int size = 10;
 		int offset = 0 + (page - 1) * size;
+		
+		List<BoardView> boards = boardDao.getBoards(category, offset, size, field, query);
 
-		return boardDao.getBoards(category, offset, size, field, query);
+		for (int i = 0; i < boards.size(); i++) {
+
+			BoardView board = boards.get(i);
+			String oldBoardDateStr = board.getBoardDate();
+			SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+			Date oldBoardDate = new Date();
+			int compare = 1;
+
+			try {
+				oldBoardDate = parseFormat.parse(oldBoardDateStr);
+			} catch (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
+			}
+
+			Calendar now = Calendar.getInstance();
+			Calendar oldBoardDateCal = Calendar.getInstance();
+			oldBoardDateCal.setTime(oldBoardDate);
+
+			int yearDif = now.get(Calendar.YEAR) - oldBoardDateCal.get(Calendar.YEAR);
+			int monthDif = now.get(Calendar.MONTH) - oldBoardDateCal.get(Calendar.MONTH);
+			int dayDif = now.get(Calendar.DATE) - oldBoardDateCal.get(Calendar.DATE);
+
+			if (yearDif == 0 && monthDif == 0 && dayDif == 0) {
+				compare = 0;
+			}
+
+			if (compare >= 1) {
+				String newBoardDateStr = dateFormat.format(oldBoardDate);
+				board.setBoardDate(newBoardDateStr);
+			} else {
+				String newBoardDateStr = timeFormat.format(oldBoardDate);
+				board.setBoardDate(newBoardDateStr);
+			}
+
+		}
+
+		return boards;
 	}
 
 	@Override
@@ -54,7 +98,43 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public BoardView getDetailBoard(int id) {
-		return boardDao.getDetailBoard(id);
+		
+		BoardView board = boardDao.getDetailBoard(id);
+		
+		String oldBoardDateStr = board.getBoardDate();
+		SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		Date oldBoardDate = new Date();
+		int compare = 1;
+
+		try {
+			oldBoardDate = parseFormat.parse(oldBoardDateStr);
+		} catch (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
+		}
+
+		Calendar now = Calendar.getInstance();
+		Calendar oldBoardDateCal = Calendar.getInstance();
+		oldBoardDateCal.setTime(oldBoardDate);
+
+		int yearDif = now.get(Calendar.YEAR) - oldBoardDateCal.get(Calendar.YEAR);
+		int monthDif = now.get(Calendar.MONTH) - oldBoardDateCal.get(Calendar.MONTH);
+		int dayDif = now.get(Calendar.DATE) - oldBoardDateCal.get(Calendar.DATE);
+
+		if (yearDif == 0 && monthDif == 0 && dayDif == 0) {
+			compare = 0;
+		}
+
+		if (compare >= 1) {
+			String newBoardDateStr = dateFormat.format(oldBoardDate);
+			board.setBoardDate(newBoardDateStr);
+		} else {
+			String newBoardDateStr = timeFormat.format(oldBoardDate);
+			board.setBoardDate(newBoardDateStr);
+		}
+		
+		return board;
+		
 	}
 
 	@Override
@@ -68,17 +148,56 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public List<Comment> getComments(int id) {
+	public List<CommentView> getComments(int id) {
 		return getComments(id, 1);
 	}
 
 	@Override
-	public List<Comment> getComments(int id, int page) {
+	public List<CommentView> getComments(int id, int page) {
 
 		int size = 10;
 		int offset = 0 + (page - 1) * size;
 
-		return boardDao.getComments(id, size, offset);
+		List<CommentView> comments = boardDao.getComments(id, size, offset);
+
+		for (int i = 0; i < comments.size(); i++) {
+
+			Comment comment = comments.get(i);
+			String oldCommentDateStr = comment.getCommentDate();
+			SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+			Date oldCommentDate = new Date();
+			int compare = 1;
+
+			try {
+				oldCommentDate = parseFormat.parse(oldCommentDateStr);
+			} catch (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
+			}
+
+			Calendar now = Calendar.getInstance();
+			Calendar oldCommentDateCal = Calendar.getInstance();
+			oldCommentDateCal.setTime(oldCommentDate);
+
+			int yearDif = now.get(Calendar.YEAR) - oldCommentDateCal.get(Calendar.YEAR);
+			int monthDif = now.get(Calendar.MONTH) - oldCommentDateCal.get(Calendar.MONTH);
+			int dayDif = now.get(Calendar.DATE) - oldCommentDateCal.get(Calendar.DATE);
+
+			if (yearDif == 0 && monthDif == 0 && dayDif == 0) {
+				compare = 0;
+			}
+
+			if (compare >= 1) {
+				String newCommentDateStr = dateFormat.format(oldCommentDate);
+				comment.setCommentDate(newCommentDateStr);
+			} else {
+				String newCommentDateStr = timeFormat.format(oldCommentDate);
+				comment.setCommentDate(newCommentDateStr);
+			}
+
+		}
+
+		return comments;
 	}
 
 	@Override

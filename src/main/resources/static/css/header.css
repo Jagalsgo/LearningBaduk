@@ -54,6 +54,10 @@
 	background: #dae8d3;
 }
 
+#alarmCountView{
+	display: none;
+}
+
 .alarmText{
 	font-size: 0.7rem;
 	font-weight: bold;
@@ -62,6 +66,10 @@
 .removeAlarmText{
 	font-size: 0.7rem;
 	cursor: pointer;
+}
+
+ul{
+	justify-content: center;
 }
 
 /* websocket alert */

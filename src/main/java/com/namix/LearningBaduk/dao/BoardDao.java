@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.CommentView;
 import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.MyBoard;
 
@@ -15,7 +16,7 @@ public interface BoardDao {
 	BoardView getDetailBoard(int id);
 	int updateDetail(int id, String title, String content);
 	int deleteDetail(int id);
-	List<Comment> getComments(int id, int size, int offset);
+	List<CommentView> getComments(int id, int size, int offset);
 	int getCommentCount(int id);
 	int getUsersLastBoardId(String userId);
 	void addHit(int id);

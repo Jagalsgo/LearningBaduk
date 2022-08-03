@@ -55,7 +55,7 @@ function sendMessagePost() {
 			}
 
 			// 웹소켓 알림 연결
-			if (socket) {
+			/*if (socket) {
 				var socketMsg = {
 					type: "message",
 					receiver: $('#receiver').val(),
@@ -64,7 +64,7 @@ function sendMessagePost() {
 				if ($('#receiver').val() != $('#userId').val()) {
 					socket.send(JSON.stringify(socketMsg));
 				}
-			}
+			}*/
 
 		},
 		error: function(error) {
@@ -92,7 +92,7 @@ function deleteReceivedMessage() {
 		if (deleteMessageConfirm) {
 			$.ajax({
 				url: "/popup/deleteReceivedMessage",
-				type: "POST",
+				type: "DELETE",
 				data: {
 					"chkArray": chkArray
 				},
@@ -127,7 +127,7 @@ function deleteSentMessage() {
 		if (deleteMessageConfirm) {
 			$.ajax({
 				url: "/popup/deleteSentMessage",
-				type: "POST",
+				type: "DELETE",
 				data: {
 					"chkArray": chkArray
 				},

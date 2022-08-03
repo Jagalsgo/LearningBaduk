@@ -131,7 +131,7 @@ function nicknameOverlapCheck(){
 function deleteProfileImg(){
 	console.log('aaa');
 	$.ajax({
-		type: "POST",
+		type: "DELETE",
 		url: "/user/deleteProfileImg",
 		data: {
 			"userId": $('#userId').val(),
@@ -158,7 +158,7 @@ function deleteProfileImg(){
 function withdraw(){
 	
 	$.ajax({
-		type: "POST",
+		type: "DELETE",
 		url: "/user/withdraw",
 		data: {
 			"userId": $('#userId').val(),

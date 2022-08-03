@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
-import com.namix.LearningBaduk.entity.Message;
+import com.namix.LearningBaduk.entity.CommentView;
 import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.MyBoard;
 
@@ -18,8 +18,8 @@ public interface BoardService {
 	BoardView getDetailBoard(int id);
 	int updateDetail(int id, String title, String content);
 	int deleteDetail(int id);
-	List<Comment> getComments(int id);
-	List<Comment> getComments(int id, int page);
+	List<CommentView> getComments(int id);
+	List<CommentView> getComments(int id, int page);
 	int getCommentCount(int id);
 	int getPageCount(String categoryEng);
 	int getUsersLastBoardId(String userId);

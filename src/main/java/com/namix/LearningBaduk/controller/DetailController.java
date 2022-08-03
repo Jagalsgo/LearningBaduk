@@ -13,14 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.CommentView;
 import com.namix.LearningBaduk.entity.MyBoard;
 import com.namix.LearningBaduk.script.ScriptClass;
 import com.namix.LearningBaduk.service.BoardService;
@@ -102,8 +105,8 @@ public class DetailController {
 		return "detail.updateDetail";
 	}
 
-	@PostMapping("updateDetail")
-	public void updateDetailPost(@RequestParam("id") int id, @RequestParam("updateTitle") String title,
+	@PutMapping("updateDetail")
+	public void updateDetail(@RequestParam("id") int id, @RequestParam("updateTitle") String title,
 			@RequestParam("updateContent") String content, @RequestParam("ct") String ct, HttpServletResponse response)
 			throws IOException {
 
@@ -129,7 +132,7 @@ public class DetailController {
 		return "detail.updateMyDetail";
 	}
 
-	@PostMapping("updateMyDetail")
+	@PutMapping("updateMyDetail")
 	public void updateMyDetailPost(@RequestParam("id") int id, @RequestParam("updateTitle") String title,
 			@RequestParam("updateContent") String content, HttpServletResponse response) throws IOException {
 
@@ -337,7 +340,7 @@ public class DetailController {
 	}
 
 	@ResponseBody
-	@PostMapping("deleteComment")
+	@DeleteMapping("deleteComment")
 	public int deleteComment(@RequestParam("commentId") int commentId) {
 
 		int deleteCommentResult = 0;
@@ -348,9 +351,9 @@ public class DetailController {
 
 	@ResponseBody
 	@PostMapping("getComments")
-	public List<Comment> getComments(@RequestParam("boardId") int id,
+	public List<CommentView> getComments(@RequestParam("boardId") int id,
 			@RequestParam(value = "commentPage", defaultValue = "1") Integer page, Model model) {
-		List<Comment> comments = service.getComments(id, page);
+		List<CommentView> comments = service.getComments(id, page);
 		model.addAttribute("commentPage", page);
 		return comments;
 	}

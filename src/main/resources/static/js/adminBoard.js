@@ -41,7 +41,7 @@ function deleteBoards() {
 		if (deleteBoardConfirm) {
 			$.ajax({
 				url: "/admin/deleteBoards",
-				type: "POST",
+				type: "DELETE",
 				data: {
 					"chkArray": chkArray
 				},
@@ -76,7 +76,7 @@ function initBoardReports() {
 		if (initBoardReportConfirm) {
 			$.ajax({
 				url: "/admin/initBoardReports",
-				type: "POST",
+				type: "PUT",
 				data: {
 					"chkArray": chkArray
 				},
@@ -111,7 +111,7 @@ function initUserReports() {
 		if (initUserReportConfirm) {
 			$.ajax({
 				url: "/admin/initUserReports",
-				type: "POST",
+				type: "PUT",
 				data: {
 					"chkArray": chkArray
 				},

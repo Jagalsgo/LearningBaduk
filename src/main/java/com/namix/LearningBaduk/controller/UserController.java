@@ -15,8 +15,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,7 +53,7 @@ public class UserController {
 		return "user.editProfile";
 	}
 
-	@PostMapping("editProfile")
+	@PutMapping("editProfile")
 	public void editProfilePost(User user, @RequestParam(value = "profileImg", required = false) MultipartFile file,
 			HttpServletResponse response, HttpServletRequest request, @RequestParam("oldPassword") String oldPassword)
 			throws IOException {
@@ -113,7 +115,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping("withdraw")
+	@DeleteMapping("withdraw")
 	public Map<Object, Object> withdraw(String userId, String oldPassword, HttpSession session) throws IOException {
 
 		Map<Object, Object> map = new HashMap<Object, Object>();
@@ -132,7 +134,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping("deleteProfileImg")
+	@DeleteMapping("deleteProfileImg")
 	public Map<Object, Object> deleteProfileImg(String userId, String oldPassword) throws IOException {
 
 		Map<Object, Object> map = new HashMap<Object, Object>();
@@ -226,7 +228,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping("deleteUser")
+	@DeleteMapping("deleteUser")
 	public int deleteUser(@RequestParam("userId") String userId) {
 
 		int deleteUserResult = 0;
@@ -255,15 +257,22 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping("deleteAlarm")
-	public int deleteAlarm(@RequestParam("alarmId") Integer alarmId, @RequestParam("commentId") Integer commentId,
-			@RequestParam("boardId") Integer boardId) {
+	@DeleteMapping("deleteAlarm")
+	public int deleteAlarm(@RequestParam("alarmId") Integer alarmId,
+			@RequestParam(value = "commentId", required = false) Integer commentId,
+			@RequestParam(value = "boardId", required = false) Integer boardId) {
+		
 		service.deleteAlarm(alarmId);
-		return boardService.getCommentCurrentPage(commentId, boardId);
+		if(commentId != null) {
+			return boardService.getCommentCurrentPage(commentId, boardId);
+		}else {
+			return 0;
+		}
+		
 	}
 
 	@ResponseBody
-	@PostMapping("deleteAllAlarm")
+	@DeleteMapping("deleteAllAlarm")
 	public void deleteAllAlarm(@RequestParam("receiver") String receiver) {
 		service.deleteAllAlarm(receiver);
 	}

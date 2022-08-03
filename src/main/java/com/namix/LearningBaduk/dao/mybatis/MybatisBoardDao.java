@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.namix.LearningBaduk.dao.BoardDao;
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
+import com.namix.LearningBaduk.entity.CommentView;
 import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.MyBoard;
 
@@ -53,7 +54,7 @@ public class MybatisBoardDao implements BoardDao {
 	}
 
 	@Override
-	public List<Comment> getComments(int id, int size, int offset) {
+	public List<CommentView> getComments(int id, int size, int offset) {
 		return boardDaoMapper.getComments(id, size, offset);
 	}
 

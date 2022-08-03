@@ -6,10 +6,7 @@
 
 	<select id="getBoards"
 		resultType="com.namix.LearningBaduk.entity.BoardView">
-		select boardId, boardTitle, boardContent,
-		date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory,
-		boardReport, userId, boardHit, commentCount, likeCount, dislikeCount,
-		userNickname, imgPath from boardview where boardCategory = #{category}
+		select * from boardview where boardCategory = #{category}
 		and ${field} like '%${query}%' order by boardId desc limit #{offset},
 		#{size}
 	</select>
@@ -28,10 +25,7 @@
 
 	<select id="getDetailBoard"
 		resultType="com.namix.LearningBaduk.entity.BoardView">
-		select boardId, boardTitle, boardContent,
-		date_format(boardDate, '%Y-%m-%d') as boardDate, boardCategory,
-		boardReport, userId, boardHit, commentCount, likeCount, dislikeCount,
-		userNickname, imgPath from boardview where boardId = #{id}
+		select * from boardview where boardId = #{id}
 	</select>
 
 	<update id="updateDetail">
@@ -45,11 +39,9 @@
 
 	<select id="getComments"
 		resultType="com.namix.LearningBaduk.entity.CommentView">
-		select commentId, commentContent, date_format(commentDate,
-		'%Y-%m-%d') as commentDate, userId, boardId, imgPath, userNickname,
-		deleted, deletedDate, commentDepth, parentId
-		from commentview where
-		boardId = #{id} order by commentGroup, commentId limit
+		select * from commentview where
+		boardId = #{id} order by
+		commentGroup, commentId limit
 		#{offset},
 		#{size}
 	</select>
@@ -289,7 +281,8 @@
 
 	<insert id="addReCommentAlarm">
 		insert into alarm(alarmType, receiver, sender,
-		commentId, boardId) values("reComment", #{receiver}, #{sender}, #{commentId}, #{boardId})
+		commentId, boardId) values("reComment", #{receiver}, #{sender},
+		#{commentId}, #{boardId})
 	</insert>
 
 	<update id="setCommentGroup">
@@ -300,7 +293,8 @@
 	<select id="getCommentCurrentPage" resultType="int">
 		select num from
 		(select *, row_number() over(order by commentGroup, commentId) as num
-		from comment where boardId = #{boardId} order by commentGroup, commentId) as A where commentId =
+		from comment where boardId = #{boardId} order by commentGroup,
+		commentId) as A where commentId =
 		#{commentId};
 	</select>
 

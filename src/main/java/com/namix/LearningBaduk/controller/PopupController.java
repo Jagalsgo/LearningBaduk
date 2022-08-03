@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.namix.LearningBaduk.entity.Message;
 import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.ReportList;
 import com.namix.LearningBaduk.entity.User;
@@ -161,13 +161,13 @@ public class PopupController {
 	}
 
 	@ResponseBody
-	@PostMapping("deleteReceivedMessage")
+	@DeleteMapping("deleteReceivedMessage")
 	public void deleteReceivedMessage(@RequestParam("chkArray[]") List<Integer> chkArray) {
 		boardService.deleteMessage(chkArray, "deleteByReceiver");
 	}
 
 	@ResponseBody
-	@PostMapping("deleteSentMessage")
+	@DeleteMapping("deleteSentMessage")
 	public void deleteSentMessage(@RequestParam("chkArray[]") List<Integer> chkArray) {
 		boardService.deleteMessage(chkArray, "deleteBySender");
 	}
