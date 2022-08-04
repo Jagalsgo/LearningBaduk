@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="/css/signUp.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/signUp.css">
 <script type="text/javascript" src="/js/signUp.js"></script>
 <div class="container-md">
-	<form action="/user/signUp" method="post" class="border px-5 py-4"
-		id="signUpForm">
+	<form action="${pageContext.request.contextPath }/user/signUp"
+		method="post" class="border px-5 py-4" id="signUpForm">
 		<div class="fw-bold h4 mb-5">회원가입</div>
 		<div class="form-group">
 			<label for="signUpId" class="signUpFormLabel">아이디</label> <input

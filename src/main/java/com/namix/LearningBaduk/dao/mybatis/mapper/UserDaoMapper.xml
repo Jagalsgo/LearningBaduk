@@ -4,14 +4,42 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.namix.LearningBaduk.dao.UserDao">
 
+	<select id="getUsers"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where ${field} like '%${query}%' and
+		emailAuth = 1 order
+		by userDate desc limit #{offset}, #{size}
+	</select>
+
 	<select id="getUser"
 		resultType="com.namix.LearningBaduk.entity.User">
 		select * from user where userId = #{id}
 	</select>
 
+	<select id="getUserByNickname"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where userNickname = #{userNickname}
+	</select>
+
+	<select id="getUserByEmail"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where userEmail = #{email}
+	</select>
+
 	<select id="getVerifiedUser"
 		resultType="com.namix.LearningBaduk.entity.User">
 		select * from user where userId = #{id} and emailAuth = 1
+	</select>
+
+	<select id="getVerifiedUserByEmail"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where userEmail = #{email} and emailAuth
+		= 1
+	</select>
+
+	<select id="getUserCount" resultType="int">
+		select count(*) from user
+		where ${field} like '%${query}%' and emailAuth = 1
 	</select>
 
 	<select id="idOverlapCheck" resultType="int">
@@ -37,15 +65,6 @@
 		#{userEmail})
 	</insert>
 
-	<update id="editProfile">
-		update user set userPassword = #{password},
-		userNickname = #{nickname}, userEmail = #{email} where userId = #{id}
-	</update>
-
-	<delete id="withdraw">
-		delete from user where userId = #{id}
-	</delete>
-
 	<insert id="addProfileImg">
 		insert into userProfileImg(imgName, imgPath, userId)
 		values(#{imgName}, #{imgUrl}, #{userId})
@@ -60,17 +79,29 @@
 		select * from userProfileImg where userId = #{userId}
 	</select>
 
-	<select id="getUsers"
-		resultType="com.namix.LearningBaduk.entity.User">
-		select * from user where ${field} like '%${query}%' and
-		emailAuth = 1 order
-		by userDate desc limit #{offset}, #{size}
-	</select>
+	<update id="editProfile">
+		update user set userPassword = #{password},
+		userNickname = #{nickname}, userEmail = #{email} where userId = #{id}
+	</update>
 
-	<select id="getUserCount" resultType="int">
-		select count(*) from user
-		where ${field} like '%${query}%' and emailAuth = 1
-	</select>
+	<update id="addUserProfileImg">
+		update user set userProfileImg = #{imgUrl} where
+		userId = #{userId}
+	</update>
+
+	<update id="deleteUserProfileImg">
+		update user set userProfileImg = null where userId =
+		#{userId};
+	</update>
+
+	<update id="editUserPassword">
+		update user set userPassword = #{password} where
+		userId = #{id}
+	</update>
+
+	<delete id="withdraw">
+		delete from user where userId = #{id}
+	</delete>
 
 	<select id="getReportUsers"
 		resultType="com.namix.LearningBaduk.entity.User">
@@ -85,16 +116,6 @@
 
 	<update id="initUserReport">
 		update user set userReport = 0 where userId = #{id}
-	</update>
-
-	<update id="addUserProfileImg">
-		update user set userProfileImg = #{imgUrl} where
-		userId = #{userId}
-	</update>
-
-	<update id="deleteUserProfileImg">
-		update user set userProfileImg = null where userId =
-		#{userId};
 	</update>
 
 	<update id="addUsersReport">
@@ -131,66 +152,5 @@
 		delete from reportlist where reportedUser = #{id} and
 		reportType = 'user'
 	</delete>
-
-	<select id="getUserByNickname"
-		resultType="com.namix.LearningBaduk.entity.User">
-		select * from user where userNickname = #{userNickname}
-	</select>
-
-	<insert id="sendMessage"
-		parameterType="com.namix.LearningBaduk.entity.Message"
-		useGeneratedKeys="true" keyProperty="messageId">
-		insert into message(sender,
-		receiver, messageTitle,
-		messageContent) values(#{sender}, #{receiver},
-		#{messageTitle},
-		#{messageContent})
-	</insert>
-
-	<insert id="addMessageAlarm"
-		parameterType="com.namix.LearningBaduk.entity.Message">
-		insert into alarm(alarmType, receiver, sender,
-		messageId) values("message", #{receiver}, #{sender}, #{messageId})
-	</insert>
-
-	<select id="getMessage"
-		resultType="com.namix.LearningBaduk.entity.Message">
-		select * from message where messageId = #{id}
-	</select>
-
-	<select id="getAlarmCount" resultType="int">
-		select count(*) from alarm
-		where receiver = #{receiver}
-	</select>
-
-	<select id="getAlarms"
-		resultType="com.namix.LearningBaduk.entity.AlarmView">
-		select * from alarmview where receiver = #{receiver} order
-		by alarmId desc limit 0, 5
-	</select>
-
-	<delete id="deleteAlarm">
-		delete from alarm where alarmId = #{alarmId}
-	</delete>
-
-	<delete id="deleteAllAlarm">
-		delete from alarm where receiver = #{receiver}
-	</delete>
-
-	<select id="getUserByEmail"
-		resultType="com.namix.LearningBaduk.entity.User">
-		select * from user where userEmail = #{email}
-	</select>
-
-	<select id="getVerifiedUserByEmail"
-		resultType="com.namix.LearningBaduk.entity.User">
-		select * from user where userEmail = #{email} and emailAuth
-		= 1
-	</select>
-
-	<update id="editUserPassword">
-		update user set userPassword = #{password} where
-		userId = #{id}
-	</update>
 
 </mapper>

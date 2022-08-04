@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.namix.LearningBaduk.dao.DetailDao">
+
+	<insert id="writeDetail">
+		insert into board(boardTitle, boardContent,
+		boardCategory, userId) values(#{title}, #{content}, #{category},
+		#{userId})
+	</insert>
+	
+	<insert id="writeMyDetail">
+		insert into myboard(myBoardTitle, myBoardContent,
+		userId) values(#{title}, #{content}, #{userId})
+	</insert>
+	
+	<update id="updateDetail">
+		update board set boardTitle = #{title}, boardContent
+		= #{content} where boardId = #{id}
+	</update>
+	
+	<update id="updateMyDetail">
+		update myboard set myBoardTitle = #{title},
+		myBoardContent = #{content} where myBoardId = #{id}
+	</update>
+	
+	<delete id="deleteDetail">
+		delete from board where boardId = #{id}
+	</delete>
+	
+	<delete id="deleteMyDetail">
+		delete from myboard where myBoardId = #{id}
+	</delete>
+	
+	<select id="likeClicked" resultType="int">
+		select count(*) from likes
+		where boardId = #{id} and userId = #{userId}
+	</select>
+	
+	<select id="dislikeClicked" resultType="int">
+		select count(*) from
+		dislikes where boardId = #{id} and userId = #{userId}
+	</select>
+
+	<insert id="addLike">
+		insert into likes(boardId, userId) values(#{id},
+		#{userId})
+	</insert>
+
+	<insert id="addDislike">
+		insert into dislikes(boardId, userId) values(#{id},
+		#{userId})
+	</insert>
+
+	<select id="getLikeCount" resultType="int">
+		select count(*) from likes
+		where boardId = #{id}
+	</select>
+
+	<select id="getDislikeCount" resultType="int">
+		select count(*) from
+		dislikes where boardId = #{id}
+	</select>
+	
+	<update id="addHit">
+		update board set boardHit = boardHit + 1 where
+		boardId = #{id}
+	</update>
+
+</mapper>

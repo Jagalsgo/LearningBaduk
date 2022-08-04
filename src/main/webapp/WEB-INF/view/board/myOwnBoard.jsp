@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<link rel="stylesheet" href="/css/board.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/board.css">
 <div class="container-md py-5">
 		<div class="row">
-			<div class="fw-bold h4 mb-4 col-12"><a href="/board/myOwnBoard">나만의 게시판</a></div>
+			<div class="fw-bold h4 mb-4 col-12"><a href="${pageContext.request.contextPath }/board/myOwnBoard">나만의 게시판</a></div>
 			<div class="tableBox">
 				<table class="table">
 		            <thead class="table-secondary">
@@ -19,7 +19,7 @@
 		                	<c:forEach var="b" items="${boards }">
 			            	    <tr>
 				                    <td class="boardDate text-muted text-center">${b.myBoardDate }</td>
-				                    <td class="boardTitle "><a href="/detail/myOwnDetail?id=${b.myBoardId }">${b.myBoardTitle }</a></td>
+				                    <td class="boardTitle "><a href="${pageContext.request.contextPath }/detail/myOwnDetail?id=${b.myBoardId }">${b.myBoardTitle }</a></td>
 			         	       </tr>
 		                	</c:forEach>
 		            </tbody>
@@ -32,7 +32,7 @@
 	<div class="container-md my-4">
 		<div class="row">
 			<!-- go to list  -->
-			<div class="col-sm-1 col-md-1" id="goToList"><a href="/board/myOwnBoard"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
+			<div class="col-sm-1 col-md-1" id="goToList"><a href="${pageContext.request.contextPath }/board/myOwnBoard"><i class="fa fa-solid fa-list fa-2x"></i></a></div>
 			<!-- pagination -->
 			<c:set var="page" value="${(empty param.p)?1:param.p }" />
 			<c:set var="firstPage" value="${page - (page - 1) % 5}" />

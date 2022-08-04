@@ -3,15 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<link rel="stylesheet" href="/css/message.css">
-<script type="text/javascript" src="/js/message.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/message.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/message.js"></script>
 <div class="cotainer-fluid popupHeader">보낸 쪽지</div>
 <div class="headerItem mb-4" id="headerList">
 	<div class="container-fluid py-3">
-		<span class="fw-bold mb-2"> <a href="/popup/receivedMessage">받은쪽지함</a>
-		</span> <span class="fw-bold mb-2 mx-3"> <a href="/popup/sentMessage"
+		<span class="fw-bold mb-2"> <a
+			href="${pageContext.request.contextPath }/popup/receivedMessage">받은쪽지함</a>
+		</span> <span class="fw-bold mb-2 mx-3"> <a
+			href="${pageContext.request.contextPath }/popup/sentMessage"
 			class="text-primary">보낸쪽지함</a>
-		</span> <span class="fw-bold mb-2"> <a href="/popup/sendMessage">쪽지보내기</a>
+		</span> <span class="fw-bold mb-2"> <a
+			href="${pageContext.request.contextPath }/popup/sendMessage">쪽지보내기</a>
 		</span>
 	</div>
 </div>
@@ -33,12 +38,12 @@
 	<div class="col12 my-4 messageDetailContent py-4">${messageView.messageContent }</div>
 	<a
 		href="/popup/deleteMessageDetail?id=${messageView.messageId }&go=sentMessage"
-		class="text-right"><button
-			class="btn btn-secondary btn-sm UDBtn ">삭제</button></a>
+		class="text-right"><button class="btn btn-secondary btn-sm UDBtn ">삭제</button></a>
 </div>
 
 <!-- go to list  -->
 <div class="m-4" id="goToList">
-	<a href="/popup/sentMessage?p=${page}"><i
+	<a
+		href="${pageContext.request.contextPath }/popup/sentMessage?p=${page}"><i
 		class="fa fa-solid fa-list fa-2x"></i></a>
 </div>

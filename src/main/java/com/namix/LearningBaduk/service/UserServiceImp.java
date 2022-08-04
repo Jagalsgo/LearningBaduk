@@ -30,6 +30,39 @@ public class UserServiceImp implements UserService {
 	private BoardDao boardDao;
 
 	@Override
+	public List<User> getUsers(Integer page, String field, String query) {
+		int size = 10;
+		int offset = 0 + (page - 1) * size;
+
+		return userDao.getUsers(offset, size, field, query);
+	}
+
+	@Override
+	public User getUser(String userId) {
+		return userDao.getUser(userId);
+	}
+
+	@Override
+	public User getUserByNickname(String userNickname) {
+		return userDao.getUserByNickname(userNickname);
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		return userDao.getUserByEmail(email);
+	}
+
+	@Override
+	public User getVerifiedUser(String userId) {
+		return userDao.getVerifiedUser(userId);
+	}
+
+	@Override
+	public User getVerifiedUserByEmail(String email) {
+		return userDao.getVerifiedUserByEmail(email);
+	}
+
+	@Override
 	public int idOverlapCheck(String id) {
 		return userDao.idOverlapCheck(id);
 	}
@@ -40,8 +73,8 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public int withdraw(String id) {
-		return userDao.withdraw(id);
+	public int emailOverlapCheck(String email) {
+		return userDao.emailOverlapCheck(email);
 	}
 
 	@Override
@@ -90,16 +123,8 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public List<User> getUsers(Integer page, String field, String query) {
-		int size = 10;
-		int offset = 0 + (page - 1) * size;
-
-		return userDao.getUsers(offset, size, field, query);
-	}
-
-	@Override
-	public int getUserCount(String field, String query) {
-		return userDao.getUserCount(field, query);
+	public int withdraw(String id) {
+		return userDao.withdraw(id);
 	}
 
 	@Override
@@ -108,6 +133,29 @@ public class UserServiceImp implements UserService {
 		int offset = 0 + (page - 1) * size;
 
 		return userDao.getReportUsers(offset, size, field, query);
+	}
+
+	@Override
+	public ReportList getReport(int id) {
+		return userDao.getReport(id);
+	}
+
+	@Override
+	public List<ReportList> getUserReportList(String userId, int page) {
+
+		int size = 10;
+		int offset = 0 + (page - 1) * size;
+		return userDao.getUserReportList(userId, size, offset);
+	}
+
+	@Override
+	public int getUserCount(String field, String query) {
+		return userDao.getUserCount(field, query);
+	}
+
+	@Override
+	public int getUserReportsCount(String userId) {
+		return userDao.getUserReportsCount(userId);
 	}
 
 	@Override
@@ -128,16 +176,6 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public void deleteUserProfileImg(String userId) {
-		userDao.deleteUserProfileImg(userId);
-	}
-
-	@Override
-	public User getUser(String userId) {
-		return userDao.getUser(userId);
-	}
-
-	@Override
 	public int reportUser(String reportedUser, String reportContent, String reporter) {
 
 		int haveReported = boardDao.haveYouReported(reportedUser, reporter);
@@ -152,81 +190,8 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public List<ReportList> getUserReportList(String userId, int page) {
-
-		int size = 10;
-		int offset = 0 + (page - 1) * size;
-		return userDao.getUserReportList(userId, size, offset);
-	}
-
-	@Override
-	public int getUserReportsCount(String userId) {
-		return userDao.getUserReportsCount(userId);
-	}
-
-	@Override
-	public ReportList getReport(int id) {
-		return userDao.getReport(id);
-	}
-
-	@Override
-	public User getUserByNickname(String userNickname) {
-		return userDao.getUserByNickname(userNickname);
-	}
-
-	@Override
-	public int sendMessage(String sender, String receiver, String messageTitle, String messageContent) {
-		Message message = new Message();
-		message.setSender(sender);
-		message.setReceiver(receiver);
-		message.setMessageTitle(messageTitle);
-		message.setMessageContent(messageContent);
-		int result = userDao.sendMessage(message);
-		if(!sender.equals(receiver)) {
-			userDao.addMessageAlarm(message);
-		}
-
-		return result;
-	}
-
-	@Override
-	public int getAlarmCount(String receiver) {
-		return userDao.getAlarmCount(receiver);
-	}
-
-	@Override
-	public List<AlarmView> getAlarms(String receiver) {
-		return userDao.getAlarms(receiver);
-	}
-
-	@Override
-	public int deleteAlarm(int alarmId) {
-		return userDao.deleteAlarm(alarmId);
-	}
-
-	@Override
-	public int deleteAllAlarm(String receiver) {
-		return userDao.deleteAllAlarm(receiver);
-	}
-
-	@Override
-	public int emailOverlapCheck(String email) {
-		return userDao.emailOverlapCheck(email);
-	}
-
-	@Override
-	public User getUserByEmail(String email) {
-		return userDao.getUserByEmail(email);
-	}
-
-	@Override
-	public User getVerifiedUser(String userId) {
-		return userDao.getVerifiedUser(userId);
-	}
-
-	@Override
-	public User getVerifiedUserByEmail(String email) {
-		return userDao.getVerifiedUserByEmail(email);
+	public void deleteUserProfileImg(String userId) {
+		userDao.deleteUserProfileImg(userId);
 	}
 
 }

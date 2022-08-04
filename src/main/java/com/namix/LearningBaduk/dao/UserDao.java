@@ -11,17 +11,29 @@ import com.namix.LearningBaduk.entity.UserProfileImg;
 
 public interface UserDao {
 
+	List<User> getUsers(int offset, int size, String field, String query);
+
 	User getUser(String id);
+
+	int getUserCount(String field, String query);
+
+	User getUserByNickname(String userNickname);
+
+	User getUserByEmail(String email);
+
+	User getVerifiedUser(String userId);
+
+	User getVerifiedUserByEmail(String email);
 
 	int idOverlapCheck(String id);
 
 	int nicknameOverlapCheck(String nickname);
 
+	int emailOverlapCheck(String email);
+
 	int signUp(User user);
 
 	int editProfile(String password, String nickname, String email, String id);
-
-	int withdraw(String id);
 
 	int addProfileImg(String imgName, String imgUrl, String userId);
 
@@ -29,9 +41,11 @@ public interface UserDao {
 
 	UserProfileImg getProfileImg(String userId);
 
-	List<User> getUsers(int offset, int size, String field, String query);
+	int addUserProfileImg(String imgUrl, String userId);
 
-	int getUserCount(String field, String query);
+	int editUserPassword(String id, String password);
+
+	int withdraw(String id);
 
 	List<User> getReportUsers(int offset, int size, String field, String query);
 
@@ -39,7 +53,9 @@ public interface UserDao {
 
 	int initUserReport(String id);
 
-	int addUserProfileImg(String imgUrl, String userId);
+	List<ReportList> getUserReportList(String userId, int size, int offset);
+
+	ReportList getReport(int id);
 
 	int deleteUserProfileImg(String userId);
 
@@ -47,38 +63,8 @@ public interface UserDao {
 
 	int postReportList(String type, String reportedUser, String reportContent, String reporter);
 
-	List<ReportList> getUserReportList(String userId, int size, int offset);
-
 	int getUserReportsCount(String userId);
 
-	ReportList getReport(int id);
-
 	int deleteUserReportList(String id);
-
-	User getUserByNickname(String userNickname);
-	
-	User getUserByEmail(String email);
-
-	int sendMessage(Message message);
-
-	Message getMessage(int id);
-
-	int getAlarmCount(String receiver);
-
-	List<AlarmView> getAlarms(String receiver);
-
-	int addMessageAlarm(Message message);
-
-	int deleteAlarm(int alarmId);
-
-	int deleteAllAlarm(String receiver);
-
-	int emailOverlapCheck(String email);
-	
-	int editUserPassword(String id, String password);
-
-	User getVerifiedUser(String userId);
-
-	User getVerifiedUserByEmail(String email);
 
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.namix.LearningBaduk.dao.AlarmDao">
+
+	<select id="getAlarms"
+		resultType="com.namix.LearningBaduk.entity.AlarmView">
+		select * from alarmview where receiver = #{receiver} order
+		by alarmId desc limit 0, 5
+	</select>
+	
+	<select id="getAlarmCount" resultType="int">
+		select count(*) from alarm
+		where receiver = #{receiver}
+	</select>
+
+	<insert id="addCommentAlarm">
+		insert into alarm(alarmType, receiver, sender,
+		boardId, commentId) values("comment", #{receiver}, #{sender},
+		#{boardId}, #{commentId})
+	</insert>
+	
+	<insert id="addReCommentAlarm">
+		insert into alarm(alarmType, receiver, sender,
+		commentId, boardId) values("reComment", #{receiver}, #{sender},
+		#{commentId}, #{boardId})
+	</insert>
+	
+	<insert id="addMessageAlarm"
+		parameterType="com.namix.LearningBaduk.entity.Message">
+		insert into alarm(alarmType, receiver, sender,
+		messageId) values("message", #{receiver}, #{sender}, #{messageId})
+	</insert>
+	
+	<delete id="deleteAlarm">
+		delete from alarm where alarmId = #{alarmId}
+	</delete>
+
+	<delete id="deleteAllAlarm">
+		delete from alarm where receiver = #{receiver}
+	</delete>
+
+</mapper>

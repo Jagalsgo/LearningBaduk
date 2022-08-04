@@ -16,6 +16,7 @@
 </div>
 <!-- go to list  -->
 <div class="m-4" id="goToList">
-	<a href="/popup/userReports?userId=${report.reportedUser }&p=${page}"><i
+	<a
+		href="${pageContext.request.contextPath }/popup/userReports?userId=${report.reportedUser }&p=${page}"><i
 		class="fa fa-solid fa-list fa-2x"></i></a>
 </div>

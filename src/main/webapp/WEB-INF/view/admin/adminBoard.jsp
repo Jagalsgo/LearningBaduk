@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" href="/css/board.css">
-<script type="text/javascript" src="/js/adminBoard.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/board.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/adminBoard.js"></script>
 <div class="container-md py-5">
 	<div class="row">
 		<div class="fw-bold h4 mb-4 col-12">
-			<a href="/admin/adminBoard?ct=${category.ct }">${category.categoryKor }</a>
+			<a href="${pageContext.request.contextPath }/admin/adminBoard?ct=${category.ct }">${category.categoryKor }</a>
 		</div>
 		<div class="tableBox">
 			<table class="table">
@@ -58,7 +58,7 @@
 	<div class="row">
 		<!-- go to list  -->
 		<div class="col-sm-1 col-md-1" id="goToList">
-			<a href="/admin/adminBoard?ct=${category.ct }"><i
+			<a href="${pageContext.request.contextPath }/admin/adminBoard?ct=${category.ct }"><i
 				class="fa fa-solid fa-list fa-2x"></i></a>
 		</div>
 		<!-- pagination -->

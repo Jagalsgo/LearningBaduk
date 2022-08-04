@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.service.BoardService;
+import com.namix.LearningBaduk.service.CommentService;
+import com.namix.LearningBaduk.service.DetailService;
 import com.namix.LearningBaduk.service.UserService;
 
 @Controller
@@ -29,6 +31,10 @@ public class AdminController {
 	private BoardService boardService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private DetailService detailService;
+	@Autowired
+	private CommentService commentService;
 
 	@GetMapping("adminBoard")
 	public String adminBoard(@RequestParam(value="p", defaultValue="1") Integer page,
@@ -55,7 +61,7 @@ public class AdminController {
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		BoardView boardView = boardService.getDetailBoard(id);
 		int boardCount = boardService.getPageCount(category.getCategoryBoard());
-		int detailsPage = boardService.getDetailsPage(id);
+		int detailsPage = detailService.getDetailsPage(id);
 		
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("boardCount", boardCount);
@@ -78,7 +84,7 @@ public class AdminController {
 			Cookie newCookie = new Cookie("cookie" + id, "|" + id + "|");
 			response.addCookie(newCookie);
 			
-			boardService.addHit(id);
+			detailService.addHit(id);
 			
 		}
 		
@@ -136,7 +142,7 @@ public class AdminController {
 	@ResponseBody
 	@DeleteMapping("deleteComments")
 	public void deleteComments(@RequestParam("chkArray[]") List<Integer> chkArray) {
-		boardService.deleteComments(chkArray);
+		commentService.deleteComments(chkArray);
 	}
 	
 	@ResponseBody

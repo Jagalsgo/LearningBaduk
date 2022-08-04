@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="/css/findAccount.css">
-<script type="text/javascript" src="/js/findAccount.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/findAccount.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/findAccount.js"></script>
 <div class="container-md">
-	<form action="findAccountAction" method="post" class="border px-5 py-4"
+	<form action="${pageContext.request.contextPath }findAccountAction" method="post" class="border px-5 py-4"
 		id="findAccountForm">
 		<div class="fw-bold h4 mb-5">아이디 / 비밀번호 찾기</div>
 		<div class="form-group">

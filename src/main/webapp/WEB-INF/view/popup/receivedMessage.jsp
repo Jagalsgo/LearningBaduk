@@ -2,15 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" href="/css/message.css">
-<script type="text/javascript" src="/js/message.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/message.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/message.js"></script>
 <div class="cotainer-fluid popupHeader">받은 쪽지함</div>
 <div class="headerItem mb-4" id="headerList">
 	<div class="container-fluid py-3">
-		<span class="fw-bold mb-2"> <a href="/popup/receivedMessage"
+		<span class="fw-bold mb-2"> <a href="${pageContext.request.contextPath }/popup/receivedMessage"
 			class="text-primary">받은쪽지함</a>
-		</span> <span class="fw-bold mb-2 mx-3"> <a href="/popup/sentMessage">보낸쪽지함</a>
-		</span> <span class="fw-bold mb-2"> <a href="/popup/sendMessage">쪽지보내기</a>
+		</span> <span class="fw-bold mb-2 mx-3"> <a href="${pageContext.request.contextPath }/popup/sentMessage">보낸쪽지함</a>
+		</span> <span class="fw-bold mb-2"> <a href="${pageContext.request.contextPath }/popup/sendMessage">쪽지보내기</a>
 		</span>
 	</div>
 </div>

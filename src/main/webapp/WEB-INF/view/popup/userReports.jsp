@@ -20,7 +20,7 @@
 					<tr>
 						<td class="boardDate text-muted text-center"><fmt:formatDate
 								value="${r.reportDate }" pattern="yyyy-MM-dd" /></td>
-						<td class="fw-bold"><a href="/popup/userReportDetail?id=${r.reportId }&p=${param.p}">${r.reportedUser}</a></td>
+						<td class="fw-bold"><a href="${pageContext.request.contextPath }/popup/userReportDetail?id=${r.reportId }&p=${param.p}">${r.reportedUser}</a></td>
 						<td>${r.reporter }</td>
 					</tr>
 				</c:forEach>

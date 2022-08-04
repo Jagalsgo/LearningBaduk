@@ -27,25 +27,31 @@ import com.namix.LearningBaduk.entity.CommentView;
 import com.namix.LearningBaduk.entity.MyBoard;
 import com.namix.LearningBaduk.script.ScriptClass;
 import com.namix.LearningBaduk.service.BoardService;
+import com.namix.LearningBaduk.service.CommentService;
+import com.namix.LearningBaduk.service.DetailService;
 
 @Controller
 @RequestMapping("/detail/")
 public class DetailController {
 
 	@Autowired
-	private BoardService service;
+	private DetailService detailService;
+	@Autowired
+	private BoardService boardService;
+	@Autowired
+	private CommentService commentService;
 
 	@GetMapping("detail")
 	public String detail(@RequestParam("id") int id, HttpServletRequest request,
 			@RequestParam(value = "ct", required = false) String ct, HttpServletResponse response, Model model) {
 
 		if (ct == null) {
-			ct = service.getCategory(id);
+			ct = boardService.getCategory(id);
 		}
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
-		BoardView boardView = service.getDetailBoard(id);
-		int boardCount = service.getPageCount(category.getCategoryBoard());
-		int detailsPage = service.getDetailsPage(id);
+		BoardView boardView = boardService.getDetailBoard(id);
+		int boardCount = boardService.getPageCount(category.getCategoryBoard());
+		int detailsPage = detailService.getDetailsPage(id);
 
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("boardCount", boardCount);
@@ -68,7 +74,7 @@ public class DetailController {
 			Cookie newCookie = new Cookie("cookie" + id, "|" + id + "|");
 			response.addCookie(newCookie);
 
-			service.addHit(id);
+			detailService.addHit(id);
 
 		}
 
@@ -82,9 +88,9 @@ public class DetailController {
 
 		String userId = principal.getName();
 
-		MyBoard board = service.getMyDetailBoard(id);
-		int boardCount = service.getMyOwnPageCount(userId);
-		int detailsPage = service.getMyDetailsPage(id);
+		MyBoard board = boardService.getMyDetailBoard(id);
+		int boardCount = boardService.getMyOwnPageCount(userId);
+		int detailsPage = boardService.getMyDetailsPage(id);
 
 		model.addAttribute("board", board);
 		model.addAttribute("boardCount", boardCount);
@@ -98,7 +104,7 @@ public class DetailController {
 	public String updateDetail(@RequestParam("id") int id, @RequestParam("ct") String ct, Model model) {
 
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
-		BoardView boardView = service.getDetailBoard(id);
+		BoardView boardView = boardService.getDetailBoard(id);
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("category", category);
 
@@ -112,7 +118,7 @@ public class DetailController {
 
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		int updateDetailResult = 0;
-		updateDetailResult = service.updateDetail(id, title, content);
+		updateDetailResult = detailService.updateDetail(id, title, content);
 
 		if (updateDetailResult == 0) {
 			ScriptClass.alert(response, "글 수정 중 오류 발생");
@@ -126,7 +132,7 @@ public class DetailController {
 	@GetMapping("updateMyDetail")
 	public String updateMyDetail(@RequestParam("id") int id, Model model) {
 
-		MyBoard board = service.getMyDetailBoard(id);
+		MyBoard board = boardService.getMyDetailBoard(id);
 		model.addAttribute("board", board);
 
 		return "detail.updateMyDetail";
@@ -137,7 +143,7 @@ public class DetailController {
 			@RequestParam("updateContent") String content, HttpServletResponse response) throws IOException {
 
 		int updateDetailResult = 0;
-		updateDetailResult = service.updateMyDetail(id, title, content);
+		updateDetailResult = detailService.updateMyDetail(id, title, content);
 
 		if (updateDetailResult == 0) {
 			ScriptClass.alert(response, "글 수정 중 오류 발생");
@@ -153,7 +159,7 @@ public class DetailController {
 			throws IOException {
 
 		int deleteDetailResult = 0;
-		deleteDetailResult = service.deleteDetail(id);
+		deleteDetailResult = detailService.deleteDetail(id);
 
 		if (deleteDetailResult == 0) {
 			ScriptClass.alert(response, "글 삭제 중 오류 발생");
@@ -168,7 +174,7 @@ public class DetailController {
 	public void deleteMyDetail(@RequestParam("id") int id, HttpServletResponse response) throws IOException {
 
 		int deleteDetailResult = 0;
-		deleteDetailResult = service.deleteMyDetail(id);
+		deleteDetailResult = detailService.deleteMyDetail(id);
 
 		if (deleteDetailResult == 0) {
 			ScriptClass.alert(response, "글 삭제 중 오류 발생");
@@ -196,8 +202,8 @@ public class DetailController {
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		String userId = principal.getName();
 		int writeDetailResult = 0;
-		writeDetailResult = service.writeDetail(category.getCategoryBoard(), title, content, userId);
-		int boardId = service.getUsersLastBoardId(userId);
+		writeDetailResult = detailService.writeDetail(category.getCategoryBoard(), title, content, userId);
+		int boardId = boardService.getUsersLastBoardId(userId);
 
 		if (writeDetailResult == 0) {
 			ScriptClass.alert(response, "글 작성 중 오류 발생");
@@ -220,8 +226,8 @@ public class DetailController {
 
 		String userId = principal.getName();
 		int writeMyDetailResult = 0;
-		writeMyDetailResult = service.writeMyDetail(title, content, userId);
-		int boardId = service.getUsersLastMyBoardId(userId);
+		writeMyDetailResult = detailService.writeMyDetail(title, content, userId);
+		int boardId = boardService.getUsersLastMyBoardId(userId);
 
 		if (writeMyDetailResult == 0) {
 			ScriptClass.alert(response, "글 작성 중 오류 발생");
@@ -241,11 +247,11 @@ public class DetailController {
 		String userId = principal.getName();
 
 		// 작성자 본인일 경우
-		String boardUserId = service.getBoardsUser(id);
+		String boardUserId = boardService.getBoardsUser(id);
 		// 이미 추천을 눌렀을 경우
-		int likeClicked = service.likeClicked(id, userId);
+		int likeClicked = detailService.likeClicked(id, userId);
 		// 이미 비추천을 눌렀을 경우
-		int dislikeClicked = service.DislikeClicked(id, userId);
+		int dislikeClicked = detailService.DislikeClicked(id, userId);
 
 		if (boardUserId.equals(userId)) {
 			map.put("addLikeResult", -1);
@@ -256,8 +262,8 @@ public class DetailController {
 		} else {
 
 			// 아무것도 안한 경우
-			int addLikeResult = service.addLike(id, userId);
-			int likeCount = service.getLikeCount(id);
+			int addLikeResult = detailService.addLike(id, userId);
+			int likeCount = detailService.getLikeCount(id);
 			map.put("addLikeResult", addLikeResult);
 			map.put("likeCount", likeCount);
 
@@ -275,11 +281,11 @@ public class DetailController {
 		String userId = principal.getName();
 
 		// 작성자 본인일 경우
-		String boardUserId = service.getBoardsUser(id);
+		String boardUserId = boardService.getBoardsUser(id);
 		// 이미 추천을 눌렀을 경우
-		int likeClicked = service.likeClicked(id, userId);
+		int likeClicked = detailService.likeClicked(id, userId);
 		// 이미 비추천을 눌렀을 경우
-		int dislikeClicked = service.DislikeClicked(id, userId);
+		int dislikeClicked = detailService.DislikeClicked(id, userId);
 
 		if (boardUserId.equals(userId)) {
 			map.put("addDislikeResult", -1);
@@ -290,8 +296,8 @@ public class DetailController {
 		} else {
 
 			// 아무것도 안한 경우
-			int addDislikeResult = service.addDislike(id, userId);
-			int dislikeCount = service.getDislikeCount(id);
+			int addDislikeResult = detailService.addDislike(id, userId);
+			int dislikeCount = detailService.getDislikeCount(id);
 			map.put("addDislikeResult", addDislikeResult);
 			map.put("dislikeCount", dislikeCount);
 
@@ -306,10 +312,10 @@ public class DetailController {
 			Principal principal) {
 
 		String userId = principal.getName();
-		String receiver = service.getBoardsUser(boardId);
+		String receiver = boardService.getBoardsUser(boardId);
 
-		Comment comment = service.postComment(userId, commentContent, boardId, receiver);
-		BoardView bv = service.getDetailBoard(boardId);
+		Comment comment = commentService.postComment(userId, commentContent, boardId, receiver);
+		BoardView bv = boardService.getDetailBoard(boardId);
 		
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("commentCount", bv.getCommentCount());
@@ -325,11 +331,11 @@ public class DetailController {
 			Principal principal) {
 
 		String userId = principal.getName();
-		Comment parentComment = service.getComment(parentId);
+		Comment parentComment = commentService.getComment(parentId);
 		String receiver = parentComment.getUserId();
 		
-		Comment childComment = service.postReComment(userId, reCommentContent, boardId, parentId, receiver);
-		int currentPage = service.getCommentCurrentPage(childComment.getCommentId(), boardId);
+		Comment childComment = commentService.postReComment(userId, reCommentContent, boardId, parentId, receiver);
+		int currentPage = commentService.getCommentCurrentPage(childComment.getCommentId(), boardId);
 		
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("receiver", receiver);
@@ -344,7 +350,7 @@ public class DetailController {
 	public int deleteComment(@RequestParam("commentId") int commentId) {
 
 		int deleteCommentResult = 0;
-		deleteCommentResult = service.deleteComment(commentId);
+		deleteCommentResult = commentService.deleteComment(commentId);
 		return deleteCommentResult;
 
 	}
@@ -353,7 +359,7 @@ public class DetailController {
 	@PostMapping("getComments")
 	public List<CommentView> getComments(@RequestParam("boardId") int id,
 			@RequestParam(value = "commentPage", defaultValue = "1") Integer page, Model model) {
-		List<CommentView> comments = service.getComments(id, page);
+		List<CommentView> comments = commentService.getComments(id, page);
 		model.addAttribute("commentPage", page);
 		return comments;
 	}
@@ -363,7 +369,7 @@ public class DetailController {
 	public List<BoardView> getBoards(@RequestParam("category") String category,
 			@RequestParam(value = "boardPage", defaultValue = "1") Integer boardPage, Model model) {
 
-		List<BoardView> boards = service.getBoards(category, boardPage);
+		List<BoardView> boards = boardService.getBoards(category, boardPage);
 		model.addAttribute("boardPage", boardPage);
 		return boards;
 
@@ -375,7 +381,7 @@ public class DetailController {
 			Model model, Principal principal) {
 
 		String userId = principal.getName();
-		List<MyBoard> boards = service.getMyOwnBoards(boardPage, "", userId);
+		List<MyBoard> boards = boardService.getMyOwnBoards(boardPage, "", userId);
 		model.addAttribute("boardPage", boardPage);
 		return boards;
 
@@ -386,7 +392,7 @@ public class DetailController {
 	public int reportBoard(@RequestParam("boardId") Integer boardId, Principal principal) {
 
 		String userId = principal.getName();
-		int result = service.reportBoard(boardId, userId);
+		int result = boardService.reportBoard(boardId, userId);
 
 		return result;
 

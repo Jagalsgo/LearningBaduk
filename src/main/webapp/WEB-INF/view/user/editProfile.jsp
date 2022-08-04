@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<link rel="stylesheet" href="/css/editProfile.css">
-<script type="text/javascript" src="/js/editProfile.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/editProfile.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/editProfile.js"></script>
 <div class="container-md">
-	<form action="/user/editProfile" method="post" class="border px-5 pt-4"
+	<form action="${pageContext.request.contextPath }/user/editProfile" method="post" class="border px-5 pt-4"
 		id="editProfileForm" enctype="multipart/form-data">
 		<input type="hidden" name="_method" value="PUT">
 		<div class="fw-bold h4 mb-5 mt-3">회원 정보 수정</div>

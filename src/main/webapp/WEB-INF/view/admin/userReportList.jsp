@@ -3,12 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" href="/css/board.css">
-<script type="text/javascript" src="/js/adminBoard.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/board.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/adminBoard.js"></script>
 <div class="container-md py-5">
 	<div class="row">
 		<div class="fw-bold h4 mb-4 col-12">
-			<a href="/admin/userReportList">신고당한 유저 내역</a>
+			<a href="${pageContext.request.contextPath }/admin/userReportList">신고당한 유저 내역</a>
 		</div>
 		<div class="tableBox">
 			<table class="table">
@@ -57,7 +57,7 @@
 	<div class="row">
 		<!-- go to list  -->
 		<div class="col-sm-1 col-md-1" id="goToList">
-			<a href="/admin/userReportList"><i
+			<a href="${pageContext.request.contextPath }/admin/userReportList"><i
 				class="fa fa-solid fa-list fa-2x"></i></a>
 		</div>
 		<!-- pagination -->

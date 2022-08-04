@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.namix.LearningBaduk.dao.MessageDao">
+
+	<select id="getMessages"
+		resultType="com.namix.LearningBaduk.entity.MessageView">
+		select * from messageview where ${field} like '%${query}%'
+		and
+		${messageField} = #{messageQuery} and ${deleted} = false
+		order by
+		messageId desc limit #{offset},
+		#{size}
+	</select>
+
+	<select id="getMessage"
+		resultType="com.namix.LearningBaduk.entity.MessageView">
+		select * from messageview where messageId = #{id}
+	</select>
+
+	<select id="getMessageCount" resultType="int">
+		select count(*) from
+		messageview where ${field} like '%${query}%' and ${messageField} =
+		#{messageQuery} and ${deleted} = false
+	</select>
+
+	<update id="deleteMessage">
+		update message set ${deleted} = true where messageId
+		= #{id}
+	</update>
+
+	<delete id="deleteDbMessage">
+		delete from message where messageId = #{id}
+	</delete>
+
+	<insert id="sendMessage"
+		parameterType="com.namix.LearningBaduk.entity.Message"
+		useGeneratedKeys="true" keyProperty="messageId">
+		insert into message(sender,
+		receiver, messageTitle,
+		messageContent) values(#{sender}, #{receiver},
+		#{messageTitle},
+		#{messageContent})
+	</insert>
+
+</mapper>

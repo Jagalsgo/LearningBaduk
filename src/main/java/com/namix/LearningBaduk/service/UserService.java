@@ -15,11 +15,27 @@ import com.namix.LearningBaduk.entity.UserProfileImg;
 
 public interface UserService {
 
+	// get user
+	List<User> getUsers(Integer page, String field, String query);
+
+	User getUser(String userId);
+
+	User getUserByNickname(String userNickname);
+
+	User getUserByEmail(String email);
+
+	User getVerifiedUser(String userId);
+
+	User getVerifiedUserByEmail(String email);
+
+	// overlap check
 	int idOverlapCheck(String signUpId);
 
 	int nicknameOverlapCheck(String signUpNickname);
 
-	int withdraw(String id);
+	int emailOverlapCheck(String email);
+
+	// edit profile
 
 	void editProfileImg(MultipartFile file, HttpServletRequest request, String userId) throws IOException;
 
@@ -29,48 +45,30 @@ public interface UserService {
 
 	void deleteProfileImg(String userId);
 
-	UserProfileImg getProfileImg(String userId);
+	void deleteUserProfileImg(String userId);
 
-	List<User> getUsers(Integer page, String field, String query);
+	// withdraw
+
+	int withdraw(String id);
+
+	// report
+
+	List<ReportList> getUserReportList(String userId, int page);
+
+	ReportList getReport(int id);
+
+	List<User> getReportUsers(int page, String field, String query);
 
 	int getUserCount(String field, String query);
 
-	List<User> getReportUsers(int page, String field, String query);
+	int getUserReportsCount(String userId);
 
 	int getReportUserCount(String field, String query);
 
 	void initUserReports(List<String> chkArray);
 
-	void deleteUserProfileImg(String userId);
-
-	User getUser(String userId);
-
 	int reportUser(String reportedUser, String reportContent, String reporter);
 
-	List<ReportList> getUserReportList(String userId, int page);
-
-	int getUserReportsCount(String userId);
-
-	ReportList getReport(int id);
-
-	User getUserByNickname(String userNickname);
-
-	int sendMessage(String sender, String receiver, String messageTitle, String messageContent);
-
-	int getAlarmCount(String receiver);
-
-	List<AlarmView> getAlarms(String receiver);
-
-	int deleteAlarm(int alarmId);
-
-	int deleteAllAlarm(String receiver);
-
-	int emailOverlapCheck(String email);
-	
-	User getUserByEmail(String email);
-
-	User getVerifiedUser(String userId);
-
-	User getVerifiedUserByEmail(String email);
+	UserProfileImg getProfileImg(String userId);
 
 }

@@ -22,7 +22,7 @@ import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.ReportList;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.script.ScriptClass;
-import com.namix.LearningBaduk.service.BoardService;
+import com.namix.LearningBaduk.service.MessageService;
 import com.namix.LearningBaduk.service.UserService;
 
 @Controller
@@ -32,7 +32,7 @@ public class PopupController {
 	@Autowired
 	UserService userService;
 	@Autowired
-	BoardService boardService;
+	MessageService messageService;
 
 	@GetMapping("userProfile")
 	public String userProfile(@RequestParam("userId") String userId, Model model) {
@@ -87,9 +87,9 @@ public class PopupController {
 			@RequestParam(value = "q", defaultValue = "") String query, Model model, Principal principal) {
 
 		String receiver = principal.getName();
-		List<MessageView> messages = boardService.getMessages(page, field, query, "receiver", receiver,
+		List<MessageView> messages = messageService.getMessages(page, field, query, "receiver", receiver,
 				"deleteByReceiver");
-		int messageCount = boardService.getMessageCount(field, query, "receiver", receiver, "deleteByReceiver");
+		int messageCount = messageService.getMessageCount(field, query, "receiver", receiver, "deleteByReceiver");
 
 		model.addAttribute("messages", messages);
 		model.addAttribute("messageCount", messageCount);
@@ -104,8 +104,8 @@ public class PopupController {
 			@RequestParam(value = "q", defaultValue = "") String query, Model model, Principal principal) {
 
 		String sender = principal.getName();
-		List<MessageView> messages = boardService.getMessages(page, field, query, "sender", sender, "deleteBySender");
-		int messageCount = boardService.getMessageCount(field, query, "sender", sender, "deleteBySender");
+		List<MessageView> messages = messageService.getMessages(page, field, query, "sender", sender, "deleteBySender");
+		int messageCount = messageService.getMessageCount(field, query, "sender", sender, "deleteBySender");
 
 		model.addAttribute("messages", messages);
 		model.addAttribute("messageCount", messageCount);
@@ -118,7 +118,7 @@ public class PopupController {
 	public String receivedMessageDetail(@RequestParam("id") int id,
 			@RequestParam(value = "p", defaultValue = "1") Integer page, Model model) {
 
-		MessageView messageView = boardService.getMessage(id);
+		MessageView messageView = messageService.getMessage(id);
 		model.addAttribute("messageView", messageView);
 		model.addAttribute("page", page);
 
@@ -130,7 +130,7 @@ public class PopupController {
 	public String sentMessageDetail(@RequestParam("id") int id,
 			@RequestParam(value = "p", defaultValue = "1") Integer page, Model model) {
 
-		MessageView messageView = boardService.getMessage(id);
+		MessageView messageView = messageService.getMessage(id);
 		model.addAttribute("messageView", messageView);
 		model.addAttribute("page", page);
 
@@ -163,13 +163,13 @@ public class PopupController {
 	@ResponseBody
 	@DeleteMapping("deleteReceivedMessage")
 	public void deleteReceivedMessage(@RequestParam("chkArray[]") List<Integer> chkArray) {
-		boardService.deleteMessage(chkArray, "deleteByReceiver");
+		messageService.deleteMessage(chkArray, "deleteByReceiver");
 	}
 
 	@ResponseBody
 	@DeleteMapping("deleteSentMessage")
 	public void deleteSentMessage(@RequestParam("chkArray[]") List<Integer> chkArray) {
-		boardService.deleteMessage(chkArray, "deleteBySender");
+		messageService.deleteMessage(chkArray, "deleteBySender");
 	}
 
 	@GetMapping("deleteMessageDetail")
@@ -183,7 +183,7 @@ public class PopupController {
 			deleted = "deleteBySender";
 		}
 
-		boardService.deleteMessageDetail(id, deleted);
+		messageService.deleteMessageDetail(id, deleted);
 		ScriptClass.alertAndMove(response, "삭제 완료", "/popup/" + go);
 
 	}
@@ -200,7 +200,7 @@ public class PopupController {
 		}
 		String sender = principal.getName();
 		String receiver = user.getUserId();
-		int result = userService.sendMessage(sender, receiver, messageTitle, messageContent);
+		int result = messageService.sendMessage(sender, receiver, messageTitle, messageContent);
 
 		return result;
 

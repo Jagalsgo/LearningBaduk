@@ -29,7 +29,8 @@ import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
 import com.namix.LearningBaduk.script.ScriptClass;
 import com.namix.LearningBaduk.security.SecurityService;
-import com.namix.LearningBaduk.service.BoardService;
+import com.namix.LearningBaduk.service.AlarmService;
+import com.namix.LearningBaduk.service.CommentService;
 import com.namix.LearningBaduk.service.EmailService;
 import com.namix.LearningBaduk.service.UserService;
 
@@ -38,11 +39,13 @@ import com.namix.LearningBaduk.service.UserService;
 public class UserController {
 
 	@Autowired
-	private UserService service;
+	private UserService userService;
 	@Autowired
 	private EmailService emailService;
 	@Autowired
-	private BoardService boardService;
+	private AlarmService alarmService;
+	@Autowired
+	private CommentService commentService;
 	@Autowired
 	private SecurityService securityService;
 	@Autowired
@@ -67,11 +70,11 @@ public class UserController {
 		}
 
 		if (!file.isEmpty()) {
-			UserProfileImg originProfileImg = service.getProfileImg(userId);
+			UserProfileImg originProfileImg = userService.getProfileImg(userId);
 			if (originProfileImg != null) {
-				service.deleteProfileImg(userId);
+				userService.deleteProfileImg(userId);
 			}
-			service.editProfileImg(file, request, userId);
+			userService.editProfileImg(file, request, userId);
 		}
 
 		securityService.editProfile(user);
@@ -126,7 +129,7 @@ public class UserController {
 			return map;
 		}
 
-		service.withdraw(userId);
+		userService.withdraw(userId);
 		map.put("result", 1);
 		session.invalidate();
 		return map;
@@ -145,10 +148,10 @@ public class UserController {
 			return map;
 		}
 
-		UserProfileImg originProfileImg = service.getProfileImg(userId);
+		UserProfileImg originProfileImg = userService.getProfileImg(userId);
 		if (originProfileImg != null) {
-			service.deleteProfileImg(userId);
-			service.deleteUserProfileImg(userId);
+			userService.deleteProfileImg(userId);
+			userService.deleteUserProfileImg(userId);
 		}
 
 		Authentication authentication = authenticationManager
@@ -165,7 +168,7 @@ public class UserController {
 	public Map<Object, Object> idOverlapCheck(String signUpId) {
 
 		int idCheckResult = 0;
-		idCheckResult = service.idOverlapCheck(signUpId);
+		idCheckResult = userService.idOverlapCheck(signUpId);
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("count", idCheckResult);
 		return map;
@@ -177,7 +180,7 @@ public class UserController {
 	public Map<Object, Object> nicknameOverlapCheck(String signUpNickname) {
 
 		int nicknameCheckResult = 0;
-		nicknameCheckResult = service.nicknameOverlapCheck(signUpNickname);
+		nicknameCheckResult = userService.nicknameOverlapCheck(signUpNickname);
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("count", nicknameCheckResult);
 		return map;
@@ -189,7 +192,7 @@ public class UserController {
 	public Map<Object, Object> emailOverlapCheck(String signUpEmail) {
 
 		int emailCheckResult = 0;
-		emailCheckResult = service.emailOverlapCheck(signUpEmail);
+		emailCheckResult = userService.emailOverlapCheck(signUpEmail);
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("count", emailCheckResult);
 		return map;
@@ -200,7 +203,7 @@ public class UserController {
 	@PostMapping("findId")
 	public String findId(String findIdEmail) {
 
-		User user = service.getVerifiedUserByEmail(findIdEmail);
+		User user = userService.getVerifiedUserByEmail(findIdEmail);
 		if (user != null) {
 			return user.getUserId();
 		}
@@ -212,7 +215,7 @@ public class UserController {
 	@PostMapping("findPassword")
 	public String findPassword(String findPasswordId, String findPasswordEmail) {
 
-		User user = service.getVerifiedUser(findPasswordId);
+		User user = userService.getVerifiedUser(findPasswordId);
 		if (user != null) {
 
 			if (!user.getUserEmail().equals(findPasswordEmail)) {
@@ -232,7 +235,7 @@ public class UserController {
 	public int deleteUser(@RequestParam("userId") String userId) {
 
 		int deleteUserResult = 0;
-		deleteUserResult = service.withdraw(userId);
+		deleteUserResult = userService.withdraw(userId);
 		return deleteUserResult;
 
 	}
@@ -242,7 +245,7 @@ public class UserController {
 	public int getAlamCount(@RequestParam("receiver") String receiver) {
 
 		int alarmCount = 0;
-		alarmCount = service.getAlarmCount(receiver);
+		alarmCount = alarmService.getAlarmCount(receiver);
 		return alarmCount;
 
 	}
@@ -251,7 +254,7 @@ public class UserController {
 	@PostMapping("getAlarms")
 	public List<AlarmView> getAlarms(@RequestParam("receiver") String receiver) {
 
-		List<AlarmView> alarms = service.getAlarms(receiver);
+		List<AlarmView> alarms = alarmService.getAlarms(receiver);
 		return alarms;
 
 	}
@@ -262,9 +265,9 @@ public class UserController {
 			@RequestParam(value = "commentId", required = false) Integer commentId,
 			@RequestParam(value = "boardId", required = false) Integer boardId) {
 		
-		service.deleteAlarm(alarmId);
+		alarmService.deleteAlarm(alarmId);
 		if(commentId != null) {
-			return boardService.getCommentCurrentPage(commentId, boardId);
+			return commentService.getCommentCurrentPage(commentId, boardId);
 		}else {
 			return 0;
 		}
@@ -274,7 +277,7 @@ public class UserController {
 	@ResponseBody
 	@DeleteMapping("deleteAllAlarm")
 	public void deleteAllAlarm(@RequestParam("receiver") String receiver) {
-		service.deleteAllAlarm(receiver);
+		alarmService.deleteAllAlarm(receiver);
 	}
 
 }

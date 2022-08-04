@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.namix.LearningBaduk.dao.CommentDao">
+
+	<select id="getComments"
+		resultType="com.namix.LearningBaduk.entity.CommentView">
+		select * from commentview where
+		boardId = #{id} order by
+		commentGroup, commentId limit
+		#{offset},
+		#{size}
+	</select>
+	
+	<select id="getComment"
+		resultType="com.namix.LearningBaduk.entity.Comment">
+		select * from comment where commentId = #{id}
+	</select>
+	
+	<select id="getCommentCount" resultType="int">
+		select count(*) from
+		comment where boardId = #{id} and deleted = 0
+	</select>
+	
+	<insert id="postComment"
+		parameterType="com.namix.LearningBaduk.entity.Comment"
+		useGeneratedKeys="true" keyProperty="commentId">
+		insert into
+		comment(commentContent, userId, boardId)
+		values(#{commentContent},
+		#{userId}, #{boardId})
+	</insert>
+	
+	<insert id="postReComment"
+		parameterType="com.namix.LearningBaduk.entity.Comment"
+		useGeneratedKeys="true" keyProperty="commentId">
+		insert into
+		comment(commentContent, userId, boardId, commentDepth, parentId)
+		values(#{commentContent},
+		#{userId}, #{boardId}, 1, #{parentId})
+	</insert>
+	
+	<delete id="deleteComment">
+		delete from comment where commentId = #{cid}
+	</delete>
+	
+	<select id="getChildCount" resultType="int">
+		select count(*) from
+		comment where parentId = #{cid}
+	</select>
+	
+	<update id="setCommentDeletedTrue">
+		update comment set deleted = 1 where commentId =
+		#{cid}
+	</update>
+	
+	<update id="setCommentGroup">
+		update comment set commentGroup = #{commentGroup}
+		where commentId = #{commentId}
+	</update>
+	
+	<select id="getCommentCurrentPage" resultType="int">
+		select num from
+		(select *, row_number() over(order by commentGroup, commentId) as num
+		from comment where boardId = #{boardId} order by commentGroup,
+		commentId) as A where commentId =
+		#{commentId};
+	</select>
+	
+</mapper>

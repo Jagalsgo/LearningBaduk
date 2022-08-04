@@ -17,15 +17,45 @@ import com.namix.LearningBaduk.entity.UserProfileImg;
 public class MybatisUserDao implements UserDao {
 
 	private UserDao userDaoMapper;
-	
+
 	@Autowired
 	public MybatisUserDao(SqlSession sqlsession) {
 		userDaoMapper = sqlsession.getMapper(UserDao.class);
 	}
-	
+
+	@Override
+	public List<User> getUsers(int offset, int size, String field, String query) {
+		return userDaoMapper.getUsers(offset, size, field, query);
+	}
+
 	@Override
 	public User getUser(String id) {
 		return userDaoMapper.getUser(id);
+	}
+
+	@Override
+	public User getUserByNickname(String userNickname) {
+		return userDaoMapper.getUserByNickname(userNickname);
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		return userDaoMapper.getUserByEmail(email);
+	}
+
+	@Override
+	public User getVerifiedUser(String userId) {
+		return userDaoMapper.getVerifiedUser(userId);
+	}
+
+	@Override
+	public User getVerifiedUserByEmail(String email) {
+		return userDaoMapper.getVerifiedUserByEmail(email);
+	}
+
+	@Override
+	public int getUserCount(String field, String query) {
+		return userDaoMapper.getUserCount(field, query);
 	}
 
 	@Override
@@ -39,6 +69,11 @@ public class MybatisUserDao implements UserDao {
 	}
 
 	@Override
+	public int emailOverlapCheck(String email) {
+		return userDaoMapper.emailOverlapCheck(email);
+	}
+
+	@Override
 	public int signUp(User user) {
 		return userDaoMapper.signUp(user);
 	}
@@ -46,11 +81,6 @@ public class MybatisUserDao implements UserDao {
 	@Override
 	public int editProfile(String password, String nickname, String email, String id) {
 		return userDaoMapper.editProfile(password, nickname, email, id);
-	}
-
-	@Override
-	public int withdraw(String id) {
-		return userDaoMapper.withdraw(id);
 	}
 
 	@Override
@@ -69,13 +99,23 @@ public class MybatisUserDao implements UserDao {
 	}
 
 	@Override
-	public List<User> getUsers(int offset, int size, String field, String query) {
-		return userDaoMapper.getUsers(offset, size, field, query);
+	public int addUserProfileImg(String imgUrl, String userId) {
+		return userDaoMapper.addUserProfileImg(imgUrl, userId);
 	}
 
 	@Override
-	public int getUserCount(String field, String query) {
-		return userDaoMapper.getUserCount(field, query);
+	public int deleteUserProfileImg(String userId) {
+		return userDaoMapper.deleteUserProfileImg(userId);
+	}
+
+	@Override
+	public int editUserPassword(String id, String password) {
+		return userDaoMapper.editUserPassword(id, password);
+	}
+
+	@Override
+	public int withdraw(String id) {
+		return userDaoMapper.withdraw(id);
 	}
 
 	@Override
@@ -91,16 +131,6 @@ public class MybatisUserDao implements UserDao {
 	@Override
 	public int initUserReport(String id) {
 		return userDaoMapper.initUserReport(id);
-	}
-
-	@Override
-	public int addUserProfileImg(String imgUrl, String userId) {
-		return userDaoMapper.addUserProfileImg(imgUrl, userId);
-	}
-
-	@Override
-	public int deleteUserProfileImg(String userId) {
-		return userDaoMapper.deleteUserProfileImg(userId);
 	}
 
 	@Override
@@ -131,71 +161,6 @@ public class MybatisUserDao implements UserDao {
 	@Override
 	public int deleteUserReportList(String id) {
 		return userDaoMapper.deleteUserReportList(id);
-	}
-
-	@Override
-	public User getUserByNickname(String userNickname) {
-		return userDaoMapper.getUserByNickname(userNickname);
-	}
-
-	@Override
-	public int sendMessage(Message message) {
-		return userDaoMapper.sendMessage(message);
-	}
-
-	@Override
-	public Message getMessage(int id) {
-		return userDaoMapper.getMessage(id);
-	}
-
-	@Override
-	public int getAlarmCount(String receiver) {
-		return userDaoMapper.getAlarmCount(receiver);
-	}
-
-	@Override
-	public List<AlarmView> getAlarms(String receiver) {
-		return userDaoMapper.getAlarms(receiver);
-	}
-
-	@Override
-	public int addMessageAlarm(Message message) {
-		return userDaoMapper.addMessageAlarm(message);
-	}
-
-	@Override
-	public int deleteAlarm(int alarmId) {
-		return userDaoMapper.deleteAlarm(alarmId);
-	}
-
-	@Override
-	public int deleteAllAlarm(String receiver) {
-		return userDaoMapper.deleteAllAlarm(receiver);
-	}
-
-	@Override
-	public User getUserByEmail(String email) {
-		return userDaoMapper.getUserByEmail(email);
-	}
-
-	@Override
-	public int emailOverlapCheck(String email) {
-		return userDaoMapper.emailOverlapCheck(email);
-	}
-
-	@Override
-	public int editUserPassword(String id, String password) {
-		return userDaoMapper.editUserPassword(id, password);
-	}
-
-	@Override
-	public User getVerifiedUser(String userId) {
-		return userDaoMapper.getVerifiedUser(userId);
-	}
-
-	@Override
-	public User getVerifiedUserByEmail(String email) {
-		return userDaoMapper.getVerifiedUserByEmail(email);
 	}
 
 }

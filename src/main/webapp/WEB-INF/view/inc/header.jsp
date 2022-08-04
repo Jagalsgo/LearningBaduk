@@ -8,14 +8,14 @@
 		<div class="row vertical-align">
 			<div class="col-8">
 				<img alt="baduk" src="/img/baduk.png" width="40" height="40">
-				<span class="h4 fw-bold mx-2"><a href="/board/home">Learning
+				<span class="h4 fw-bold mx-2"><a href="${pageContext.request.contextPath }/board/home">Learning
 						Baduk</a></span>
 			</div>
 
 			<!-- 로그인 전 -->
 			<sec:authorize access="isAnonymous">
 				<div class="col-4 text-right" id="loginFormBox">
-					<a href="/user/login"><img alt="login" src="/img/login.jpg"
+					<a href="${pageContext.request.contextPath }/user/login"><img alt="login" src="/img/login.jpg"
 						width="40" height="40" id="loginBtn"></a>
 				</div>
 			</sec:authorize>
@@ -72,20 +72,20 @@
 									class="fa fa-solid fa-envelope"></i> 쪽지함</a>
 							</div>
 							<div class="innerBorderBox">
-								<a href="/board/myWritingBoard"><i
+								<a href="${pageContext.request.contextPath }/board/myWritingBoard"><i
 									class="fa fa-solid fa-folder-open"></i> 내가 쓴 글</a>
 							</div>
 							<div class="innerBorderBox">
-								<a href="/board/myOwnBoard"><i class="fa fa-solid fa-book"></i>
+								<a href="${pageContext.request.contextPath }/board/myOwnBoard"><i class="fa fa-solid fa-book"></i>
 									나만의 게시판</a>
 							</div>
 							<div class="innerBorderBox2">
-								<a href="/user/editProfile"><i
+								<a href="${pageContext.request.contextPath }/user/editProfile"><i
 									class="fa fa-solid fa-folder-open"></i> 회원 정보 수정</a>
 							</div>
 						</div>
 						<div class="my-4">
-							<a href="/logout"><button class="btn btn-secondary">로그아웃</button></a>
+							<a href="${pageContext.request.contextPath }/logout"><button class="btn btn-secondary">로그아웃</button></a>
 						</div>
 					</div>
 				</div>
