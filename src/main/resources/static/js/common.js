@@ -295,6 +295,7 @@ function getAlarms() {
 }
 
 function clickCommentAlarm(alarmId, boardId, commentId) {
+	console.log(alarmId, boardId, commentId);
 	$.ajax({
 		url: "/user/deleteAlarm",
 		type: "DELETE",

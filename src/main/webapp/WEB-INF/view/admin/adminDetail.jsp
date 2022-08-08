@@ -6,8 +6,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/detail.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/adminDetail.js"></script>
 <!-- detail content  -->
-<div class="fw-bold h4 mb-4 col-12 container-md pt-5">
-	<a href="${pageContext.request.contextPath }/admin/adminBoard?ct=${category.ct }">${category.categoryKor }</a>
+<div class="container-md pt-5">
+	<div class="row">
+		<div class="fw-bold h4 mb-4 col-9">
+			<a
+				href="${pageContext.request.contextPath }/admin/adminBoard?ct=${category.ct }">${category.categoryKor }</a>
+		</div>
+		<div class="col-3 text-right">
+			<a
+				href="${pageContext.request.contextPath }/detail/detail?ct=${category.ct}&id=${boardView.boardId}"><button
+					class="btn btn-success btn-sm">user</button></a>
+		</div>
+	</div>
 </div>
 <div class="container-md border p-3">
 	<div class="row">
@@ -19,8 +29,7 @@
 			name="categoryCt"> <input type="hidden"
 			value="${detailsPage }" id="detailsPage" name="detailsPage">
 
-		<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">detailTitle
-			Man</div>
+		<div class="col-12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
 		<div class="col-7 p-3 border-bottom userMenu">
 			<c:choose>
 				<c:when test="${boardView.imgPath == null }">

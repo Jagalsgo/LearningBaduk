@@ -5,12 +5,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/board.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/board.css">
 <div class="container-md py-5">
 	<div class="row">
-		<div class="fw-bold h4 mb-4 col-12">
-			<a href="${pageContext.request.contextPath }/board/board?ct=${category.ct }">${category.categoryKor }</a>
+		<div class="fw-bold h4 mb-4 col-9">
+			<a
+				href="${pageContext.request.contextPath }/board/board?ct=${category.ct }">${category.categoryKor }</a>
 		</div>
+		<sec:authorize access="hasAnyRole('ADMIN')">
+			<div class="col-3 text-right">
+				<a
+					href="${pageContext.request.contextPath }/admin/adminBoard?ct=${category.ct}"><button
+						class="btn btn-success btn-sm">admin</button></a>
+			</div>
+		</sec:authorize>
 		<div class="tableBox">
 			<table class="table">
 				<thead class="table-secondary">
@@ -35,12 +44,12 @@
 								href="/detail/detail?ct=${category.ct }&id=${b.boardId }">${b.boardTitle }
 									<span class="text-muted">(${b.commentCount })</span>
 							</a></td>
-							<td class="boardWriter fw-bold text-center">
-								<span class="userMenuPointer userMenuClick"
-									onclick="openUserMenu(${b.boardId}, '${b.userId }')">${b.userNickname }
-									<span id="boardId${b.boardId }" class="boardIdAll position-relative"></span>
-								</span>
-							</td>
+							<td class="boardWriter fw-bold text-center"><span
+								class="userMenuPointer userMenuClick"
+								onclick="openUserMenu(${b.boardId}, '${b.userId }')">${b.userNickname }
+									<span id="boardId${b.boardId }"
+									class="boardIdAll position-relative"></span>
+							</span></td>
 							<td class="boardHit text-muted text-center">${b.boardHit }</td>
 						</tr>
 					</c:forEach>
@@ -55,7 +64,8 @@
 	<div class="row">
 		<!-- go to list  -->
 		<div class="col-sm-1 col-md-1" id="goToList">
-			<a href="${pageContext.request.contextPath }/board/board?ct=${category.ct }"><i
+			<a
+				href="${pageContext.request.contextPath }/board/board?ct=${category.ct }"><i
 				class="fa fa-solid fa-list fa-2x"></i></a>
 		</div>
 		<!-- pagination -->

@@ -264,7 +264,7 @@ public class UserController {
 	public int deleteAlarm(@RequestParam("alarmId") Integer alarmId,
 			@RequestParam(value = "commentId", required = false) Integer commentId,
 			@RequestParam(value = "boardId", required = false) Integer boardId) {
-		
+			
 		alarmService.deleteAlarm(alarmId);
 		if(commentId != null) {
 			return commentService.getCommentCurrentPage(commentId, boardId);

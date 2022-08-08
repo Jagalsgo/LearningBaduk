@@ -5,12 +5,26 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/detail.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/detail.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/detail.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/detail.js"></script>
 <!-- detail content  -->
-<div class="fw-bold h4 mb-4 col-12 container-md pt-5">
-	<a href="${pageContext.request.contextPath }/board/board?ct=${category.ct }">${category.categoryKor }</a>
-	<a href="${pageContext.request.contextPath }/detail/detail?id=57#commentIdIs108">skull</a>
+<div class="container-md pt-5">
+<div id="focusPlease">AAA</div>
+	<div class="row">
+		<div class="fw-bold h4 mb-4 col-9">
+			<a
+				href="${pageContext.request.contextPath }/board/board?ct=${category.ct }">${category.categoryKor }</a>
+		</div>
+		<sec:authorize access="hasAnyRole('ADMIN')">
+			<div class="col-3 text-right">
+				<a
+					href="${pageContext.request.contextPath }/admin/adminDetail?ct=${category.ct}&id=${boardView.boardId}"><button
+						class="btn btn-success btn-sm">admin</button></a>
+			</div>
+		</sec:authorize>
+	</div>
 </div>
 <div class="container-md border p-3">
 	<div class="row">
@@ -30,7 +44,7 @@
 		</sec:authorize>
 
 
-		<div class="col12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
+		<div class="col-12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
 		<div class="col-7 p-3 border-bottom userMenu">
 			<span class="userMenuPointerDetail"> <c:choose>
 					<c:when test="${boardView.imgPath == null }">
@@ -169,7 +183,8 @@
 	<div class="row">
 		<!-- go to list  -->
 		<div class="col-sm-1 col-md-1" id="goToList">
-			<a href="${pageContext.request.contextPath }/board/board?ct=${category.ct }"><i
+			<a
+				href="${pageContext.request.contextPath }/board/board?ct=${category.ct }"><i
 				class="fa fa-solid fa-list fa-2x"></i></a>
 		</div>
 		<!-- pagination -->

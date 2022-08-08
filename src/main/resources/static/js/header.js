@@ -3,6 +3,8 @@ $(document).ready(function() {
 	// 회원 정보 클릭 시 박스 오픈
 	$('#userInfoBtn, .headerProfileImg').click(function() {
 		$('#openUserInfoBox').toggle();
+		$('#alarmsOpen').empty();
+		alarmsOpend = 0;
 	})
 
 	// 다른 지역 클릭 시 회원 박스 숨기기

@@ -52,6 +52,7 @@
 	top: 40px;
 	left: -140px;
 	background: #dae8d3;
+	z-index: 3;
 }
 
 #alarmCountView{

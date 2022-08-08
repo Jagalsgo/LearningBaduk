@@ -6,8 +6,13 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/adminBoard.js"></script>
 <div class="container-md py-5">
 	<div class="row">
-		<div class="fw-bold h4 mb-4 col-12">
+		<div class="fw-bold h4 mb-4 col-9">
 			<a href="${pageContext.request.contextPath }/admin/adminBoard?ct=${category.ct }">${category.categoryKor }</a>
+		</div>
+		<div class="col-3 text-right">
+			<a
+				href="${pageContext.request.contextPath }/board/board?ct=${category.ct}"><button
+					class="btn btn-success btn-sm">user</button></a>
 		</div>
 		<div class="tableBox">
 			<table class="table">

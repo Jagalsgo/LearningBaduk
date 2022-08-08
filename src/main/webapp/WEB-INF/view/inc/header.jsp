@@ -6,7 +6,7 @@
 <div class="headerItem" id="headerForm">
 	<div class="container-md my-3">
 		<div class="row vertical-align">
-			<div class="col-8">
+			<div class="col-7">
 				<img alt="baduk" src="/img/baduk.png" width="40" height="40">
 				<span class="h4 fw-bold mx-2"><a href="${pageContext.request.contextPath }/board/home">Learning
 						Baduk</a></span>
@@ -14,7 +14,7 @@
 
 			<!-- 로그인 전 -->
 			<sec:authorize access="isAnonymous">
-				<div class="col-4 text-right" id="loginFormBox">
+				<div class="col-5 text-right" id="loginFormBox">
 					<a href="${pageContext.request.contextPath }/user/login"><img alt="login" src="/img/login.jpg"
 						width="40" height="40" id="loginBtn"></a>
 				</div>
@@ -28,9 +28,11 @@
 				<sec:authentication property="principal.username" var="userId" />
 				<input type="hidden" id="userId" value="${userId }">
 
-				<div class="col-4 text-right" id="userInfoFormBox">
-					<!-- <i class="fa fa-solid fa-bell fa-2x vertical-align mx-3"></i> -->
-					<!-- <button type="button" class="btn btn-primary position-relative"> -->
+				<div class="col-5 text-right" id="userInfoFormBox">
+					<sec:authorize access="hasRole('ADMIN')">
+						<a href="${pageContext.request.contextPath }/admin/adminPages"><button
+								class="btn btn-sm btn-secondary">admin</button></a>
+					</sec:authorize>
 					<span class="position-relative"> <i
 						class="fa fa-solid fa-bell fa-2x vertical-align position-relative mx-3 alarmClick"
 						style="cursor: pointer;" onclick="getAlarms()" id="alarmClick">

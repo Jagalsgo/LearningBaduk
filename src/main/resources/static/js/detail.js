@@ -23,15 +23,28 @@ $(document).ready(function() {
 		}
 	})
 
-	if(localStorage.getItem('page')){
+	// alarm 을 통해 왔을 시 해당 댓글로 이동
+	if (localStorage.getItem('page')) {
+
+		console.log(localStorage.getItem('page'));
+		console.log(localStorage.getItem('commentId'));
+
 		getComments(localStorage.getItem('page'));
 		localStorage.removeItem('page');
-	}else{
+
+		setTimeout(function() {
+			var offset = $('#commentIdIs' + localStorage.getItem('commentId')).offset(); //해당 위치 반환
+			console.log(offset);
+			$("html, body").animate({ scrollTop: offset.top }, 400); // 선택한 위치로 이동. 두번째 인자는 0.4초를 의미한다
+			localStorage.removeItem('commentId');
+		}, 500)
+
+	} else {
 		getComments(1);
 	}
 
 	getBoards(detailsPage);
-	
+
 })
 
 // like 버튼 클릭
@@ -241,7 +254,7 @@ function getComments(commentPage) {
 
 				} else if (this.commentDepth == 1) /*모댓글의 답글*/ {
 
-					str += "<div class='col p-3 border-bottom border-top reCommentUser id='commentIdIs" + this.commentId + "'>";
+					str += "<div class='col p-3 border-bottom border-top reCommentUser' id='commentIdIs" + this.commentId + "'>";
 
 					if (this.imgPath == null) {
 						str += "<span class='userMenuClick userMenuPointer mx-2'"
