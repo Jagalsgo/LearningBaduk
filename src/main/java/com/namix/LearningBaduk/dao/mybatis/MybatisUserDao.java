@@ -69,7 +69,7 @@ public class MybatisUserDao implements UserDao {
 	}
 
 	@Override
-	public int emailOverlapCheck(String email) {
+	public User emailOverlapCheck(String email) {
 		return userDaoMapper.emailOverlapCheck(email);
 	}
 
@@ -161,6 +161,11 @@ public class MybatisUserDao implements UserDao {
 	@Override
 	public int deleteUserReportList(String id) {
 		return userDaoMapper.deleteUserReportList(id);
+	}
+
+	@Override
+	public int initEmailAuth(String id) {
+		return userDaoMapper.initEmailAuth(id);
 	}
 
 }

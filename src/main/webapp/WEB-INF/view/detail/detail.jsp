@@ -11,7 +11,6 @@
 	src="${pageContext.request.contextPath }/js/detail.js"></script>
 <!-- detail content  -->
 <div class="container-md pt-5">
-<div id="focusPlease">AAA</div>
 	<div class="row">
 		<div class="fw-bold h4 mb-4 col-9">
 			<a

@@ -25,69 +25,78 @@ public class SecurityService implements UserDetailsService {
 	private EmailDao emailDao;
 	@Autowired
 	private EmailService emailService;
-	
-	
+
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	
-	  @Transactional
-	  public void signUp(User user) {
-	  
+
+	@Transactional
+	public void signUp(User user) {
+
 		String rawPassword = user.getUserPassword();
 		String encPassword = passwordEncoder.encode(rawPassword);
 		user.setUserPassword(encPassword);
-		
+
 		userDao.signUp(user);
-		
+
 		EmailToken emailToken = new EmailToken(user.getUserEmail(), UUID.randomUUID().toString(), false, null);
 		emailDao.save(emailToken);
-		emailService.sendEmail(emailToken.getEmail(), emailToken.getAuthToken(), emailToken.getEmailTokenId(), user.getUserId());
-	  
-	  }
-	  
-	  
-	  @Transactional
-	  public void editProfile(User user) {
-		  
-		  User getUser = userDao.getUser(user.getUserId());
-		  
-		  String rawPassword = user.getUserPassword();
-		  String password;
-		  String nickname = user.getUserNickname();
-		  String email = user.getUserEmail();
-		  String id = user.getUserId();
-		  
-		  if(rawPassword == "" || rawPassword.isBlank()) {
-				password = getUser.getUserPassword();
-			}else {
-				password = passwordEncoder.encode(rawPassword);
-			}
-			if(nickname == "" || nickname.isBlank()) {
-				nickname = getUser.getUserNickname();
-			}
-			if(email == "" || email.isBlank()) {
-				email = getUser.getUserEmail();
-			}
-		  
-		  userDao.editProfile(password, nickname, email, id);
-	  }
-	
+		emailService.sendEmail(emailToken.getEmail(), emailToken.getAuthToken(), emailToken.getEmailTokenId(),
+				user.getUserId());
+
+	}
+
+	@Transactional
+	public void editProfile(User user) {
+
+		User getUser = userDao.getUser(user.getUserId());
+
+		String rawPassword = user.getUserPassword();
+		String password;
+		String nickname = user.getUserNickname();
+		String email = user.getUserEmail();
+		String id = user.getUserId();
+		int initEmailAuth = 0;
+
+		if (rawPassword == "" || rawPassword.isBlank()) {
+			password = getUser.getUserPassword();
+		} else {
+			password = passwordEncoder.encode(rawPassword);
+		}
+		if (nickname == "" || nickname.isBlank()) {
+			nickname = getUser.getUserNickname();
+		}
+		if (email == "" || email.isBlank()) {
+			email = getUser.getUserEmail();
+		} else {
+			userDao.initEmailAuth(id);
+			initEmailAuth = 1;
+		}
+
+		userDao.editProfile(password, nickname, email, id);
+		if (initEmailAuth == 1) {
+			EmailToken emailToken = new EmailToken(user.getUserEmail(), UUID.randomUUID().toString(), false, null);
+			emailDao.save(emailToken);
+			emailService.sendEmail(emailToken.getEmail(), emailToken.getAuthToken(), emailToken.getEmailTokenId(),
+					user.getUserId());
+		}
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		User user = userDao.getUser(username);
-        if (user != null){
-            return new SecurityUser(user);
-        }
-        return null;
-		
+		if (user != null) {
+			return new SecurityUser(user);
+		}
+		return null;
+
 	}
 
 	public boolean isOldPasswordMatch(String userId, String oldPassword) {
-		
+
 		User user = userDao.getUser(userId);
 		String dbPassword = user.getUserPassword();
 		return passwordEncoder.matches(oldPassword, dbPassword);
-		
+
 	}
 
 }

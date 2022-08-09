@@ -6,6 +6,7 @@ $(document).ready(function() {
 	category = $('#category').val();
 	categoryCt = $('#categoryCt').val();
 	detailsPage = $('#detailsPage').val();
+	commentCount = $('#commentCountJs').val();
 	rv = false;
 
 	// comment login 필요
@@ -136,6 +137,7 @@ function postComment() {
 		data: data,
 		success: function(data) {
 			alert('댓글 등록 완료');
+			commentCount = data.commentCount;
 			var lastCommentPage = Math.ceil(data.commentCount / 10);
 			getComments(lastCommentPage);
 			$('#commentContent').val('');
@@ -190,7 +192,7 @@ function deleteComment(commentId) {
 function getComments(commentPage) {
 
 	var firstCommentPage = commentPage - (commentPage - 1) % 5;
-	var lastCommentPage = Math.ceil($('#commentCountJs').val() / 10);
+	var lastCommentPage = Math.ceil(commentCount / 10);
 
 	var data = {
 		"boardId": boardId,

@@ -91,6 +91,11 @@ public class AdminController {
 		return "admin.adminDetail";
 	}
 	
+	@GetMapping("adminPages")
+	public String adminPages() {
+		return "admin.adminPages";
+	}
+	
 	@GetMapping("boardReportList")
 	public String boardReportList(@RequestParam(value="p", defaultValue="1") Integer page,
 												@RequestParam(value="f", defaultValue="boardTitle") String field,

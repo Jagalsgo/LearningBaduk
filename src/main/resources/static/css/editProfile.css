@@ -1,6 +1,9 @@
 #nicknameCheckedText{
 	display: none;
 }
+#emailCheckedText{
+	display: none;
+}
 
 #editProfileForm{
 	margin: auto;

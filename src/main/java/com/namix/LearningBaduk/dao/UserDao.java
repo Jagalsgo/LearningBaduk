@@ -29,7 +29,7 @@ public interface UserDao {
 
 	int nicknameOverlapCheck(String nickname);
 
-	int emailOverlapCheck(String email);
+	User emailOverlapCheck(String email);
 
 	int signUp(User user);
 
@@ -66,5 +66,7 @@ public interface UserDao {
 	int getUserReportsCount(String userId);
 
 	int deleteUserReportList(String id);
+
+	int initEmailAuth(String id);
 
 }

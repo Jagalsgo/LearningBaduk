@@ -42,6 +42,11 @@ public class Category {
 		this.categoryKor = "끝내기";
 		break;
 		
+		case "lifeDeath" : this.categoryBoard = "lifeDeathBoard";
+		this.categoryDetail = "lifeDeathDetail";
+		this.categoryKor = "사활";
+		break;
+		
 		case "quetion" : this.categoryBoard = "quetionBoard";
 		this.categoryDetail = "quetionDetail";
 		this.categoryKor = "Q&A";

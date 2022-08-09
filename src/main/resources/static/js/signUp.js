@@ -119,7 +119,7 @@ function idOverlapCheck() {
 	$.ajax({
 		type: "POST",
 		url: "/user/idOverlapCheck",
-		data: { "signUpId": signUpId.val() },
+		data: { "id": signUpId.val() },
 		success: function(data) {
 			if (data.count == 0) {
 				alert('사용 가능한 아이디입니다.');
@@ -161,7 +161,7 @@ function nicknameOverlapCheck() {
 	$.ajax({
 		type: "POST",
 		url: "/user/nicknameOverlapCheck",
-		data: { "signUpNickname": signUpNickname.val() },
+		data: { "nickname": signUpNickname.val() },
 		success: function(data) {
 			if (data.count == 0) {
 				alert('사용 가능한 닉네임입니다.');
@@ -203,7 +203,7 @@ function emailOverlapCheck() {
 	$.ajax({
 		type: "POST",
 		url: "/user/emailOverlapCheck",
-		data: { "signUpEmail": signUpEmail.val() },
+		data: { "email": signUpEmail.val() },
 		success: function(data) {
 			if (data.count == 0) {
 				alert('사용 가능한 이메일입니다.');
@@ -212,7 +212,13 @@ function emailOverlapCheck() {
 				signUpEmail.focus();
 				emailCheckResult = 1;
 				window.opener.location.reload();
-			} else {
+			} else if(data.count == -1) {
+				alert('인증 대기중인 이메일입니다.');
+				emailCheckBtn.show();
+				emailCheckedText.hide();
+				emailCheckResult = 0;
+				signUpEmail.focus();
+			}else{
 				alert('같은 이메일이 존재합니다.');
 				emailCheckBtn.show();
 				emailCheckedText.hide();

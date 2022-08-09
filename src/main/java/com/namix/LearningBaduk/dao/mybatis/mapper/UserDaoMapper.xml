@@ -52,10 +52,12 @@
 		from user where userNickname = #{nickname} and emailAuth = 1
 	</select>
 
-	<select id="emailOverlapCheck" resultType="int">
-		select count(*)
+	<select id="emailOverlapCheck"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select *
 		from
-		user where userEmail = #{email} and emailAuth = 1
+		user where
+		userEmail = #{email}
 	</select>
 
 	<insert id="signUp"
@@ -152,5 +154,9 @@
 		delete from reportlist where reportedUser = #{id} and
 		reportType = 'user'
 	</delete>
+
+	<update id="initEmailAuth">
+		update user set emailAuth = 0 where userId = #{id}
+	</update>
 
 </mapper>

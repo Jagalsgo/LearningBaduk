@@ -3,11 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/editProfile.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/editProfile.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/editProfile.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/editProfile.js"></script>
 <div class="container-md">
-	<form action="${pageContext.request.contextPath }/user/editProfile" method="post" class="border px-5 pt-4"
-		id="editProfileForm" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath }/user/editProfile"
+		method="post" class="border px-5 pt-4" id="editProfileForm"
+		enctype="multipart/form-data">
 		<input type="hidden" name="_method" value="PUT">
 		<div class="fw-bold h4 mb-5 mt-3">회원 정보 수정</div>
 
@@ -48,9 +51,14 @@
 			<div class="text-success" id="nicknameCheckedText">checked!</div>
 		</div>
 		<div class="form-group">
-			<label for="editProfileEmail" class="editProfileFormLabel">이메일</label>
+			<label for="editProfileEmail" class="editProfileFormLabel mt-3">이메일</label>
 			<input type="email" class="form-control" placeholder="EMAIL"
-				id="editProfileEmail" name="userEmail">
+				id="editProfileEmail" name="userEmail"><input type="button"
+				class="btn btn-secondary btn-sm" id="emailCheckBtn"
+				value="이메일 중복 체크" onclick="emailOverlapCheck()">
+			<div class="text-success" id="emailCheckedText">checked!</div>
+			<div class="alert alert-primary p-1 fw-bold mt-2 mb-4" role="alert">이메일
+				인증을 다시 하셔야 합니다.</div>
 		</div>
 		<div class="form-group">
 			<label for="editProfileProfileImg" class="editProfileFormLabel">프로필
@@ -69,6 +77,7 @@
 			<input type="submit" class="btn btn-primary pull-right"
 				value="회원 정보 수정" id="editProfileSubmitBtn">
 		</div>
+		<input type="hidden" name="editProfileGet" value="get">
 		<input type="button" class="btn btn-secondary btn-sm" id="withdrawBtn"
 			value="회원탈퇴" onclick="withdraw()">
 	</form>

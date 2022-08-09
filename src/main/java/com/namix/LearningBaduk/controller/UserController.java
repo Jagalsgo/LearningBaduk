@@ -67,30 +67,32 @@ public class UserController {
 		if (!passwordMatch) {
 			ScriptClass.alert(response, "기존 비밀번호가 올바르지 않습니다.");
 			ScriptClass.historyBack(response);
-		}
-
-		if (!file.isEmpty()) {
-			UserProfileImg originProfileImg = userService.getProfileImg(userId);
-			if (originProfileImg != null) {
-				userService.deleteProfileImg(userId);
-			}
-			userService.editProfileImg(file, request, userId);
-		}
-
-		securityService.editProfile(user);
-
-		String loginPwd;
-		if (user.getUserPassword() == null || user.getUserPassword().equals("")) {
-			loginPwd = oldPassword;
 		} else {
-			loginPwd = user.getUserPassword();
+
+			if (!file.isEmpty()) {
+				UserProfileImg originProfileImg = userService.getProfileImg(userId);
+				if (originProfileImg != null) {
+					userService.deleteProfileImg(userId);
+				}
+				userService.editProfileImg(file, request, userId);
+			}
+
+			securityService.editProfile(user);
+
+			String loginPwd;
+			if (user.getUserPassword() == null || user.getUserPassword().equals("")) {
+				loginPwd = oldPassword;
+			} else {
+				loginPwd = user.getUserPassword();
+			}
+
+			Authentication authentication = authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(userId, loginPwd));
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+
+			ScriptClass.alertAndMove(response, "회원 정보 수정 완료", "/board/home");
+
 		}
-
-		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(userId, loginPwd));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		ScriptClass.alertAndMove(response, "회원 정보 수정 완료", "/board/home");
 
 	}
 
@@ -165,10 +167,10 @@ public class UserController {
 
 	@ResponseBody
 	@PostMapping("idOverlapCheck")
-	public Map<Object, Object> idOverlapCheck(String signUpId) {
+	public Map<Object, Object> idOverlapCheck(String id) {
 
 		int idCheckResult = 0;
-		idCheckResult = userService.idOverlapCheck(signUpId);
+		idCheckResult = userService.idOverlapCheck(id);
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("count", idCheckResult);
 		return map;
@@ -177,10 +179,10 @@ public class UserController {
 
 	@ResponseBody
 	@PostMapping("nicknameOverlapCheck")
-	public Map<Object, Object> nicknameOverlapCheck(String signUpNickname) {
+	public Map<Object, Object> nicknameOverlapCheck(String nickname) {
 
 		int nicknameCheckResult = 0;
-		nicknameCheckResult = userService.nicknameOverlapCheck(signUpNickname);
+		nicknameCheckResult = userService.nicknameOverlapCheck(nickname);
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("count", nicknameCheckResult);
 		return map;
@@ -189,10 +191,10 @@ public class UserController {
 
 	@ResponseBody
 	@PostMapping("emailOverlapCheck")
-	public Map<Object, Object> emailOverlapCheck(String signUpEmail) {
+	public Map<Object, Object> emailOverlapCheck(String email) {
 
 		int emailCheckResult = 0;
-		emailCheckResult = userService.emailOverlapCheck(signUpEmail);
+		emailCheckResult = userService.emailOverlapCheck(email);
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("count", emailCheckResult);
 		return map;
@@ -264,14 +266,14 @@ public class UserController {
 	public int deleteAlarm(@RequestParam("alarmId") Integer alarmId,
 			@RequestParam(value = "commentId", required = false) Integer commentId,
 			@RequestParam(value = "boardId", required = false) Integer boardId) {
-			
+
 		alarmService.deleteAlarm(alarmId);
-		if(commentId != null) {
+		if (commentId != null) {
 			return commentService.getCommentCurrentPage(commentId, boardId);
-		}else {
+		} else {
 			return 0;
 		}
-		
+
 	}
 
 	@ResponseBody

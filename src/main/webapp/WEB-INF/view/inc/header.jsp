@@ -119,6 +119,8 @@
 				<li class="fw-bold mb-2 nav-item col-md"><a
 					href="/board/board?ct=endGame" class="nav-link">끝내기</a></li>
 				<li class="fw-bold mb-2 nav-item col-md"><a
+					href="/board/board?ct=lifeDeath" class="nav-link">사활</a></li>
+				<li class="fw-bold mb-2 nav-item col-md"><a
 					href="/board/board?ct=quetion" class="nav-link">바둑Q&A</a></li>
 				<li class="fw-bold mb-2 nav-item col-md"><a
 					href="/board/board?ct=schedule" class="nav-link">프로바둑일정</a></li>

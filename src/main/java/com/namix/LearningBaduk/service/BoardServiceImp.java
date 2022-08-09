@@ -37,6 +37,7 @@ public class BoardServiceImp implements BoardService {
 		map.put("pattern", boardDao.getBoards("patternBoard", 0, 5, "boardTitle", ""));
 		map.put("opening", boardDao.getBoards("openingBoard", 0, 5, "boardTitle", ""));
 		map.put("endGame", boardDao.getBoards("endGameBoard", 0, 5, "boardTitle", ""));
+		map.put("lifeDeath", boardDao.getBoards("lifeDeathBoard", 0, 5, "boardTitle", ""));
 		map.put("quetion", boardDao.getBoards("quetionBoard", 0, 5, "boardTitle", ""));
 		map.put("schedule", boardDao.getBoards("scheduleBoard", 0, 5, "boardTitle", ""));
 		map.put("notice", boardDao.getBoards("noticeBoard", 0, 5, "boardTitle", ""));

@@ -74,7 +74,19 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public int emailOverlapCheck(String email) {
-		return userDao.emailOverlapCheck(email);
+		
+		User user = userDao.emailOverlapCheck(email);
+		
+		if(user == null) {
+			return 0;
+		}
+		
+		if(user.isEmailAuth()) {
+			return 1;
+		}else {
+			return -1;
+		}
+		
 	}
 
 	@Override
