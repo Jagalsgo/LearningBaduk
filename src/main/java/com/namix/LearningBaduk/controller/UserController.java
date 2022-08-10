@@ -1,6 +1,7 @@
 package com.namix.LearningBaduk.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,6 +53,17 @@ public class UserController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+	@GetMapping("myProfile")
+	public String myProfile(Model model, Principal principal) {
+		
+		String userId = principal.getName();
+		User user = userService.getUser(userId);
+		
+		model.addAttribute("user", user);
+		
+		return "user.myProfile";
+	}
+	
 	@GetMapping("editProfile")
 	public String editProfile() {
 		return "user.editProfile";
@@ -58,8 +71,8 @@ public class UserController {
 
 	@PutMapping("editProfile")
 	public void editProfilePost(User user, @RequestParam(value = "profileImg", required = false) MultipartFile file,
-			HttpServletResponse response, HttpServletRequest request, @RequestParam("oldPassword") String oldPassword)
-			throws IOException {
+			HttpServletResponse response, HttpServletRequest request, HttpSession session,
+			@RequestParam("oldPassword") String oldPassword) throws IOException {
 
 		String userId = user.getUserId();
 
@@ -77,7 +90,7 @@ public class UserController {
 				userService.editProfileImg(file, request, userId);
 			}
 
-			securityService.editProfile(user);
+			int initEmailAuth = securityService.editProfile(user);
 
 			String loginPwd;
 			if (user.getUserPassword() == null || user.getUserPassword().equals("")) {
@@ -86,11 +99,19 @@ public class UserController {
 				loginPwd = user.getUserPassword();
 			}
 
-			Authentication authentication = authenticationManager
-					.authenticate(new UsernamePasswordAuthenticationToken(userId, loginPwd));
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+			if (initEmailAuth == 1) {
+				session.invalidate();
+				ScriptClass.alertAndMove(response, "회원 정보 수정 완료", "/board/home");
+			}else {
+				
+				Authentication authentication = authenticationManager
+						.authenticate(new UsernamePasswordAuthenticationToken(userId, loginPwd));
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+				
+				ScriptClass.alertAndMove(response, "회원 정보 수정 완료", "/board/home");
+				
+			}
 
-			ScriptClass.alertAndMove(response, "회원 정보 수정 완료", "/board/home");
 
 		}
 

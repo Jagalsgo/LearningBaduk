@@ -1,0 +1,28 @@
+#myProfileForm{
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 50px;
+	padding: 80px;
+}
+.form-group{
+    margin: 10px 0 10px 0;
+}
+.form-control{
+    margin: 5px 0 5px 0;
+}
+.myProfileFormLabel{
+	font-weight: bold;
+	font-size: 17px;
+}
+
+/* media query */
+@media screen and (min-width:992px) {
+	#editProfileForm{
+		width: 75%;
+	}
+} 
+@media screen and (min-width:1200px) {
+	#editProfileForm{
+		width: 60%;
+	}
+} 

@@ -206,4 +206,9 @@ public class UserServiceImp implements UserService {
 		userDao.deleteUserProfileImg(userId);
 	}
 
+	@Override
+	public void initEmailAuth(String id) {
+		userDao.initEmailAuth(id);
+	}
+
 }

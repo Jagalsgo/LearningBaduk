@@ -77,7 +77,6 @@
 			<input type="submit" class="btn btn-primary pull-right"
 				value="회원 정보 수정" id="editProfileSubmitBtn">
 		</div>
-		<input type="hidden" name="editProfileGet" value="get">
 		<input type="button" class="btn btn-secondary btn-sm" id="withdrawBtn"
 			value="회원탈퇴" onclick="withdraw()">
 	</form>

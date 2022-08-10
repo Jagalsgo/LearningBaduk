@@ -70,6 +70,10 @@
 						</c:choose>
 						<div class="my-3" id="userInfoBorderBox">
 							<div class="innerBorderBox">
+								<a href="${pageContext.request.contextPath }/user/myProfile"><i
+									class="fa fa-solid fa-user"></i> 내 정보</a>
+							</div>
+							<div class="innerBorderBox">
 								<a onclick="receivedMessage()" class="" style="cursor: pointer;"><i
 									class="fa fa-solid fa-envelope"></i> 쪽지함</a>
 							</div>

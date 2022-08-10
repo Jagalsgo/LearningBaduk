@@ -70,5 +70,7 @@ public interface UserService {
 	int reportUser(String reportedUser, String reportContent, String reporter);
 
 	UserProfileImg getProfileImg(String userId);
+	
+	void initEmailAuth(String id);
 
 }

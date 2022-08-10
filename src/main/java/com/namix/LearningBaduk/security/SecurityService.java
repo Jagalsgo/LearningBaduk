@@ -45,7 +45,7 @@ public class SecurityService implements UserDetailsService {
 	}
 
 	@Transactional
-	public void editProfile(User user) {
+	public int editProfile(User user) {
 
 		User getUser = userDao.getUser(user.getUserId());
 
@@ -78,6 +78,9 @@ public class SecurityService implements UserDetailsService {
 			emailService.sendEmail(emailToken.getEmail(), emailToken.getAuthToken(), emailToken.getEmailTokenId(),
 					user.getUserId());
 		}
+		
+		return initEmailAuth;
+		
 	}
 
 	@Override
