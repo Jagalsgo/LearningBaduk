@@ -19,7 +19,7 @@ public class MybatisCommentDao implements CommentDao {
 	public MybatisCommentDao(SqlSession sqlsession) {
 		commentDaoMapper = sqlsession.getMapper(CommentDao.class);
 	}
-	
+
 	@Override
 	public List<CommentView> getComments(int id, int size, int offset) {
 		return commentDaoMapper.getComments(id, size, offset);
