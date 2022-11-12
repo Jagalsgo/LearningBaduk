@@ -256,7 +256,7 @@ function getComments(commentPage) {
 
 				} else if (this.commentDepth == 1) /*모댓글의 답글*/ {
 
-					str += "<div class='col p-3 border-bottom border-top reCommentUser' id='commentIdIs" + this.commentId + "'>";
+					str += "<div class='col p-3 border-bottom border-top reCommentUser mx-2' id='commentIdIs" + this.commentId + "'>";
 
 					if (this.imgPath == null) {
 						str += "<span class='userMenuClick userMenuPointer mx-2'"
@@ -268,7 +268,7 @@ function getComments(commentPage) {
 					} else {
 						str += "<span class='userMenuClick userMenuPointer mx-2'"
 							+ "onclick = 'openUserMenuC(" + this.commentId + ", \"" + this.userId + "\")' >"
-							+ "<img alt='user' src='" + this.imgPath + "' width='25' height='25'>"
+							+ "ㄴ  <img alt='user' src='" + this.imgPath + "' width='25' height='25'>"
 							+ this.userNickname + "<span id='commentId" + this.commentId + "'"
 							+ "class='commentIdAll position-relative'></span>"
 							+ "</span >";
