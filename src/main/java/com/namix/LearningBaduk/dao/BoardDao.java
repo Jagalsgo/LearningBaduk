@@ -2,12 +2,12 @@ package com.namix.LearningBaduk.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.namix.LearningBaduk.entity.BoardView;
-import com.namix.LearningBaduk.entity.Comment;
-import com.namix.LearningBaduk.entity.CommentView;
-import com.namix.LearningBaduk.entity.MessageView;
 import com.namix.LearningBaduk.entity.MyBoard;
 
+@Mapper
 public interface BoardDao {
 
 	List<BoardView> getBoards(String category, int offset, int size, String field, String query);

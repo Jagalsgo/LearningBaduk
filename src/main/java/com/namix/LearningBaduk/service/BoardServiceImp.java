@@ -31,16 +31,26 @@ public class BoardServiceImp implements BoardService {
 	public Map<String, Object> getHomeBoards() {
 
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<BoardView> freeBoards = boardDao.getBoards("freeBoard", 0, 5, "boardTitle", "");
+		List<BoardView> ruleBoards = boardDao.getBoards("ruleBoard", 0, 5, "boardTitle", "");
+		List<BoardView> patternBoards = boardDao.getBoards("patternBoard", 0, 5, "boardTitle", "");
+		List<BoardView> openingBoards = boardDao.getBoards("openingBoard", 0, 5, "boardTitle", "");
+		List<BoardView> endGameBoards = boardDao.getBoards("endGameBoard", 0, 5, "boardTitle", "");
+		List<BoardView> lifeDeathBoards = boardDao.getBoards("lifeDeathBoard", 0, 5, "boardTitle", "");
+		List<BoardView> quetionBoards = boardDao.getBoards("quetionBoard", 0, 5, "boardTitle", "");
+		List<BoardView> scheduleBoards = boardDao.getBoards("scheduleBoard", 0, 5, "boardTitle", "");
+		List<BoardView> noticeBoards = boardDao.getBoards("noticeBoard", 0, 5, "boardTitle", "");
 
-		map.put("free", boardDao.getBoards("freeBoard", 0, 5, "boardTitle", ""));
-		map.put("rule", boardDao.getBoards("ruleBoard", 0, 5, "boardTitle", ""));
-		map.put("pattern", boardDao.getBoards("patternBoard", 0, 5, "boardTitle", ""));
-		map.put("opening", boardDao.getBoards("openingBoard", 0, 5, "boardTitle", ""));
-		map.put("endGame", boardDao.getBoards("endGameBoard", 0, 5, "boardTitle", ""));
-		map.put("lifeDeath", boardDao.getBoards("lifeDeathBoard", 0, 5, "boardTitle", ""));
-		map.put("quetion", boardDao.getBoards("quetionBoard", 0, 5, "boardTitle", ""));
-		map.put("schedule", boardDao.getBoards("scheduleBoard", 0, 5, "boardTitle", ""));
-		map.put("notice", boardDao.getBoards("noticeBoard", 0, 5, "boardTitle", ""));
+		map.put("free", freeBoards);
+		map.put("rule", ruleBoards);
+		map.put("pattern", patternBoards);
+		map.put("opening", openingBoards);
+		map.put("endGame", endGameBoards);
+		map.put("lifeDeath", lifeDeathBoards);
+		map.put("quetion", quetionBoards);
+		map.put("schedule", scheduleBoards);
+		map.put("notice", noticeBoards);
 
 		return map;
 	}

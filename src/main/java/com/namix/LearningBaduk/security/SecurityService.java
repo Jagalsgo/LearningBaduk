@@ -56,15 +56,15 @@ public class SecurityService implements UserDetailsService {
 		String id = user.getUserId();
 		int initEmailAuth = 0;
 
-		if (rawPassword == "" || rawPassword.isBlank()) {
+		if (rawPassword == "" || rawPassword.isEmpty()) {
 			password = getUser.getUserPassword();
 		} else {
 			password = passwordEncoder.encode(rawPassword);
 		}
-		if (nickname == "" || nickname.isBlank()) {
+		if (nickname == "" || nickname.isEmpty()) {
 			nickname = getUser.getUserNickname();
 		}
-		if (email == "" || email.isBlank()) {
+		if (email == "" || email.isEmpty()) {
 			email = getUser.getUserEmail();
 		} else {
 			userDao.initEmailAuth(id);

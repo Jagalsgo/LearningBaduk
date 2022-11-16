@@ -2,9 +2,12 @@ package com.namix.LearningBaduk.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.namix.LearningBaduk.entity.AlarmView;
 import com.namix.LearningBaduk.entity.Message;
 
+@Mapper
 public interface AlarmDao {
 
 	List<AlarmView> getAlarms(String receiver);

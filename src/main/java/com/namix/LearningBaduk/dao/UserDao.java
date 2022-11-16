@@ -2,13 +2,13 @@ package com.namix.LearningBaduk.dao;
 
 import java.util.List;
 
-import com.namix.LearningBaduk.entity.Alarm;
-import com.namix.LearningBaduk.entity.AlarmView;
-import com.namix.LearningBaduk.entity.Message;
+import org.apache.ibatis.annotations.Mapper;
+
 import com.namix.LearningBaduk.entity.ReportList;
 import com.namix.LearningBaduk.entity.User;
 import com.namix.LearningBaduk.entity.UserProfileImg;
 
+@Mapper
 public interface UserDao {
 
 	List<User> getUsers(int offset, int size, String field, String query);

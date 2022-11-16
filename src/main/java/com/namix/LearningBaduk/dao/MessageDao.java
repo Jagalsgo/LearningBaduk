@@ -2,9 +2,12 @@ package com.namix.LearningBaduk.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.namix.LearningBaduk.entity.Message;
 import com.namix.LearningBaduk.entity.MessageView;
 
+@Mapper
 public interface MessageDao {
 
 	List<MessageView> getMessages(int offset, int size, String field, String query, String messageField,

@@ -2,9 +2,12 @@ package com.namix.LearningBaduk.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.namix.LearningBaduk.entity.Comment;
 import com.namix.LearningBaduk.entity.CommentView;
 
+@Mapper
 public interface CommentDao {
 
 	List<CommentView> getComments(int id, int size, int offset);

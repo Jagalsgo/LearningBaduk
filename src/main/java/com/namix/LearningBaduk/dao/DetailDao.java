@@ -1,5 +1,8 @@
 package com.namix.LearningBaduk.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
 public interface DetailDao {
 
 	int writeDetail(String category, String title, String content, String userId);
