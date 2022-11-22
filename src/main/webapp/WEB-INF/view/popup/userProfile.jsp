@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/css/userProfile.css">
 <div class="cotainer-fluid popupHeader">${user.userNickname }님의
@@ -24,14 +26,16 @@
 	<div class="col-8 col-lg10 tableBody">
 		<fmt:formatDate value="${user.userDate }" pattern="yyyy-MM-dd" />
 	</div>
-	<div class="col-12 text-center my-3">
-		<a
-			href="${pageContext.request.contextPath }/popup/sendMessage?userId=${user.userId }"><button
-				class="btn btn-secondary btn-sm">쪽지 보내기</button></a>
-	</div>
-	<div class="col-12 text-center">
-		<a
-			href="${pageContext.request.contextPath }/popup/reportUser?userId=${user.userId }"><button
-				class="btn btn-secondary btn-sm">신고하기</button></a>
-	</div>
+	<sec:authorize access="isAuthenticated">
+		<div class="col-12 text-center my-3">
+			<a
+				href="${pageContext.request.contextPath }/popup/sendMessage?userId=${user.userId }"><button
+					class="btn btn-secondary btn-sm">쪽지 보내기</button></a>
+		</div>
+		<div class="col-12 text-center">
+			<a
+				href="${pageContext.request.contextPath }/popup/reportUser?userId=${user.userId }"><button
+					class="btn btn-secondary btn-sm">신고하기</button></a>
+		</div>
+	</sec:authorize>
 </div>

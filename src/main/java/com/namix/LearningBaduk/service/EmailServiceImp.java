@@ -37,7 +37,7 @@ public class EmailServiceImp implements EmailService {
 		SimpleMailMessage smm = new SimpleMailMessage();
 		smm.setTo(email);
 		smm.setSubject("Learning Baduk 회원가입 이메일 인증");
-		smm.setText("http://localhost:8080/mail/confirmEmail?email=" + email + "&emailToken=" + emailToken
+		smm.setText("https://learningbaduk.herokuapp.com/mail/confirmEmail?email=" + email + "&emailToken=" + emailToken
 				+ "&emailTokenId=" + emailTokenId + "&userId=" + userId);
 		javaMailSender.send(smm);
 
