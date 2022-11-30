@@ -3,6 +3,7 @@ $(document).ready(function(){
 	updateTitle = $('#updateTitle');
 	updateContent = $('#updateContent');
 	
+	// Click Update Detail Btn
 	$('#updateForm').submit(function(){
         if(updateTitle.val() == ''){
             alert('제목을 작성하세요.');

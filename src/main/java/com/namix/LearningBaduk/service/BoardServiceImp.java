@@ -314,7 +314,6 @@ public class BoardServiceImp implements BoardService {
 	public int getMyDetailsPage(int id) {
 
 		int detailsRowNumber = boardDao.getMyDetailsRowNumber(id) - 1;
-
 		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
 
 		if (detailsPage <= 1) {

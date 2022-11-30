@@ -4,6 +4,8 @@
 	href="${pageContext.request.contextPath }/css/findAccount.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/findAccount.js"></script>
+
+<!-- Find Account Form -->
 <div class="container-md">
 	<form action="${pageContext.request.contextPath }findAccountAction"
 		method="post" class="border px-5 py-4" id="findAccountForm">
@@ -36,7 +38,9 @@
 				<button class="btn btn-sm btn-secondary" id="findPasswordBtn"
 					type="button" onclick="findPassword()">비밀번호 찾기</button>
 			</div>
-			<div class="alert alert-secondary p-2 my-5 dot7Rem fw-bold" role="alert">여러 불편사항은 ehdwns6781@gmail.com 으로 이메일을 보내주시면 도와드리겠습니다.</div>
+			<div class="alert alert-secondary p-2 my-5 dot7Rem fw-bold"
+				role="alert">여러 불편사항은 ehdwns6781@gmail.com 으로 이메일을 보내주시면
+				도와드리겠습니다.</div>
 		</div>
 	</form>
 </div>

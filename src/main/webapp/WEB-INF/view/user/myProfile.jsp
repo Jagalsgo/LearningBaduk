@@ -7,6 +7,7 @@
 	href="${pageContext.request.contextPath }/css/myProfile.css">
 <div class="container-md border" id="myProfileForm">
 	<div class="fw-bold h4 mb-5">내 정보</div>
+	<!-- Profile Image Status -->
 	<sec:authorize access="isAuthenticated">
 		<sec:authentication property="principal.userProfileImg"
 			var="userProfileImg" />
@@ -33,7 +34,8 @@
 		<div class="my-2 px-3">${user.userEmail }</div>
 	</div>
 	<div class="form-group text-center my-5">
-		<a href="${pageContext.request.contextPath }/user/editProfile" id="goToEditProfile"><button
-				class="btn btn-primary">회원 정보 수정</button></a>
+		<a href="${pageContext.request.contextPath }/user/editProfile"
+			id="goToEditProfile"><button class="btn btn-primary">회원
+				정보 수정</button></a>
 	</div>
 </div>

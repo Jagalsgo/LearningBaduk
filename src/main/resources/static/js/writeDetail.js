@@ -3,6 +3,7 @@ $(document).ready(function(){
 	writeTitle = $('#writeTitle');
 	writeContent = $('#ckeditor');
 	
+	// Click Write Detail Btn
 	$('#writeForm').submit(function(){
         if(writeTitle.val() == ''){
             alert('제목을 작성하세요.');

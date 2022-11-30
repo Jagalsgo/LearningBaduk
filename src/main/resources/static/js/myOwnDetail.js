@@ -8,7 +8,7 @@ $(document).ready(function(){
 	
 })
 
-// detail view 아래 list 불러오기
+// Get Board Llist under Detail
 function getBoards(boardPage){
 	
 	$('.boardPage').removeClass('text-warning');
@@ -20,7 +20,7 @@ function getBoards(boardPage){
 	
 	$.ajax({
 		url:"/detail/getMyBoards",
-		type:"POST",
+		type:"GET",
 		data: data,
 		dataType: 'json',
 		success: function(data){

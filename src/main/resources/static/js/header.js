@@ -1,13 +1,13 @@
 $(document).ready(function() {
 
-	// 회원 정보 클릭 시 박스 오픈
+	// Open User Info Box
 	$('#userInfoBtn, .headerProfileImg').click(function() {
 		$('#openUserInfoBox').toggle();
 		$('#alarmsOpen').empty();
 		alarmsOpend = 0;
 	})
 
-	// 다른 지역 클릭 시 회원 박스 숨기기
+	// Hide User Info Box when Click Other Plcae
 	$('html').click(function(e) {
 		if (!$('#userInfoFormBox').has(e.target).length) {
 			$('#openUserInfoBox').hide();

@@ -4,46 +4,39 @@ $(document).ready(function() {
 	userMenuOpendC = 0;
 	alarmsOpend = 0;
 
-	// 다른 지역 클릭 시 회원 메뉴 숨기기
+	// Hide User Menu Click Other Place
 	$('html').click(function(e) {
 		if (!$(e.target).hasClass('userMenuClick')) {
 			$('.boardIdAll').empty();
 			userMenuOpend = 0;
 		}
 	});
-	// 다른 지역 클릭 시 댓글의 회원 메뉴 숨기기
+	// Hide Comment User Menu Click Other Place
 	$('html').click(function(e) {
 		if (!$(e.target).hasClass('userMenuClick')) {
 			$('.commentIdAll').empty();
 			userMenuOpendC = 0;
 		}
 	});
-	// 다른 지역 클릭 시 알림 메뉴 숨기기
+	// HIde Alarm Menu Click Other Place
 	$('html').click(function(e) {
 		if (!$(e.target).hasClass('alarmClick')) {
 			$('#alarmsOpen').empty();
 			alarmsOpend = 0;
 		}
 	});
-	// 알림 버튼 토글
-	/*$('#alarmClick').click(function() {
-		if (aa >= 1) {
-			$('#alarmsOpen').toggle();
-		}
-	})*/
 
-	// connectSockJs();
 	if ($('#userId').val()) {
 		getAlarmCount();
 	}
 
 })
 
-// 회원 클릭 시 회원 메뉴
+// Open User Menu
 function openUserMenu(boardId, userId) {
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/popup/checkUserRole",
 		success: function(data) {
 			if (userMenuOpend == 0) {
@@ -74,11 +67,11 @@ function openUserMenu(boardId, userId) {
 
 }
 
-// 댓글의 회원 클릭 시 회원 메뉴
+// Open Comment User Menu
 function openUserMenuC(commentId, userId) {
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/popup/checkUserRole",
 		success: function(data) {
 			if (userMenuOpendC == 0) {
@@ -109,16 +102,16 @@ function openUserMenuC(commentId, userId) {
 
 }
 
-// 프로필 보기
+// View User Profile
 function viewUserProfile(userId) {
 	window.open("/popup/userProfile?userId=" + userId, "userProfile", "width=400,height=500");
 }
 
-// 유저 신고하기
+// Report User
 function reportUser(userId) {
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/popup/checkUserRole",
 		success: function(data) {
 			if (data.userRole == "guest") {
@@ -137,11 +130,11 @@ function reportUser(userId) {
 
 }
 
-// 쪽지 보내기
+// Send Message
 function sendMessage(userId) {
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/popup/checkUserRole",
 		success: function(data) {
 			if (data.userRole == "guest") {
@@ -160,11 +153,11 @@ function sendMessage(userId) {
 
 }
 
-// 받은 쪽지함
+// Received Message
 function receivedMessage() {
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/popup/checkUserRole",
 		success: function(data) {
 			if (data.userRole == "guest") {
@@ -183,7 +176,7 @@ function receivedMessage() {
 
 }
 
-// 회원 제거
+// Delete User
 function deleteUser(userId) {
 
 	if (confirm('정말 회원을 제거하시겠습니까?')) {
@@ -207,8 +200,8 @@ function deleteUser(userId) {
 
 }
 
-// sockjs 알림
-function connectSockJs() {
+// sockjs Alarm
+/*function connectSockJs() {
 	var sock = new SockJS("/WebSocketAlarm");
 	socket = sock;
 	sock.onopen = function() {
@@ -229,13 +222,13 @@ function connectSockJs() {
 	sock.onerror = function(error) {
 		console.log('error :', error);
 	}
-}
+}*/
 
-// 알림 개수
+// Get Alarm Count
 function getAlarmCount() {
 	$.ajax({
 		url: "/user/getAlarmCount",
-		type: "POST",
+		type: "GET",
 		data: { "receiver": $('#userId').val() },
 		success: function(data) {
 			if (data >= 1) {
@@ -254,12 +247,12 @@ function getAlarmCount() {
 	});
 }
 
-// 알림 아이콘 클릭 시 알림들 보여주기 (5개씩)
+// Get Alarms (5)
 function getAlarms() {
 
 	$.ajax({
 		url: "/user/getAlarms",
-		type: "POST",
+		type: "GET",
 		data: { "receiver": $('#userId').val() },
 		success: function(data) {
 
@@ -319,7 +312,7 @@ function clickCommentAlarm(alarmId, boardId, commentId) {
 function clickMessageAlarm(alarmId) {
 	$.ajax({
 		url: "/user/deleteAlarm",
-		type: "POST",
+		type: "DELETE",
 		data: { "alarmId": alarmId },
 		success: function() {
 			getAlarmCount();

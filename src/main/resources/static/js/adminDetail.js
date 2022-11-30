@@ -7,7 +7,7 @@ $(document).ready(function() {
 	detailsPage = $('#detailsPage').val();
 	rv = false;
 
-	// comment login 필요
+	// Need Login To Post Comment
 	$('#commentNeedLoginBtn').click(function() {
 		var goLoginPage = confirm('로그인 필요한 기능입니다 로그인 하시겠습니까?');
 		if (goLoginPage) {
@@ -15,7 +15,7 @@ $(document).ready(function() {
 		}
 	})
 
-	// 전체 체크
+	// Comments All Check
 	$("#allChk").click(function() {
 		console.log('aaa');
 		if ($("#allChk").is(":checked")) {
@@ -25,7 +25,7 @@ $(document).ready(function() {
 		}
 	})
 
-	// 전체 체크 시 allChk 체크
+	// If All Checked All Check Box Check
 	$("input[name=chk]").click(function() {
 		var total = $("input[name=chk]").length;
 		var checked = $("input[name=chk]:checked").length;
@@ -42,7 +42,7 @@ $(document).ready(function() {
 
 })
 
-// like 버튼 클릭
+// Click Like Btn
 function likeBtnClick(id) {
 	$.ajax({
 		url: "/detail/addLike",
@@ -68,7 +68,7 @@ function likeBtnClick(id) {
 	})
 }
 
-// dislike 버튼 클릭
+// Click Dislike Btn
 function dislikeBtnClick(id) {
 	$.ajax({
 		url: "/detail/addDislike",
@@ -94,7 +94,7 @@ function dislikeBtnClick(id) {
 	})
 }
 
-// 댓글 등록
+// Post Comment
 function postComment() {
 
 	if ($('#commentContent').val() == '') {
@@ -126,7 +126,7 @@ function postComment() {
 
 }
 
-// 댓글 삭제
+// Delete Comment
 function deleteComment(commentId) {
 
 	$.ajax({
@@ -146,7 +146,7 @@ function deleteComment(commentId) {
 
 }
 
-// 댓글 불러오기
+// Get Comments
 function getComments(commentPage) {
 
 	$('.commentPage').removeClass('text-warning');
@@ -207,7 +207,7 @@ function getComments(commentPage) {
 
 }
 
-// detail view 아래 list 불러오기
+// Get Board List Under Detail
 function getBoards(boardPage) {
 
 	$('.boardPage').removeClass('text-warning');
@@ -261,7 +261,7 @@ function getBoards(boardPage) {
 
 }
 
-// admin 댓글 삭제
+// Admin Delete Comment
 function deleteComments() {
 
 	chk_arr = $("input[name='chk']");

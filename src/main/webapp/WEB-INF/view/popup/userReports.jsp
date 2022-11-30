@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="cotainer-fluid popupHeader">${user.userNickname }님이 신고받은 내역</div>
+<!-- List Who Report User -->
 <div class="row">
 	<div class="tableBox">
 		<table class="table">
@@ -29,7 +30,7 @@
 	</div>
 </div>
 
-<!-- pagination -->
+<!-- Pagination -->
 <c:set var="page" value="${(empty param.p)?1:param.p }" />
 <c:set var="firstPage" value="${page - (page - 1) % 5}" />
 <c:set var="lastPage"

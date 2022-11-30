@@ -9,14 +9,14 @@ $(document).ready(function() {
 	commentCount = $('#commentCountJs').val();
 	rv = false;
 
-	// comment login 필요
+	// Need Login To Post Comment
 	$('#commentNeedLoginBtn').click(function() {
 		var goLoginPage = confirm('로그인 필요한 기능입니다 로그인 하시겠습니까?');
 		if (goLoginPage) {
 			location.href = '/user/login';
 		}
 	})
-	// report login 필요
+	// Need Login To Report User
 	$('#reportNeedLoginBtn').click(function() {
 		var goLoginPage = confirm('로그인 필요한 기능입니다 로그인 하시겠습니까?');
 		if (goLoginPage) {
@@ -24,7 +24,7 @@ $(document).ready(function() {
 		}
 	})
 
-	// alarm 을 통해 왔을 시 해당 댓글로 이동
+	// Comment Alarm 
 	if (localStorage.getItem('page')) {
 
 		console.log(localStorage.getItem('page'));
@@ -34,9 +34,9 @@ $(document).ready(function() {
 		localStorage.removeItem('page');
 
 		setTimeout(function() {
-			var offset = $('#commentIdIs' + localStorage.getItem('commentId')).offset(); //해당 위치 반환
+			var offset = $('#commentIdIs' + localStorage.getItem('commentId')).offset(); // Get Comment's Offset
 			console.log(offset);
-			$("html, body").animate({ scrollTop: offset.top }, 400); // 선택한 위치로 이동. 두번째 인자는 0.4초를 의미한다
+			$("html, body").animate({ scrollTop: offset.top }, 400); // View Comment
 			localStorage.removeItem('commentId');
 		}, 500)
 
@@ -48,7 +48,7 @@ $(document).ready(function() {
 
 })
 
-// like 버튼 클릭
+// Click Like Btn
 function likeBtnClick(id) {
 
 	if (userId == -1) {
@@ -82,7 +82,7 @@ function likeBtnClick(id) {
 	}
 }
 
-// dislike 버튼 클릭
+// Click Dislike Btn
 function dislikeBtnClick(id) {
 
 	if (userId == -1) {
@@ -117,7 +117,7 @@ function dislikeBtnClick(id) {
 
 }
 
-// 댓글 등록
+// Post Comment
 function postComment() {
 
 	if ($('#commentContent').val() == '') {
@@ -168,7 +168,7 @@ function postComment() {
 
 }
 
-// 댓글 삭제
+// Delete Comment
 function deleteComment(commentId) {
 
 	$.ajax({
@@ -188,7 +188,7 @@ function deleteComment(commentId) {
 
 }
 
-// 댓글 불러오기
+// Get Comments
 function getComments(commentPage) {
 
 	var firstCommentPage = commentPage - (commentPage - 1) % 5;
@@ -201,7 +201,7 @@ function getComments(commentPage) {
 
 	$.ajax({
 		url: "/detail/getComments",
-		type: "POST",
+		type: "GET",
 		data: data,
 		dataType: 'json',
 		success: function(data) {
@@ -210,7 +210,7 @@ function getComments(commentPage) {
 
 			$(data).each(function() {
 
-				// 모댓글
+				// Comment Depth = 0
 				if (this.commentDepth == 0) {
 
 					str += "<div class='col-6 p-3 border-bottom border-top' id='commentIdIs" + this.commentId + "'>";
@@ -235,7 +235,8 @@ function getComments(commentPage) {
 					str += "</div>"
 						+ "<div class='col-6 p-3  border-bottom border-top text-muted text-right'>" + this.commentDate + "</div>"
 						+ "<div class='col-12 p-3'>";
-					// 답글이 달렸지만 삭제된 댓글
+						
+					// Deleted Comment 1 >= Comment Depth = 1
 					if (this.deleted == true) {
 						str += "(삭제된 댓글입니다)";
 					} else {
@@ -244,17 +245,17 @@ function getComments(commentPage) {
 
 					str += "</div>";
 
-					// 답글 쓰기
+					// Post Recomment
 					if (userId != -1) {
 						str += "<a class='text-right col-12 my-3' id='postReCommentBox'><span class='fw-bold' id='postReCommentBoxBtn' onclick='clickPostReComment(" + this.commentId + ", \"" + this.userNickname + "\")'>댓글달기</span></a>";
 					}
-					// 댓글 삭제
+					// Delete Comment Btn
 					if (userId == this.userId) {
 						str += "<div class='text-right col-12 mb-4' id='deleteComment'><span class='fw-bold text-muted' id='deleteCommentBtn' onclick='deleteComment(" + this.commentId + ")'>삭제</span></div>";
 					}
 					str += "<div class='reCommentIdAll' id='reCommentId" + this.commentId + "'></div>";
 
-				} else if (this.commentDepth == 1) /*모댓글의 답글*/ {
+				} else if (this.commentDepth == 1) /* Comment Depth = 1 */ {
 
 					str += "<div class='col p-3 border-bottom border-top reCommentUser mx-2' id='commentIdIs" + this.commentId + "'>";
 
@@ -280,7 +281,7 @@ function getComments(commentPage) {
 						+ this.commentContent
 						+ "</div>";
 
-					// 댓글 삭제
+					// Delete Comment Btn
 					if (userId == this.userId) {
 						str += "<div class='text-right col-12 mb-4' id='deleteComment'><span class='fw-bold text-muted' id='deleteCommentBtn' onclick='deleteComment(" + this.commentId + ")'>삭제</span></div>";
 					}
@@ -291,10 +292,11 @@ function getComments(commentPage) {
 
 			});
 
-			// comment pagenation
+			// Comment Pagination
 			str += "<div aria-label='Page navigation example' class='mt-5 mb-3'>"
 				+ "<ul class='pagination pagination-sm justify-content-center'>";
-			// << 페이지
+				
+			// << Pagination Btn
 			if (firstCommentPage > 1) {
 				str += "<li class='page-item'>"
 					+ "<div class='page-link commentPage' onclick='getComments(" + (firstCommentPage - 5) + ")' aria-label='Previous'>"
@@ -302,7 +304,7 @@ function getComments(commentPage) {
 					+ "</div>"
 					+ "</li>";
 			}
-			// 중간 페이지
+			// Middle Pagination Btn
 			for (var i = 0; i < 5; i++) {
 				if ((firstCommentPage + i) <= lastCommentPage) {
 					str += "<li class='page-item'><span "
@@ -314,7 +316,7 @@ function getComments(commentPage) {
 					str += "onclick='getComments(" + (firstCommentPage + i) + ")'>" + (firstCommentPage + i) + "</span></li>";
 				}
 			}
-			// >> 페이지	
+			// >> Pagination Btn	
 			if (firstCommentPage + 4 < lastCommentPage) {
 				str += "<li class='page-item'>"
 					+ "<div class='page-link commetPage' onclick='getComments(" + (firstCommentPage + 5) + ")'"
@@ -338,7 +340,7 @@ function getComments(commentPage) {
 
 }
 
-// 답글 달기 폼 열기
+// Click Post ReComment Btn
 function clickPostReComment(commentId, userNickname) {
 
 	$('.reCommentIdAll').empty();
@@ -358,12 +360,11 @@ function clickPostReComment(commentId, userNickname) {
 
 }
 
-// 답글 달기 폼 닫기
 function closeReCommentBox() {
 	$('.reCommentIdAll').empty();
 }
 
-// 답글 등록
+// Post ReComment
 function postReComment(parentId) {
 
 	if ($('#reCommentContent').val() == '') {
@@ -407,7 +408,7 @@ function postReComment(parentId) {
 
 }
 
-// detail view 아래 list 불러오기
+// Get Board List under Detail
 function getBoards(boardPage) {
 
 	$('.boardPage').removeClass('text-warning');
@@ -420,7 +421,7 @@ function getBoards(boardPage) {
 
 	$.ajax({
 		url: "/detail/getBoards",
-		type: "POST",
+		type: "GET",
 		data: data,
 		dataType: 'json',
 		success: function(data) {
@@ -458,7 +459,7 @@ function getBoards(boardPage) {
 
 }
 
-// 게시글 신고
+// Report Board
 function reportBoard(boardId) {
 
 	$.ajax({

@@ -4,6 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/board.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/adminBoard.js"></script>
+
+<!-- Boards Table -->
 <div class="container-md py-5">
 	<div class="row">
 		<div class="fw-bold h4 mb-4 col-9">
@@ -58,15 +60,15 @@
 	</div>
 </div>
 
-<!-- about list  -->
+<!-- About List  -->
 <div class="container-md my-4">
 	<div class="row">
-		<!-- go to list  -->
+		<!-- Go To List  -->
 		<div class="col-sm-1 col-md-1" id="goToList">
 			<a href="${pageContext.request.contextPath }/admin/adminBoard?ct=${category.ct }"><i
 				class="fa fa-solid fa-list fa-2x"></i></a>
 		</div>
-		<!-- pagination -->
+		<!-- Pagination -->
 		<c:set var="page" value="${(empty param.p)?1:param.p }" />
 		<c:set var="firstPage" value="${page - (page - 1) % 5}" />
 		<c:set var="lastPage"
@@ -95,7 +97,7 @@
 				</c:if>
 			</ul>
 		</div>
-		<!-- 글 작성 버튼 -->
+		<!-- Write Board -->
 		<div class="col-sm-3 col-md-2" id="goToWrite">
 			<form action="/detail/writeDetail">
 				<input type="hidden" id="writeCt" name="writeCt"
@@ -109,7 +111,7 @@
 	</div>
 </div>
 
-<!-- 검색 폼 -->
+<!-- Search Form -->
 <div class="container-md mb-5 mt-2" id="searchFormBox">
 	<form class="search-form">
 		<fieldset>

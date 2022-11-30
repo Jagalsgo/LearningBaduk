@@ -14,6 +14,7 @@
 		</span>
 	</div>
 </div>
+<!-- Sent Messages List -->
 <div class="row">
 	<div class="tableBox">
 		<table class="table">
@@ -47,7 +48,7 @@
 <span><button class="btn btn-sm btn-secondary" id="deleteBtn"
 		type="button" onclick="deleteSentMessage()">삭제</button></span>
 
-<!-- pagination -->
+<!-- Pagination -->
 <c:set var="page" value="${(empty param.p)?1:param.p }" />
 <c:set var="firstPage" value="${page - (page - 1) % 5}" />
 <c:set var="lastPage"
@@ -77,7 +78,7 @@
 	</ul>
 </div>
 
-<!-- 검색 폼 -->
+<!-- Search Form -->
 <div class="container-md mb-5 mt-2" id="searchFormBox">
 	<form class="search-form">
 		<fieldset>

@@ -92,15 +92,17 @@ public class UserServiceImp implements UserService {
 	@Override
 	public void editProfileImg(MultipartFile file, HttpServletRequest request, String userId) throws IOException {
 
-		String imgName = file.getName();
+		// Image File Path
 		String imgPath = request.getServletContext().getRealPath("/profileImg");
 
+		// Image Directory Folder
 		File uploadImg = new File(imgPath);
 		if (!uploadImg.exists()) {
 			uploadImg.mkdir();
 		}
 
-		imgName = UUID.randomUUID().toString();
+		// Random Image Name
+		String imgName = UUID.randomUUID().toString();
 		imgPath = imgPath + "/" + imgName;
 		String imgUrl = request.getContextPath() + "/profileImg/" + imgName;
 

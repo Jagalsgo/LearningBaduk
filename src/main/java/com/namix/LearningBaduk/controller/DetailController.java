@@ -58,6 +58,7 @@ public class DetailController {
 		model.addAttribute("detailsPage", detailsPage);
 		model.addAttribute("category", category);
 
+		// Prevent View Count Duplication Use Cookie
 		Cookie[] cookies = request.getCookies();
 		Cookie viewCookie = null;
 
@@ -68,7 +69,6 @@ public class DetailController {
 				}
 			}
 		}
-
 		if (viewCookie == null) {
 
 			Cookie newCookie = new Cookie("cookie" + id, "|" + id + "|");
@@ -139,7 +139,7 @@ public class DetailController {
 	}
 
 	@PutMapping("updateMyDetail")
-	public void updateMyDetailPost(@RequestParam("id") int id, @RequestParam("updateTitle") String title,
+	public void updateMyDetail(@RequestParam("id") int id, @RequestParam("updateTitle") String title,
 			@RequestParam("updateContent") String content, HttpServletResponse response) throws IOException {
 
 		int updateDetailResult = 0;
@@ -154,7 +154,7 @@ public class DetailController {
 
 	}
 
-	@GetMapping("deleteDetail")
+	@DeleteMapping("deleteDetail")
 	public void deleteDetail(@RequestParam("id") int id, @RequestParam("ct") String ct, HttpServletResponse response)
 			throws IOException {
 
@@ -170,7 +170,7 @@ public class DetailController {
 
 	}
 
-	@GetMapping("deleteMyDetail")
+	@DeleteMapping("deleteMyDetail")
 	public void deleteMyDetail(@RequestParam("id") int id, HttpServletResponse response) throws IOException {
 
 		int deleteDetailResult = 0;
@@ -246,11 +246,11 @@ public class DetailController {
 
 		String userId = principal.getName();
 
-		// 작성자 본인일 경우
+		// If it is the author himself
 		String boardUserId = boardService.getBoardsUser(id);
-		// 이미 추천을 눌렀을 경우
+		// If you already liked
 		int likeClicked = detailService.likeClicked(id, userId);
-		// 이미 비추천을 눌렀을 경우
+		// If you already disliked
 		int dislikeClicked = detailService.DislikeClicked(id, userId);
 
 		if (boardUserId.equals(userId)) {
@@ -261,7 +261,7 @@ public class DetailController {
 			return map;
 		} else {
 
-			// 아무것도 안한 경우
+			// If you did nothing
 			int addLikeResult = detailService.addLike(id, userId);
 			int likeCount = detailService.getLikeCount(id);
 			map.put("addLikeResult", addLikeResult);
@@ -280,11 +280,11 @@ public class DetailController {
 
 		String userId = principal.getName();
 
-		// 작성자 본인일 경우
+		// If it is the author himself
 		String boardUserId = boardService.getBoardsUser(id);
-		// 이미 추천을 눌렀을 경우
+		// If you already liked
 		int likeClicked = detailService.likeClicked(id, userId);
-		// 이미 비추천을 눌렀을 경우
+		// If you already disliked
 		int dislikeClicked = detailService.DislikeClicked(id, userId);
 
 		if (boardUserId.equals(userId)) {
@@ -295,7 +295,7 @@ public class DetailController {
 			return map;
 		} else {
 
-			// 아무것도 안한 경우
+			// If you did nothing
 			int addDislikeResult = detailService.addDislike(id, userId);
 			int dislikeCount = detailService.getDislikeCount(id);
 			map.put("addDislikeResult", addDislikeResult);
@@ -308,18 +308,18 @@ public class DetailController {
 
 	@ResponseBody
 	@PostMapping("postComment")
-	public Map<Object, Object> postComment(@RequestParam("boardId") int boardId, @RequestParam("commentContent") String commentContent,
-			Principal principal) {
+	public Map<Object, Object> postComment(@RequestParam("boardId") int boardId,
+			@RequestParam("commentContent") String commentContent, Principal principal) {
 
 		String userId = principal.getName();
 		String receiver = boardService.getBoardsUser(boardId);
 
 		Comment comment = commentService.postComment(userId, commentContent, boardId, receiver);
 		BoardView bv = boardService.getDetailBoard(boardId);
-		
+
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("commentCount", bv.getCommentCount());
-		
+
 		return map;
 
 	}
@@ -333,14 +333,14 @@ public class DetailController {
 		String userId = principal.getName();
 		Comment parentComment = commentService.getComment(parentId);
 		String receiver = parentComment.getUserId();
-		
+
 		Comment childComment = commentService.postReComment(userId, reCommentContent, boardId, parentId, receiver);
 		int currentPage = commentService.getCommentCurrentPage(childComment.getCommentId(), boardId);
-		
+
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("receiver", receiver);
 		map.put("currentPage", currentPage);
-		
+
 		return map;
 
 	}
@@ -356,7 +356,7 @@ public class DetailController {
 	}
 
 	@ResponseBody
-	@PostMapping("getComments")
+	@GetMapping("getComments")
 	public List<CommentView> getComments(@RequestParam("boardId") int id,
 			@RequestParam(value = "commentPage", defaultValue = "1") Integer page, Model model) {
 		List<CommentView> comments = commentService.getComments(id, page);
@@ -365,7 +365,7 @@ public class DetailController {
 	}
 
 	@ResponseBody
-	@PostMapping("getBoards")
+	@GetMapping("getBoards")
 	public List<BoardView> getBoards(@RequestParam("category") String category,
 			@RequestParam(value = "boardPage", defaultValue = "1") Integer boardPage, Model model) {
 
@@ -376,7 +376,7 @@ public class DetailController {
 	}
 
 	@ResponseBody
-	@PostMapping("getMyBoards")
+	@GetMapping("getMyBoards")
 	public List<MyBoard> getMyBoards(@RequestParam(value = "boardPage", defaultValue = "1") Integer boardPage,
 			Model model, Principal principal) {
 

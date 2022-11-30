@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	// 전체 체크
+	// All Check
 	$("#allChk").click(function() {
 		if ($("#allChk").is(":checked")) {
 			$("input[name=chk]").prop("checked", true);
@@ -9,7 +9,7 @@ $(document).ready(function() {
 		}
 	});
 
-	// 전체 체크 시 allChk 체크
+	// If All Check
 	$("input[name=chk]").click(function() {
 		var total = $("input[name=chk]").length;
 		var checked = $("input[name=chk]:checked").length;
@@ -23,7 +23,6 @@ $(document).ready(function() {
 
 })
 
-// 쪽지 보내기
 function sendMessagePost() {
 
 	if ($('#messageTitle').val() == '') {
@@ -74,7 +73,6 @@ function sendMessagePost() {
 
 }
 
-// 받은 쪽지 삭제
 function deleteReceivedMessage() {
 
 	var chk_arr = $("input[name='chk']");
@@ -109,7 +107,6 @@ function deleteReceivedMessage() {
 
 }
 
-// 보낸 쪽지 삭제
 function deleteSentMessage() {
 
 	var chk_arr = $("input[name='chk']");

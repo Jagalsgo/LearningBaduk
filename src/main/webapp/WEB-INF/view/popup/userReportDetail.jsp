@@ -14,7 +14,7 @@
 	<textarea style="width: 300px; height: 200px;" id="reportContent"
 		disabled>${report.reportContent }</textarea>
 </div>
-<!-- go to list  -->
+<!-- Go To List  -->
 <div class="m-4" id="goToList">
 	<a
 		href="${pageContext.request.contextPath }/popup/userReports?userId=${report.reportedUser }&p=${page}"><i

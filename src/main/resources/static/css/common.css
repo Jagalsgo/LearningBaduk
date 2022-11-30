@@ -46,9 +46,22 @@ a {
 	cursor: pointer;
 }
 
+img{
+	max-width: 1000px;
+	max-height: 900px;
+}
+
 /* popup */
 .popupHeader {
 	background: #ccd0cc;
 	padding: 15px;
 	font-weight: bold;
 }
+
+/* media query */
+@media screen and (max-width:992px) {
+	img{
+		max-width: 450px;
+		max-height: 400px;
+	}
+} 

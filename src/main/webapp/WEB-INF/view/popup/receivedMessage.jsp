@@ -2,18 +2,24 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/message.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/message.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/message.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/message.js"></script>
 <div class="cotainer-fluid popupHeader">받은 쪽지함</div>
 <div class="headerItem mb-4" id="headerList">
 	<div class="container-fluid py-3">
-		<span class="fw-bold mb-2"> <a href="${pageContext.request.contextPath }/popup/receivedMessage"
+		<span class="fw-bold mb-2"> <a
+			href="${pageContext.request.contextPath }/popup/receivedMessage"
 			class="text-primary">받은쪽지함</a>
-		</span> <span class="fw-bold mb-2 mx-3"> <a href="${pageContext.request.contextPath }/popup/sentMessage">보낸쪽지함</a>
-		</span> <span class="fw-bold mb-2"> <a href="${pageContext.request.contextPath }/popup/sendMessage">쪽지보내기</a>
+		</span> <span class="fw-bold mb-2 mx-3"> <a
+			href="${pageContext.request.contextPath }/popup/sentMessage">보낸쪽지함</a>
+		</span> <span class="fw-bold mb-2"> <a
+			href="${pageContext.request.contextPath }/popup/sendMessage">쪽지보내기</a>
 		</span>
 	</div>
 </div>
+<!-- Recieved Messages List -->
 <div class="row">
 	<div class="tableBox">
 		<table class="table">
@@ -47,7 +53,7 @@
 <span><button class="btn btn-sm btn-secondary" id="deleteBtn"
 		type="button" onclick="deleteReceivedMessage()">삭제</button></span>
 
-<!-- pagination -->
+<!-- Pagination -->
 <c:set var="page" value="${(empty param.p)?1:param.p }" />
 <c:set var="firstPage" value="${page - (page - 1) % 5}" />
 <c:set var="lastPage"
@@ -77,15 +83,15 @@
 	</ul>
 </div>
 
-<!-- 검색 폼 -->
+<!-- Search Form -->
 <div class="container-md mb-5 mt-2" id="searchFormBox">
 	<form class="search-form">
 		<fieldset>
 			<select class="form-select-sm" name="f" style="width: 80px;">
 				<option ${param.f == "messageTitle"?"selected":"" }
 					value="messageTitle">제목</option>
-				<option ${param.f == "senderNickname"?"selected":"" } value="senderNickname">보낸
-					사람</option>
+				<option ${param.f == "senderNickname"?"selected":"" }
+					value="senderNickname">보낸 사람</option>
 			</select> <input type="text" name="q" value="${param.q }"
 				style="width: 150px;" /> <input type="submit"
 				class="btn btn-sm btn-secondary" value="검색" />

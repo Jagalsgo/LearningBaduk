@@ -172,7 +172,7 @@ public class PopupController {
 		messageService.deleteMessage(chkArray, "deleteBySender");
 	}
 
-	@GetMapping("deleteMessageDetail")
+	@DeleteMapping("deleteMessageDetail")
 	public void deleteMessageDetail(@RequestParam("id") Integer id, @RequestParam("go") String go,
 			HttpServletResponse response) throws IOException {
 
@@ -207,11 +207,12 @@ public class PopupController {
 	}
 
 	@ResponseBody
-	@PostMapping("checkUserRole")
+	@GetMapping("checkUserRole")
 	public Map<Object, Object> checkUserRole(Principal principal) {
 
 		Map<Object, Object> map = new HashMap<Object, Object>();
 
+		// Not login
 		if (principal == null) {
 			map.put("userRole", "guest");
 			return map;

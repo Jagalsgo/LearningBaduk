@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	// 전체 체크
+	// Boards All Check
 	$("#allChk").click(function() {
 		if ($("#allChk").is(":checked")) {
 			$("input[name=chk]").prop("checked", true);
@@ -9,7 +9,7 @@ $(document).ready(function() {
 		}
 	});
 
-	// 전체 체크 시 allChk 체크
+	// If All Checked All Check Box Check
 	$("input[name=chk]").click(function() {
 		var total = $("input[name=chk]").length;
 		var checked = $("input[name=chk]:checked").length;
@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 })
 
-// admin 글 삭제
+// Admin Delete Boards
 function deleteBoards() {
 
 	var chk_arr = $("input[name='chk']");
@@ -58,7 +58,7 @@ function deleteBoards() {
 
 }
 
-// admin 글 report 초기화
+// Admin Init Board's Reports
 function initBoardReports() {
 
 	var chk_arr = $("input[name='chk']");
@@ -93,7 +93,7 @@ function initBoardReports() {
 
 }
 
-// admin 유저 report 초기화
+// Admin Init User's Reports
 function initUserReports() {
 
 	var chk_arr = $("input[name='chk']");

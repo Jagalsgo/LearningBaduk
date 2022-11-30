@@ -3,6 +3,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/css/signUp.css">
 <script type="text/javascript" src="/js/signUp.js"></script>
+<!-- Sign UP Form -->
 <div class="container-md">
 	<form action="${pageContext.request.contextPath }/user/signUp"
 		method="post" class="border px-5 py-4" id="signUpForm">

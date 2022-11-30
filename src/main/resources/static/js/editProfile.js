@@ -12,12 +12,12 @@ $(document).ready(function() {
 	emailCheckResult = 0;
 	rv = false;
 
-	// 정규표현식
+	// Regular Expression
 	passwordExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#>&])[A-Za-z\d$@$!%*#>&]{8,}$/;
 	emailExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 	nicknameExp = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/;
 
-	//프로필 사진 삭제 시 물어보기
+	// Confirm When Delete Profile Image
 	$('#deleteProfileImgBtn').click(function() {
 		var result = confirm('프로필 사진을 삭제하겠습니까?')
 		if (!result) {
@@ -25,7 +25,7 @@ $(document).ready(function() {
 		}
 	})
 
-	//회원탈퇴 시 물어보기
+	// Confirm When Withdraw
 	$('#withdrawBtn').click(function() {
 		var result = confirm('회원 탈퇴 하시겠습니까?')
 		if (!result) {
@@ -33,20 +33,21 @@ $(document).ready(function() {
 		}
 	})
 
-	// 닉네임 변경 시 nicknameCheck 초기화
+	// Init NicknameCheck Nickname Cheanged
 	editProfileNickname.on("input", function() {
 		nicknameCheckBtn.show();
 		nicknameCheckedText.hide();
 		nicknameCheckResult = 0;
 	});
 	
-	// 이메일 변경 시 emailCheck 초기화
+	// Init EmailCheck Email Cheanged
 	editProfileEmail.on("input", function() {
 		emailCheckBtn.show();
 		emailCheckedText.hide();
 		emailCheckResult = 0;
 	});
 
+	// Click Edit Profile
 	$('#editProfileForm').submit(function() {
 
 		if (editProfilePassword.val() != "" || editProfilePasswordCheck.val() != "") {
@@ -101,7 +102,6 @@ $(document).ready(function() {
 
 })
 
-// 닉네임 중복 체크 함수
 function nicknameOverlapCheck() {
 
 	if (editProfileNickname.val() == '') {
@@ -117,7 +117,7 @@ function nicknameOverlapCheck() {
 	}
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/user/nicknameOverlapCheck",
 		data: { "nickname": editProfileNickname.val() },
 		success: function(data) {
@@ -143,7 +143,6 @@ function nicknameOverlapCheck() {
 
 }
 
-// 이메일 중복 체크 함수
 function emailOverlapCheck() {
 
 	if (editProfileEmail.val() == '') {
@@ -159,7 +158,7 @@ function emailOverlapCheck() {
 	}
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/user/emailOverlapCheck",
 		data: { "email": editProfileEmail.val() },
 		success: function(data) {
@@ -191,9 +190,8 @@ function emailOverlapCheck() {
 
 }
 
-// 프로필 사진 삭제
 function deleteProfileImg() {
-	console.log('aaa');
+
 	$.ajax({
 		type: "DELETE",
 		url: "/user/deleteProfileImg",
@@ -218,7 +216,6 @@ function deleteProfileImg() {
 
 }
 
-// 회원 탈퇴
 function withdraw() {
 
 	$.ajax({

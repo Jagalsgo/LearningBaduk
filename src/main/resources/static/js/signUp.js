@@ -15,39 +15,39 @@ $(document).ready(function() {
 	nicknameCheckResult = 0;
 	emailCheckResult = 0;
 
-	// 정규표현식
+	// Regular Expression
 	idExp = /^[A-Za-z]{1}[A-Za-z0-9]{3,19}$/;
 	passwordExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#>&])[A-Za-z\d$@$!%*#>&]{8,}$/;
 	emailExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 	nicknameExp = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/;
 
-	// 아이디 변경 시 idCheck 초기화
+	// Init IdCheck when Id Changed
 	signUpId.on("input", function() {
 		idCheckBtn.show();
 		idCheckedText.hide();
 		idCheckResult = 0;
 	});
 
-	// 닉네임 변경 시 nicknameCheck 초기화
+	// Init NicknameCheck when Nickname Changed
 	signUpNickname.on("input", function() {
 		nicknameCheckBtn.show();
 		nicknameCheckedText.hide();
 		nicknameCheckResult = 0;
 	});
 	
-	// 이메일 변경 시 emailCheck 초기화
+	// Init EmailCheck when Email Changed
 	signUpEmail.on("input", function() {
 		emailCheckBtn.show();
 		emailCheckedText.hide();
 		emailCheckResult = 0;
 	});
 
-	// 회원가입 버튼 클릭
+	// Click SignUp Btn
 	$('#signUpForm').submit(function() {
 
 		var rv = false;
 
-		// 정규 표현식 검사
+		// Check Regular Expression
 		if (!idExp.test(signUpId.val())) {
 			alert('아이디 형식이 올바르지 않습니다. (4-20자 영어, 숫자, 첫자에는 숫자 불가)');
 			signUpId.focus();
@@ -69,28 +69,28 @@ $(document).ready(function() {
 			return rv;
 		}
 
-		// 비밀번호와 check가 같지 않을 시
+		// Check Password
 		if (signUpPassword.val() != signUpPasswordCheck.val()) {
 			alert('비밀번호가 check와 같지 않습니다.');
 			signUpPasswordCheck.focus();
 			return rv;
 		}
 
-		// id 중복 검사 안했을 시
+		// Id OverlapCheck Status
 		if (idCheckResult != 1) {
 			alert('아이디 중복 검사를 해주세요.');
 			signUpId.focus();
 			return rv;
 		}
 
-		// 닉네임 중복 검사 안했을 시
+		// Nickname OverlapCheck Status
 		if (nicknameCheckResult != 1) {
 			alert('닉네임 중복 검사를 해주세요.');
 			signUpNickname.focus();
 			return rv;
 		}
 		
-		// 이메일 중복 검사 안했을 시
+		// Email OverlapCheck Status
 		if (emailCheckResult != 1) {
 			alert('이메일 중복 검사를 해주세요.');
 			signUpEmail.focus();
@@ -101,7 +101,6 @@ $(document).ready(function() {
 
 })
 
-// 아이디 중복 체크 함수
 function idOverlapCheck() {
 
 	if (signUpId.val() == '') {
@@ -117,7 +116,7 @@ function idOverlapCheck() {
 	}
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/user/idOverlapCheck",
 		data: { "id": signUpId.val() },
 		success: function(data) {
@@ -143,7 +142,6 @@ function idOverlapCheck() {
 
 }
 
-// 닉네임 중복 체크 함수
 function nicknameOverlapCheck() {
 
 	if (signUpNickname.val() == '') {
@@ -159,7 +157,7 @@ function nicknameOverlapCheck() {
 	}
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/user/nicknameOverlapCheck",
 		data: { "nickname": signUpNickname.val() },
 		success: function(data) {
@@ -185,7 +183,6 @@ function nicknameOverlapCheck() {
 
 }
 
-// 이메일 중복 체크 함수
 function emailOverlapCheck() {
 
 	if (signUpEmail.val() == '') {
@@ -201,7 +198,7 @@ function emailOverlapCheck() {
 	}
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/user/emailOverlapCheck",
 		data: { "email": signUpEmail.val() },
 		success: function(data) {

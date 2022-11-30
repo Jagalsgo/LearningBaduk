@@ -7,16 +7,24 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/common.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/header.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/bootstrap/css/bootstrap.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/common.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/header.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jquery-3.6.0.min.js"></script>
 <script src="https://kit.fontawesome.com/9e1a390ee4.js"
 	crossorigin="anonymous"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/header.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/common.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/bootstrap/js/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor5/build/ckeditor.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/header.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/common.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/ckeditor5/build/ckeditor.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
 	integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
@@ -35,16 +43,16 @@
 </head>
 <body>
 
-	<!-- header  -->
+	<!-- Header  -->
 	<tiles:insertAttribute name="header"></tiles:insertAttribute>
-	<!-- main  -->
+	<!-- Main  -->
 	<tiles:insertAttribute name="main"></tiles:insertAttribute>
 
 	<script>
 		ClassicEditor
 			.create( document.querySelector( '#ckeditor' ), {
 				ckfinder: {
-			        uploadUrl: '/file/imgUpload' // 내가 지정한 업로드 url (post로 요청감)
+			        uploadUrl: '${pageContext.request.contextPath }/file/imgUpload'
 				}
 			} )
 			.catch( error => {

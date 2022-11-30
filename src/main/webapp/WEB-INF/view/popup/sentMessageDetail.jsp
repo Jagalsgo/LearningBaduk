@@ -20,7 +20,7 @@
 		</span>
 	</div>
 </div>
-
+<!-- Sent Message Detail Content -->
 <div class="row p-3 mb-4 messageDetailBox">
 	<div class="col-12 fw-bold mb-3 messageDetailTitle">${messageView.messageTitle }</div>
 	<div class="col-12 my-2">
@@ -41,7 +41,7 @@
 		class="text-right"><button class="btn btn-secondary btn-sm UDBtn ">삭제</button></a>
 </div>
 
-<!-- go to list  -->
+<!-- Go To List  -->
 <div class="m-4" id="goToList">
 	<a
 		href="${pageContext.request.contextPath }/popup/sentMessage?p=${page}"><i

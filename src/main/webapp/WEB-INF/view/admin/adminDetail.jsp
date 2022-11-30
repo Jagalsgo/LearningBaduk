@@ -3,9 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/detail.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/adminDetail.js"></script>
-<!-- detail content  -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/detail.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/adminDetail.js"></script>
+
+<!-- Detail Content  -->
 <div class="container-md pt-5">
 	<div class="row">
 		<div class="fw-bold h4 mb-4 col-9">
@@ -76,7 +79,7 @@
 	</div>
 </div>
 
-<!-- post comment -->
+<!-- Post Comment -->
 <div class="container-md border p-3 my-5">
 	<div class="mt-2 mb-4 fw-bold" id="postCommentText">댓글</div>
 	<div class="form-floating form-group">
@@ -89,7 +92,7 @@
 	</div>
 </div>
 
-<!-- comment list -->
+<!-- Comment List -->
 <div class="container-md border p-3 my-5">
 	<div class="mt-2 mb-4 fw-bold" id="commentList">
 		<input type="checkbox" value="allChk" id="allChk"> 댓글 목록
@@ -101,7 +104,7 @@
 				type="button" onclick="deleteComments()">삭제</button></span>
 	</div>
 
-	<!-- comment pagination -->
+	<!-- Comment Pagination -->
 	<c:set var="commentPage" value="${(empty commentPage)?1:commentPage }" />
 	<c:set var="firstCommentPage"
 		value="${commentPage - (commentPage - 1) % 5}" />
@@ -138,7 +141,7 @@
 	</div>
 </div>
 
-<!-- list under detail view -->
+<!-- List under Detail -->
 <div class="container-md py-5">
 	<div class="row">
 		<div class="tableBox">
@@ -163,15 +166,16 @@
 	</div>
 </div>
 
-<!-- about list  -->
+<!-- About list  -->
 <div class="container-md my-4">
 	<div class="row">
-		<!-- go to list  -->
+		<!-- Go To List  -->
 		<div class="col-sm-1 col-md-1" id="goToList">
-			<a href="${pageContext.request.contextPath }/admin/adminBoard?ct=${category.ct }"><i
+			<a
+				href="${pageContext.request.contextPath }/admin/adminBoard?ct=${category.ct }"><i
 				class="fa fa-solid fa-list fa-2x"></i></a>
 		</div>
-		<!-- pagination -->
+		<!-- Pagination -->
 		<c:set var="boardPage" value="${(empty boardPage)?1:boardPage }" />
 		<c:set var="firstBoardPage" value="${boardPage - (boardPage - 1) % 5}" />
 		<c:set var="lastBoardPage"
@@ -206,7 +210,7 @@
 			</ul>
 		</div>
 
-		<!-- 글 작성 버튼 -->
+		<!-- Write Board -->
 		<div class="col-sm-3 col-md-2" id="goToWrite">
 			<form action="/detail/writeDetail">
 				<input type="hidden" id="writeCt" name="writeCt"

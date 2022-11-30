@@ -9,7 +9,8 @@
 	href="${pageContext.request.contextPath }/css/detail.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/detail.js"></script>
-<!-- detail content  -->
+
+<!-- Detail Content  -->
 <div class="container-md pt-5">
 	<div class="row">
 		<div class="fw-bold h4 mb-4 col-9">
@@ -89,9 +90,13 @@
 				<div class="col-12 my-4 text-right px-5">
 					<a
 						href="/detail/updateDetail?id=${boardView.boardId }&ct=${category.ct}"><button
-							class="btn btn-secondary lUDBtn mx-2">수정</button></a> <a
-						href="/detail/deleteDetail?id=${boardView.boardId }&ct=${category.ct}"><button
-							class="btn btn-secondary lUDBtn">삭제</button></a>
+							class="btn btn-secondary lUDBtn mx-2">수정</button></a>
+					<form style="display: inline;"
+						action="/detail/deleteDetail?id=${boardView.boardId }&ct=${category.ct}"
+						method="post">
+						<input type="hidden" name="_method" value="delete" />
+						<button class="btn btn-secondary lUDBtn">삭제</button>
+					</form>
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -101,7 +106,7 @@
 							id="reportNeedLoginBtn">
 					</div>
 				</sec:authorize>
-				<!-- 로그인 후 -->
+				<!-- If Logged In -->
 				<sec:authorize access="isAuthenticated">
 					<div class="text-right my-1">
 						<button class="btn btn-danger mx-2"
@@ -115,7 +120,7 @@
 	</div>
 </div>
 
-<!-- post comment -->
+<!-- Post Comment -->
 <div class="container-md border p-3 my-5">
 	<div class="mt-2 mb-4 fw-bold" id="postCommentText">댓글</div>
 	<div class="form-floating form-group">
@@ -123,7 +128,7 @@
 			name="commentContent"> <label for="commentContent">Comments</label>
 	</div>
 
-	<!-- 로그인 전 -->
+	<!-- Before Log In -->
 	<sec:authorize access="isAnonymous">
 		<div class="text-right my-1">
 			<input type="button" class="btn btn-secondary mt-2" value="작성"
@@ -131,7 +136,7 @@
 		</div>
 	</sec:authorize>
 
-	<!-- 로그인 후 -->
+	<!-- After Log In -->
 	<sec:authorize access="isAuthenticated">
 		<div class="text-right my-1">
 			<button class="btn btn-secondary mt-2" onclick="postComment()"
@@ -141,7 +146,7 @@
 
 </div>
 
-<!-- comment list -->
+<!-- Comment List -->
 <div class="container-md border p-3 my-5">
 	<div class="mt-2 mb-4 fw-bold" id="commentList">댓글 목록
 		(${boardView.commentCount })</div>
@@ -152,7 +157,7 @@
 
 </div>
 
-<!-- list under detail view -->
+<!-- List under Detail -->
 <div class="container-md py-5">
 	<div class="row">
 		<div class="tableBox">
@@ -177,16 +182,16 @@
 	</div>
 </div>
 
-<!-- about list  -->
+<!-- About List  -->
 <div class="container-md my-4">
 	<div class="row">
-		<!-- go to list  -->
+		<!-- Go To List  -->
 		<div class="col-sm-1 col-md-1" id="goToList">
 			<a
 				href="${pageContext.request.contextPath }/board/board?ct=${category.ct }"><i
 				class="fa fa-solid fa-list fa-2x"></i></a>
 		</div>
-		<!-- pagination -->
+		<!-- Pagination -->
 		<c:set var="boardPage" value="${(empty boardPage)?1:boardPage }" />
 		<c:set var="firstBoardPage" value="${boardPage - (boardPage - 1) % 5}" />
 		<c:set var="lastBoardPage"
@@ -221,7 +226,7 @@
 			</ul>
 		</div>
 
-		<!-- 글 작성 버튼 -->
+		<!-- Write Board -->
 		<sec:authorize access="isAuthenticated">
 			<div class="col-sm-3 col-md-2" id="goToWrite">
 				<form action="/detail/writeDetail">

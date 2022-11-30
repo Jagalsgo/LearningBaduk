@@ -11,7 +11,7 @@ function findId() {
 	}
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/user/findId",
 		data: { "findIdEmail": $('#findIdEmail').val() },
 		success: function(data) {
@@ -43,7 +43,7 @@ function findPassword() {
 	}
 
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "/user/findPassword",
 		data: {
 			"findPasswordId": $('#findPasswordId').val(),

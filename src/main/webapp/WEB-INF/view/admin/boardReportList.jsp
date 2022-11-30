@@ -2,12 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/board.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/adminBoard.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/board.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/adminBoard.js"></script>
+
+<!-- Reported Board List Table -->
 <div class="container-md py-5">
 	<div class="row">
 		<div class="fw-bold h4 mb-4 col-12">
-			<a href="${pageContext.request.contextPath }/admin/boardReportList">신고당한 글 내역</a>
+			<a href="${pageContext.request.contextPath }/admin/boardReportList">신고당한
+				글 내역</a>
 		</div>
 		<div class="tableBox">
 			<table class="table">
@@ -58,15 +63,15 @@
 	</div>
 </div>
 
-<!-- about list  -->
+<!-- About List  -->
 <div class="container-md my-4">
 	<div class="row">
-		<!-- go to list  -->
+		<!-- Go To List  -->
 		<div class="col-sm-1 col-md-1" id="goToList">
 			<a href="${pageContext.request.contextPath }/admin/boardReportList?"><i
 				class="fa fa-solid fa-list fa-2x"></i></a>
 		</div>
-		<!-- pagination -->
+		<!-- Pagination -->
 		<c:set var="page" value="${(empty param.p)?1:param.p }" />
 		<c:set var="firstPage" value="${page - (page - 1) % 5}" />
 		<c:set var="lastPage"
@@ -99,7 +104,7 @@
 	</div>
 </div>
 
-<!-- 검색 폼 -->
+<!-- Search Form -->
 <div class="container-md mb-5 mt-2" id="searchFormBox">
 	<form class="search-form">
 		<fieldset>

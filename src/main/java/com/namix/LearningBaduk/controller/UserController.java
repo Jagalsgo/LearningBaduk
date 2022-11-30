@@ -81,7 +81,8 @@ public class UserController {
 			ScriptClass.alert(response, "기존 비밀번호가 올바르지 않습니다.");
 			ScriptClass.historyBack(response);
 		} else {
-
+			
+			// Profile Image Change
 			if (!file.isEmpty()) {
 				UserProfileImg originProfileImg = userService.getProfileImg(userId);
 				if (originProfileImg != null) {
@@ -90,8 +91,10 @@ public class UserController {
 				userService.editProfileImg(file, request, userId);
 			}
 
+			// Email Change Status
 			int initEmailAuth = securityService.editProfile(user);
 
+			// Password Change Status
 			String loginPwd;
 			if (user.getUserPassword() == null || user.getUserPassword().equals("")) {
 				loginPwd = oldPassword;
@@ -104,6 +107,7 @@ public class UserController {
 				ScriptClass.alertAndMove(response, "회원 정보 수정 완료", "/board/home");
 			}else {
 				
+				// Keep Login
 				Authentication authentication = authenticationManager
 						.authenticate(new UsernamePasswordAuthenticationToken(userId, loginPwd));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -177,6 +181,7 @@ public class UserController {
 			userService.deleteUserProfileImg(userId);
 		}
 
+		// Keep Login
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(userId, oldPassword));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -187,7 +192,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping("idOverlapCheck")
+	@GetMapping("idOverlapCheck")
 	public Map<Object, Object> idOverlapCheck(String id) {
 
 		int idCheckResult = 0;
@@ -199,7 +204,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping("nicknameOverlapCheck")
+	@GetMapping("nicknameOverlapCheck")
 	public Map<Object, Object> nicknameOverlapCheck(String nickname) {
 
 		int nicknameCheckResult = 0;
@@ -211,7 +216,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping("emailOverlapCheck")
+	@GetMapping("emailOverlapCheck")
 	public Map<Object, Object> emailOverlapCheck(String email) {
 
 		int emailCheckResult = 0;
@@ -223,7 +228,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping("findId")
+	@GetMapping("findId")
 	public String findId(String findIdEmail) {
 
 		User user = userService.getVerifiedUserByEmail(findIdEmail);
@@ -235,22 +240,22 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping("findPassword")
+	@GetMapping("findPassword")
 	public String findPassword(String findPasswordId, String findPasswordEmail) {
 
 		User user = userService.getVerifiedUser(findPasswordId);
 		if (user != null) {
 
 			if (!user.getUserEmail().equals(findPasswordEmail)) {
-				return "incorrectEmail"; // 해당 유저의 이메일이 올바르지 않은 경우
+				return "incorrectEmail"; // Email Check
 			} else {
 				emailService.sendRandomPassword(findPasswordId, findPasswordEmail);
-				return "sendRandomPassword"; // 임시 비밀번호 메일로 전송
+				return "sendRandomPassword"; // Send Temporary Password to Email
 			}
 
 		}
 
-		return "null"; // 해당 아이디의 유저가 없을 경우
+		return "null"; // There is no User Like Id
 	}
 
 	@ResponseBody
@@ -264,7 +269,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping("getAlarmCount")
+	@GetMapping("getAlarmCount")
 	public int getAlamCount(@RequestParam("receiver") String receiver) {
 
 		int alarmCount = 0;
@@ -274,7 +279,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping("getAlarms")
+	@GetMapping("getAlarms")
 	public List<AlarmView> getAlarms(@RequestParam("receiver") String receiver) {
 
 		List<AlarmView> alarms = alarmService.getAlarms(receiver);

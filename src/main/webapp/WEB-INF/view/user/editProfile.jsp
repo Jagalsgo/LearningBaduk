@@ -7,6 +7,8 @@
 	href="${pageContext.request.contextPath }/css/editProfile.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/editProfile.js"></script>
+
+<!-- Edit Profile Form -->
 <div class="container-md">
 	<form action="${pageContext.request.contextPath }/user/editProfile"
 		method="post" class="border px-5 pt-4" id="editProfileForm"
@@ -20,6 +22,7 @@
 			<sec:authentication property="principal.username" var="userId" />
 		</sec:authorize>
 
+		<!-- User's Profile Image Status -->
 		<c:if test="${!empty userProfileImg }">
 			<div class="text-center my-5">
 				<img alt="" src="${userProfileImg }"
