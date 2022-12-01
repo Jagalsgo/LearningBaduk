@@ -1,16 +1,13 @@
-# LearningBaduk
----
+# Learning Baduk
 
 ## 연락처
-메일 : ehdwns6781@naver.com
----
+- 메일 : ehdwns6781@naver.com
 
 ## 개요
 1. 인원 : 1명
 2. 기간 : Apr 25 ~ Aug/10 2022 (~ 유지보수, 기능추가)
 3. 소개 : 스프링 부트를 사용한 게시판 기능 구현
 4. 사이트 : https://learningbaduk.herokuapp.com
----
 
 ## 기술 및 환경
 - OS : windows
@@ -19,7 +16,6 @@
 - Framework : spring boot 2.6.7, myBatis 2.2.2, bootstrap
 - language : java8
 - Tool : eclipse, mysqlWorkBench
----
 
 ## 주요 기능
 - 스프링 시큐리티를 이용한 로그인
