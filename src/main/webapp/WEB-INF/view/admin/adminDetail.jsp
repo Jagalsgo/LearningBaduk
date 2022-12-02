@@ -24,6 +24,7 @@
 </div>
 <div class="container-md border p-3">
 	<div class="row">
+		<input type="hidden" value="${boardView.userId }" id="boardUserId">
 		<input type="hidden" value="${boardView.boardId }" id="boardId"
 			name="boardId"> <input type="hidden" value="${user.userId }"
 			id="userId" name="userId"> <input type="hidden"
@@ -99,46 +100,9 @@
 		(${boardView.commentCount })
 	</div>
 	<div class="row" id="comments"></div>
-	<div class="mt-5 mb-3" id="deleteCommentBtn">
-		<span><button class="btn btn-sm btn-secondary" id="deleteBtn"
-				type="button" onclick="deleteComments()">삭제</button></span>
-	</div>
-
-	<!-- Comment Pagination -->
-	<c:set var="commentPage" value="${(empty commentPage)?1:commentPage }" />
-	<c:set var="firstCommentPage"
-		value="${commentPage - (commentPage - 1) % 5}" />
-	<c:set var="lastCommentPage"
-		value="${ fn:substringBefore(Math.ceil(boardView.commentCount/10), '.') }" />
-
-	<div aria-label="Page navigation example" class="mt-5 mb-3 ">
-		<ul class="pagination pagination-sm justify-content-center">
-			<c:if test="${firstCommentPage > 1 }">
-				<li class="page-item">
-					<div class="page-link commentPage"
-						onclick="getComments(${firstCommentPage - 5})"
-						aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					</div>
-				</li>
-			</c:if>
-			<c:forEach var="i" begin="0" end="4">
-				<c:if test="${(firstCommentPage + i) <= lastCommentPage }">
-					<li class="page-item"><span
-						class="page-link commentPage cListPage${firstBoardPage+i }"
-						onclick="getComments(${firstCommentPage + i })">${firstCommentPage + i }</span></li>
-				</c:if>
-			</c:forEach>
-			<c:if test="${firstCommentPage + 4 < lastCommentPage }">
-				<li class="page-item">
-					<div class="page-link commetPage" onclick="${firstCommentPage + 5}"
-						aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</div>
-				</li>
-			</c:if>
-		</ul>
-	</div>
+	<!-- comment pagination -->
+	<input type="hidden" id="commentCountJs"
+		value="${boardView.commentCount }">
 </div>
 
 <!-- List under Detail -->

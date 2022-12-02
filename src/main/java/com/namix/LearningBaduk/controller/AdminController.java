@@ -111,7 +111,7 @@ public class AdminController {
 
 		List<BoardView> boards = boardService.getReportBoards(page, field, query);
 		int pageCount = boardService.getReportPageCount(field, query);
-
+		
 		model.addAttribute("boards", boards);
 		model.addAttribute("pageCount", pageCount);
 
@@ -125,9 +125,9 @@ public class AdminController {
 
 		List<User> users = userService.getReportUsers(page, field, query);
 		int userCount = userService.getReportUserCount(field, query);
-
+		
 		model.addAttribute("users", users);
-		model.addAttribute("userCount", userCount);
+		model.addAttribute("pageCount", userCount);
 
 		return "admin.userReportList";
 	}
@@ -139,9 +139,9 @@ public class AdminController {
 
 		List<User> users = userService.getUsers(page, field, query);
 		int userCount = userService.getUserCount(field, query);
-
+		
 		model.addAttribute("users", users);
-		model.addAttribute("userCount", userCount);
+		model.addAttribute("pageCount", userCount);
 
 		return "admin.userManagement";
 	}

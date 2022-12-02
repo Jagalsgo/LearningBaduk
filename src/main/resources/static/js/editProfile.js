@@ -25,21 +25,13 @@ $(document).ready(function() {
 		}
 	})
 
-	// Confirm When Withdraw
-	$('#withdrawBtn').click(function() {
-		var result = confirm('회원 탈퇴 하시겠습니까?')
-		if (!result) {
-			return rv;
-		}
-	})
-
 	// Init NicknameCheck Nickname Cheanged
 	editProfileNickname.on("input", function() {
 		nicknameCheckBtn.show();
 		nicknameCheckedText.hide();
 		nicknameCheckResult = 0;
 	});
-	
+
 	// Init EmailCheck Email Cheanged
 	editProfileEmail.on("input", function() {
 		emailCheckBtn.show();
@@ -89,7 +81,7 @@ $(document).ready(function() {
 				editProfileEmail.focus();
 				return rv;
 			}
-			
+
 			if (emailCheckResult != 1) {
 				alert('이메일 중복 검사를 해주세요.');
 				editProfileEmail.focus();
@@ -169,13 +161,13 @@ function emailOverlapCheck() {
 				editProfileEmail.focus();
 				emailCheckResult = 1;
 				window.opener.location.reload();
-			} else if(data.count == -1) {
+			} else if (data.count == -1) {
 				alert('인증 대기중인 이메일입니다.');
 				emailCheckBtn.show();
 				emailCheckedText.hide();
 				emailCheckResult = 0;
 				editProfileEmail.focus();
-			}else{
+			} else {
 				alert('같은 이메일이 존재합니다.');
 				emailCheckBtn.show();
 				emailCheckedText.hide();
@@ -218,25 +210,29 @@ function deleteProfileImg() {
 
 function withdraw() {
 
-	$.ajax({
-		type: "DELETE",
-		url: "/user/withdraw",
-		data: {
-			"userId": $('#userId').val(),
-			"oldPassword": $('#oldPassword').val()
-		},
-		success: function(data) {
-			if (data.result == -1) {
-				alert('기존 비밀번호가 올바르지 않습니다.');
-				$('#oldPassword').focus();
-			} else {
-				alert('회원 탈퇴 되었습니다.');
-				location.href = '/board/home';
+	var result = confirm('회원 탈퇴 하시겠습니까?')
+	if (result) {
+		$.ajax({
+			type: "DELETE",
+			url: "/user/withdraw",
+			data: {
+				"userId": $('#userId').val(),
+				"oldPassword": $('#oldPassword').val()
+			},
+			success: function(data) {
+				if (data.result == -1) {
+					alert('기존 비밀번호가 올바르지 않습니다.');
+					$('#oldPassword').focus();
+				} else {
+					alert('회원 탈퇴 되었습니다.');
+					location.href = '/board/home';
+				}
+			},
+			error: function(error) {
+				alert('error : ' + error);
 			}
-		},
-		error: function(error) {
-			alert('error : ' + error);
-		}
-	});
+		});
+	}
+
 
 }

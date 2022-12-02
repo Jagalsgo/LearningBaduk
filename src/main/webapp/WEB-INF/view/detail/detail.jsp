@@ -154,7 +154,6 @@
 	<!-- comment pagination -->
 	<input type="hidden" id="commentCountJs"
 		value="${boardView.commentCount }">
-
 </div>
 
 <!-- List under Detail -->

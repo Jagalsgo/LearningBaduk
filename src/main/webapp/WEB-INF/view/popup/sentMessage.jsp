@@ -65,7 +65,7 @@
 		<c:forEach var="i" begin="0" end="4">
 			<c:if test="${(firstPage + i) <= lastPage }">
 				<li class="page-item"><a
-					class="page-link ${(param.p==(firstPage+i))?'text-warning':'' }"
+					class="page-link ${(page==(firstPage+i))?'text-warning':'' }"
 					href="?userId=${user.userId }&p=${firstPage + i}">${firstPage + i }</a></li>
 			</c:if>
 		</c:forEach>

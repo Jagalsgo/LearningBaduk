@@ -3,13 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/board.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/board.css">
 
 <!-- User Management List Table -->
 <div class="container-md py-5">
 	<div class="row">
 		<div class="fw-bold h4 mb-4 col-12">
-			<a href="${pageContext.request.contextPath }/admin/userManagement">회원 관리</a>
+			<a href="${pageContext.request.contextPath }/admin/userManagement">회원
+				관리</a>
 		</div>
 		<div class="tableBox">
 			<table class="table">
@@ -65,20 +67,20 @@
 			<ul class="pagination pagination-sm justify-content-center">
 				<c:if test="${firstPage > 1 }">
 					<li class="page-item"><a class="page-link"
-						href="?f=${param.f }&q=${param.q }&p=${firstPage - 5 }"
+						href="?ct=${category.ct }&f=${param.f }&q=${param.q }&p=${firstPage - 5 }"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 					</a></li>
 				</c:if>
 				<c:forEach var="i" begin="0" end="4">
 					<c:if test="${(firstPage + i) <= lastPage }">
 						<li class="page-item"><a
-							class="page-link ${(param.p==(firstPage+i))?'text-warning':'' }"
-							href="?f=${param.f }&q=${param.q}&p=${firstPage + i}">${firstPage + i }</a></li>
+							class="page-link ${(page==(firstPage+i))?'text-warning':'' }"
+							href="?ct=${category.ct }&?f=${param.f }&q=${param.q}&p=${firstPage + i}">${firstPage + i }</a></li>
 					</c:if>
 				</c:forEach>
 				<c:if test="${firstPage + 4 < lastPage }">
 					<li class="page-item"><a class="page-link"
-						href="?f=${param.f }&q=${param.q }&p=${firstPage + 5 }"
+						href="?ct=${category.ct }&?f=${param.f }&q=${param.q }&p=${firstPage + 5 }"
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</c:if>

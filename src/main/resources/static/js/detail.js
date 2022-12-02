@@ -215,6 +215,7 @@ function getComments(commentPage) {
 
 					str += "<div class='col-6 p-3 border-bottom border-top' id='commentIdIs" + this.commentId + "'>";
 
+					// User Profile Image
 					if (this.imgPath == null) {
 						str += "<span class='userMenuClick userMenuPointer mx-2'"
 							+ "onclick = 'openUserMenuC(" + this.commentId + ", \"" + this.userId + "\")' >"
