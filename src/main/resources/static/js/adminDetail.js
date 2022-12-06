@@ -17,7 +17,7 @@ $(document).ready(function() {
 		}
 	})
 
-	// Comments All Check
+	/*// Comments All Check
 	$("#allChk").click(function() {
 		console.log('aaa');
 		if ($("#allChk").is(":checked")) {
@@ -29,6 +29,7 @@ $(document).ready(function() {
 
 	// If All Checked All Check Box Check
 	$("input[name=chk]").click(function() {
+		console.log('bbb');
 		var total = $("input[name=chk]").length;
 		var checked = $("input[name=chk]:checked").length;
 
@@ -37,7 +38,7 @@ $(document).ready(function() {
 		} else {
 			$("#allChk").prop("checked", true);
 		}
-	});
+	});*/
 
 	getComments(1);
 	getBoards(detailsPage);
@@ -167,14 +168,16 @@ function getComments(commentPage) {
 		success: function(data) {
 
 			var str = "";
+			str += "<div class='mt-2 mb-4 fw-bold' id='commentList'>댓글 목록 (" + data.commentCount + ")</div>";
+			str	+= "<div class='mb-4'><button class='btn btn-sm btn-secondary mx-3' id='deleteBtn' type='button' onclick='deleteComments()'>전체 삭제</button></div>";
 
-			$(data).each(function() {
+			$(data.comments).each(function() {
 
 				// Comment Depth = 0
 				if (this.commentDepth == 0) {
 
 					// Admin CheckBox
-					str += "<div class='col-6 p-3 border-bottom border-top' id='commentIdIs" + this.commentId + "'><input type='checkbox' name='chk' value='" + this.commentId + "'>";
+					str += "<div class='col-6 p-3 border-bottom border-top' id='commentIdIs" + this.commentId + "'>";
 
 					// User Profile Image
 					if (this.imgPath == null) {
@@ -214,7 +217,7 @@ function getComments(commentPage) {
 
 				} else if (this.commentDepth == 1) /* Comment Depth = 1 */ {
 
-					str += "<div class='col-6 p-3 border-bottom border-top' id='commentIdIs" + this.commentId + "'><input type='checkbox' name='chk' value='" + this.commentId + "'>";
+					str += "<div class='col-6 p-3 border-bottom border-top' id='commentIdIs" + this.commentId + "'>";
 
 					if (this.imgPath == null) {
 						str += "<span class='userMenuClick userMenuPointer mx-2'"
@@ -297,9 +300,6 @@ function getComments(commentPage) {
 
 // Click Post ReComment Btn
 function clickPostReComment(commentId, userNickname) {
-
-	console.log('skull');
-	console.log('#reCommentId' + commentId)
 
 	$('.reCommentIdAll').empty();
 	var str = "";
@@ -423,34 +423,30 @@ function getBoards(boardPage) {
 // Admin Delete Comment
 function deleteComments() {
 
-	chk_arr = $("input[name='chk']");
+	/*chk_arr = $("input[name='chk']");
 	chkArray = [];
 	for (var i = 0; i < chk_arr.length; i++) {
 		if (chk_arr[i].checked == true) {
 			chkArray.push(chk_arr[i].value);
 		}
-	}
+	}*/
 
-	if (chkArray.length == 0) {
-		alert("삭제할 댓글을 선택하세요.");
-	} else {
-		var deleteCommentConfirm = confirm('체크된 댓글들을 삭제하시겠습니까?');
+	var deleteCommentConfirm = confirm('정말 댓글을 전부 삭제하시겠습니까?');
 		if (deleteCommentConfirm) {
 			$.ajax({
 				url: "/admin/deleteComments",
 				type: "DELETE",
 				data: {
-					"chkArray": chkArray
+					"boardId": boardId
 				},
 				success: function() {
 					alert('삭제 완료');
-					window.location.reload();
+					getComments(1);
 				},
 				error: function(error) {
 					alert("error : " + error);
 				}
 			})
 		}
-	}
 
 }

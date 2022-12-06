@@ -28,4 +28,6 @@ public interface CommentService {
 
 	int getCommentCurrentPage(int commentId, int boardId);
 
+	void deleteAllComment(int boardId);
+
 }

@@ -30,4 +30,6 @@ public interface CommentDao {
 
 	int getCommentCurrentPage(int commentId, int boardId);
 
+	int deleteAllComment(int boardId);
+
 }

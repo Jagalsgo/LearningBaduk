@@ -95,10 +95,6 @@
 
 <!-- Comment List -->
 <div class="container-md border p-3 my-5">
-	<div class="mt-2 mb-4 fw-bold" id="commentList">
-		<input type="checkbox" value="allChk" id="allChk"> 댓글 목록
-		(${boardView.commentCount })
-	</div>
 	<div class="row" id="comments"></div>
 	<!-- comment pagination -->
 	<input type="hidden" id="commentCountJs"

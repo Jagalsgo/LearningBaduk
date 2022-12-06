@@ -149,4 +149,9 @@ public class CommentServiceImp implements CommentService {
 
 	}
 
+	@Override
+	public void deleteAllComment(int boardId) {
+		commentDao.deleteAllComment(boardId);
+	}
+
 }

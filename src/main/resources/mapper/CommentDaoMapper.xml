@@ -68,4 +68,8 @@
 		#{commentId};
 	</select>
 	
+	<delete id="deleteAllComment">
+		delete from comment where boardId = #{boardId}
+	</delete>
+	
 </mapper>

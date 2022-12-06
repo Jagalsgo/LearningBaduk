@@ -207,8 +207,9 @@ function getComments(commentPage) {
 		success: function(data) {
 
 			var str = "";
+			str += "<div class='mt-2 mb-4 fw-bold' id='commentList'>댓글 목록 (" + data.commentCount + ")</div>";
 
-			$(data).each(function() {
+			$(data.comments).each(function() {
 
 				// Comment Depth = 0
 				if (this.commentDepth == 0) {
@@ -236,7 +237,7 @@ function getComments(commentPage) {
 					str += "</div>"
 						+ "<div class='col-6 p-3  border-bottom border-top text-muted text-right'>" + this.commentDate + "</div>"
 						+ "<div class='col-12 p-3'>";
-						
+
 					// Deleted Comment 1 >= Comment Depth = 1
 					if (this.deleted == true) {
 						str += "(삭제된 댓글입니다)";
@@ -296,7 +297,7 @@ function getComments(commentPage) {
 			// Comment Pagination
 			str += "<div aria-label='Page navigation example' class='mt-5 mb-3'>"
 				+ "<ul class='pagination pagination-sm justify-content-center'>";
-				
+
 			// << Pagination Btn
 			if (firstCommentPage > 1) {
 				str += "<li class='page-item'>"

@@ -154,8 +154,8 @@ public class AdminController {
 
 	@ResponseBody
 	@DeleteMapping("deleteComments")
-	public void deleteComments(@RequestParam("chkArray[]") List<Integer> chkArray) {
-		commentService.deleteComments(chkArray);
+	public void deleteComments(@RequestParam("boardId") Integer boardId) {
+		commentService.deleteAllComment(boardId);
 	}
 
 	@ResponseBody

@@ -357,11 +357,19 @@ public class DetailController {
 
 	@ResponseBody
 	@GetMapping("getComments")
-	public List<CommentView> getComments(@RequestParam("boardId") int id,
+	public Map<Object, Object> getComments(@RequestParam("boardId") int id,
 			@RequestParam(value = "commentPage", defaultValue = "1") Integer page, Model model) {
+		
 		List<CommentView> comments = commentService.getComments(id, page);
 		model.addAttribute("commentPage", page);
-		return comments;
+		
+		BoardView bv = boardService.getDetailBoard(id);
+
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("commentCount", bv.getCommentCount());
+		map.put("comments", comments);
+		
+		return map;
 	}
 
 	@ResponseBody
