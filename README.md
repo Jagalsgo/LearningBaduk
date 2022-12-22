@@ -7,7 +7,7 @@
 1. 인원 : 1명
 2. 기간 : Apr 25 ~ Aug/10 2022 (~ 유지보수, 기능추가)
 3. 소개 : 스프링 부트를 사용한 게시판 기능 구현
-4. 사이트 : learningbaduk.cf
+4. 사이트 : https://learningbaduk.cf
 
 ## 기술 및 환경
 - OS : windows
