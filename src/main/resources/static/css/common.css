@@ -46,10 +46,61 @@ a {
 	cursor: pointer;
 }
 
-img{
+img {
 	max-width: 1000px;
 	max-height: 900px;
 }
+
+.detailContent blockquote {
+	display: block;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 40px;
+	margin-inline-end: 40px;
+	border-left: 5px solid #ccc;
+	font-style: italic;
+	margin-left: 0;
+	margin-right: 0;
+	overflow: hidden;
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+}
+
+/* ckeditor */
+.detailContent .table {
+	--bs-table-bg: transparent;
+  --bs-table-accent-bg: transparent;
+  --bs-table-striped-color: #212529;
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+  --bs-table-active-color: #212529;
+  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+  --bs-table-hover-color: #212529;
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  vertical-align: top;
+  border-color: #dee2e6;
+  padding: 0.4em;
+}
+
+.detailContent table {
+	display: table;
+	text-indent: initial;
+	caption-side: bottom;
+	border: 1px double #b3b3b3;
+	border-collapse: collapse;
+	border-spacing: 0;
+	height: 100%;
+	width: 100%;
+	padding: 0.4em;
+}
+
+.detailContent td {
+    border: 1px solid #444444;
+    border-color: #ccc;
+    padding: 0.4em;
+  }
 
 /* popup */
 .popupHeader {
@@ -60,8 +111,8 @@ img{
 
 /* media query */
 @media screen and (max-width:992px) {
-	img{
+	img {
 		max-width: 450px;
 		max-height: 400px;
 	}
-} 
+}

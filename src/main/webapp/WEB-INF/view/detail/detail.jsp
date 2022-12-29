@@ -73,7 +73,7 @@
 			<i class="fa fa-solid fa-eye fa-lg vertical-align"></i>
 			${boardView.boardHit }
 		</div>
-		<div class="col-12 px-3 py-5">${boardView.boardContent }</div>
+		<div class="col-12 px-3 py-5 detailContent">${boardView.boardContent }</div>
 		<div class="col-6 text-right my-4" id="likeIconBox">
 			<i class="fa fa-solid fa-thumbs-up fa-2x likeDislikeImg"
 				onclick="likeBtnClick(${boardView.boardId})" id="likeBtn"></i><span

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -84,7 +85,13 @@ public class DetailController {
 
 	@GetMapping("myOwnDetail")
 	public String myOwnDetail(@RequestParam("id") int id, HttpServletResponse response, Model model,
-			Principal principal) {
+			Principal principal, HttpServletRequest request) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		String userId = principal.getName();
 
@@ -101,7 +108,14 @@ public class DetailController {
 	}
 
 	@GetMapping("updateDetail")
-	public String updateDetail(@RequestParam("id") int id, @RequestParam("ct") String ct, Model model) {
+	public String updateDetail(@RequestParam("id") int id, @RequestParam("ct") String ct, Model model,
+			HttpServletResponse response, HttpServletRequest request) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		BoardView boardView = boardService.getDetailBoard(id);
@@ -130,7 +144,14 @@ public class DetailController {
 	}
 
 	@GetMapping("updateMyDetail")
-	public String updateMyDetail(@RequestParam("id") int id, Model model) {
+	public String updateMyDetail(@RequestParam("id") int id, Model model, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		MyBoard board = boardService.getMyDetailBoard(id);
 		model.addAttribute("board", board);
@@ -359,16 +380,16 @@ public class DetailController {
 	@GetMapping("getComments")
 	public Map<Object, Object> getComments(@RequestParam("boardId") int id,
 			@RequestParam(value = "commentPage", defaultValue = "1") Integer page, Model model) {
-		
+
 		List<CommentView> comments = commentService.getComments(id, page);
 		model.addAttribute("commentPage", page);
-		
+
 		BoardView bv = boardService.getDetailBoard(id);
 
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("commentCount", bv.getCommentCount());
 		map.put("comments", comments);
-		
+
 		return map;
 	}
 

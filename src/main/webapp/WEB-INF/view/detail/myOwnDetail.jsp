@@ -25,7 +25,7 @@
 
 		<div class="col-9 pb-3 border-bottom fw-bold" id="detailTitle">${board.myBoardTitle }</div>
 		<div class="col-3 pb-3  border-bottom text-muted text-right">${board.myBoardDate }</div>
-		<div class="col-12 px-3 py-5">${board.myBoardContent }</div>
+		<div class="col-12 px-3 py-5 detailContent">${board.myBoardContent }</div>
 		<c:if test="${board.userId == userId }">
 			<div class="col-12 my-4 text-right px-5">
 				<a

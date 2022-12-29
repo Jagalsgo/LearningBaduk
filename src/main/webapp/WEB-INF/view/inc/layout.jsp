@@ -25,14 +25,14 @@
 	src="${pageContext.request.contextPath }/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/ckeditor5/build/ckeditor.js"></script>
-<script
+<!-- <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
 	integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"
 	integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 <title>Learning Baduk</title>
 
 <style>
@@ -49,15 +49,20 @@
 	<tiles:insertAttribute name="main"></tiles:insertAttribute>
 
 	<script>
+	
 		ClassicEditor
 			.create( document.querySelector( '#ckeditor' ), {
 				ckfinder: {
 			        uploadUrl: '${pageContext.request.contextPath }/file/imgUpload'
+				},
+				mediaEmbed: {
+				      previewsInData: true
 				}
 			} )
 			.catch( error => {
 			    
 			} );
+			
 	</script>
 
 </body>

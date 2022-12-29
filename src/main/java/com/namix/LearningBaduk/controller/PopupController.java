@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,14 @@ public class PopupController {
 	MessageService messageService;
 
 	@GetMapping("userProfile")
-	public String userProfile(@RequestParam("userId") String userId, Model model) {
+	public String userProfile(@RequestParam("userId") String userId, Model model, HttpServletResponse response,
+			HttpServletRequest request) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		User user = userService.getUser(userId);
 		model.addAttribute("user", user);
@@ -45,7 +53,14 @@ public class PopupController {
 	}
 
 	@GetMapping("reportUser")
-	public String reportUser(@RequestParam("userId") String userId, Model model) {
+	public String reportUser(@RequestParam("userId") String userId, Model model, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		User user = userService.getUser(userId);
 		model.addAttribute("user", user);
@@ -55,7 +70,14 @@ public class PopupController {
 
 	@GetMapping("userReports")
 	public String userReports(@RequestParam("userId") String userId,
-			@RequestParam(value = "p", defaultValue = "1") Integer page, Model model) {
+			@RequestParam(value = "p", defaultValue = "1") Integer page, Model model, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		User user = userService.getUser(userId);
 		List<ReportList> userReportList = userService.getUserReportList(userId, page);
@@ -71,7 +93,14 @@ public class PopupController {
 
 	@GetMapping("userReportDetail")
 	public String userReportDetail(@RequestParam("id") int id,
-			@RequestParam(value = "p", defaultValue = "1") Integer page, Model model) {
+			@RequestParam(value = "p", defaultValue = "1") Integer page, Model model, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		ReportList reportList = userService.getReport(id);
 		model.addAttribute("report", reportList);
@@ -84,7 +113,14 @@ public class PopupController {
 	@GetMapping("receivedMessage")
 	public String receivedMessage(@RequestParam(value = "p", defaultValue = "1") Integer page,
 			@RequestParam(value = "f", defaultValue = "messageTitle") String field,
-			@RequestParam(value = "q", defaultValue = "") String query, Model model, Principal principal) {
+			@RequestParam(value = "q", defaultValue = "") String query, Model model, Principal principal,
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		String receiver = principal.getName();
 		List<MessageView> messages = messageService.getMessages(page, field, query, "receiver", receiver,
@@ -101,7 +137,14 @@ public class PopupController {
 	@GetMapping("sentMessage")
 	public String sentMessage(@RequestParam(value = "p", defaultValue = "1") Integer page,
 			@RequestParam(value = "f", defaultValue = "messageTitle") String field,
-			@RequestParam(value = "q", defaultValue = "") String query, Model model, Principal principal) {
+			@RequestParam(value = "q", defaultValue = "") String query, Model model, Principal principal,
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		String sender = principal.getName();
 		List<MessageView> messages = messageService.getMessages(page, field, query, "sender", sender, "deleteBySender");
@@ -116,7 +159,14 @@ public class PopupController {
 
 	@GetMapping("receivedMessageDetail")
 	public String receivedMessageDetail(@RequestParam("id") int id,
-			@RequestParam(value = "p", defaultValue = "1") Integer page, Model model) {
+			@RequestParam(value = "p", defaultValue = "1") Integer page, Model model, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		MessageView messageView = messageService.getMessage(id);
 		model.addAttribute("messageView", messageView);
@@ -128,7 +178,14 @@ public class PopupController {
 
 	@GetMapping("sentMessageDetail")
 	public String sentMessageDetail(@RequestParam("id") int id,
-			@RequestParam(value = "p", defaultValue = "1") Integer page, Model model) {
+			@RequestParam(value = "p", defaultValue = "1") Integer page, Model model, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		MessageView messageView = messageService.getMessage(id);
 		model.addAttribute("messageView", messageView);
@@ -139,7 +196,14 @@ public class PopupController {
 	}
 
 	@GetMapping("sendMessage")
-	public String sendMessage(@RequestParam(value = "userId", required = false) String userId, Model model) {
+	public String sendMessage(@RequestParam(value = "userId", required = false) String userId, Model model,
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		// Prevent URL Approach
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 
 		User user = userService.getUser(userId);
 		model.addAttribute("user", user);
