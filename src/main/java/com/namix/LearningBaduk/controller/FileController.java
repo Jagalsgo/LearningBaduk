@@ -28,16 +28,12 @@ public class FileController {
 	public String imgUpload(HttpServletRequest request, HttpServletResponse response,
 			MultipartHttpServletRequest multiFile) throws IOException {
 
-		System.out.println("kimUpload Controller");
-		
 		JsonObject json = new JsonObject();
 		PrintWriter printWriter = null;
 		OutputStream out = null;
 		MultipartFile file = multiFile.getFile("upload");
 
 		if (file.getSize() > 0) {
-			
-			System.out.println("file size > 0");
 			
 			String originFileName = file.getOriginalFilename();
 

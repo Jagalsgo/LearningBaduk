@@ -68,17 +68,17 @@
 	</insert>
 
 	<insert id="addProfileImg">
-		insert into userProfileImg(imgName, imgPath, userId)
+		insert into userprofileimg(imgName, imgPath, userId)
 		values(#{imgName}, #{imgUrl}, #{userId})
 	</insert>
 
 	<delete id="deleteProfileImg">
-		delete from userProfileImg where userId = #{userId}
+		delete from userprofileimg where userId = #{userId}
 	</delete>
 
 	<select id="getProfileImg"
 		resultType="com.namix.LearningBaduk.entity.UserProfileImg">
-		select * from userProfileImg where userId = #{userId}
+		select * from userprofileimg where userId = #{userId}
 	</select>
 
 	<update id="editProfile">
@@ -87,12 +87,12 @@
 	</update>
 
 	<update id="addUserProfileImg">
-		update user set userProfileImg = #{imgUrl} where
+		update user set userprofileimg = #{imgUrl} where
 		userId = #{userId}
 	</update>
 
 	<update id="deleteUserProfileImg">
-		update user set userProfileImg = null where userId =
+		update user set userprofileimg = null where userId =
 		#{userId};
 	</update>
 

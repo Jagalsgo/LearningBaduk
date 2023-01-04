@@ -74,23 +74,28 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public int emailOverlapCheck(String email) {
-		
+
 		User user = userDao.emailOverlapCheck(email);
-		
-		if(user == null) {
+
+		if (user == null) {
 			return 0;
 		}
-		
-		if(user.isEmailAuth()) {
+
+		if (user.isEmailAuth()) {
 			return 1;
-		}else {
+		} else {
 			return -1;
 		}
-		
+
 	}
 
 	@Override
 	public void editProfileImg(MultipartFile file, HttpServletRequest request, String userId) throws IOException {
+
+		String originFileName = file.getOriginalFilename();
+		
+		// Filename Extension
+		String formatName = originFileName.substring(originFileName.lastIndexOf(".") + 1).toLowerCase();
 
 		// Image File Path
 		String imgPath = request.getServletContext().getRealPath("/profileImg");
@@ -102,8 +107,10 @@ public class UserServiceImp implements UserService {
 		}
 
 		// Random Image Name
-		String imgName = UUID.randomUUID().toString();
+		String imgName = UUID.randomUUID().toString() + formatName;
 		imgPath = imgPath + "/" + imgName;
+		
+		// File Url
 		String imgUrl = request.getContextPath() + "/profileImg/" + imgName;
 
 		byte[] bytes = file.getBytes();
