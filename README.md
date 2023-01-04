@@ -12,7 +12,7 @@
 ## 기술 및 환경
 - OS : windows
 - DB : MySQL 8.0.23
-- Server : heroku
+- Server : aws
 - Framework : spring boot 2.6.7, myBatis 2.2.2, bootstrap
 - language : java8
 - Tool : eclipse, mysqlWorkBench
