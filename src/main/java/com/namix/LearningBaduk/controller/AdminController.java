@@ -62,11 +62,11 @@ public class AdminController {
 
 		BoardView boardView = boardService.getDetailBoard(id);
 		int boardCount = boardService.getPageCount(category.getCategoryBoard());
-		int detailsPage = detailService.getDetailsPage(id);
+		// ronaldo int detailsPage = detailService.getDetailsPage(id);
 
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("boardCount", boardCount);
-		model.addAttribute("detailsPage", detailsPage);
+		// ronaldo model.addAttribute("detailsPage", detailsPage);
 		model.addAttribute("category", category);
 
 		// Prevent View Count Duplication Use Cookie

@@ -5,7 +5,7 @@ $(document).ready(function() {
 	boardUserId = $('#boardUserId').val();
 	category = $('#category').val();
 	categoryCt = $('#categoryCt').val();
-	detailsPage = $('#detailsPage').val();
+	detailsPage = getDetailsPage(boardId);
 	commentCount = $('#commentCountJs').val();
 	rv = false;
 
@@ -417,6 +417,31 @@ function getBoards(boardPage) {
 		}
 
 	});
+
+}
+
+// ronaldo Get Detail's Page
+function getDetailsPage(boardId) {
+
+	var detailsPage;
+
+	$.ajax({
+		url: "/detail/getDetailsPage",
+		type: "GET",
+		async: false,
+		data: {
+			"category": category,
+			"boardId": boardId
+		},
+		success: function(data) {
+			detailsPage = data;
+		},
+		error: function(error) {
+			alert('error : ' + error);
+		}
+	})
+
+	return detailsPage;
 
 }
 

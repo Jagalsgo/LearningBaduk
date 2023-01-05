@@ -101,18 +101,37 @@
 		</div>
 
 		<!-- Write Board -->
-		<sec:authorize access="isAuthenticated">
-			<div class="col-sm-3 col-md-2" id="goToWrite">
-				<form action="/detail/writeDetail">
-					<input type="hidden" id="writeCt" name="writeCt"
-						value="${category.ct }">
-					<button class="btn btn-sm btn-secondary" id="goToWriteBtn"
-						type="submit">
-						<i class="fa fa-solid fa-pen"></i> 글작성
-					</button>
-				</form>
-			</div>
-		</sec:authorize>
+		<c:choose>
+			<%-- Notice, Schedule Board --%>
+			<c:when test="${category.ct == 'schedule' || category.ct == 'notice'}">
+				<sec:authorize access="hasAnyRole('ADMIN')">
+					<div class="col-sm-3 col-md-2" id="goToWrite">
+						<form action="/detail/writeDetail">
+							<input type="hidden" id="writeCt" name="writeCt"
+								value="${category.ct }">
+							<button class="btn btn-sm btn-secondary" id="goToWriteBtn"
+								type="submit">
+								<i class="fa fa-solid fa-pen"></i> 글작성
+							</button>
+						</form>
+					</div>
+				</sec:authorize>
+			</c:when>
+			<c:otherwise>
+				<sec:authorize access="isAuthenticated">
+					<div class="col-sm-3 col-md-2" id="goToWrite">
+						<form action="/detail/writeDetail">
+							<input type="hidden" id="writeCt" name="writeCt"
+								value="${category.ct }">
+							<button class="btn btn-sm btn-secondary" id="goToWriteBtn"
+								type="submit">
+								<i class="fa fa-solid fa-pen"></i> 글작성
+							</button>
+						</form>
+					</div>
+				</sec:authorize>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>
 

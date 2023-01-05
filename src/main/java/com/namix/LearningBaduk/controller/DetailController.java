@@ -52,11 +52,11 @@ public class DetailController {
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		BoardView boardView = boardService.getDetailBoard(id);
 		int boardCount = boardService.getPageCount(category.getCategoryBoard());
-		int detailsPage = detailService.getDetailsPage(id);
+		// ronaldo int detailsPage = detailService.getDetailsPage(id);
 
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("boardCount", boardCount);
-		model.addAttribute("detailsPage", detailsPage);
+		// ronaldo model.addAttribute("detailsPage", detailsPage);
 		model.addAttribute("category", category);
 
 		// Prevent View Count Duplication Use Cookie
@@ -97,11 +97,11 @@ public class DetailController {
 
 		MyBoard board = boardService.getMyDetailBoard(id);
 		int boardCount = boardService.getMyOwnPageCount(userId);
-		int detailsPage = boardService.getMyDetailsPage(id);
+		// ronaldo int detailsPage = boardService.getMyDetailsPage(id);
 
 		model.addAttribute("board", board);
 		model.addAttribute("boardCount", boardCount);
-		model.addAttribute("detailsPage", detailsPage);
+		// ronaldo model.addAttribute("detailsPage", detailsPage);
 
 		return "detail.myOwnDetail";
 
@@ -413,6 +413,27 @@ public class DetailController {
 		List<MyBoard> boards = boardService.getMyOwnBoards(boardPage, "", userId);
 		model.addAttribute("boardPage", boardPage);
 		return boards;
+
+	}
+
+	// ronaldo
+	@ResponseBody
+	@GetMapping("getDetailsPage")
+	public int getDetailsPage(@RequestParam("boardId") Integer boardId, @RequestParam("category") String category) {
+
+		int detailsPage = detailService.getDetailsPage(boardId, category);
+		return detailsPage;
+
+	}
+
+	// ronaldo
+	@ResponseBody
+	@GetMapping("getMyDetailsPage")
+	public int getMyDetailsPage(@RequestParam("boardId") Integer boardId, Principal principal) {
+
+		String userId = principal.getName();
+		int detailsPage = detailService.getMyDetailsPage(boardId, userId);
+		return detailsPage;
 
 	}
 

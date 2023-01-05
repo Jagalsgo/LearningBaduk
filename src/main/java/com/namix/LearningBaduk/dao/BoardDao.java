@@ -34,9 +34,9 @@ public interface BoardDao {
 
 	int getUsersLastMyBoardId(String userId);
 
-	int getMyDetailsRowNumber(int id);
+	int getMyDetailsRowNumber(int id, String userId);
 
-	int getDetailsRowNumber(int id);
+	int getDetailsRowNumber(int id, String category);
 
 	String getBoardsUser(int id);
 

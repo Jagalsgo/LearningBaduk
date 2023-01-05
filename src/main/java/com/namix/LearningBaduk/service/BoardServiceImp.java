@@ -311,19 +311,6 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int getMyDetailsPage(int id) {
-
-		int detailsRowNumber = boardDao.getMyDetailsRowNumber(id) - 1;
-		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
-
-		if (detailsPage <= 1) {
-			detailsPage = 1;
-		}
-
-		return detailsPage;
-	}
-
-	@Override
 	public int getUsersLastBoardId(String userId) {
 		return boardDao.getUsersLastBoardId(userId);
 	}

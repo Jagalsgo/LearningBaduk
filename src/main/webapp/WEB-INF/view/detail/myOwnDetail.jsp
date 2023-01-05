@@ -20,8 +20,8 @@
 		<sec:authentication property="principal.username" var="userId" />
 		<input type="hidden" value="${board.myBoardId }" id="boardId"
 			name="boardId"> <input type="hidden" value="${userId }"
-			id="userId" name="userId"> <input type="hidden"
-			value="${detailsPage }" id="detailsPage" name="detailsPage">
+			id="userId" name="userId"> <%-- ronaldo <input type="hidden"
+			value="${detailsPage }" id="detailsPage" name="detailsPage"> --%>
 
 		<div class="col-9 pb-3 border-bottom fw-bold" id="detailTitle">${board.myBoardTitle }</div>
 		<div class="col-3 pb-3  border-bottom text-muted text-right">${board.myBoardDate }</div>

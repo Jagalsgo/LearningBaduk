@@ -39,8 +39,6 @@ public interface BoardService {
 
 	MyBoard getMyDetailBoard(int id);
 
-	int getMyDetailsPage(int id);
-
 	List<BoardView> getReportBoards(Integer page, String field, String query);
 
 	int getReportPageCount(String field, String query);

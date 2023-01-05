@@ -30,8 +30,10 @@ public interface DetailService {
 
 	int getDislikeCount(int id);
 
-	int getDetailsPage(int id);
+	int getDetailsPage(int id, String category);
 
 	void addHit(int id);
+
+	int getMyDetailsPage(int id, String userId);
 
 }

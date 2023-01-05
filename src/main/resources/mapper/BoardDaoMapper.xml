@@ -109,13 +109,13 @@
 	<select id="getDetailsRowNumber" resultType="int">
 		select sb.rn from
 		(select b.*, row_number() over(order by boardId desc) as rn from board
-		as b) as sb where boardId = #{id};
+		as b where boardCategory = #{category}) as sb where boardId = #{id};
 	</select>
 
 	<select id="getMyDetailsRowNumber" resultType="int">
 		select sb.rn from
 		(select b.*, row_number() over(order by myBoardId desc) as rn from
-		myboard as b) as sb where myBoardId = #{id};
+		myboard as b where userId = #{userId}) as sb where myBoardId = #{id};
 	</select>
 
 	<select id="getCategory" resultType="String">

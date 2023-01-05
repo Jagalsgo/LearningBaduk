@@ -75,9 +75,9 @@ public class DetailServiceImp implements DetailService {
 	}
 
 	@Override
-	public int getDetailsPage(int id) {
+	public int getDetailsPage(int id, String category) {
 
-		int detailsRowNumber = boardDao.getDetailsRowNumber(id) - 1;
+		int detailsRowNumber = boardDao.getDetailsRowNumber(id, category) - 1;
 		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
 
 		if (detailsPage <= 1) {
@@ -91,6 +91,19 @@ public class DetailServiceImp implements DetailService {
 	public void addHit(int id) {
 		detailDao.addHit(id);
 
+	}
+
+	@Override
+	public int getMyDetailsPage(int id, String userId) {
+		
+		int detailsRowNumber = boardDao.getMyDetailsRowNumber(id, userId) - 1;
+		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
+
+		if (detailsPage <= 1) {
+			detailsPage = 1;
+		}
+
+		return detailsPage;
 	}
 
 }

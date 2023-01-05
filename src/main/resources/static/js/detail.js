@@ -5,7 +5,8 @@ $(document).ready(function() {
 	boardUserId = $('#boardUserId').val();
 	category = $('#category').val();
 	categoryCt = $('#categoryCt').val();
-	detailsPage = $('#detailsPage').val();
+	// ronaldo detailsPage = $('#detailsPage').val();
+	detailsPage = getDetailsPage(boardId);
 	commentCount = $('#commentCountJs').val();
 	rv = false;
 
@@ -27,15 +28,11 @@ $(document).ready(function() {
 	// Comment Alarm 
 	if (localStorage.getItem('page')) {
 
-		console.log(localStorage.getItem('page'));
-		console.log(localStorage.getItem('commentId'));
-
 		getComments(localStorage.getItem('page'));
 		localStorage.removeItem('page');
 
 		setTimeout(function() {
 			var offset = $('#commentIdIs' + localStorage.getItem('commentId')).offset(); // Get Comment's Offset
-			console.log(offset);
 			$("html, body").animate({ scrollTop: offset.top }, 400); // View Comment
 			localStorage.removeItem('commentId');
 		}, 500)
@@ -44,6 +41,7 @@ $(document).ready(function() {
 		getComments(1);
 	}
 
+	// ronaldo
 	getBoards(detailsPage);
 
 })
@@ -458,6 +456,31 @@ function getBoards(boardPage) {
 		}
 
 	});
+
+}
+
+// ronaldo Get Detail's Page
+function getDetailsPage(boardId) {
+
+	var detailsPage;
+
+	$.ajax({
+		url: "/detail/getDetailsPage",
+		type: "GET",
+		async: false,
+		data: {
+			"category": category,
+			"boardId": boardId
+		},
+		success: function(data) {
+			detailsPage = data;
+		},
+		error: function(error) {
+			alert('error : ' + error);
+		}
+	})
+
+	return detailsPage;
 
 }
 

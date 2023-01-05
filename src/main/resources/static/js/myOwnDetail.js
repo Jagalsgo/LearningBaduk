@@ -2,8 +2,7 @@ $(document).ready(function(){
 	
 	boardId = $('#boardId').val();
 	userId = $('#userId').val();
-	detailsPage = $('#detailsPage').val();
-
+	detailsPage = getDetailsPage(boardId);
 	getBoards(detailsPage);
 	
 })
@@ -50,4 +49,26 @@ function getBoards(boardPage){
 		
 	});
 	
+}
+
+// ronaldo Get My Detail's Page
+function getDetailsPage(boardId) {
+	
+	var detailsPage;
+	
+	$.ajax({
+		url: "/detail/getMyDetailsPage",
+		type: "GET",
+		async: false,
+		data: { "boardId": boardId },
+		success: function(data) {
+			detailsPage = data;
+		},
+		error: function(error) {
+			alert('error : ' + error);
+		}
+	})
+	
+	return detailsPage;
+
 }
