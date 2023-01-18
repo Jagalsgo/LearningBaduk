@@ -12,7 +12,7 @@
 ## 기술 및 환경
 - OS : windows
 - DB : MySQL 8.0.23
-- Server : aws
+- Server : AWS tomcat8
 - Framework : spring boot 2.6.7, myBatis 2.2.2, bootstrap
 - language : java8
 - Tool : eclipse, mysqlWorkBench
@@ -26,7 +26,7 @@
 
 ## 프로젝트 진행 중 겪은 어려움
 - 스프링 시큐리티 비밀번호 암호화를 이용한 로그인, DB를 통한 회원 정보 관리
-- 로컬에서 작동하지만 배포할 때 작동하지 않는 어려움 (@mapper 추가, 폴더 위치 변경)
+- 로컬에서 작동하지만 배포할 때 작동하지 않는 어려움
 - ec2에서 war를 배포하고 db, elb, dns 등을 연동하는 환경 설정
 
 ## 사이트 설명
