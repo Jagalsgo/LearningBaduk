@@ -68,3 +68,7 @@
 <br/><br/><br/><br/><br/>
 ![admin page](https://user-images.githubusercontent.com/66861741/208292434-3a022973-9312-4e4a-91e6-a66e4382c760.PNG)
 ### ✏️ 관리자 화면입니다. 이곳에서 신고당한 내역을 확인할 수 있고 회원 관리도 가능합니다.
+<br/><br/><br/><br/><br/><br/><br/>
+
+## ERD
+![learningbaduk erd](https://user-images.githubusercontent.com/66861741/213089523-2e5e0ffc-a6c5-4f6d-9fbe-a85841d88af4.png)
