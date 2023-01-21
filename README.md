@@ -30,7 +30,7 @@
 - ec2에서 war를 배포하고 db, elb, dns 등을 연동하는 환경 설정
 
 ## 사이트 설명
-<br/><br/><br/><br/><br/>
+<br/><br/><br/>
 ### 테스트 아이디 : idman6, 비밀번호 : manman1!
 <br/><br/><br/>
 ![index 페이지](https://user-images.githubusercontent.com/66861741/208291845-859aa0fa-92c2-413f-bdd8-1be53b3ff7b1.PNG)
