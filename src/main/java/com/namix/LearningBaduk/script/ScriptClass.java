@@ -3,6 +3,7 @@ package com.namix.LearningBaduk.script;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ScriptClass {
@@ -40,6 +41,14 @@ public class ScriptClass {
 		PrintWriter out = response.getWriter();
 		out.println("<script>history.back()</script> ");
 		out.flush();
+	}
+	
+	public static void preventUrlApproach(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		init(response);
+		if (request.getHeader("REFERER") == null) {
+			ScriptClass.alert(response, "옳지 않은 접근입니다.");
+			ScriptClass.historyBack(response);
+		}
 	}
 
 }

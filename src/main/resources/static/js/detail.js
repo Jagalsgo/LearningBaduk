@@ -5,7 +5,6 @@ $(document).ready(function() {
 	boardUserId = $('#boardUserId').val();
 	category = $('#category').val();
 	categoryCt = $('#categoryCt').val();
-	// ronaldo detailsPage = $('#detailsPage').val();
 	detailsPage = getDetailsPage(boardId);
 	commentCount = $('#commentCountJs').val();
 	rv = false;
@@ -41,7 +40,6 @@ $(document).ready(function() {
 		getComments(1);
 	}
 
-	// ronaldo
 	getBoards(detailsPage);
 
 })
@@ -459,7 +457,7 @@ function getBoards(boardPage) {
 
 }
 
-// ronaldo Get Detail's Page
+// Get Detail's Page
 function getDetailsPage(boardId) {
 
 	var detailsPage;

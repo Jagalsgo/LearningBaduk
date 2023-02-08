@@ -52,11 +52,9 @@ public class DetailController {
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		BoardView boardView = boardService.getDetailBoard(id);
 		int boardCount = boardService.getPageCount(category.getCategoryBoard());
-		// ronaldo int detailsPage = detailService.getDetailsPage(id);
 
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("boardCount", boardCount);
-		// ronaldo model.addAttribute("detailsPage", detailsPage);
 		model.addAttribute("category", category);
 
 		// Prevent View Count Duplication Use Cookie
@@ -88,20 +86,14 @@ public class DetailController {
 			Principal principal, HttpServletRequest request) throws IOException {
 
 		// Prevent URL Approach
-		if (request.getHeader("REFERER") == null) {
-			ScriptClass.alert(response, "옳지 않은 접근입니다.");
-			ScriptClass.historyBack(response);
-		}
+		ScriptClass.preventUrlApproach(request, response);
 
 		String userId = principal.getName();
-
 		MyBoard board = boardService.getMyDetailBoard(id);
 		int boardCount = boardService.getMyOwnPageCount(userId);
-		// ronaldo int detailsPage = boardService.getMyDetailsPage(id);
 
 		model.addAttribute("board", board);
 		model.addAttribute("boardCount", boardCount);
-		// ronaldo model.addAttribute("detailsPage", detailsPage);
 
 		return "detail.myOwnDetail";
 
@@ -112,10 +104,7 @@ public class DetailController {
 			HttpServletResponse response, HttpServletRequest request) throws IOException {
 
 		// Prevent URL Approach
-		if (request.getHeader("REFERER") == null) {
-			ScriptClass.alert(response, "옳지 않은 접근입니다.");
-			ScriptClass.historyBack(response);
-		}
+		ScriptClass.preventUrlApproach(request, response);
 
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		BoardView boardView = boardService.getDetailBoard(id);
@@ -148,10 +137,7 @@ public class DetailController {
 			HttpServletResponse response) throws IOException {
 
 		// Prevent URL Approach
-		if (request.getHeader("REFERER") == null) {
-			ScriptClass.alert(response, "옳지 않은 접근입니다.");
-			ScriptClass.historyBack(response);
-		}
+		ScriptClass.preventUrlApproach(request, response);
 
 		MyBoard board = boardService.getMyDetailBoard(id);
 		model.addAttribute("board", board);
@@ -416,7 +402,6 @@ public class DetailController {
 
 	}
 
-	// ronaldo
 	@ResponseBody
 	@GetMapping("getDetailsPage")
 	public int getDetailsPage(@RequestParam("boardId") Integer boardId, @RequestParam("category") String category) {
@@ -426,7 +411,6 @@ public class DetailController {
 
 	}
 
-	// ronaldo
 	@ResponseBody
 	@GetMapping("getMyDetailsPage")
 	public int getMyDetailsPage(@RequestParam("boardId") Integer boardId, Principal principal) {

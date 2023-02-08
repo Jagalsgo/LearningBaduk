@@ -420,7 +420,7 @@ function getBoards(boardPage) {
 
 }
 
-// ronaldo Get Detail's Page
+// Get Detail's Page
 function getDetailsPage(boardId) {
 
 	var detailsPage;

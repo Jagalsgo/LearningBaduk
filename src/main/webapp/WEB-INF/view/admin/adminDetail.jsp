@@ -30,8 +30,7 @@
 			id="userId" name="userId"> <input type="hidden"
 			value="${category.categoryBoard }" id="category" name="category">
 		<input type="hidden" value="${category.ct }" id="categoryCt"
-			name="categoryCt"><%-- ronaldo  <input type="hidden"
-			value="${detailsPage }" id="detailsPage" name="detailsPage"> --%>
+			name="categoryCt">
 
 		<div class="col-12 pb-3 border-bottom fw-bold" id="detailTitle">${boardView.boardTitle }</div>
 		<div class="col-7 p-3 border-bottom userMenu">
