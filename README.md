@@ -12,7 +12,7 @@
 ## 기술 및 환경
 - OS : windows
 - DB : MySQL 8.0.23
-- Server : aws
+- Server : AWS tomcat8
 - Framework : spring boot 2.6.7, myBatis 2.2.2, bootstrap
 - language : java8
 - Tool : eclipse, mysqlWorkBench
@@ -26,10 +26,12 @@
 
 ## 프로젝트 진행 중 겪은 어려움
 - 스프링 시큐리티 비밀번호 암호화를 이용한 로그인, DB를 통한 회원 정보 관리
-- 로컬에서 작동하지만 배포할 때 작동하지 않는 어려움 (@mapper 추가, 폴더 위치 변경)
+- 로컬에서 작동하지만 배포할 때 작동하지 않는 어려움
 - ec2에서 war를 배포하고 db, elb, dns 등을 연동하는 환경 설정
 
 ## 사이트 설명
+### 테스트 아이디 : idman6, 비밀번호 : manman1! 
+<br/><br/>
 ![index 페이지](https://user-images.githubusercontent.com/66861741/208291845-859aa0fa-92c2-413f-bdd8-1be53b3ff7b1.PNG)
 ### ✏️ 기본 index 화면입니다. 각 카테고리에 있는 최신 글들을 간략하게 보여줍니다.
 <br/><br/><br/><br/><br/>
@@ -68,3 +70,7 @@
 <br/><br/><br/><br/><br/>
 ![admin page](https://user-images.githubusercontent.com/66861741/208292434-3a022973-9312-4e4a-91e6-a66e4382c760.PNG)
 ### ✏️ 관리자 화면입니다. 이곳에서 신고당한 내역을 확인할 수 있고 회원 관리도 가능합니다.
+<br/><br/><br/><br/><br/><br/><br/>
+
+## ERD
+![learningbaduk erd](https://user-images.githubusercontent.com/66861741/213089523-2e5e0ffc-a6c5-4f6d-9fbe-a85841d88af4.png)
