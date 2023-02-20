@@ -15,6 +15,7 @@ import com.namix.LearningBaduk.dao.BoardDao;
 import com.namix.LearningBaduk.dao.DetailDao;
 import com.namix.LearningBaduk.dao.UserDao;
 import com.namix.LearningBaduk.entity.BoardView;
+import com.namix.LearningBaduk.entity.Category;
 import com.namix.LearningBaduk.entity.MyBoard;
 
 @Service
@@ -31,26 +32,14 @@ public class BoardServiceImp implements BoardService {
 	public Map<String, Object> getHomeBoards() {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		List<BoardView> freeBoards = boardDao.getBoards("freeBoard", 0, 5, "boardTitle", "");
-		List<BoardView> ruleBoards = boardDao.getBoards("ruleBoard", 0, 5, "boardTitle", "");
-		List<BoardView> patternBoards = boardDao.getBoards("patternBoard", 0, 5, "boardTitle", "");
-		List<BoardView> openingBoards = boardDao.getBoards("openingBoard", 0, 5, "boardTitle", "");
-		List<BoardView> endGameBoards = boardDao.getBoards("endGameBoard", 0, 5, "boardTitle", "");
-		List<BoardView> lifeDeathBoards = boardDao.getBoards("lifeDeathBoard", 0, 5, "boardTitle", "");
-		List<BoardView> quetionBoards = boardDao.getBoards("quetionBoard", 0, 5, "boardTitle", "");
-		List<BoardView> scheduleBoards = boardDao.getBoards("scheduleBoard", 0, 5, "boardTitle", "");
-		List<BoardView> noticeBoards = boardDao.getBoards("noticeBoard", 0, 5, "boardTitle", "");
 
-		map.put("free", freeBoards);
-		map.put("rule", ruleBoards);
-		map.put("pattern", patternBoards);
-		map.put("opening", openingBoards);
-		map.put("endGame", endGameBoards);
-		map.put("lifeDeath", lifeDeathBoards);
-		map.put("quetion", quetionBoards);
-		map.put("schedule", scheduleBoards);
-		map.put("notice", noticeBoards);
+		for (String ct : Category.ctList) {
+
+			String ctBoard = ct + "Board";
+			List<BoardView> ctBoards = boardDao.getBoards(ctBoard, 0, 5, "boardTitle", "");
+			map.put(ct, ctBoards);
+
+		}
 
 		return map;
 	}
@@ -71,37 +60,8 @@ public class BoardServiceImp implements BoardService {
 		for (int i = 0; i < boards.size(); i++) {
 
 			BoardView board = boards.get(i);
-			String oldBoardDateStr = board.getBoardDate();
-			SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-			Date oldBoardDate = new Date();
-			int compare = 1;
-
-			try {
-				oldBoardDate = parseFormat.parse(oldBoardDateStr);
-			} catch (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
-			}
-
-			Calendar now = Calendar.getInstance();
-			Calendar oldBoardDateCal = Calendar.getInstance();
-			oldBoardDateCal.setTime(oldBoardDate);
-
-			int yearDif = now.get(Calendar.YEAR) - oldBoardDateCal.get(Calendar.YEAR);
-			int monthDif = now.get(Calendar.MONTH) - oldBoardDateCal.get(Calendar.MONTH);
-			int dayDif = now.get(Calendar.DATE) - oldBoardDateCal.get(Calendar.DATE);
-
-			if (yearDif == 0 && monthDif == 0 && dayDif == 0) {
-				compare = 0;
-			}
-
-			if (compare >= 1) {
-				String newBoardDateStr = dateFormat.format(oldBoardDate);
-				board.setBoardDate(newBoardDateStr);
-			} else {
-				String newBoardDateStr = timeFormat.format(oldBoardDate);
-				board.setBoardDate(newBoardDateStr);
-			}
+			String newBoardDate = changeDateFormat(board.getBoardDate());
+			board.setBoardDate(newBoardDate);
 
 		}
 
@@ -112,38 +72,8 @@ public class BoardServiceImp implements BoardService {
 	public BoardView getDetailBoard(int id) {
 
 		BoardView board = boardDao.getDetailBoard(id);
-
-		String oldBoardDateStr = board.getBoardDate();
-		SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-		Date oldBoardDate = new Date();
-		int compare = 1;
-
-		try {
-			oldBoardDate = parseFormat.parse(oldBoardDateStr);
-		} catch (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
-		}
-
-		Calendar now = Calendar.getInstance();
-		Calendar oldBoardDateCal = Calendar.getInstance();
-		oldBoardDateCal.setTime(oldBoardDate);
-
-		int yearDif = now.get(Calendar.YEAR) - oldBoardDateCal.get(Calendar.YEAR);
-		int monthDif = now.get(Calendar.MONTH) - oldBoardDateCal.get(Calendar.MONTH);
-		int dayDif = now.get(Calendar.DATE) - oldBoardDateCal.get(Calendar.DATE);
-
-		if (yearDif == 0 && monthDif == 0 && dayDif == 0) {
-			compare = 0;
-		}
-
-		if (compare >= 1) {
-			String newBoardDateStr = dateFormat.format(oldBoardDate);
-			board.setBoardDate(newBoardDateStr);
-		} else {
-			String newBoardDateStr = timeFormat.format(oldBoardDate);
-			board.setBoardDate(newBoardDateStr);
-		}
+		String newBoardDate = changeDateFormat(board.getBoardDate());
+		board.setBoardDate(newBoardDate);
 
 		return board;
 
@@ -170,37 +100,8 @@ public class BoardServiceImp implements BoardService {
 		for (int i = 0; i < boards.size(); i++) {
 
 			BoardView board = boards.get(i);
-			String oldBoardDateStr = board.getBoardDate();
-			SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-			Date oldBoardDate = new Date();
-			int compare = 1;
-
-			try {
-				oldBoardDate = parseFormat.parse(oldBoardDateStr);
-			} catch (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
-			}
-
-			Calendar now = Calendar.getInstance();
-			Calendar oldBoardDateCal = Calendar.getInstance();
-			oldBoardDateCal.setTime(oldBoardDate);
-
-			int yearDif = now.get(Calendar.YEAR) - oldBoardDateCal.get(Calendar.YEAR);
-			int monthDif = now.get(Calendar.MONTH) - oldBoardDateCal.get(Calendar.MONTH);
-			int dayDif = now.get(Calendar.DATE) - oldBoardDateCal.get(Calendar.DATE);
-
-			if (yearDif == 0 && monthDif == 0 && dayDif == 0) {
-				compare = 0;
-			}
-
-			if (compare >= 1) {
-				String newBoardDateStr = dateFormat.format(oldBoardDate);
-				board.setBoardDate(newBoardDateStr);
-			} else {
-				String newBoardDateStr = timeFormat.format(oldBoardDate);
-				board.setBoardDate(newBoardDateStr);
-			}
+			String newBoardDate = changeDateFormat(board.getBoardDate());
+			board.setBoardDate(newBoardDate);
 
 		}
 
@@ -222,37 +123,8 @@ public class BoardServiceImp implements BoardService {
 		for (int i = 0; i < boards.size(); i++) {
 
 			MyBoard board = boards.get(i);
-			String oldBoardDateStr = board.getMyBoardDate();
-			SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-			Date oldBoardDate = new Date();
-			int compare = 1;
-
-			try {
-				oldBoardDate = parseFormat.parse(oldBoardDateStr);
-			} catch (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
-			}
-
-			Calendar now = Calendar.getInstance();
-			Calendar oldBoardDateCal = Calendar.getInstance();
-			oldBoardDateCal.setTime(oldBoardDate);
-
-			int yearDif = now.get(Calendar.YEAR) - oldBoardDateCal.get(Calendar.YEAR);
-			int monthDif = now.get(Calendar.MONTH) - oldBoardDateCal.get(Calendar.MONTH);
-			int dayDif = now.get(Calendar.DATE) - oldBoardDateCal.get(Calendar.DATE);
-
-			if (yearDif == 0 && monthDif == 0 && dayDif == 0) {
-				compare = 0;
-			}
-
-			if (compare >= 1) {
-				String newBoardDateStr = dateFormat.format(oldBoardDate);
-				board.setMyBoardDate(newBoardDateStr);
-			} else {
-				String newBoardDateStr = timeFormat.format(oldBoardDate);
-				board.setMyBoardDate(newBoardDateStr);
-			}
+			String newBoardDate = changeDateFormat(board.getMyBoardDate());
+			board.setMyBoardDate(newBoardDate);
 
 		}
 
@@ -263,38 +135,8 @@ public class BoardServiceImp implements BoardService {
 	public MyBoard getMyDetailBoard(int id) {
 
 		MyBoard board = boardDao.getMyDetailBoard(id);
-
-		String oldBoardDateStr = board.getMyBoardDate();
-		SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-		Date oldBoardDate = new Date();
-		int compare = 1;
-
-		try {
-			oldBoardDate = parseFormat.parse(oldBoardDateStr);
-		} catch (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
-		}
-
-		Calendar now = Calendar.getInstance();
-		Calendar oldBoardDateCal = Calendar.getInstance();
-		oldBoardDateCal.setTime(oldBoardDate);
-
-		int yearDif = now.get(Calendar.YEAR) - oldBoardDateCal.get(Calendar.YEAR);
-		int monthDif = now.get(Calendar.MONTH) - oldBoardDateCal.get(Calendar.MONTH);
-		int dayDif = now.get(Calendar.DATE) - oldBoardDateCal.get(Calendar.DATE);
-
-		if (yearDif == 0 && monthDif == 0 && dayDif == 0) {
-			compare = 0;
-		}
-
-		if (compare >= 1) {
-			String newBoardDateStr = dateFormat.format(oldBoardDate);
-			board.setMyBoardDate(newBoardDateStr);
-		} else {
-			String newBoardDateStr = timeFormat.format(oldBoardDate);
-			board.setMyBoardDate(newBoardDateStr);
-		}
+		String newBoardDate = changeDateFormat(board.getMyBoardDate());
+		board.setMyBoardDate(newBoardDate);
 
 		return board;
 
@@ -343,37 +185,8 @@ public class BoardServiceImp implements BoardService {
 		for (int i = 0; i < boards.size(); i++) {
 
 			BoardView board = boards.get(i);
-			String oldBoardDateStr = board.getBoardDate();
-			SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-			Date oldBoardDate = new Date();
-			int compare = 1;
-
-			try {
-				oldBoardDate = parseFormat.parse(oldBoardDateStr);
-			} catch (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
-			}
-
-			Calendar now = Calendar.getInstance();
-			Calendar oldBoardDateCal = Calendar.getInstance();
-			oldBoardDateCal.setTime(oldBoardDate);
-
-			int yearDif = now.get(Calendar.YEAR) - oldBoardDateCal.get(Calendar.YEAR);
-			int monthDif = now.get(Calendar.MONTH) - oldBoardDateCal.get(Calendar.MONTH);
-			int dayDif = now.get(Calendar.DATE) - oldBoardDateCal.get(Calendar.DATE);
-
-			if (yearDif == 0 && monthDif == 0 && dayDif == 0) {
-				compare = 0;
-			}
-
-			if (compare >= 1) {
-				String newBoardDateStr = dateFormat.format(oldBoardDate);
-				board.setBoardDate(newBoardDateStr);
-			} else {
-				String newBoardDateStr = timeFormat.format(oldBoardDate);
-				board.setBoardDate(newBoardDateStr);
-			}
+			String newBoardDate = changeDateFormat(board.getBoardDate());
+			board.setBoardDate(newBoardDate);
 
 		}
 
@@ -418,6 +231,46 @@ public class BoardServiceImp implements BoardService {
 		String categoryTmp = boardDao.getCategory(id);
 		String ct = categoryTmp.replace("Board", "");
 		return ct;
+	}
+
+	@Override
+	public String changeDateFormat(String oldBoardDateStr) {
+
+		SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+		Date oldBoardDate = new Date();
+		int compare = 1;
+		String newBoardDateStr = oldBoardDateStr;
+
+		try {
+			oldBoardDate = parseFormat.parse(oldBoardDateStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		Calendar now = Calendar.getInstance();
+		Calendar oldBoardDateCal = Calendar.getInstance();
+		oldBoardDateCal.setTime(oldBoardDate);
+
+		// Check Date Difference
+		int yearDif = now.get(Calendar.YEAR) - oldBoardDateCal.get(Calendar.YEAR);
+		int monthDif = now.get(Calendar.MONTH) - oldBoardDateCal.get(Calendar.MONTH);
+		int dayDif = now.get(Calendar.DATE) - oldBoardDateCal.get(Calendar.DATE);
+
+		if (yearDif == 0 && monthDif == 0 && dayDif == 0) {
+			compare = 0;
+		}
+
+		if (compare >= 1) /* Different Day */ {
+			newBoardDateStr = dateFormat.format(oldBoardDate);
+		} else /* Same Day */ {
+			newBoardDateStr = timeFormat.format(oldBoardDate);
+		}
+
+		return newBoardDateStr;
+
 	}
 
 }

@@ -6,6 +6,7 @@ public class Category {
 	private String categoryBoard;
 	private String categoryDetail;
 	private String categoryKor;
+	public static final String[] ctList = {"free", "rule", "pattern", "opening", "endGame", "lifeDeath", "quetion", "schedule", "notice"};
 	
 	public Category() {
 		// TODO Auto-generated constructor stub

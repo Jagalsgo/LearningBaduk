@@ -3,6 +3,7 @@ package com.namix.LearningBaduk.service;
 import java.util.List;
 import java.util.Map;
 
+import com.namix.LearningBaduk.entity.Board;
 import com.namix.LearningBaduk.entity.BoardView;
 import com.namix.LearningBaduk.entity.Comment;
 import com.namix.LearningBaduk.entity.CommentView;
@@ -56,5 +57,7 @@ public interface BoardService {
 	int reportBoard(int boardId, String userId);
 
 	String getCategory(int id);
+	
+	String changeDateFormat(String oldBoardDateStr);
 
 }

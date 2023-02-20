@@ -6,7 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.PropertySource;
 
-@SpringBootApplication
+@SpringBootApplication()
 @PropertySource(value = { "classpath:secretApplication.properties" })
 public class LearningBadukApplication extends SpringBootServletInitializer {
 

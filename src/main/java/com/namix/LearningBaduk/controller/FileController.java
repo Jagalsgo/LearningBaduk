@@ -34,7 +34,7 @@ public class FileController {
 		MultipartFile file = multiFile.getFile("upload");
 
 		if (file.getSize() > 0) {
-			
+
 			String originFileName = file.getOriginalFilename();
 
 			// Filename Extension
@@ -59,7 +59,7 @@ public class FileController {
 
 				// File Url
 				String fileUrl = request.getContextPath() + "/boardImg/" + newFileName;
-				
+
 				out = new FileOutputStream(new File(uploadPath));
 				out.write(bytes);
 				printWriter = response.getWriter();
@@ -70,7 +70,7 @@ public class FileController {
 				json.addProperty("fileName", newFileName);
 				json.addProperty("url", fileUrl);
 				printWriter.println(json);
-				
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
