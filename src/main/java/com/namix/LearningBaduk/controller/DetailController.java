@@ -58,24 +58,7 @@ public class DetailController {
 		model.addAttribute("category", category);
 
 		// Prevent View Count Duplication Use Cookie
-		Cookie[] cookies = request.getCookies();
-		Cookie viewCookie = null;
-
-		if (cookies != null && cookies.length > 0) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("cookie" + id)) {
-					viewCookie = cookies[i];
-				}
-			}
-		}
-		if (viewCookie == null) {
-
-			Cookie newCookie = new Cookie("cookie" + id, "|" + id + "|");
-			response.addCookie(newCookie);
-
-			detailService.addHit(id);
-
-		}
+		detailService.checkCookieBeforeAddHit(request, response, id);
 
 		return "detail.detail";
 
@@ -321,7 +304,7 @@ public class DetailController {
 		String userId = principal.getName();
 		String receiver = boardService.getBoardsUser(boardId);
 
-		Comment comment = commentService.postComment(userId, commentContent, boardId, receiver);
+		commentService.postComment(userId, commentContent, boardId, receiver);
 		BoardView bv = boardService.getDetailBoard(boardId);
 
 		Map<Object, Object> map = new HashMap<Object, Object>();

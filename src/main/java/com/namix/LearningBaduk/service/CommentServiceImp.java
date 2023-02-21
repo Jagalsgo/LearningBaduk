@@ -21,6 +21,8 @@ public class CommentServiceImp implements CommentService {
 	CommentDao commentDao;
 	@Autowired
 	AlarmDao alarmDao;
+	@Autowired
+	BoardService boardService;
 	
 	@Override
 	public List<CommentView> getComments(int id) {
@@ -34,42 +36,13 @@ public class CommentServiceImp implements CommentService {
 		int offset = 0 + (page - 1) * size;
 
 		List<CommentView> comments = commentDao.getComments(id, size, offset);
-
+		
 		for (int i = 0; i < comments.size(); i++) {
-
+			
 			Comment comment = comments.get(i);
-			String oldCommentDateStr = comment.getCommentDate();
-			SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-			Date oldCommentDate = new Date();
-			int compare = 1;
-
-			try {
-				oldCommentDate = parseFormat.parse(oldCommentDateStr);
-			} catch (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
-			}
-
-			Calendar now = Calendar.getInstance();
-			Calendar oldCommentDateCal = Calendar.getInstance();
-			oldCommentDateCal.setTime(oldCommentDate);
-
-			int yearDif = now.get(Calendar.YEAR) - oldCommentDateCal.get(Calendar.YEAR);
-			int monthDif = now.get(Calendar.MONTH) - oldCommentDateCal.get(Calendar.MONTH);
-			int dayDif = now.get(Calendar.DATE) - oldCommentDateCal.get(Calendar.DATE);
-
-			if (yearDif == 0 && monthDif == 0 && dayDif == 0) {
-				compare = 0;
-			}
-
-			if (compare >= 1) {
-				String newCommentDateStr = dateFormat.format(oldCommentDate);
-				comment.setCommentDate(newCommentDateStr);
-			} else {
-				String newCommentDateStr = timeFormat.format(oldCommentDate);
-				comment.setCommentDate(newCommentDateStr);
-			}
-
+			String newCommentDateStr = boardService.changeDateFormat(comment.getCommentDate());
+			comment.setCommentDate(newCommentDateStr);
+			
 		}
 
 		return comments;

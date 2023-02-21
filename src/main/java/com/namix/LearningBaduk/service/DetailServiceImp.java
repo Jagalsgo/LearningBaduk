@@ -1,5 +1,9 @@
 package com.namix.LearningBaduk.service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +17,7 @@ public class DetailServiceImp implements DetailService {
 	DetailDao detailDao;
 	@Autowired
 	BoardDao boardDao;
-	
+
 	@Override
 	public int writeDetail(String category, String title, String content, String userId) {
 		return detailDao.writeDetail(category, title, content, userId);
@@ -63,6 +67,11 @@ public class DetailServiceImp implements DetailService {
 	public int addDislike(int id, String userId) {
 		return detailDao.addDislike(id, userId);
 	}
+	
+	@Override
+	public void addHit(int id) {
+		detailDao.addHit(id);
+	}
 
 	@Override
 	public int getLikeCount(int id) {
@@ -88,14 +97,8 @@ public class DetailServiceImp implements DetailService {
 	}
 
 	@Override
-	public void addHit(int id) {
-		detailDao.addHit(id);
-
-	}
-
-	@Override
 	public int getMyDetailsPage(int id, String userId) {
-		
+
 		int detailsRowNumber = boardDao.getMyDetailsRowNumber(id, userId) - 1;
 		int detailsPage = (int) (Math.ceil(detailsRowNumber / 10) * 10) / 10 + 1;
 
@@ -104,6 +107,27 @@ public class DetailServiceImp implements DetailService {
 		}
 
 		return detailsPage;
+	}
+
+	@Override
+	public void checkCookieBeforeAddHit(HttpServletRequest request, HttpServletResponse response, int id) {
+
+		Cookie[] cookies = request.getCookies();
+		Cookie viewCookie = null;
+
+		if (cookies != null && cookies.length > 0) {
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals("cookie" + id)) {
+					viewCookie = cookies[i];
+				}
+			}
+		}
+		if (viewCookie == null) {
+			Cookie newCookie = new Cookie("cookie" + id, "|" + id + "|");
+			response.addCookie(newCookie);
+			addHit(id);
+		}
+
 	}
 
 }

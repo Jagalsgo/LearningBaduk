@@ -69,6 +69,16 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
+	public int getPageCount(String category) {
+		return getPageCount(category, "boardTitle", "");
+	}
+
+	@Override
+	public int getPageCount(String category, String field, String query) {
+		return boardDao.getPageCount(category, field, query);
+	}
+	
+	@Override
 	public BoardView getDetailBoard(int id) {
 
 		BoardView board = boardDao.getDetailBoard(id);
@@ -77,16 +87,6 @@ public class BoardServiceImp implements BoardService {
 
 		return board;
 
-	}
-
-	@Override
-	public int getPageCount(String category) {
-		return getPageCount(category, "boardTitle", "");
-	}
-
-	@Override
-	public int getPageCount(String category, String field, String query) {
-		return boardDao.getPageCount(category, field, query);
 	}
 
 	@Override
@@ -132,6 +132,16 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
+	public int getMyOwnPageCount(String userId) {
+		return boardDao.getMyOwnPageCount("", userId);
+	}
+
+	@Override
+	public int getMyOwnPageCount(String query, String userId) {
+		return boardDao.getMyOwnPageCount(query, userId);
+	}
+	
+	@Override
 	public MyBoard getMyDetailBoard(int id) {
 
 		MyBoard board = boardDao.getMyDetailBoard(id);
@@ -141,40 +151,7 @@ public class BoardServiceImp implements BoardService {
 		return board;
 
 	}
-
-	@Override
-	public int getMyOwnPageCount(String userId) {
-		return boardDao.getMyOwnPageCount("", userId);
-	}
-
-	@Override
-	public int getMyOwnPageCount(String query, String userId) {
-		return boardDao.getMyOwnPageCount(query, userId);
-	}
-
-	@Override
-	public int getUsersLastBoardId(String userId) {
-		return boardDao.getUsersLastBoardId(userId);
-	}
-
-	@Override
-	public String getBoardsUser(int id) {
-		return boardDao.getBoardsUser(id);
-	}
-
-	@Override
-	public int getUsersLastMyBoardId(String userId) {
-		return boardDao.getUsersLastMyBoardId(userId);
-	}
-
-	@Override
-	public void deleteBoards(List<Integer> chkArray) {
-		for (int i = 0; i < chkArray.size(); i++) {
-			int id = chkArray.get(i);
-			detailDao.deleteDetail(id);
-		}
-	}
-
+	
 	@Override
 	public List<BoardView> getReportBoards(Integer page, String field, String query) {
 		int size = 10;
@@ -193,10 +170,33 @@ public class BoardServiceImp implements BoardService {
 		return boards;
 
 	}
-
+	
 	@Override
 	public int getReportPageCount(String field, String query) {
 		return boardDao.getReportPageCount(field, query);
+	}
+	
+	@Override
+	public int reportBoard(int boardId, String userId) {
+
+		String boardIdString = Integer.toString(boardId);
+		int haveReported = boardDao.haveYouReported(boardIdString, userId);
+		if (haveReported >= 1) {
+			return -1;
+		} else {
+			boardDao.addBoardReport(boardId);
+			userDao.postReportList("board", boardIdString, "", userId);
+			return 1;
+		}
+
+	}
+
+	@Override
+	public void deleteBoards(List<Integer> chkArray) {
+		for (int i = 0; i < chkArray.size(); i++) {
+			int id = chkArray.get(i);
+			detailDao.deleteDetail(id);
+		}
 	}
 
 	@Override
@@ -212,18 +212,18 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int reportBoard(int boardId, String userId) {
+	public int getUsersLastBoardId(String userId) {
+		return boardDao.getUsersLastBoardId(userId);
+	}
+	
+	@Override
+	public int getUsersLastMyBoardId(String userId) {
+		return boardDao.getUsersLastMyBoardId(userId);
+	}
 
-		String boardIdString = Integer.toString(boardId);
-		int haveReported = boardDao.haveYouReported(boardIdString, userId);
-		if (haveReported >= 1) {
-			return -1;
-		} else {
-			boardDao.addBoardReport(boardId);
-			userDao.postReportList("board", boardIdString, "", userId);
-			return 1;
-		}
-
+	@Override
+	public String getBoardsUser(int id) {
+		return boardDao.getBoardsUser(id);
 	}
 
 	@Override

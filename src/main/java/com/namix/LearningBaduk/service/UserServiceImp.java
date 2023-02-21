@@ -80,13 +80,17 @@ public class UserServiceImp implements UserService {
 		if (user == null) {
 			return 0;
 		}
-
 		if (user.isEmailAuth()) {
 			return 1;
 		} else {
 			return -1;
 		}
 
+	}
+	
+	@Override
+	public UserProfileImg getProfileImg(String userId) {
+		return userDao.getProfileImg(userId);
 	}
 
 	@Override
@@ -135,12 +139,11 @@ public class UserServiceImp implements UserService {
 	@Override
 	public void deleteProfileImg(String userId) {
 		userDao.deleteProfileImg(userId);
-		// userDao.deleteUserProfileImg(userId);
 	}
-
+	
 	@Override
-	public UserProfileImg getProfileImg(String userId) {
-		return userDao.getProfileImg(userId);
+	public void deleteUserProfileImg(String userId) {
+		userDao.deleteUserProfileImg(userId);
 	}
 
 	@Override
@@ -149,11 +152,10 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public List<User> getReportUsers(int page, String field, String query) {
+	public List<ReportList> getUserReportList(String userId, int page) {
 		int size = 10;
 		int offset = 0 + (page - 1) * size;
-
-		return userDao.getReportUsers(offset, size, field, query);
+		return userDao.getUserReportList(userId, size, offset);
 	}
 
 	@Override
@@ -162,11 +164,10 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public List<ReportList> getUserReportList(String userId, int page) {
-
+	public List<User> getReportUsers(int page, String field, String query) {
 		int size = 10;
 		int offset = 0 + (page - 1) * size;
-		return userDao.getUserReportList(userId, size, offset);
+		return userDao.getReportUsers(offset, size, field, query);
 	}
 
 	@Override
@@ -183,19 +184,7 @@ public class UserServiceImp implements UserService {
 	public int getReportUserCount(String field, String query) {
 		return userDao.getReportUserCount(field, query);
 	}
-
-	@Override
-	public void initUserReports(List<String> chkArray) {
-		for (int i = 0; i < chkArray.size(); i++) {
-			String id = chkArray.get(i);
-			userDao.initUserReport(id);
-		}
-		for (int i = 0; i < chkArray.size(); i++) {
-			String id = chkArray.get(i);
-			userDao.deleteUserReportList(id);
-		}
-	}
-
+	
 	@Override
 	public int reportUser(String reportedUser, String reportContent, String reporter) {
 
@@ -211,8 +200,15 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public void deleteUserProfileImg(String userId) {
-		userDao.deleteUserProfileImg(userId);
+	public void initUserReports(List<String> chkArray) {
+		for (int i = 0; i < chkArray.size(); i++) {
+			String id = chkArray.get(i);
+			userDao.initUserReport(id);
+		}
+		for (int i = 0; i < chkArray.size(); i++) {
+			String id = chkArray.get(i);
+			userDao.deleteUserReportList(id);
+		}
 	}
 
 	@Override
