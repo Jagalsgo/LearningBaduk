@@ -32,6 +32,14 @@ $(document).ready(function() {
 
 })
 
+// Need Login
+function needLogin() {
+	var goLoginPage = confirm('로그인 필요한 기능입니다 로그인 하시겠습니까?');
+	if (goLoginPage) {
+		location.href = '/user/login';
+	}
+}
+
 // Open User Menu
 function openUserMenu(boardId, userId) {
 
@@ -199,30 +207,6 @@ function deleteUser(userId) {
 	}
 
 }
-
-// sockjs Alarm
-/*function connectSockJs() {
-	var sock = new SockJS("/WebSocketAlarm");
-	socket = sock;
-	sock.onopen = function() {
-
-		sock.onmessage = function(event) {
-
-			var data = event.data;
-			msgData = JSON.parse(data);
-			getAlarmCount();
-
-		};
-
-		sock.onclose = function(event) {
-			console.log('Info : connection colsed');
-		};
-	}
-
-	sock.onerror = function(error) {
-		console.log('error :', error);
-	}
-}*/
 
 // Get Alarm Count
 function getAlarmCount() {

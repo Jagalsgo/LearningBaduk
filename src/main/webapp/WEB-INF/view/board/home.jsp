@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/css/home.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/home.js"></script>
 	
 <!-- Boards List (5) -->
 <div class="container-md py-5">

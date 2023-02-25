@@ -28,7 +28,7 @@ public interface BoardDao {
 
 	List<BoardView> getReportBoards(int offset, int size, String field, String query);
 
-	int getReportPageCount(String field, String query);
+	int getReportedBoardCount(String field, String query);
 
 	int getUsersLastBoardId(String userId);
 

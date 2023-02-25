@@ -48,7 +48,7 @@ public interface UserService {
 
 	int getUserReportsCount(String userId);
 
-	int getReportUserCount(String field, String query);
+	int getReportedUserCount(String field, String query);
 
 	int reportUser(String reportedUser, String reportContent, String reporter);
 

@@ -40,7 +40,6 @@ public class BoardController {
 			@RequestParam(value = "q", defaultValue = "") String query, @RequestParam("ct") String ct, Model model) {
 
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
-
 		List<BoardView> boards = service.getBoards(category.getCategoryBoard(), page, field, query);
 		int pageCount = service.getPageCount(category.getCategoryBoard(), field, query);
 
@@ -56,7 +55,6 @@ public class BoardController {
 			@RequestParam(value = "q", defaultValue = "") String query, Model model, Principal principal) {
 
 		String userId = principal.getName();
-
 		List<MyBoard> boards = service.getMyOwnBoards(page, query, userId);
 		int pageCount = service.getMyOwnPageCount(query, userId);
 

@@ -49,7 +49,7 @@ public interface UserDao {
 
 	List<User> getReportUsers(int offset, int size, String field, String query);
 
-	int getReportUserCount(String field, String query);
+	int getReportedUserCount(String field, String query);
 
 	int initUserReport(String id);
 

@@ -99,9 +99,10 @@
 				</div>
 			</c:when>
 			<c:otherwise>
+				<!-- Before Log In -->
 				<sec:authorize access="isAnonymous">
 					<div class="text-right my-1">
-						<input type="button" class="btn btn-danger mx-2" value="신고"
+						<input onclick="needLogin()" type="button" class="btn btn-danger mx-2" value="신고"
 							id="reportNeedLoginBtn">
 					</div>
 				</sec:authorize>
@@ -130,7 +131,7 @@
 	<!-- Before Log In -->
 	<sec:authorize access="isAnonymous">
 		<div class="text-right my-1">
-			<input type="button" class="btn btn-secondary mt-2" value="작성"
+			<input onclick="needLogin()" type="button" class="btn btn-secondary mt-2" value="작성"
 				id="commentNeedLoginBtn">
 		</div>
 	</sec:authorize>

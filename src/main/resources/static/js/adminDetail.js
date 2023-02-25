@@ -9,37 +9,6 @@ $(document).ready(function() {
 	commentCount = $('#commentCountJs').val();
 	rv = false;
 
-	// Need Login To Post Comment
-	$('#commentNeedLoginBtn').click(function() {
-		var goLoginPage = confirm('로그인 필요한 기능입니다 로그인 하시겠습니까?');
-		if (goLoginPage) {
-			location.href = '/user/login';
-		}
-	})
-
-	/*// Comments All Check
-	$("#allChk").click(function() {
-		console.log('aaa');
-		if ($("#allChk").is(":checked")) {
-			$("input[name=chk]").prop("checked", true);
-		} else {
-			$("input[name=chk]").prop("checked", false);
-		}
-	})
-
-	// If All Checked All Check Box Check
-	$("input[name=chk]").click(function() {
-		console.log('bbb');
-		var total = $("input[name=chk]").length;
-		var checked = $("input[name=chk]:checked").length;
-
-		if (total != checked) {
-			$("#allChk").prop("checked", false);
-		} else {
-			$("#allChk").prop("checked", true);
-		}
-	});*/
-
 	getComments(1);
 	getBoards(detailsPage);
 
@@ -447,14 +416,6 @@ function getDetailsPage(boardId) {
 
 // Admin Delete Comment
 function deleteComments() {
-
-	/*chk_arr = $("input[name='chk']");
-	chkArray = [];
-	for (var i = 0; i < chk_arr.length; i++) {
-		if (chk_arr[i].checked == true) {
-			chkArray.push(chk_arr[i].value);
-		}
-	}*/
 
 	var deleteCommentConfirm = confirm('정말 댓글을 전부 삭제하시겠습니까?');
 		if (deleteCommentConfirm) {

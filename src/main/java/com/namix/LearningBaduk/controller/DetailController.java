@@ -6,12 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -91,6 +89,7 @@ public class DetailController {
 
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
 		BoardView boardView = boardService.getDetailBoard(id);
+
 		model.addAttribute("boardView", boardView);
 		model.addAttribute("category", category);
 
@@ -123,6 +122,7 @@ public class DetailController {
 		ScriptClass.preventUrlApproach(request, response);
 
 		MyBoard board = boardService.getMyDetailBoard(id);
+
 		model.addAttribute("board", board);
 
 		return "detail.updateMyDetail";
@@ -250,10 +250,10 @@ public class DetailController {
 			map.put("addLikeResult", 0);
 			return map;
 		} else {
-
 			// If you did nothing
 			int addLikeResult = detailService.addLike(id, userId);
 			int likeCount = detailService.getLikeCount(id);
+
 			map.put("addLikeResult", addLikeResult);
 			map.put("likeCount", likeCount);
 

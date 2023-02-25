@@ -111,7 +111,7 @@
 		'%${query}%' order by userDate desc limit #{offset}, #{size}
 	</select>
 
-	<select id="getReportUserCount" resultType="int">
+	<select id="getReportedUserCount" resultType="int">
 		select count(*) from
 		user where userReport >= 1 and ${field} like '%${query}%'
 	</select>

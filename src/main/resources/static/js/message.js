@@ -53,18 +53,6 @@ function sendMessagePost() {
 				$('#messageContent').val('');
 			}
 
-			// 웹소켓 알림 연결
-			/*if (socket) {
-				var socketMsg = {
-					type: "message",
-					receiver: $('#receiver').val(),
-					sender: $('#userId').val(),
-				}
-				if ($('#receiver').val() != $('#userId').val()) {
-					socket.send(JSON.stringify(socketMsg));
-				}
-			}*/
-
 		},
 		error: function(error) {
 			alert('error : ' + error);

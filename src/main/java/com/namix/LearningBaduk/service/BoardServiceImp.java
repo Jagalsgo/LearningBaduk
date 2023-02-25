@@ -172,8 +172,8 @@ public class BoardServiceImp implements BoardService {
 	}
 	
 	@Override
-	public int getReportPageCount(String field, String query) {
-		return boardDao.getReportPageCount(field, query);
+	public int getReportedBoardCount(String field, String query) {
+		return boardDao.getReportedBoardCount(field, query);
 	}
 	
 	@Override

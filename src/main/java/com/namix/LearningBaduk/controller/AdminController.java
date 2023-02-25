@@ -43,7 +43,6 @@ public class AdminController {
 
 		// Board Category
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
-
 		List<BoardView> boards = boardService.getBoards(category.getCategoryBoard(), page, field, query);
 		int pageCount = boardService.getPageCount(category.getCategoryBoard(), field, query);
 
@@ -59,7 +58,6 @@ public class AdminController {
 			HttpServletResponse response, Model model) {
 
 		com.namix.LearningBaduk.entity.Category category = new com.namix.LearningBaduk.entity.Category(ct);
-
 		BoardView boardView = boardService.getDetailBoard(id);
 		int boardCount = boardService.getPageCount(category.getCategoryBoard());
 
@@ -76,8 +74,8 @@ public class AdminController {
 	@GetMapping("adminPages")
 	public String adminPages(Model model) {
 
-		int reportedBoardCount = boardService.getReportPageCount("boardTitle", "");
-		int reportedUserCount = userService.getReportUserCount("userNickname", "");
+		int reportedBoardCount = boardService.getReportedBoardCount("boardTitle", "");
+		int reportedUserCount = userService.getReportedUserCount("userNickname", "");
 
 		model.addAttribute("reportedBoardCount", reportedBoardCount);
 		model.addAttribute("reportedUserCount", reportedUserCount);
@@ -91,8 +89,8 @@ public class AdminController {
 			@RequestParam(value = "q", defaultValue = "") String query, Model model) {
 
 		List<BoardView> boards = boardService.getReportBoards(page, field, query);
-		int pageCount = boardService.getReportPageCount(field, query);
-		
+		int pageCount = boardService.getReportedBoardCount(field, query);
+
 		model.addAttribute("boards", boards);
 		model.addAttribute("pageCount", pageCount);
 
@@ -105,8 +103,8 @@ public class AdminController {
 			@RequestParam(value = "q", defaultValue = "") String query, Model model) {
 
 		List<User> users = userService.getReportUsers(page, field, query);
-		int userCount = userService.getReportUserCount(field, query);
-		
+		int userCount = userService.getReportedUserCount(field, query);
+
 		model.addAttribute("users", users);
 		model.addAttribute("pageCount", userCount);
 
@@ -120,7 +118,7 @@ public class AdminController {
 
 		List<User> users = userService.getUsers(page, field, query);
 		int userCount = userService.getUserCount(field, query);
-		
+
 		model.addAttribute("users", users);
 		model.addAttribute("pageCount", userCount);
 

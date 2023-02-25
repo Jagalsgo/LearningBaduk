@@ -9,21 +9,6 @@ $(document).ready(function() {
 	commentCount = $('#commentCountJs').val();
 	rv = false;
 
-	// Need Login To Post Comment
-	$('#commentNeedLoginBtn').click(function() {
-		var goLoginPage = confirm('로그인 필요한 기능입니다 로그인 하시겠습니까?');
-		if (goLoginPage) {
-			location.href = '/user/login';
-		}
-	})
-	// Need Login To Report User
-	$('#reportNeedLoginBtn').click(function() {
-		var goLoginPage = confirm('로그인 필요한 기능입니다 로그인 하시겠습니까?');
-		if (goLoginPage) {
-			location.href = '/user/login';
-		}
-	})
-
 	// Comment Alarm 
 	if (localStorage.getItem('page')) {
 
@@ -137,25 +122,6 @@ function postComment() {
 			var lastCommentPage = Math.ceil(data.commentCount / 10);
 			getComments(lastCommentPage);
 			$('#commentContent').val('');
-			/*setTimeout(function() {
-				$('#commentIdIs' + data.commentId).focus();
-				console.log(data.commentId);
-			}, 1000);*/
-
-			// 웹소켓 알림 연결
-			/*if (socket) {
-				var socketMsg = {
-					type: "comment",
-					receiver: boardUserId,
-					boardId: boardId,
-					sender: userId
-				}
-				if (boardUserId != userId) {
-					socket.send(JSON.stringify(socketMsg));
-				} else {
-				}
-			}
-*/
 		},
 		error: function(error) {
 			alert('error : ' + error);
@@ -385,19 +351,6 @@ function postReComment(parentId) {
 			alert('댓글 등록 완료');
 			getComments(data.currentPage);
 			$('#reCommentContent').val('');
-
-			// 웹소켓 알림 연결
-			/*if (socket) {
-				var socketMsg = {
-					type: "reComment",
-					receiver: data.receiver,
-					sender: userId
-				}
-				if (data.receiver != userId) {
-					socket.send(JSON.stringify(socketMsg));
-				}
-			}*/
-
 		},
 		error: function(error) {
 			alert('error : ' + error);

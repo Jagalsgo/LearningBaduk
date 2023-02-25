@@ -181,8 +181,8 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public int getReportUserCount(String field, String query) {
-		return userDao.getReportUserCount(field, query);
+	public int getReportedUserCount(String field, String query) {
+		return userDao.getReportedUserCount(field, query);
 	}
 	
 	@Override

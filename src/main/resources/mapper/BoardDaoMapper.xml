@@ -65,7 +65,7 @@
 		#{size}
 	</select>
 
-	<select id="getReportPageCount" resultType="int">
+	<select id="getReportedBoardCount" resultType="int">
 		select count(*) from
 		boardview where boardReport >= 1 and ${field} like '%${query}%'
 	</select>
