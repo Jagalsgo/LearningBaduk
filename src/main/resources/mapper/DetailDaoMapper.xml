@@ -33,12 +33,12 @@
 		delete from myboard where myBoardId = #{id}
 	</delete>
 	
-	<select id="likeClicked" resultType="int">
+	<select id="isLikeClicked" resultType="int">
 		select count(*) from likes
 		where boardId = #{id} and userId = #{userId}
 	</select>
 	
-	<select id="dislikeClicked" resultType="int">
+	<select id="isDislikeClicked" resultType="int">
 		select count(*) from
 		dislikes where boardId = #{id} and userId = #{userId}
 	</select>

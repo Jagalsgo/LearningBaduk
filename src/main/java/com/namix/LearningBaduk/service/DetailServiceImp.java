@@ -49,13 +49,13 @@ public class DetailServiceImp implements DetailService {
 	}
 
 	@Override
-	public int likeClicked(int id, String userId) {
-		return detailDao.likeClicked(id, userId);
+	public int isLikeClicked(int id, String userId) {
+		return detailDao.isLikeClicked(id, userId);
 	}
 
 	@Override
-	public int DislikeClicked(int id, String userId) {
-		return detailDao.dislikeClicked(id, userId);
+	public int isDislikeClicked(int id, String userId) {
+		return detailDao.isDislikeClicked(id, userId);
 	}
 
 	@Override

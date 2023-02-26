@@ -14,8 +14,8 @@ public interface DetailService {
 	int deleteDetail(int id);
 	int deleteMyDetail(int id);
 
-	int likeClicked(int id, String userId);
-	int DislikeClicked(int id, String userId);
+	int isLikeClicked(int id, String userId);
+	int isDislikeClicked(int id, String userId);
 
 	int addLike(int id, String userId);
 	int addDislike(int id, String userId);

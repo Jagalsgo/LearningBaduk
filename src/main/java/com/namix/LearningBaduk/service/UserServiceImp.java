@@ -61,6 +61,11 @@ public class UserServiceImp implements UserService {
 	public User getVerifiedUserByEmail(String email) {
 		return userDao.getVerifiedUserByEmail(email);
 	}
+	
+	@Override
+	public int getUserCount(String field, String query) {
+		return userDao.getUserCount(field, query);
+	}
 
 	@Override
 	public int idOverlapCheck(String id) {
@@ -164,15 +169,10 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public List<User> getReportUsers(int page, String field, String query) {
+	public List<User> getReportedUsers(int page, String field, String query) {
 		int size = 10;
 		int offset = 0 + (page - 1) * size;
-		return userDao.getReportUsers(offset, size, field, query);
-	}
-
-	@Override
-	public int getUserCount(String field, String query) {
-		return userDao.getUserCount(field, query);
+		return userDao.getReportedUsers(offset, size, field, query);
 	}
 
 	@Override
@@ -192,8 +192,8 @@ public class UserServiceImp implements UserService {
 		if (haveReported >= 1) {
 			return -1;
 		} else {
-			userDao.addUsersReport(reportedUser);
-			userDao.postReportList("user", reportedUser, reportContent, reporter);
+			userDao.addUserReport(reportedUser);
+			userDao.addReportList("user", reportedUser, reportContent, reporter);
 			return 1;
 		}
 

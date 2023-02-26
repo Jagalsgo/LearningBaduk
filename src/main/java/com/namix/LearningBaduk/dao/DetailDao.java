@@ -17,9 +17,9 @@ public interface DetailDao {
 
 	int deleteMyDetail(int id);
 
-	int likeClicked(int id, String userId);
+	int isLikeClicked(int id, String userId);
 
-	int dislikeClicked(int id, String userId);
+	int isDislikeClicked(int id, String userId);
 
 	int addLike(int id, String userId);
 

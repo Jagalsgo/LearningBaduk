@@ -26,7 +26,7 @@ public interface BoardDao {
 
 	int getMyOwnPageCount(String query, String userId);
 
-	List<BoardView> getReportBoards(int offset, int size, String field, String query);
+	List<BoardView> getReportedBoards(int offset, int size, String field, String query);
 
 	int getReportedBoardCount(String field, String query);
 

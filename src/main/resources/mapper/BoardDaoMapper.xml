@@ -57,7 +57,7 @@
 		myboard where userId = #{userId} and myBoardTitle like '%${query}%'
 	</select>
 
-	<select id="getReportBoards"
+	<select id="getReportedBoards"
 		resultType="com.namix.LearningBaduk.entity.BoardView">
 		select * from boardview where boardReport >= 1 and
 		${field}

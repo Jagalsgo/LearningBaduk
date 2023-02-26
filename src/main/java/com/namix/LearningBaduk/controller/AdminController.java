@@ -88,7 +88,7 @@ public class AdminController {
 			@RequestParam(value = "f", defaultValue = "boardTitle") String field,
 			@RequestParam(value = "q", defaultValue = "") String query, Model model) {
 
-		List<BoardView> boards = boardService.getReportBoards(page, field, query);
+		List<BoardView> boards = boardService.getReportedBoards(page, field, query);
 		int pageCount = boardService.getReportedBoardCount(field, query);
 
 		model.addAttribute("boards", boards);
@@ -102,7 +102,7 @@ public class AdminController {
 			@RequestParam(value = "f", defaultValue = "userNickname") String field,
 			@RequestParam(value = "q", defaultValue = "") String query, Model model) {
 
-		List<User> users = userService.getReportUsers(page, field, query);
+		List<User> users = userService.getReportedUsers(page, field, query);
 		int userCount = userService.getReportedUserCount(field, query);
 
 		model.addAttribute("users", users);

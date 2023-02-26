@@ -60,22 +60,6 @@
 		userEmail = #{email}
 	</select>
 
-	<insert id="signUp"
-		parameterType="com.namix.LearningBaduk.entity.User">
-		insert into user(userId, userPassword, userNickname,
-		userEmail) values(#{userId}, #{userPassword}, #{userNickname},
-		#{userEmail})
-	</insert>
-
-	<insert id="addProfileImg">
-		insert into userprofileimg(imgName, imgPath, userId)
-		values(#{imgName}, #{imgUrl}, #{userId})
-	</insert>
-
-	<delete id="deleteProfileImg">
-		delete from userprofileimg where userId = #{userId}
-	</delete>
-
 	<select id="getProfileImg"
 		resultType="com.namix.LearningBaduk.entity.UserProfileImg">
 		select * from userprofileimg where userId = #{userId}
@@ -86,51 +70,57 @@
 		userNickname = #{nickname}, userEmail = #{email} where userId = #{id}
 	</update>
 
-	<update id="addUserProfileImg">
-		update user set userprofileimg = #{imgUrl} where
-		userId = #{userId}
-	</update>
-
-	<update id="deleteUserProfileImg">
-		update user set userprofileimg = null where userId =
-		#{userId};
-	</update>
-
 	<update id="editUserPassword">
 		update user set userPassword = #{password} where
 		userId = #{id}
 	</update>
-
-	<delete id="withdraw">
-		delete from user where userId = #{id}
-	</delete>
-
-	<select id="getReportUsers"
-		resultType="com.namix.LearningBaduk.entity.User">
-		select * from user where userReport >= 1 and ${field} like
-		'%${query}%' order by userDate desc limit #{offset}, #{size}
-	</select>
-
-	<select id="getReportedUserCount" resultType="int">
-		select count(*) from
-		user where userReport >= 1 and ${field} like '%${query}%'
-	</select>
-
-	<update id="initUserReport">
-		update user set userReport = 0 where userId = #{id}
-	</update>
-
-	<update id="addUsersReport">
-		update user set userReport = userReport + 1 where
-		userId = #{reportedUser}
-	</update>
-
-	<insert id="postReportList">
+	
+	<insert id="addReportList">
 		insert into reportlist(reportContent, reportedUser,
 		reporter, reportType)
 		values(#{reportContent}, #{reportedUser},
 		#{reporter}, #{type})
 	</insert>
+
+	<insert id="addProfileImg">
+		insert into userprofileimg(imgName, imgPath, userId)
+		values(#{imgName}, #{imgUrl}, #{userId})
+	</insert>
+	
+	<update id="addUserProfileImg">
+		update user set userprofileimg = #{imgUrl} where
+		userId = #{userId}
+	</update>
+
+	<update id="addUserReport">
+		update user set userReport = userReport + 1 where
+		userId = #{reportedUser}
+	</update>
+
+	<delete id="deleteProfileImg">
+		delete from userprofileimg where userId = #{userId}
+	</delete>
+	
+	<update id="deleteUserProfileImg">
+		update user set userprofileimg = null where userId =
+		#{userId};
+	</update>
+	
+	<delete id="deleteUserReportList">
+		delete from reportlist where reportedUser = #{id} and
+		reportType = 'user'
+	</delete>
+
+	<insert id="signUp"
+		parameterType="com.namix.LearningBaduk.entity.User">
+		insert into user(userId, userPassword, userNickname,
+		userEmail) values(#{userId}, #{userPassword}, #{userNickname},
+		#{userEmail})
+	</insert>
+
+	<delete id="withdraw">
+		delete from user where userId = #{id}
+	</delete>
 
 	<select id="getUserReportList"
 		resultType="com.namix.LearningBaduk.entity.ReportList">
@@ -139,24 +129,34 @@
 		by reportDate desc limit
 		#{offset}, #{size}
 	</select>
-
-	<select id="getUserReportsCount" resultType="int">
-		select count(*) from
-		reportlist where reportedUser = #{userId}
-	</select>
-
+	
 	<select id="getReport"
 		resultType="com.namix.LearningBaduk.entity.ReportList">
 		select * from reportlist where reportId = #{id}
 	</select>
-
-	<delete id="deleteUserReportList">
-		delete from reportlist where reportedUser = #{id} and
-		reportType = 'user'
-	</delete>
-
+	
+	<select id="getReportedUsers"
+		resultType="com.namix.LearningBaduk.entity.User">
+		select * from user where userReport >= 1 and ${field} like
+		'%${query}%' order by userDate desc limit #{offset}, #{size}
+	</select>
+	
+	<select id="getUserReportsCount" resultType="int">
+		select count(*) from
+		reportlist where reportedUser = #{userId}
+	</select>
+	
+	<select id="getReportedUserCount" resultType="int">
+		select count(*) from
+		user where userReport >= 1 and ${field} like '%${query}%'
+	</select>
+	
+	<update id="initUserReport">
+		update user set userReport = 0 where userId = #{id}
+	</update>
+	
 	<update id="initEmailAuth">
 		update user set emailAuth = 0 where userId = #{id}
 	</update>
-
+	
 </mapper>

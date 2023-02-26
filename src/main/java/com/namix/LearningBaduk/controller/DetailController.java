@@ -239,9 +239,9 @@ public class DetailController {
 		// If it is the author himself
 		String boardUserId = boardService.getBoardsUser(id);
 		// If you already liked
-		int likeClicked = detailService.likeClicked(id, userId);
+		int likeClicked = detailService.isLikeClicked(id, userId);
 		// If you already disliked
-		int dislikeClicked = detailService.DislikeClicked(id, userId);
+		int dislikeClicked = detailService.isDislikeClicked(id, userId);
 
 		if (boardUserId.equals(userId)) {
 			map.put("addLikeResult", -1);
@@ -273,9 +273,9 @@ public class DetailController {
 		// If it is the author himself
 		String boardUserId = boardService.getBoardsUser(id);
 		// If you already liked
-		int likeClicked = detailService.likeClicked(id, userId);
+		int likeClicked = detailService.isLikeClicked(id, userId);
 		// If you already disliked
-		int dislikeClicked = detailService.DislikeClicked(id, userId);
+		int dislikeClicked = detailService.isDislikeClicked(id, userId);
 
 		if (boardUserId.equals(userId)) {
 			map.put("addDislikeResult", -1);

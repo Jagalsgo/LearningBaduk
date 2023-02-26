@@ -33,7 +33,7 @@ public interface BoardService {
 
 	MyBoard getMyDetailBoard(int id);
 
-	List<BoardView> getReportBoards(Integer page, String field, String query);
+	List<BoardView> getReportedBoards(Integer page, String field, String query);
 
 	int getReportedBoardCount(String field, String query);
 

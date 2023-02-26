@@ -22,6 +22,8 @@ public interface UserService {
 
 	User getVerifiedUser(String userId);
 	User getVerifiedUserByEmail(String email);
+	
+	int getUserCount(String field, String query);
 
 	int idOverlapCheck(String signUpId);
 	int nicknameOverlapCheck(String signUpNickname);
@@ -42,9 +44,7 @@ public interface UserService {
 	List<ReportList> getUserReportList(String userId, int page);
 	ReportList getReport(int id);
 
-	List<User> getReportUsers(int page, String field, String query);
-
-	int getUserCount(String field, String query);
+	List<User> getReportedUsers(int page, String field, String query);
 
 	int getUserReportsCount(String userId);
 

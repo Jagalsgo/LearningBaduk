@@ -153,11 +153,11 @@ public class BoardServiceImp implements BoardService {
 	}
 	
 	@Override
-	public List<BoardView> getReportBoards(Integer page, String field, String query) {
+	public List<BoardView> getReportedBoards(Integer page, String field, String query) {
 		int size = 10;
 		int offset = 0 + (page - 1) * size;
 
-		List<BoardView> boards = boardDao.getReportBoards(offset, size, field, query);
+		List<BoardView> boards = boardDao.getReportedBoards(offset, size, field, query);
 
 		for (int i = 0; i < boards.size(); i++) {
 
@@ -185,7 +185,7 @@ public class BoardServiceImp implements BoardService {
 			return -1;
 		} else {
 			boardDao.addBoardReport(boardId);
-			userDao.postReportList("board", boardIdString, "", userId);
+			userDao.addReportList("board", boardIdString, "", userId);
 			return 1;
 		}
 
