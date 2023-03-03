@@ -1,5 +1,16 @@
 package com.namix.LearningBaduk.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Category {
 
 	private String ct;
@@ -7,10 +18,6 @@ public class Category {
 	private String categoryDetail;
 	private String categoryKor;
 	public static final String[] ctList = {"free", "rule", "pattern", "opening", "endGame", "lifeDeath", "quetion", "schedule", "notice"};
-	
-	public Category() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	public Category(String ct) {
 		
@@ -65,38 +72,6 @@ public class Category {
 	
 		}
 		
-	}
-
-	public String getCt() {
-		return ct;
-	}
-
-	public void setCt(String ct) {
-		this.ct = ct;
-	}
-
-	public String getCategoryBoard() {
-		return categoryBoard;
-	}
-
-	public void setCategoryBoard(String categoryBoard) {
-		this.categoryBoard = categoryBoard;
-	}
-
-	public String getCategoryDetail() {
-		return categoryDetail;
-	}
-
-	public void setCategoryDetail(String categoryDetail) {
-		this.categoryDetail = categoryDetail;
-	}
-
-	public String getCategoryKor() {
-		return categoryKor;
-	}
-
-	public void setCategoryKor(String categoryKor) {
-		this.categoryKor = categoryKor;
 	}
 	
 }

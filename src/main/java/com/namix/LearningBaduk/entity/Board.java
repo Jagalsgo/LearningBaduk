@@ -1,5 +1,16 @@
 package com.namix.LearningBaduk.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Board {
 	
 	private int boardId;
@@ -10,84 +21,5 @@ public class Board {
 	private int boardReport;
 	private String userId;
 	private int boardHit;
-	
-	public Board() {
-		
-	}
-	
-	public Board(int boardId, String boardTitle, String boardContent, String boardDate, String boardCategory, int boardReport, String userId, int boardHit) {
-		this.boardId = boardId;
-		this.boardTitle = boardTitle;
-		this.boardContent = boardContent;
-		this.boardDate = boardDate;
-		this.boardCategory = boardCategory;
-		this.boardReport = boardReport;
-		this.userId = userId;
-		this.boardHit = boardHit;
-	}
-
-	public int getBoardId() {
-		return boardId;
-	}
-
-	public void setBoardId(int boardId) {
-		this.boardId = boardId;
-	}
-
-	public String getBoardTitle() {
-		return boardTitle;
-	}
-
-	public void setBoardTitle(String boardTitle) {
-		this.boardTitle = boardTitle;
-	}
-
-	public String getBoardContent() {
-		return boardContent;
-	}
-
-	public void setBoardContent(String boardContent) {
-		this.boardContent = boardContent;
-	}
-
-	public String getBoardDate() {
-		return boardDate;
-	}
-
-	public void setBoardDate(String boardDate) {
-		this.boardDate = boardDate;
-	}
-
-	public String getBoardCategory() {
-		return boardCategory;
-	}
-
-	public void setBoardCategory(String boardCategory) {
-		this.boardCategory = boardCategory;
-	}
-
-	public int getBoardReport() {
-		return boardReport;
-	}
-
-	public void setBoardReport(int boardReport) {
-		this.boardReport = boardReport;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
-	public int getboardHit() {
-		return boardHit;
-	}
-	
-	public void setboardHit(int boardHit) {
-		this.boardHit = boardHit;
-	}
 
 }

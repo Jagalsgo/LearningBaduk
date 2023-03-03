@@ -2,6 +2,17 @@ package com.namix.LearningBaduk.entity;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Comment {
 
 	private int commentId;
@@ -15,102 +26,4 @@ public class Comment {
 	private int parentId;
 	private int commentGroup;
 
-	public Comment() {
-
-	}
-
-	public Comment(int commentId, String commentContent, String commentDate, String userId, int boardId,
-			boolean deleted, Date deletedDate, int commentDepth, int parentId, int commentGroup) {
-		this.commentId = commentId;
-		this.commentContent = commentContent;
-		this.commentDate = commentDate;
-		this.userId = userId;
-		this.boardId = boardId;
-		this.deleted = deleted;
-		this.deletedDate = deletedDate;
-		this.commentDepth = commentDepth;
-		this.parentId = parentId;
-		this.commentGroup = commentGroup;
-	}
-
-	public int getCommentId() {
-		return commentId;
-	}
-
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
-	}
-
-	public String getCommentContent() {
-		return commentContent;
-	}
-
-	public void setCommentContent(String commentContent) {
-		this.commentContent = commentContent;
-	}
-
-	public String getCommentDate() {
-		return commentDate;
-	}
-
-	public void setCommentDate(String commentDate) {
-		this.commentDate = commentDate;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public int getBoardId() {
-		return boardId;
-	}
-
-	public void setBoardId(int boardId) {
-		this.boardId = boardId;
-	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
-	public Date getDeletedDate() {
-		return deletedDate;
-	}
-
-	public void setDeletedDate(Date deletedDate) {
-		this.deletedDate = deletedDate;
-	}
-
-	public int getCommentDepth() {
-		return commentDepth;
-	}
-
-	public void setCommentDepth(int commentDepth) {
-		this.commentDepth = commentDepth;
-	}
-
-	public int getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
-	}
-
-	public int getCommentGroup() {
-		return commentGroup;
-	}
-
-	public void setCommentGroup(int commentGroup) {
-		this.commentGroup = commentGroup;
-	}
-	
 }

@@ -2,6 +2,17 @@ package com.namix.LearningBaduk.entity;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
 	private String userId;
@@ -14,93 +25,9 @@ public class User {
 	private String userProfileImg;
 	private boolean emailAuth;
 
-	public User() {
-
-	}
-
-	public User(String userId, String userPassword, String userNickname, String userEmail, int userReport,
-			String userRole, Date userDate, String userProfileImg, boolean emailAuth) {
-		this.userId = userId;
-		this.userPassword = userPassword;
-		this.userNickname = userNickname;
-		this.userEmail = userEmail;
-		this.userReport = userReport;
-		this.userRole = userRole;
-		this.userDate = userDate;
-		this.userProfileImg = userProfileImg;
-		this.emailAuth = emailAuth;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getUserPassword() {
-		return userPassword;
-	}
-
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
-	}
-
-	public String getUserNickname() {
-		return userNickname;
-	}
-
-	public void setUserNickname(String userNickname) {
-		this.userNickname = userNickname;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public int getUserReport() {
-		return userReport;
-	}
-
-	public void setUserReport(int userReport) {
-		this.userReport = userReport;
-	}
-
-	public String getUserRole() {
-		return userRole;
-	}
-
-	public void setUserRole(String userRole) {
-		this.userRole = userRole;
-	}
-
-	public Date getUserDate() {
-		return userDate;
-	}
-
-	public void setUserDate(Date userDate) {
-		this.userDate = userDate;
-	}
-
-	public String getUserProfileImg() {
-		return userProfileImg;
-	}
-
-	public void setUserProfileImg(String userProfileImg) {
-		this.userProfileImg = userProfileImg;
-	}
 
 	public boolean isEmailAuth() {
 		return emailAuth;
 	}
 
-	public void setEmailAuth(boolean emailAuth) {
-		this.emailAuth = emailAuth;
-	}
-	
 }

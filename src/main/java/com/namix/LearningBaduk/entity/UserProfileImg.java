@@ -1,5 +1,16 @@
 package com.namix.LearningBaduk.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserProfileImg {
 
 	private int userProfieImgId;
@@ -7,47 +18,4 @@ public class UserProfileImg {
 	private String imgPath;
 	private String userId;
 	
-	public UserProfileImg() {
-		
-	}
-	
-	public UserProfileImg(int userProfileImgId, String imgName, String imgPath, String userId) {
-		this.userProfieImgId = userProfileImgId;
-		this.imgName = imgName;
-		this.imgPath = imgPath;
-		this.userId = userId;
-	}
-
-	public int getUserProfieImgId() {
-		return userProfieImgId;
-	}
-
-	public void setUserProfieImgId(int userProfieImgId) {
-		this.userProfieImgId = userProfieImgId;
-	}
-
-	public String getImgName() {
-		return imgName;
-	}
-
-	public void setImgName(String imgName) {
-		this.imgName = imgName;
-	}
-
-	public String getImgPath() {
-		return imgPath;
-	}
-
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
 }
